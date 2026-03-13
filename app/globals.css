@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Full image palette */
+  --color-sage:     #C8D9C0;
+  --color-lemon:    #FAFACD;
+  --color-peach:    #FCE8C8;
+  --color-rose:     #F9D0D8;
+  --color-petal:    #FAE0EB;
+  --color-lavender: #EDD8F8;
+  --color-mist:     #DCE8F0;
+  --color-sand:     #F2DCC0;
+  --color-dune:     #D4C49C;
+  --color-ash:      #E8E8E0;
+
+  /* Semantic aliases */
+  --color-amber:      #D4C49C;
+  --color-blush:      #F9D0D8;
+  --color-terracotta: #6B5228;
+  --color-cream:      #FCE8C8;
+  --color-espresso:   #2C1810;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream text-espresso font-jakarta antialiased;
+  }
+
+  ::selection {
+    background-color: #F9D0D8;
+    color: #2C1810;
+  }
+}
+
+@layer components {
+  .category-pill {
+    @apply inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full;
+  }
+
+  /* Coffee — sage green pill */
+  .category-pill-coffee {
+    @apply category-pill bg-sage text-espresso-light;
+  }
+
+  /* Classic sourdough — mist/sky blue pill */
+  .category-pill-classic {
+    @apply category-pill bg-mist text-espresso-light;
+  }
+
+  /* Inclusion loaf — petal/pink pill */
+  .category-pill-inclusion {
+    @apply category-pill bg-petal text-terracotta;
+  }
+
+  .stat-card {
+    @apply flex flex-col gap-1 px-6 py-4 bg-cream-dark rounded-xl;
+  }
+
+  .stat-label {
+    @apply text-xs font-semibold uppercase tracking-widest text-espresso-muted;
+  }
+
+  .stat-value {
+    @apply text-lg font-semibold text-espresso;
+  }
+
+  .prose-cb {
+    @apply prose prose-lg max-w-none;
+    @apply prose-headings:font-jakarta prose-headings:text-espresso;
+    @apply prose-p:text-espresso/80 prose-p:leading-relaxed;
+    @apply prose-a:text-terracotta prose-a:no-underline hover:prose-a:underline;
+    @apply prose-strong:text-espresso;
+    @apply prose-blockquote:border-dune prose-blockquote:text-espresso-light prose-blockquote:italic;
+    @apply prose-ul:text-espresso/80 prose-ol:text-espresso/80;
+    @apply prose-hr:border-ash;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(44, 24, 16, 0.78) 0%,
+      rgba(44, 24, 16, 0.22) 50%,
+      transparent 100%
+    );
+  }
+
+  .gradient-overlay-light {
+    background: linear-gradient(
+      to top,
+      rgba(44, 24, 16, 0.52) 0%,
+      transparent 60%
+    );
+  }
+}
