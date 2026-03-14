@@ -3,24 +3,24 @@
 @tailwind utilities;
 
 :root {
-  /* Full image palette */
-  --color-sage:     #C8D9C0;
-  --color-lemon:    #FAFACD;
-  --color-peach:    #FCE8C8;
-  --color-rose:     #F9D0D8;
-  --color-petal:    #FAE0EB;
-  --color-lavender: #EDD8F8;
-  --color-mist:     #DCE8F0;
-  --color-sand:     #F2DCC0;
-  --color-dune:     #D4C49C;
-  --color-ash:      #E8E8E0;
+  /* Full palette tokens */
+  --color-sage:     #7BAE6A;
+  --color-lemon:    #D8D870;
+  --color-peach:    #E0C870;
+  --color-rose:     #C8A488;
+  --color-petal:    #EAE0D0;
+  --color-lavender: #B8CCA8;
+  --color-mist:     #C0D8B0;
+  --color-sand:     #E8DCC0;
+  --color-dune:     #C4B880;
+  --color-ash:      #D4D0C0;
 
   /* Semantic aliases */
-  --color-amber:      #D4C49C;
-  --color-blush:      #F9D0D8;
-  --color-terracotta: #6B5228;
-  --color-cream:      #FCE8C8;
-  --color-espresso:   #2C1810;
+  --color-amber:      #4A8C3C;
+  --color-blush:      #C4DEB8;
+  --color-terracotta: #3A6E42;
+  --color-cream:      #F7F4EC;
+  --color-espresso:   #1C2B1E;
 }
 
 @layer base {
@@ -33,8 +33,8 @@
   }
 
   ::selection {
-    background-color: #F9D0D8;
-    color: #2C1810;
+    background-color: #C4DEB8;
+    color: #1C2B1E;
   }
 }
 
@@ -43,19 +43,19 @@
     @apply inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full;
   }
 
-  /* Coffee — sage green pill */
+  /* Coffee — soft sage green */
   .category-pill-coffee {
-    @apply category-pill bg-sage text-espresso-light;
+    @apply category-pill bg-sage/25 text-espresso;
   }
 
-  /* Classic sourdough — mist/sky blue pill */
+  /* Classic sourdough — pale mint */
   .category-pill-classic {
-    @apply category-pill bg-mist text-espresso-light;
+    @apply category-pill bg-mist/50 text-espresso;
   }
 
-  /* Inclusion loaf — petal/pink pill */
+  /* Inclusion loaf — warm peach/gold */
   .category-pill-inclusion {
-    @apply category-pill bg-petal text-terracotta;
+    @apply category-pill bg-peach/35 text-espresso;
   }
 
   .stat-card {
@@ -76,9 +76,23 @@
     @apply prose-p:text-espresso/80 prose-p:leading-relaxed;
     @apply prose-a:text-terracotta prose-a:no-underline hover:prose-a:underline;
     @apply prose-strong:text-espresso;
-    @apply prose-blockquote:border-dune prose-blockquote:text-espresso-light prose-blockquote:italic;
+    @apply prose-blockquote:border-blush prose-blockquote:text-espresso-light prose-blockquote:italic;
     @apply prose-ul:text-espresso/80 prose-ol:text-espresso/80;
     @apply prose-hr:border-ash;
+  }
+
+  /* FAQ accordion */
+  .faq-item {
+    @apply border-b border-blush/50 py-5;
+  }
+
+  .faq-trigger {
+    @apply w-full flex justify-between items-center text-left gap-4 cursor-pointer;
+  }
+
+  /* Galatea-style card */
+  .card-galatea {
+    @apply bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300;
   }
 }
 
@@ -90,8 +104,8 @@
   .gradient-overlay {
     background: linear-gradient(
       to top,
-      rgba(44, 24, 16, 0.78) 0%,
-      rgba(44, 24, 16, 0.22) 50%,
+      rgba(28, 43, 30, 0.80) 0%,
+      rgba(28, 43, 30, 0.22) 55%,
       transparent 100%
     );
   }
@@ -99,7 +113,7 @@
   .gradient-overlay-light {
     background: linear-gradient(
       to top,
-      rgba(44, 24, 16, 0.52) 0%,
+      rgba(28, 43, 30, 0.52) 0%,
       transparent 60%
     );
   }

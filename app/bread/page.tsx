@@ -6,7 +6,7 @@ import FilterBar from "@/components/ui/FilterBar";
 export const metadata: Metadata = {
   title: "Bread",
   description:
-    "Classic sourdough and inclusion loaves — with full bake notes, hydration percentages, and photo galleries.",
+    "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.",
 };
 
 export default async function BreadPage() {
@@ -26,7 +26,7 @@ export default async function BreadPage() {
           Bread
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
-          Sourdough baked at home — from the classic country loaf to inclusions
+          Sourdough baked at home, from the classic country loaf to inclusions
           that push into new territory. Every loaf documented with full process
           notes and photos.
         </p>
@@ -41,7 +41,7 @@ export default async function BreadPage() {
         </div>
 
         {classicPosts.length === 0 ? (
-          <p className="text-espresso-muted">No classic loaves yet — more coming soon.</p>
+          <p className="text-espresso-muted">No classic loaves yet. More coming soon.</p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
             {classicPosts.map((post) => (
@@ -58,7 +58,7 @@ export default async function BreadPage() {
           <div className="flex-1 h-px bg-blush/40" />
         </div>
         <p className="text-espresso/60 mb-8 max-w-lg">
-          Sourdough with something extra — cheese, chocolate, chili, and more.
+          Sourdough with something extra: cheese, chocolate, chili, and more.
           Filter by flavor profile to find your next bake.
         </p>
 

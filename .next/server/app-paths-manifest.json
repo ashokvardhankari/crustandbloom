@@ -1,8 +1,6 @@
 {
   "/bread/page": "app/bread/page.js",
-  "/page": "app/page.js",
-  "/coffee/page": "app/coffee/page.js",
-  "/bread/[slug]/page": "app/bread/[slug]/page.js",
   "/about/page": "app/about/page.js",
-  "/gallery/page": "app/gallery/page.js"
+  "/page": "app/page.js",
+  "/bread/[slug]/page": "app/bread/[slug]/page.js"
 }

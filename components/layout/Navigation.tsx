@@ -10,9 +10,10 @@ const navLinks = [
 
 export default function Navigation() {
   return (
-    <header className="sticky top-0 z-50 bg-cream/90 backdrop-blur-sm border-b border-blush/40">
+    <header className="sticky top-0 z-50 bg-cream/95 backdrop-blur-sm border-b border-blush/40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
           <Link
             href="/"
@@ -29,15 +30,23 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-medium text-espresso/70 hover:text-espresso transition-colors duration-200 tracking-wide"
+                className="text-sm font-medium text-espresso/65 hover:text-espresso transition-colors duration-200 tracking-wide"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Mobile menu */}
-          <MobileMenu links={navLinks} />
+          {/* CTA + mobile menu */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/coffee"
+              className="hidden md:inline-flex items-center bg-terracotta text-white font-semibold px-5 py-2 rounded-full text-sm tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
+            >
+              Start exploring
+            </Link>
+            <MobileMenu links={navLinks} />
+          </div>
         </div>
       </div>
     </header>

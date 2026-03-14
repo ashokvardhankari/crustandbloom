@@ -50,7 +50,7 @@ export default function FilterBar({ posts }: FilterBarProps) {
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">
           <p className="text-lg">No loaves found for this filter yet.</p>
-          <p className="text-sm mt-2">Check back soon — more are on the way.</p>
+          <p className="text-sm mt-2">Check back soon. More are on the way.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

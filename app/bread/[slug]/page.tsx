@@ -189,7 +189,7 @@ export default async function BreadPostPage({ params }: PageProps) {
 
               <div className="pt-4 border-t border-blush/30">
                 <p className="text-xs text-espresso-muted leading-relaxed">
-                  Timing and hydration are guidelines — your environment, flour, and starter will
+                  Timing and hydration are guidelines. Your environment, flour, and starter will
                   require adjustment.
                 </p>
               </div>

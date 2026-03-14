@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Crust & Bloom",
   },
   description:
-    "A personal site about specialty coffee and artisan sourdough bread — brewed, baked, and photographed by hand.",
+    "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
   keywords: ["sourdough", "specialty coffee", "bread baking", "espresso", "cappuccino", "latte", "artisan bread"],
   authors: [{ name: "Crust & Bloom" }],
   openGraph: {
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     siteName: "Crust & Bloom",
     title: "Crust & Bloom",
     description:
-      "A personal site about specialty coffee and artisan sourdough bread — brewed, baked, and photographed by hand.",
+      "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
     images: [
       {
         url: "/images/site/og-default.jpg",

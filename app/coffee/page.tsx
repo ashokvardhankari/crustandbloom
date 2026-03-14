@@ -5,7 +5,7 @@ import PostCard from "@/components/ui/PostCard";
 export const metadata: Metadata = {
   title: "Coffee",
   description:
-    "Espresso-based drinks — cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.",
+    "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.",
 };
 
 export default async function CoffeePage() {
@@ -22,7 +22,7 @@ export default async function CoffeePage() {
           Coffee
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
-          Espresso pulled at home. Mostly cappuccinos and lattes — each one with
+          Espresso pulled at home. Mostly cappuccinos and lattes, each one with
           its own story, ratio, and notes from the session.
         </p>
         <div className="mt-6 h-px w-24 bg-amber" />
@@ -30,7 +30,7 @@ export default async function CoffeePage() {
 
       {posts.length === 0 ? (
         <div className="py-20 text-center text-espresso-muted">
-          <p className="text-lg">No posts yet — check back soon.</p>
+          <p className="text-lg">No posts yet. Check back soon.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">

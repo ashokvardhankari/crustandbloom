@@ -6,7 +6,7 @@ import { getAllGalleryImages } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "All photos from the Crust & Bloom archives — coffee, bread, process shots, and everything in between.",
+    "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.",
 };
 
 export default async function GalleryPage() {
@@ -23,7 +23,7 @@ export default async function GalleryPage() {
           Gallery
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
-          Every photo from every post — crumb shots, pour shots, process shots.
+          Every photo from every post: crumb shots, pour shots, process shots.
           Click any image to read the full story.
         </p>
         <div className="mt-6 h-px w-24 bg-amber" />
@@ -31,7 +31,7 @@ export default async function GalleryPage() {
 
       {images.length === 0 ? (
         <div className="py-20 text-center text-espresso-muted">
-          <p className="text-lg">No photos yet — check back soon.</p>
+          <p className="text-lg">No photos yet. Check back soon.</p>
         </div>
       ) : (
         /* Masonry-style column layout */

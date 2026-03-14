@@ -5,7 +5,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Crust & Bloom — a personal site about specialty coffee and artisan sourdough bread.",
+    "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
 };
 
 export default function AboutPage() {
@@ -38,33 +38,33 @@ export default function AboutPage() {
         {/* Bio */}
         <div className="space-y-6 text-espresso/80 text-lg leading-relaxed">
           <p>
-            Hi — I&apos;m the person behind Crust &amp; Bloom. This site is where I document the
+            Hi. I&apos;m the person behind Crust &amp; Bloom. This site is where I document the
             two things I make almost every day: espresso-based drinks and sourdough bread.
           </p>
 
           <p>
             I started pulling shots a few years ago after one too many disappointing café lattes.
-            The rabbit hole of espresso — the grind size adjustments, the temperature variables, the
-            pursuit of that one perfect shot — turned into a hobby that now anchors my mornings.
+            The rabbit hole of espresso (the grind size adjustments, the temperature variables, the
+            pursuit of that one perfect shot) turned into a hobby that now anchors my mornings.
           </p>
 
           <p>
             The bread came later, during a long stretch of time at home. A lot of people discovered
-            sourdough in 2020; I was one of them. I&apos;ve been baking regularly since, and the loaves
+            sourdough in 2020. I was one of them. I&apos;ve been baking regularly since, and the loaves
             have gotten slowly, incrementally better. The country sourdough was my first success.
             The inclusion loaves came after I started asking &quot;what if&quot; questions about
             what could go inside the dough.
           </p>
 
           <p>
-            I photograph everything myself. The photos here are real — taken in natural light,
+            I photograph everything myself. The photos here are real, taken in natural light,
             in the same kitchen where the bread bakes and the coffee brews. No staging, no
             professional lighting. Just the thing, as it actually looks.
           </p>
 
           <div className="pt-4 border-t border-blush/40">
             <p className="text-base text-espresso-muted">
-              Want to follow along? Subscribe to the newsletter — I only send something when
+              Want to follow along? Subscribe to the newsletter. I only send something when
               there&apos;s a new post worth reading.
             </p>
 
@@ -95,7 +95,7 @@ export default function AboutPage() {
           },
           {
             title: "Real process notes",
-            body: "Brew ratios, hydration percentages, bulk fermentation times — everything shared is what I actually used, not a theoretical ideal.",
+            body: "Brew ratios, hydration percentages, bulk fermentation times. Everything shared is what I actually used, not a theoretical ideal.",
           },
           {
             title: "Growing over time",

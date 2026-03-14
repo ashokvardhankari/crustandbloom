@@ -23,11 +23,11 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       : "category-pill-inclusion";
 
   return (
-    <Link href={href} className="group block">
+    <Link href={href} className="card-galatea group block">
       {/* Image */}
       <div
         className={cn(
-          "relative overflow-hidden rounded-2xl bg-blush/20",
+          "relative overflow-hidden",
           size === "large" ? "aspect-[3/2]" : "aspect-[4/3]"
         )}
       >
@@ -38,12 +38,10 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
           className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
-        {/* Subtle bottom gradient */}
-        <div className="absolute inset-0 bg-gradient-to-t from-espresso/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Text content */}
-      <div className="mt-4 space-y-2">
+      <div className="p-6 space-y-3">
         <div className="flex items-center gap-3">
           <span className={pillClass}>{categoryLabel}</span>
           <time
@@ -63,11 +61,11 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
           {frontmatter.title}
         </h3>
 
-        <p className="text-sm text-espresso/60 leading-relaxed line-clamp-2">
+        <p className="text-sm text-espresso/55 leading-relaxed line-clamp-2">
           {frontmatter.excerpt}
         </p>
 
-        <span className="inline-flex items-center gap-1 text-sm font-medium text-terracotta group-hover:gap-2 transition-all duration-200">
+        <span className="inline-flex items-center gap-1.5 text-sm font-medium text-terracotta group-hover:gap-2.5 transition-all duration-200">
           Read more
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
