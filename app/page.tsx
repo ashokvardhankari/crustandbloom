@@ -45,7 +45,7 @@ const faqs: FAQItem[] = [
 const categories = [
   {
     href: "/coffee",
-    image: "/images/site/category-coffee.jpg",
+    image: "/images/coffee/cappuccino-closeup-rosette.jpg",
     badge: "Coffee",
     heading: "Espresso Drinks",
     description: "Cappuccinos, lattes, and every milk-based espresso drink worth dialling in.",
@@ -69,29 +69,6 @@ const categories = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Sarah M.",
-    handle: "@sarahbakes",
-    avatar: "/images/site/category-coffee.jpg",
-    quote: "The sourdough hydration guides completely changed how I approach my bakes. Those crumb shots are just stunning.",
-    rating: 5,
-  },
-  {
-    name: "James K.",
-    handle: "@jamesbrew",
-    avatar: "/images/site/category-classic.jpg",
-    quote: "I've tried the honey lavender latte recipe three times now. The brew ratio breakdown is exactly what I needed.",
-    rating: 5,
-  },
-  {
-    name: "Priya N.",
-    handle: "@priyacooks",
-    avatar: "/images/site/category-inclusions.jpg",
-    quote: "The Parmesan & Rosemary loaf is my family's absolute favourite. I make it every Sunday now.",
-    rating: 5,
-  },
-];
 
 export default async function HomePage() {
   const allPosts = await getAllPostsMeta();
@@ -155,7 +132,7 @@ export default async function HomePage() {
               <div className="animate-fade-in-up" style={{ animationDelay: "480ms" }}>
                 <div className="mt-12 grid grid-cols-3 gap-6 border-t border-blush pt-10">
                   {[
-                    { value: "12+", label: "Recipes" },
+                    { value: "9", label: "Recipes" },
                     { value: "3", label: "Categories" },
                     { value: "100%", label: "From scratch" },
                   ].map((stat) => (
@@ -180,8 +157,8 @@ export default async function HomePage() {
               {/* Image 1 — top-left, slow float */}
               <div className="absolute top-0 left-2 w-44 h-60 rounded-2xl overflow-hidden shadow-lg ring-1 ring-blush/40 animate-float-slow">
                 <Image
-                  src="/images/coffee/honey-lavender-latte.jpg"
-                  alt="Espresso close-up"
+                  src="/images/coffee/cappuccino-evening.jpg"
+                  alt="Cappuccino with latte art"
                   fill
                   className="object-cover"
                   sizes="180px"
@@ -206,8 +183,8 @@ export default async function HomePage() {
               {/* Image 3 — bottom-right, delayed float */}
               <div className="absolute bottom-0 right-2 w-44 h-60 rounded-2xl overflow-hidden shadow-lg ring-1 ring-blush/40 animate-float-delayed">
                 <Image
-                  src="/images/bread/parmesan-rosemary.jpg"
-                  alt="Inclusion bread"
+                  src="/images/bread/parmesan-scored-top-2.jpg"
+                  alt="Parmesan rosemary sourdough"
                   fill
                   className="object-cover"
                   sizes="180px"
@@ -369,55 +346,41 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Testimonials ──────────────────────────────────────────────────── */}
-      <section className="bg-espresso">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
-          <ScrollReveal className="text-center mb-14">
+      {/* ── Photo Strip ───────────────────────────────────────────────────── */}
+      <section className="bg-espresso overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-4">
+          <ScrollReveal className="text-center mb-10">
             <p className="text-xs font-semibold uppercase tracking-widest text-blush mb-3">
-              Readers say
+              From the kitchen
             </p>
             <h2 className="text-3xl lg:text-4xl font-bold text-cream">
-              From the community
+              Every batch, documented
             </h2>
           </ScrollReveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 100} direction="up">
-                <div className="bg-espresso-light rounded-2xl p-7 flex flex-col gap-5 h-full">
-                  {/* Stars */}
-                  <div className="flex gap-1">
-                    {Array.from({ length: t.rating }).map((_, j) => (
-                      <svg key={j} className="w-4 h-4 text-amber" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
-                  </div>
-
-                  <p className="text-cream/75 text-sm leading-relaxed italic flex-1">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-
-                  {/* Author */}
-                  <div className="flex items-center gap-3 pt-2 border-t border-white/10">
-                    <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-blush/30 flex-shrink-0">
-                      <Image
-                        src={t.avatar}
-                        alt={t.name}
-                        width={40}
-                        height={40}
-                        className="object-cover w-full h-full"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-cream">{t.name}</p>
-                      <p className="text-xs text-cream/40">{t.handle}</p>
-                    </div>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
+        </div>
+        <div className="flex gap-3 overflow-x-auto pb-10 px-6 lg:px-8 scrollbar-hide snap-x snap-mandatory">
+          {[
+            { src: "/images/coffee/latte-art-tulip-marble.jpg", alt: "Tulip latte art on marble" },
+            { src: "/images/bread/everything-bagel-sourdough-closeup.jpg", alt: "Everything bagel sourdough crust" },
+            { src: "/images/bread/fig-walnut-closeup.jpg", alt: "Fig and walnut sourdough" },
+            { src: "/images/bread/dark-chocolate-sliced.jpg", alt: "Dark chocolate cherry sourdough sliced" },
+            { src: "/images/bread/parmesan-scored-top.jpg", alt: "Parmesan rosemary sourdough scored top" },
+            { src: "/images/coffee/latte-lifestyle-morning.jpg", alt: "Morning latte with flowers" },
+            { src: "/images/bread/cheddar-chili-loaf.jpg", alt: "Calabrian cheddar sourdough" },
+          ].map((img, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-64 h-80 rounded-2xl overflow-hidden snap-start relative"
+            >
+              <Image
+                src={img.src}
+                alt={img.alt}
+                fill
+                className="object-cover"
+                sizes="256px"
+              />
+            </div>
+          ))}
         </div>
       </section>
 

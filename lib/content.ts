@@ -2,6 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import type { ReactElement } from "react";
 import type { CoffeeFrontmatter, BreadFrontmatter, PostMeta } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
@@ -60,7 +61,7 @@ export async function getCoffeePost(slug: string): Promise<{
   const { frontmatter, content } = await compileMDX<CoffeeFrontmatter>({
     source: raw,
     components: MDXComponents,
-    options: { parseFrontmatter: true },
+    options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
   return { frontmatter, content };
 }
@@ -129,7 +130,7 @@ export async function getBreadPost(slug: string): Promise<{
   const { frontmatter, content } = await compileMDX<BreadFrontmatter>({
     source: raw,
     components: MDXComponents,
-    options: { parseFrontmatter: true },
+    options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
   return { frontmatter, content };
 }

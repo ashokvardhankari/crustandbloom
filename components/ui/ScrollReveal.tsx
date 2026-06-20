@@ -6,9 +6,7 @@ import { cn } from "@/lib/utils";
 interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
-  /** Milliseconds before the transition starts — used for staggering siblings */
   delay?: number;
-  /** Which direction the element slides in from */
   direction?: "up" | "left" | "right";
 }
 
@@ -20,16 +18,30 @@ export default function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
+    if (reducedMotion) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect(); // fire once only
+          observer.disconnect();
         }
       },
       { threshold: 0.1, rootMargin: "0px 0px -48px 0px" }
@@ -37,7 +49,7 @@ export default function ScrollReveal({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   const hiddenClass = {
     up:    "opacity-0 translate-y-10",
@@ -48,10 +60,10 @@ export default function ScrollReveal({
   return (
     <div
       ref={ref}
-      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+      style={delay && !reducedMotion ? { transitionDelay: `${delay}ms` } : undefined}
       className={cn(
-        "transition-all duration-700 ease-out",
-        visible ? "opacity-100 translate-x-0 translate-y-0" : hiddenClass,
+        reducedMotion ? "" : "transition-all duration-700 ease-out",
+        !reducedMotion && !visible ? hiddenClass : "opacity-100 translate-x-0 translate-y-0",
         className
       )}
     >

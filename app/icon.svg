@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Loaf base -->
+  <rect x="3" y="19" width="26" height="10" rx="3" fill="#3A6E42"/>
+  <!-- Loaf dome -->
+  <path d="M5 19 Q5 7 16 7 Q27 7 27 19Z" fill="#4A8C3C"/>
+  <!-- Score line -->
+  <path d="M11 15 Q16 11 21 15" stroke="#F7F4EC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>
