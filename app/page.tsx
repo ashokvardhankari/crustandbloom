@@ -78,39 +78,6 @@ export default async function HomePage() {
     <>
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="bg-cream overflow-hidden">
-        {/* Mobile image strip — above the text on phones */}
-        <div className="sm:hidden flex gap-3 overflow-x-auto px-6 pt-8 pb-2 snap-x snap-mandatory">
-          <div className="flex-shrink-0 w-36 h-48 rounded-2xl overflow-hidden shadow-md relative snap-start ring-1 ring-blush/40 animate-float-slow">
-            <Image
-              src="/images/coffee/cappuccino-evening.jpg"
-              alt="Cappuccino with latte art"
-              fill
-              className="object-cover"
-              sizes="144px"
-              priority
-            />
-          </div>
-          <div className="flex-shrink-0 w-40 h-48 rounded-2xl overflow-hidden shadow-xl ring-2 ring-white relative snap-start z-10 animate-float">
-            <Image
-              src="/images/bread/country-sourdough.jpg"
-              alt="Sourdough loaf"
-              fill
-              className="object-cover"
-              sizes="160px"
-              priority
-            />
-          </div>
-          <div className="flex-shrink-0 w-36 h-48 rounded-2xl overflow-hidden shadow-md relative snap-start ring-1 ring-blush/40 animate-float-delayed">
-            <Image
-              src="/images/bread/parmesan-scored-top-2.jpg"
-              alt="Parmesan rosemary sourdough"
-              fill
-              className="object-cover"
-              sizes="144px"
-            />
-          </div>
-        </div>
-
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
@@ -225,6 +192,39 @@ export default async function HomePage() {
               </div>
             </div>
 
+          </div>
+        </div>
+
+        {/* Mobile image strip — below the hero text on phones */}
+        <div className="sm:hidden flex gap-3 overflow-x-auto px-6 pb-8 snap-x snap-mandatory">
+          <div className="flex-shrink-0 w-36 h-48 rounded-2xl overflow-hidden shadow-md relative snap-start ring-1 ring-blush/40 animate-float-slow">
+            <Image
+              src="/images/coffee/cappuccino-evening.jpg"
+              alt="Cappuccino with latte art"
+              fill
+              className="object-cover"
+              sizes="144px"
+              priority
+            />
+          </div>
+          <div className="flex-shrink-0 w-40 h-48 rounded-2xl overflow-hidden shadow-xl ring-2 ring-white relative snap-start z-10 animate-float">
+            <Image
+              src="/images/bread/country-sourdough.jpg"
+              alt="Sourdough loaf"
+              fill
+              className="object-cover"
+              sizes="160px"
+              priority
+            />
+          </div>
+          <div className="flex-shrink-0 w-36 h-48 rounded-2xl overflow-hidden shadow-md relative snap-start ring-1 ring-blush/40 animate-float-delayed">
+            <Image
+              src="/images/bread/parmesan-scored-top-2.jpg"
+              alt="Parmesan rosemary sourdough"
+              fill
+              className="object-cover"
+              sizes="144px"
+            />
           </div>
         </div>
       </section>
