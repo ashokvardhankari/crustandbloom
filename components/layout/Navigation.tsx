@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import LogoMark from "./LogoMark";
 
 const navLinks = [
   { href: "/coffee", label: "Coffee" },
@@ -17,11 +18,14 @@ export default function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-bold text-espresso tracking-tight hover:opacity-80 transition-opacity"
+            className="flex items-center gap-2.5 text-xl font-bold text-espresso tracking-tight hover:opacity-80 transition-opacity"
           >
-            Crust{" "}
-            <span className="text-terracotta">&amp;</span>{" "}
-            Bloom
+            <LogoMark className="h-8 w-auto text-terracotta" />
+            <span>
+              Crust{" "}
+              <span className="text-terracotta">&amp;</span>{" "}
+              Bloom
+            </span>
           </Link>
 
           {/* Desktop nav */}
