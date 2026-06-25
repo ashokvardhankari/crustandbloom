@@ -125,7 +125,7 @@ export default function BakingCalculator() {
                 key={opt.value}
                 onClick={() => setDirection(opt.value)}
                 className={cn(
-                  "text-xs font-semibold px-4 py-2 rounded-full transition-colors duration-200",
+                  "text-sm font-semibold px-5 py-2.5 rounded-full whitespace-nowrap transition-colors duration-200",
                   direction === opt.value
                     ? "bg-terracotta text-white"
                     : "bg-blush/40 text-espresso hover:bg-blush/60"
