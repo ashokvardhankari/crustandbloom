@@ -9,13 +9,27 @@ A sourdough baking timeline calculator at `/tools/baking-calculator`. Users pick
 - **Route:** `app/tools/baking-calculator/page.tsx` (server component)
 - **Client component:** `components/tools/BakingCalculator.tsx` ("use client")
 - **Preset data:** `lib/baking-presets.ts` (plain data, no component logic)
-- **Nav update:** Add "Tools" link to `navLinks` in `components/layout/Navigation.tsx`
+- **Nav update:** Add `{ href: "/tools/baking-calculator", label: "Tools" }` to `navLinks` in `components/layout/Navigation.tsx`. This also appears in the mobile menu automatically since `MobileMenu` receives `navLinks` as props. No separate `/tools` index page — the link goes directly to the calculator.
 
 The server component provides metadata and the page header (uppercase terracotta label, bold espresso heading, thin divider — matching `/about` and `/bread`). The `<BakingCalculator />` client component renders below.
 
 ## Presets
 
-Three preset schedules stored in `lib/baking-presets.ts`. Each preset is an object with a `name`, `slug`, and `steps` array. Each step has `name`, `durationMinutes`, and `tip`.
+Three preset schedules stored in `lib/baking-presets.ts`. Types are defined in the same file (not in `lib/types.ts`, which is for post content types):
+
+```ts
+interface BakingStep {
+  name: string;
+  durationMinutes: number;
+  tip: string;
+}
+
+interface BakingPreset {
+  name: string;       // display name, e.g. "Overnight Cold Proof"
+  slug: string;       // pill label, e.g. "Overnight"
+  steps: BakingStep[];
+}
+```
 
 ### Overnight Cold Proof (default)
 
@@ -68,7 +82,7 @@ Three controls rendered horizontally (stacking on mobile):
 
 1. **Preset selector** — three pill-style buttons: "Overnight", "Same-Day", "Weekend". Styled like existing category pills. "Overnight" selected by default.
 2. **Direction toggle** — two-option toggle: "I'm starting at..." / "I want bread by...". Default: "I'm starting at...".
-3. **Date/time picker** — native `<input type="datetime-local">` styled to match the site palette. Defaults to current time rounded to the nearest hour.
+3. **Date/time picker** — native `<input type="datetime-local">` styled to match the site palette. Defaults to the current time rounded up to the next whole hour (e.g. 2:37 PM becomes 3:00 PM).
 
 No submit button. All changes update the timeline instantly.
 
@@ -79,7 +93,7 @@ A vertical timeline below the controls. Each step is a card connected by a thin 
 Each step card contains:
 - **Time** (left side) — formatted as "Sat 8:00 AM" (short day name + 12-hour time)
 - **Step name** — bold `espresso` text
-- **Duration** — small muted text (e.g. "5 hours")
+- **Duration** — small muted text. Display rule: if >= 60 minutes, show hours (e.g. "5 hours", "1 hour"); if < 60, show minutes (e.g. "25 min"). For mixed values like 75 min, show "1 hr 15 min".
 - **Tip** — one-line description in `espresso/60`
 
 ### Active step highlighting
@@ -87,6 +101,8 @@ Each step card contains:
 If the generated schedule spans the current time, the step that is currently "active" gets:
 - A subtle `blush/30` background
 - A green dot on the timeline connector instead of the default `terracotta` dot
+
+The active step is computed on render only — no `setInterval` or live timer. It updates whenever the user interacts with the controls (which triggers a re-render). This keeps the component simple; a live-updating timer is out of scope.
 
 ### Animation
 
