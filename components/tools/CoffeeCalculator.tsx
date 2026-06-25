@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { RATIO_PRESETS, DRINK_PRESETS } from "@/lib/coffee-presets";
 
@@ -192,6 +193,20 @@ function DrinkBuilderPanel() {
             )}
           </button>
         ))}
+      </div>
+
+      <div className="relative w-full h-48 sm:h-64 rounded-2xl overflow-hidden">
+        <Image
+          src={preset.image}
+          alt={preset.name}
+          fill
+          className="object-cover transition-opacity duration-300"
+          sizes="(max-width: 768px) 100vw, 672px"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-espresso/40 to-transparent" />
+        <p className="absolute bottom-4 left-5 text-white text-xl font-bold drop-shadow-md">
+          {preset.name}
+        </p>
       </div>
 
       <div className="bg-white rounded-2xl p-6 space-y-6">
