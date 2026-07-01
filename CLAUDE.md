@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Rules
+
+- **Before pushing to git, always verify the change works.** Run `npm run build` to confirm the production build passes, and check the affected pages in the dev server before committing.
+
 ## Commands
 
 ```bash
