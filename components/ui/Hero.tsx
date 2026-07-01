@@ -30,13 +30,13 @@ export default function Hero({
         size === "full" ? "h-[85vh] min-h-[520px]" : "h-[50vh] min-h-[320px]"
       )}
     >
-      {/* Background image */}
+      {/* Background image — slow settle-in zoom on load */}
       <Image
         src={image}
         alt={imageAlt}
         fill
         priority
-        className="object-cover"
+        className="object-cover animate-hero-zoom motion-reduce:animate-none"
         sizes="100vw"
       />
 
@@ -51,13 +51,13 @@ export default function Hero({
       {/* Content */}
       <div className="absolute inset-0 flex items-end">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-16 lg:pb-24 w-full">
-          <div className="max-w-2xl">
+          <div className="max-w-2xl animate-fade-in-up" style={{ animationDelay: "200ms" }}>
             <h1
               className={cn(
-                "font-bold text-cream leading-tight text-balance",
+                "font-display font-semibold text-cream leading-tight tracking-tight text-balance",
                 size === "full"
-                  ? "text-4xl sm:text-5xl lg:text-6xl"
-                  : "text-3xl sm:text-4xl"
+                  ? "text-5xl sm:text-6xl lg:text-7xl"
+                  : "text-4xl sm:text-5xl"
               )}
             >
               {title}

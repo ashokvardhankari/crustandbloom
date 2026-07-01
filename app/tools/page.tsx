@@ -28,12 +28,12 @@ const tools = [
 export default function ToolsPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
-      <div className="mb-14">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
+      <div className="mb-14 animate-fade-in-up">
+        <p className="eyebrow mb-3">
           Resources
         </p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-espresso leading-tight">
-          Tools
+        <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
+          Tools<span className="text-terracotta italic">.</span>
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed max-w-xl">
           Calculators for baking and coffee. Built for the way I actually work.
@@ -46,12 +46,12 @@ export default function ToolsPage() {
           <ScrollReveal key={tool.href} delay={i * 100}>
             <Link
               href={tool.href}
-              className="block bg-white rounded-2xl p-8 hover:shadow-md transition-shadow duration-300 group"
+              className="card-galatea block p-8 group"
             >
-              <span className="inline-block text-xs font-semibold uppercase tracking-widest text-terracotta bg-blush/40 px-3 py-1 rounded-full mb-4">
+              <span className="inline-block eyebrow bg-blush/40 px-3 py-1 rounded-full mb-4">
                 {tool.badge}
               </span>
-              <h2 className="text-xl font-bold text-espresso mb-2 group-hover:text-terracotta transition-colors duration-200">
+              <h2 className="font-display text-2xl font-semibold tracking-tight text-espresso mb-2 group-hover:text-terracotta transition-colors duration-200">
                 {tool.title}
               </h2>
               <p className="text-sm text-espresso/60 leading-relaxed">

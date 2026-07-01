@@ -19,7 +19,7 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
             className="faq-trigger group"
             aria-expanded={openIndex === i}
           >
-            <span className="text-base font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200">
+            <span className="font-display text-lg font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200">
               {item.question}
             </span>
             <span

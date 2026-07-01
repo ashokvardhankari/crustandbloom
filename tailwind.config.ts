@@ -56,6 +56,14 @@ const config: Config = {
       },
       fontFamily: {
         jakarta: ["var(--font-jakarta)", "sans-serif"],
+        display: ["var(--font-fraunces)", "Georgia", "serif"],
+      },
+      boxShadow: {
+        // Shadows tinted with the espresso green so they sit naturally on cream
+        "soft":  "0 2px 12px rgba(28, 43, 30, 0.06)",
+        "card":  "0 4px 20px -4px rgba(28, 43, 30, 0.10)",
+        "lift":  "0 20px 40px -12px rgba(28, 43, 30, 0.22)",
+        "glow":  "0 8px 32px -8px rgba(58, 110, 66, 0.35)",
       },
       keyframes: {
         fadeInUp: {
@@ -66,12 +74,33 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%":       { transform: "translateY(-14px)" },
         },
+        marquee: {
+          "0%":   { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        heroZoom: {
+          "0%":   { transform: "scale(1.08)" },
+          "100%": { transform: "scale(1)" },
+        },
+        drift: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "33%":      { transform: "translate(24px, -18px) scale(1.06)" },
+          "66%":      { transform: "translate(-16px, 14px) scale(0.97)" },
+        },
+        spinSlow: {
+          "0%":   { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
       },
       animation: {
         "fade-in-up":      "fadeInUp 0.75s ease-out both",
         "float":           "float 4s ease-in-out infinite",
         "float-slow":      "float 5.5s ease-in-out infinite",
         "float-delayed":   "float 4.5s ease-in-out infinite 1.5s",
+        "marquee":         "marquee 48s linear infinite",
+        "hero-zoom":       "heroZoom 1.6s cubic-bezier(0.22, 1, 0.36, 1) both",
+        "drift":           "drift 14s ease-in-out infinite",
+        "spin-slow":       "spinSlow 24s linear infinite",
       },
       typography: {
         DEFAULT: {

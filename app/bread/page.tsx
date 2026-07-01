@@ -18,12 +18,12 @@ export default async function BreadPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       {/* Header */}
-      <div className="mb-14 max-w-xl">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
+      <div className="mb-14 max-w-xl animate-fade-in-up">
+        <p className="eyebrow mb-3">
           The loaf
         </p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-espresso leading-tight">
-          Bread
+        <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
+          Bread<span className="text-terracotta italic">.</span>
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
           Sourdough baked at home, from the classic country loaf to inclusions
@@ -36,7 +36,7 @@ export default async function BreadPage() {
       {/* Classic Sourdough */}
       <section className="mb-20">
         <div className="flex items-center gap-4 mb-8">
-          <h2 className="text-2xl font-bold text-espresso">Classic Sourdough</h2>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-espresso">Classic sourdough</h2>
           <div className="flex-1 h-px bg-blush/40" />
         </div>
 
@@ -54,7 +54,7 @@ export default async function BreadPage() {
       {/* Inclusion Loaves */}
       <section id="inclusions">
         <div className="flex items-center gap-4 mb-4">
-          <h2 className="text-2xl font-bold text-espresso">Inclusion Loaves</h2>
+          <h2 className="font-display text-3xl font-semibold tracking-tight text-espresso">Inclusion loaves</h2>
           <div className="flex-1 h-px bg-blush/40" />
         </div>
         <p className="text-espresso/60 mb-8 max-w-lg">

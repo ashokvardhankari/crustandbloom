@@ -25,14 +25,19 @@ export default function NewsletterSignup() {
   }
 
   return (
-    <section className="bg-blush/30 border-t border-blush/60">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+    <section className="relative bg-blush/30 border-t border-blush/60 overflow-hidden">
+      {/* Ambient wash */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute -top-24 left-1/4 w-96 h-96 bg-mist/40 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-sand/40 rounded-full blur-3xl" />
+      </div>
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-20">
         <div className="max-w-xl mx-auto text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-4">
+          <p className="eyebrow mb-4">
             Stay in the loop
           </p>
-          <h2 className="text-3xl lg:text-4xl font-bold text-espresso leading-tight">
-            New posts, straight to your inbox.
+          <h2 className="font-display font-semibold text-4xl lg:text-5xl tracking-tight text-espresso leading-tight text-balance">
+            New posts, straight to <span className="italic text-terracotta">your inbox</span>.
           </h2>
           <p className="mt-4 text-espresso/55 text-base leading-relaxed">
             No noise, just fresh content when a new loaf comes out of the oven
@@ -60,7 +65,7 @@ export default function NewsletterSignup() {
               <button
                 type="submit"
                 disabled={status === "loading" || !email}
-                className="bg-terracotta text-white font-semibold px-8 py-3.5 rounded-full text-sm tracking-wide hover:bg-terracotta-dark transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+                className="bg-terracotta text-white font-semibold px-8 py-3.5 rounded-full text-sm tracking-wide transition-all duration-200 hover:bg-terracotta-dark hover:shadow-glow active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
               >
                 {status === "loading" ? "Subscribing..." : "Subscribe"}
               </button>

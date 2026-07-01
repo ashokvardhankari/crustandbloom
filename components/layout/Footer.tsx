@@ -44,8 +44,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div className="flex flex-col gap-4 md:col-span-2">
-            <Link href="/" className="text-xl font-bold text-cream tracking-tight hover:opacity-80 transition-opacity">
-              Crust <span className="text-blush">&amp;</span> Bloom
+            <Link href="/" className="font-display text-2xl font-semibold text-cream tracking-tight hover:opacity-80 transition-opacity">
+              Crust <span className="text-blush italic">&amp;</span> Bloom
             </Link>
             <p className="text-sm text-cream/50 leading-relaxed max-w-xs">
               A personal journal of specialty coffee and artisan sourdough,

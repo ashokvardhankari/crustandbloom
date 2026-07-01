@@ -1,5 +1,6 @@
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
+import NavLinks from "./NavLinks";
 import LogoMark from "./LogoMark";
 
 const navLinks = [
@@ -19,34 +20,24 @@ export default function Navigation() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 text-xl font-bold text-espresso tracking-tight hover:opacity-80 transition-opacity"
+            className="group flex items-center gap-2.5 text-xl font-display font-semibold text-espresso tracking-tight"
           >
-            <LogoMark className="h-8 w-auto text-terracotta" />
+            <LogoMark className="h-8 w-auto text-terracotta transition-transform duration-300 group-hover:rotate-[-8deg]" />
             <span>
               Crust{" "}
-              <span className="text-terracotta">&amp;</span>{" "}
+              <span className="text-terracotta italic">&amp;</span>{" "}
               Bloom
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm font-medium text-espresso/65 hover:text-espresso transition-colors duration-200 tracking-wide"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          <NavLinks links={navLinks} />
 
           {/* CTA + mobile menu */}
           <div className="flex items-center gap-3">
             <Link
               href="/coffee"
-              className="hidden md:inline-flex items-center bg-terracotta text-white font-semibold px-5 py-2 rounded-full text-sm tracking-wide hover:bg-terracotta-dark transition-colors duration-200"
+              className="hidden md:inline-flex items-center bg-terracotta text-white font-semibold px-5 py-2 rounded-full text-sm tracking-wide transition-all duration-200 hover:bg-terracotta-dark hover:shadow-glow active:scale-[0.98]"
             >
               Start exploring
             </Link>

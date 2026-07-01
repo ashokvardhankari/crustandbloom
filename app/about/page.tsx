@@ -12,12 +12,12 @@ export default function AboutPage() {
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       {/* Header */}
-      <div className="mb-14">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
+      <div className="mb-14 animate-fade-in-up">
+        <p className="eyebrow mb-3">
           The person behind it
         </p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-espresso leading-tight">
-          About
+        <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
+          About<span className="text-terracotta italic">.</span>
         </h1>
         <div className="mt-6 h-px w-24 bg-amber" />
       </div>
@@ -102,8 +102,8 @@ export default function AboutPage() {
             body: "This site is a log, not a finished product. Every new loaf and every new drink adds to an archive that gets more useful the longer it runs.",
           },
         ].map((item) => (
-          <div key={item.title} className="p-8 bg-cream-dark rounded-2xl">
-            <h3 className="font-semibold text-espresso text-lg mb-3">{item.title}</h3>
+          <div key={item.title} className="p-8 bg-cream-dark rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:shadow-card motion-reduce:hover:translate-y-0">
+            <h3 className="font-display font-semibold text-espresso text-xl tracking-tight mb-3">{item.title}</h3>
             <p className="text-espresso/60 text-sm leading-relaxed">{item.body}</p>
           </div>
         ))}

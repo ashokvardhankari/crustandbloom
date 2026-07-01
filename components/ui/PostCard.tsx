@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 interface PostCardProps {
   post: PostMeta<PostFrontmatter>;
-  size?: "default" | "large";
+  size?: "default" | "large" | "compact";
 }
 
 export default function PostCard({ post, size = "default" }: PostCardProps) {
@@ -22,8 +22,35 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       ? "category-pill-classic"
       : "category-pill-inclusion";
 
+  if (size === "compact") {
+    return (
+      <Link href={href} className="card-galatea group flex h-full">
+        <div className="relative w-36 sm:w-44 flex-shrink-0 overflow-hidden">
+          <Image
+            src={frontmatter.coverImage}
+            alt={frontmatter.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            sizes="176px"
+          />
+        </div>
+        <div className="p-5 flex flex-col justify-center gap-2 min-w-0">
+          <div className="flex items-center gap-3">
+            <span className={pillClass}>{categoryLabel}</span>
+          </div>
+          <h3 className="font-display font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200 text-lg leading-snug text-balance">
+            {frontmatter.title}
+          </h3>
+          <p className="text-sm text-espresso/55 leading-relaxed line-clamp-2">
+            {frontmatter.excerpt}
+          </p>
+        </div>
+      </Link>
+    );
+  }
+
   return (
-    <Link href={href} className="card-galatea group block">
+    <Link href={href} className="card-galatea group block h-full">
       {/* Image */}
       <div
         className={cn(
@@ -41,7 +68,7 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       </div>
 
       {/* Text content */}
-      <div className="p-6 space-y-3">
+      <div className={cn("space-y-3", size === "large" ? "p-7" : "p-6")}>
         <div className="flex items-center gap-3">
           <span className={pillClass}>{categoryLabel}</span>
           <time
@@ -54,8 +81,8 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
 
         <h3
           className={cn(
-            "font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200 text-balance leading-snug",
-            size === "large" ? "text-2xl" : "text-lg"
+            "font-display font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200 text-balance leading-snug",
+            size === "large" ? "text-3xl" : "text-xl"
           )}
         >
           {frontmatter.title}

@@ -14,12 +14,12 @@ export default async function CoffeePage() {
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       {/* Header */}
-      <div className="mb-14 max-w-xl">
-        <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
+      <div className="mb-14 max-w-xl animate-fade-in-up">
+        <p className="eyebrow mb-3">
           The cup
         </p>
-        <h1 className="text-4xl lg:text-5xl font-bold text-espresso leading-tight">
-          Coffee
+        <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
+          Coffee<span className="text-terracotta italic">.</span>
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
           Espresso pulled at home. Mostly cappuccinos and lattes, each one with

@@ -32,6 +32,17 @@
     @apply bg-cream text-espresso font-jakarta antialiased;
   }
 
+  /* Film-grain overlay — breaks digital flatness across the whole site */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   ::selection {
     background-color: #C4DEB8;
     color: #1C2B1E;
@@ -78,7 +89,7 @@
 
   .prose-cb {
     @apply prose prose-lg max-w-none;
-    @apply prose-headings:font-jakarta prose-headings:text-espresso;
+    @apply prose-headings:font-display prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-espresso;
     @apply prose-p:text-espresso/80 prose-p:leading-relaxed;
     @apply prose-a:text-terracotta prose-a:no-underline hover:prose-a:underline;
     @apply prose-strong:text-espresso;
@@ -96,15 +107,58 @@
     @apply w-full flex justify-between items-center text-left gap-4 cursor-pointer;
   }
 
-  /* Galatea-style card */
+  /* Galatea-style card — lifts on hover with a green-tinted shadow */
   .card-galatea {
-    @apply bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 cursor-pointer;
+    @apply bg-white rounded-2xl overflow-hidden shadow-card cursor-pointer;
+    @apply transition-all duration-300 ease-out;
+    @apply hover:-translate-y-1.5 hover:shadow-lift;
+    @apply motion-reduce:hover:translate-y-0;
+  }
+
+  /* Primary pill button — hover glow + physical press */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 bg-terracotta text-white font-semibold px-7 py-3.5 rounded-full text-sm tracking-wide;
+    @apply transition-all duration-200 hover:bg-terracotta-dark hover:shadow-glow hover:-translate-y-0.5;
+    @apply active:translate-y-0 active:scale-[0.98];
+    @apply motion-reduce:hover:translate-y-0;
+  }
+
+  /* Secondary outline pill */
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 border border-espresso/20 text-espresso font-semibold px-7 py-3.5 rounded-full text-sm tracking-wide;
+    @apply transition-all duration-200 hover:bg-espresso hover:text-cream hover:border-espresso hover:-translate-y-0.5;
+    @apply active:translate-y-0 active:scale-[0.98];
+    @apply motion-reduce:hover:translate-y-0;
+  }
+
+  /* Nav link with animated underline */
+  .link-underline {
+    @apply relative;
+  }
+  .link-underline::after {
+    content: "";
+    @apply absolute left-0 -bottom-1 h-[2px] w-full bg-terracotta rounded-full origin-left scale-x-0 transition-transform duration-300 ease-out;
+  }
+  .link-underline:hover::after,
+  .link-underline[data-active="true"]::after {
+    @apply scale-x-100;
+  }
+
+  /* Editorial page header eyebrow */
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-terracotta;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Fades the marquee edges into the section background */
+  .marquee-mask {
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
   }
 
   .gradient-overlay {
