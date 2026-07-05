@@ -153,7 +153,7 @@ export default function BakingCalculator() {
 
       {/* Preset description */}
       <p className="text-sm text-espresso/50">
-        {preset.name} — total time:{" "}
+        {preset.name} · total time:{" "}
         {formatDuration(preset.steps.reduce((sum, s) => sum + s.durationMinutes, 0))}
       </p>
 

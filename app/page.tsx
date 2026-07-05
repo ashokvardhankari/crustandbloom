@@ -99,9 +99,9 @@ export default async function HomePage() {
               {/* Headline */}
               <div className="animate-fade-in-up" style={{ animationDelay: "120ms" }}>
                 <h1 className="font-display font-semibold text-6xl sm:text-7xl lg:text-[84px] text-espresso leading-[1.02] tracking-tight text-balance">
-                  Crafted with<br />
-                  <span className="text-terracotta italic">care &amp;</span><br />
-                  intention.
+                  Small batches,<br />
+                  <span className="text-terracotta italic">real coffee,</span><br />
+                  better bread.
                 </h1>
               </div>
 
@@ -132,7 +132,7 @@ export default async function HomePage() {
               <div className="animate-fade-in-up" style={{ animationDelay: "480ms" }}>
                 <div className="mt-12 grid grid-cols-3 gap-6 border-t border-blush pt-10">
                   {[
-                    { value: "9", label: "Recipes" },
+                    { value: "10", label: "Recipes" },
                     { value: "3", label: "Categories" },
                     { value: "100%", label: "From scratch" },
                   ].map((stat) => (
@@ -257,8 +257,8 @@ export default async function HomePage() {
               [
                 {
                   number: "01",
-                  title: "Source with intention",
-                  body: "Single-origin beans from trusted roasters, heritage wheat flours, and seasonal inclusions. Everything starts with quality ingredients chosen deliberately.",
+                  title: "Good ingredients first",
+                  body: "Single-origin beans from trusted roasters, heritage wheat flours, and whatever's in season for the inclusions.",
                   icon: (
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
                       <circle cx="24" cy="24" r="9" />
@@ -269,7 +269,7 @@ export default async function HomePage() {
                 {
                   number: "02",
                   title: "Ferment & brew slowly",
-                  body: "48-hour cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings. Patience makes the difference.",
+                  body: "48-hour cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings.",
                   icon: (
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
                       <circle cx="24" cy="28" r="14" />
@@ -281,7 +281,7 @@ export default async function HomePage() {
                 {
                   number: "03",
                   title: "Photograph & document",
-                  body: "Every loaf and drink gets the full editorial treatment: natural light, crumb structure close-ups, honest tasting notes, and repeatable recipes.",
+                  body: "Every loaf and drink is shot in natural light: crumb close-ups, honest tasting notes, and recipes you can repeat.",
                   icon: (
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
                       <rect x="6" y="14" width="36" height="26" rx="4" />
