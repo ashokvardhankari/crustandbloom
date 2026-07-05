@@ -2,3 +2,8 @@ node_modules
 public/images/drafts/
 .next/
 .DS_Store
+
+# Local environment files (keep .env.example tracked)
+.env
+.env*.local
+.env.production

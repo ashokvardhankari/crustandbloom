@@ -12,11 +12,13 @@
     "@tailwindcss/typography": "^0.5.19",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
+    "marked": "^18.0.5",
     "next": "^14.2.5",
     "next-mdx-remote": "^6.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "remark-gfm": "^4.0.1",
+    "resend": "^6.17.1",
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
