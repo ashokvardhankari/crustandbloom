@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   getResend,
-  getAudienceId,
+  getSegmentId,
   getFromAddress,
   verifyAdminSecret,
   renderNewsletterHtml,
@@ -79,18 +79,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // Broadcast to the whole audience.
-  const audienceId = getAudienceId();
-  if (!audienceId) {
+  // Broadcast to the whole segment.
+  const segmentId = getSegmentId();
+  if (!segmentId) {
     return NextResponse.json(
-      { error: "No audience configured. Set RESEND_AUDIENCE_ID." },
+      { error: "No segment configured. Set RESEND_SEGMENT_ID." },
       { status: 503 },
     );
   }
 
   const html = await renderNewsletterHtml({ subject, markdown, broadcast: true });
 
-  const created = await resend.broadcasts.create({ audienceId, from, subject, html });
+  const created = await resend.broadcasts.create({ segmentId, from, subject, html });
   if (created.error || !created.data?.id) {
     console.error("[newsletter] broadcast create failed:", created.error);
     return NextResponse.json(

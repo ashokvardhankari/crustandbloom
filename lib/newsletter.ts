@@ -16,8 +16,14 @@ export function getResend(): Resend | null {
   return key ? new Resend(key) : null;
 }
 
-export function getAudienceId(): string | undefined {
-  return process.env.RESEND_AUDIENCE_ID;
+/**
+ * The Resend segment (formerly "audience") that holds subscribers. Resend
+ * migrated Audiences to Segments; the dashboard now exposes a segment id. We
+ * read RESEND_SEGMENT_ID, falling back to the older RESEND_AUDIENCE_ID name so
+ * either works.
+ */
+export function getSegmentId(): string | undefined {
+  return process.env.RESEND_SEGMENT_ID ?? process.env.RESEND_AUDIENCE_ID;
 }
 
 /** From address for sends, e.g. "Crust & Bloom <hello@crustbloom.com>". */

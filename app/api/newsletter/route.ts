@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getResend, getAudienceId } from "@/lib/newsletter";
+import { getResend, getSegmentId } from "@/lib/newsletter";
 
 export const runtime = "nodejs";
 
@@ -12,20 +12,20 @@ export async function POST(req: NextRequest) {
     }
 
     const resend = getResend();
-    const audienceId = getAudienceId();
+    const segmentId = getSegmentId();
 
     // Not configured yet (no Resend keys): don't break the live form. Log the
     // signup and report success so nothing is lost from the user's side. Real
-    // storage kicks in automatically once RESEND_API_KEY + RESEND_AUDIENCE_ID
+    // storage kicks in automatically once RESEND_API_KEY + RESEND_SEGMENT_ID
     // are set in the environment.
-    if (!resend || !audienceId) {
+    if (!resend || !segmentId) {
       console.warn(`[newsletter] not configured; signup not stored: ${email}`);
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
     const { error } = await resend.contacts.create({
       email: email.trim().toLowerCase(),
-      audienceId,
+      segments: [{ id: segmentId }],
       unsubscribed: false,
     });
 
