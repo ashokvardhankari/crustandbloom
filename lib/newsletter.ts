@@ -114,7 +114,7 @@ export async function renderNewsletterHtml({
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                   <tr>
                     <td style="padding-right:12px; vertical-align:middle;">
-                      <img src="https://crustbloom.com/images/site/logo-email.png" alt="Crust & Bloom" width="22" height="46" style="display:block; border:0;" />
+                      <img src="https://crustbloom.com/images/site/logo-email.png" alt="Crust & Bloom" width="44" height="44" style="display:block; border:0;" />
                     </td>
                     <td style="vertical-align:middle;">
                       <span style="font-family:Georgia,'Times New Roman',serif; font-size:22px; font-weight:600; color:${BRAND.ink}; letter-spacing:-0.01em;">
