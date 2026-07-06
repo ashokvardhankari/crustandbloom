@@ -20,7 +20,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://crustandbloom.com"),
+  metadataBase: new URL("https://crustbloom.com"),
   title: {
     default: "Crust & Bloom",
     template: "%s | Crust & Bloom",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://crustandbloom.com",
+    url: "https://crustbloom.com",
     siteName: "Crust & Bloom",
     title: "Crust & Bloom",
     description:
