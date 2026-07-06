@@ -109,10 +109,21 @@ export async function renderNewsletterHtml({
       <td align="center" style="padding:32px 16px;">
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px; width:100%; background:${BRAND.card}; border-radius:16px; overflow:hidden; box-shadow:0 1px 3px rgba(28,43,30,0.08);">
           <tr>
-            <td style="padding:36px 40px 8px;">
-              <div style="font-family:Georgia,'Times New Roman',serif; font-size:22px; font-weight:600; color:${BRAND.ink}; letter-spacing:-0.01em;">
-                Crust <span style="color:${BRAND.link}; font-style:italic;">&amp;</span> Bloom
-              </div>
+            <td style="padding:32px 40px 8px;">
+              <a href="https://crustbloom.com" style="text-decoration:none;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="padding-right:12px; vertical-align:middle;">
+                      <img src="https://crustbloom.com/images/site/logo-email.png" alt="Crust & Bloom" width="22" height="46" style="display:block; border:0;" />
+                    </td>
+                    <td style="vertical-align:middle;">
+                      <span style="font-family:Georgia,'Times New Roman',serif; font-size:22px; font-weight:600; color:${BRAND.ink}; letter-spacing:-0.01em;">
+                        Crust <span style="color:${BRAND.link}; font-style:italic;">&amp;</span> Bloom
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </a>
             </td>
           </tr>
           <tr>
