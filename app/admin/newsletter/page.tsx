@@ -102,7 +102,7 @@ export default function NewsletterComposePage() {
             <textarea
               value={markdown}
               onChange={(e) => setMarkdown(e.target.value)}
-              placeholder={"## A fresh loaf\n\nThis week I baked…\n\n- one\n- two\n\nRead more at [crustandbloom.com](https://crustandbloom.com)."}
+              placeholder={"## A fresh loaf\n\nThis week I baked…\n\n- one\n- two\n\nRead more at [crustbloom.com](https://crustbloom.com)."}
               rows={16}
               className="bg-white border border-blush rounded-xl px-4 py-3 text-sm text-espresso font-mono leading-relaxed focus:outline-none focus:border-terracotta/50 resize-y"
             />

@@ -20,7 +20,7 @@ export function getAudienceId(): string | undefined {
   return process.env.RESEND_AUDIENCE_ID;
 }
 
-/** From address for sends, e.g. "Crust & Bloom <hello@crustandbloom.com>". */
+/** From address for sends, e.g. "Crust & Bloom <hello@crustbloom.com>". */
 export function getFromAddress(): string | undefined {
   return process.env.NEWSLETTER_FROM;
 }
@@ -116,7 +116,7 @@ export async function renderNewsletterHtml({
           </tr>
           <tr>
             <td style="padding:22px 40px 36px; border-top:1px solid ${BRAND.creamDark}; color:${BRAND.muted}; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:1.6;">
-              You're receiving this because you subscribed at crustandbloom.com.<br />
+              You're receiving this because you subscribed at crustbloom.com.<br />
               <a href="${unsubscribeUrl}" style="color:${BRAND.link};">Unsubscribe</a>${unsubscribeNote}
             </td>
           </tr>
