@@ -4,6 +4,30 @@ import { useState } from "react";
 
 type Feedback = { kind: "info" | "success" | "error"; text: string } | null;
 
+const markdownHelp: { code: string; what: string }[] = [
+  { code: "## Heading", what: "section headline (serif)" },
+  { code: "*word*", what: "green italic accent" },
+  { code: "**bold**", what: "bold" },
+  { code: "- item", what: "bullet list" },
+  { code: "[text](url)", what: "link" },
+  { code: "[text →](url)", what: "green button (note the →)" },
+  { code: "![alt](url)", what: "image (full https URL)" },
+  { code: "> quote", what: "indented quote" },
+];
+
+const shortcodeHelp: { code: string; what: string }[] = [
+  { code: "::stats Hydration=76% | Starter=20% | Bake=500°F", what: "stat tiles" },
+  { code: "::inside 80g tomatoes | 100g cheddar", what: "inclusion chips" },
+  { code: "::quote A short, highlighted line.", what: "pull-quote" },
+  { code: "::note Something personal about this bake.", what: "baker's note box" },
+  { code: "::teaser What's coming next week.", what: "next-week teaser" },
+  { code: "::tool baking", what: "tool card (baking or coffee)" },
+  { code: "::photos url1 | url2", what: "side-by-side photos" },
+  { code: "::poll Focaccia | Rye | Bagels", what: "vote buttons (reply-based)" },
+  { code: "::reply What should I bake next?", what: "reply prompt + button" },
+  { code: "::forward", what: "forward-to-a-friend nudge" },
+];
+
 export default function NewsletterComposePage() {
   const [secret, setSecret] = useState("");
   const [subject, setSubject] = useState("");
@@ -184,6 +208,45 @@ export default function NewsletterComposePage() {
           </div>
         </div>
       </div>
+
+      {/* Formatting guide */}
+      <details className="mt-10 rounded-xl border border-blush bg-cream-dark/40 p-5">
+        <summary className="cursor-pointer text-sm font-semibold text-espresso">
+          Formatting guide
+        </summary>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-sm">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-3">
+              Markdown
+            </p>
+            <ul className="space-y-2">
+              {markdownHelp.map((h) => (
+                <li key={h.code} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <code className="font-mono text-xs bg-white border border-blush rounded px-1.5 py-0.5 text-terracotta">
+                    {h.code}
+                  </code>
+                  <span className="text-espresso/55">{h.what}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-3">
+              Blocks — each on its own line
+            </p>
+            <ul className="space-y-2.5">
+              {shortcodeHelp.map((h) => (
+                <li key={h.code} className="flex flex-col gap-1">
+                  <code className="font-mono text-xs bg-white border border-blush rounded px-1.5 py-0.5 text-terracotta w-fit">
+                    {h.code}
+                  </code>
+                  <span className="text-espresso/55">{h.what}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </details>
     </div>
   );
 }
