@@ -27,32 +27,79 @@ function firstSentence(s: string): string {
   return (m ? m[0] : s).trim();
 }
 
-/** Assemble a starter subject + body (with shortcodes) from a recipe. */
-function buildFromRecipe(r: Recipe): { subject: string; markdown: string } {
-  const url = `${SITE}/${r.type}/${r.slug}`;
-  const cover = r.coverImage.startsWith("http") ? r.coverImage : SITE + r.coverImage;
-  const stats: string[] = [];
-  if (r.type === "bread") {
-    if (r.hydration != null) stats.push(`Hydration=${r.hydration}%`);
-    if (r.starterPercentage != null) stats.push(`Starter=${r.starterPercentage}%`);
-    if (r.bakeTemp) stats.push(`Bake=${r.bakeTemp}`);
-  } else {
-    if (r.brewRatio) stats.push(`Ratio=${r.brewRatio}`);
-    if (r.extractionTime) stats.push(`Time=${r.extractionTime}`);
-    if (r.milkTemp) stats.push(`Milk=${r.milkTemp}`);
-  }
-  const verb = r.type === "bread" ? "bake" : "make";
-  const lines: string[] = [`![${r.title}](${cover})`, "", `## ${r.title}`, ""];
+const coverUrl = (r: Recipe) => (r.coverImage.startsWith("http") ? r.coverImage : SITE + r.coverImage);
+const recipeUrl = (r: Recipe) => `${SITE}/${r.type}/${r.slug}`;
+
+/** "Sun-dried tomatoes, chopped, 80g" → "80g Sun-dried tomatoes". */
+function cleanInclusion(s: string): string {
+  const parts = s.split(",").map((x) => x.trim()).filter(Boolean);
+  if (parts.length < 2) return s;
+  const amount = parts[parts.length - 1];
+  return /\d/.test(amount) ? `${amount} ${parts[0]}` : s;
+}
+
+function coffeeStats(r: Recipe): string {
+  const s: string[] = [];
+  if (r.brewRatio) s.push(`Ratio=${r.brewRatio}`);
+  if (r.extractionTime) s.push(`Time=${r.extractionTime}`);
+  if (r.milkTemp) s.push(`Milk=${r.milkTemp}`);
+  return s.length ? `::stats ${s.join(" | ")}` : "";
+}
+
+function breadSection(r: Recipe): string[] {
+  const lines: string[] = [`![${r.title}](${coverUrl(r)})`, "", `## ${r.title}`, ""];
   if (r.excerpt) lines.push(r.excerpt, "");
+  const stats: string[] = [];
+  if (r.hydration != null) stats.push(`Hydration=${r.hydration}%`);
+  if (r.starterPercentage != null) stats.push(`Starter=${r.starterPercentage}%`);
+  if (r.bakeTemp) stats.push(`Bake=${r.bakeTemp}`);
   if (stats.length) lines.push(`::stats ${stats.join(" | ")}`, "");
-  if (r.inclusions?.length) lines.push(`::inside ${r.inclusions.join(" | ")}`, "");
+  if (r.inclusions?.length) lines.push(`::inside ${r.inclusions.map(cleanInclusion).join(" | ")}`, "");
   if (r.tastingNotes) lines.push(`::quote ${firstSentence(r.tastingNotes)}`, "");
-  lines.push(`[Read the recipe →](${url})`, "");
+  lines.push(`[Read the recipe →](${recipeUrl(r)})`, "");
+  return lines;
+}
+
+function coffeeFeatureSection(r: Recipe): string[] {
+  const lines: string[] = [`![${r.title}](${coverUrl(r)})`, "", `## ${r.title}`, ""];
+  if (r.excerpt) lines.push(r.excerpt, "");
+  const cs = coffeeStats(r);
+  if (cs) lines.push(cs, "");
+  if (r.tastingNotes) lines.push(`::quote ${firstSentence(r.tastingNotes)}`, "");
+  lines.push(`[Read the recipe →](${recipeUrl(r)})`, "");
+  return lines;
+}
+
+function coffeeCompanionSection(r: Recipe): string[] {
+  const lines: string[] = ["### The companion coffee", ""];
+  lines.push(r.excerpt || `I drank ${r.title} while this cooled.`, "");
+  const cs = coffeeStats(r);
+  if (cs) lines.push(cs, "");
+  lines.push(`[See how I make it →](${recipeUrl(r)})`, "");
+  return lines;
+}
+
+/** Assemble a draft from a featured bake and/or a companion coffee. */
+function buildFromSelection(
+  bread: Recipe | null,
+  coffee: Recipe | null,
+): { subject: string; markdown: string } | null {
+  if (!bread && !coffee) return null;
+  const lines: string[] = [];
+  let subject: string;
+  let verb: string;
+  if (bread) {
+    lines.push(...breadSection(bread));
+    if (coffee) lines.push(...coffeeCompanionSection(coffee));
+    subject = `New bake: ${bread.title}`;
+    verb = "bake";
+  } else {
+    lines.push(...coffeeFeatureSection(coffee as Recipe));
+    subject = `New pour: ${(coffee as Recipe).title}`;
+    verb = "make";
+  }
   lines.push(`::reply What should I ${verb} next?`, "", `::forward`);
-  return {
-    subject: r.type === "bread" ? `New bake: ${r.title}` : `New pour: ${r.title}`,
-    markdown: lines.join("\n"),
-  };
+  return { subject, markdown: lines.join("\n") };
 }
 
 const markdownHelp: { code: string; what: string }[] = [
@@ -88,7 +135,8 @@ export default function NewsletterComposePage() {
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [busy, setBusy] = useState<null | "preview" | "test" | "broadcast">(null);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [picked, setPicked] = useState("");
+  const [pickedBread, setPickedBread] = useState("");
+  const [pickedCoffee, setPickedCoffee] = useState("");
 
   useEffect(() => {
     fetch("/api/newsletter/recipes")
@@ -98,14 +146,16 @@ export default function NewsletterComposePage() {
   }, []);
 
   function loadRecipe() {
-    const r = recipes.find((x) => `${x.type}:${x.slug}` === picked);
-    if (!r) return;
-    if (markdown.trim() && !window.confirm("Replace the current draft with this recipe?")) return;
-    const built = buildFromRecipe(r);
+    const bread = recipes.find((r) => r.type === "bread" && r.slug === pickedBread) ?? null;
+    const coffee = recipes.find((r) => r.type === "coffee" && r.slug === pickedCoffee) ?? null;
+    const built = buildFromSelection(bread, coffee);
+    if (!built) return;
+    if (markdown.trim() && !window.confirm("Replace the current draft with this selection?")) return;
     setSubject(built.subject);
     setMarkdown(built.markdown);
     setPreviewHtml("");
-    setFeedback({ kind: "info", text: `Loaded "${r.title}" — edit it, then Preview.` });
+    const names = [bread?.title, coffee?.title].filter(Boolean).join(" + ");
+    setFeedback({ kind: "info", text: `Loaded ${names} — edit it, then Preview.` });
   }
 
   async function call(mode: "preview" | "test" | "broadcast") {
@@ -163,49 +213,56 @@ export default function NewsletterComposePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Editor */}
         <div className="flex flex-col gap-4">
-          <label className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2.5">
             <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
               Start from a recipe
             </span>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <select
-                value={picked}
-                onChange={(e) => setPicked(e.target.value)}
-                className="flex-1 bg-white border border-blush rounded-xl px-4 py-2.5 text-sm text-espresso focus:outline-none focus:border-terracotta/50"
+                value={pickedBread}
+                onChange={(e) => setPickedBread(e.target.value)}
+                aria-label="Featured bake"
+                className="bg-white border border-blush rounded-xl px-4 py-2.5 text-sm text-espresso focus:outline-none focus:border-terracotta/50"
               >
-                <option value="">Choose a recipe…</option>
-                <optgroup label="Bread">
-                  {recipes
-                    .filter((r) => r.type === "bread")
-                    .map((r) => (
-                      <option key={`bread:${r.slug}`} value={`bread:${r.slug}`}>
-                        {r.title}
-                      </option>
-                    ))}
-                </optgroup>
-                <optgroup label="Coffee">
-                  {recipes
-                    .filter((r) => r.type === "coffee")
-                    .map((r) => (
-                      <option key={`coffee:${r.slug}`} value={`coffee:${r.slug}`}>
-                        {r.title}
-                      </option>
-                    ))}
-                </optgroup>
+                <option value="">Featured bake…</option>
+                {recipes
+                  .filter((r) => r.type === "bread")
+                  .map((r) => (
+                    <option key={r.slug} value={r.slug}>
+                      {r.title}
+                    </option>
+                  ))}
               </select>
+              <select
+                value={pickedCoffee}
+                onChange={(e) => setPickedCoffee(e.target.value)}
+                aria-label="Companion coffee"
+                className="bg-white border border-blush rounded-xl px-4 py-2.5 text-sm text-espresso focus:outline-none focus:border-terracotta/50"
+              >
+                <option value="">Companion coffee (optional)…</option>
+                {recipes
+                  .filter((r) => r.type === "coffee")
+                  .map((r) => (
+                    <option key={r.slug} value={r.slug}>
+                      {r.title}
+                    </option>
+                  ))}
+              </select>
+            </div>
+            <div className="flex items-center gap-3">
               <button
                 type="button"
                 onClick={loadRecipe}
-                disabled={!picked}
+                disabled={!pickedBread && !pickedCoffee}
                 className="border border-espresso/20 text-espresso font-semibold px-5 py-2.5 rounded-full text-sm hover:bg-blush/30 transition-colors disabled:opacity-50 whitespace-nowrap"
               >
                 Load
               </button>
+              <span className="text-xs text-espresso/45">
+                Pick a bake, a coffee, or both — pre-fills the draft, then edit to taste.
+              </span>
             </div>
-            <span className="text-xs text-espresso/45">
-              Pre-fills the subject and body (hero, headline, stats, chips, link) — then edit to taste.
-            </span>
-          </label>
+          </div>
 
           <label className="flex flex-col gap-1.5">
             <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
