@@ -72,6 +72,7 @@ function coffeeFeatureSection(r: Recipe): string[] {
 
 function coffeeCompanionSection(r: Recipe): string[] {
   const lines: string[] = ["### The companion coffee", ""];
+  lines.push(`![${r.title}](${coverUrl(r)})`, "");
   lines.push(r.excerpt || `I drank ${r.title} while this cooled.`, "");
   const cs = coffeeStats(r);
   if (cs) lines.push(cs, "");
