@@ -1,8 +1,59 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Feedback = { kind: "info" | "success" | "error"; text: string } | null;
+
+type Recipe = {
+  type: "bread" | "coffee";
+  slug: string;
+  title: string;
+  coverImage: string;
+  excerpt: string;
+  tastingNotes: string;
+  hydration: number | null;
+  starterPercentage: number | null;
+  bakeTemp: string | null;
+  inclusions: string[] | null;
+  brewRatio: string | null;
+  extractionTime: string | null;
+  milkTemp: string | null;
+};
+
+const SITE = "https://crustbloom.com";
+
+function firstSentence(s: string): string {
+  const m = s.match(/^.*?[.!?](\s|$)/);
+  return (m ? m[0] : s).trim();
+}
+
+/** Assemble a starter subject + body (with shortcodes) from a recipe. */
+function buildFromRecipe(r: Recipe): { subject: string; markdown: string } {
+  const url = `${SITE}/${r.type}/${r.slug}`;
+  const cover = r.coverImage.startsWith("http") ? r.coverImage : SITE + r.coverImage;
+  const stats: string[] = [];
+  if (r.type === "bread") {
+    if (r.hydration != null) stats.push(`Hydration=${r.hydration}%`);
+    if (r.starterPercentage != null) stats.push(`Starter=${r.starterPercentage}%`);
+    if (r.bakeTemp) stats.push(`Bake=${r.bakeTemp}`);
+  } else {
+    if (r.brewRatio) stats.push(`Ratio=${r.brewRatio}`);
+    if (r.extractionTime) stats.push(`Time=${r.extractionTime}`);
+    if (r.milkTemp) stats.push(`Milk=${r.milkTemp}`);
+  }
+  const verb = r.type === "bread" ? "bake" : "make";
+  const lines: string[] = [`![${r.title}](${cover})`, "", `## ${r.title}`, ""];
+  if (r.excerpt) lines.push(r.excerpt, "");
+  if (stats.length) lines.push(`::stats ${stats.join(" | ")}`, "");
+  if (r.inclusions?.length) lines.push(`::inside ${r.inclusions.join(" | ")}`, "");
+  if (r.tastingNotes) lines.push(`::quote ${firstSentence(r.tastingNotes)}`, "");
+  lines.push(`[Read the recipe →](${url})`, "");
+  lines.push(`::reply What should I ${verb} next?`, "", `::forward`);
+  return {
+    subject: r.type === "bread" ? `New bake: ${r.title}` : `New pour: ${r.title}`,
+    markdown: lines.join("\n"),
+  };
+}
 
 const markdownHelp: { code: string; what: string }[] = [
   { code: "## Heading", what: "section headline (serif)" },
@@ -36,6 +87,26 @@ export default function NewsletterComposePage() {
   const [previewHtml, setPreviewHtml] = useState("");
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [busy, setBusy] = useState<null | "preview" | "test" | "broadcast">(null);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [picked, setPicked] = useState("");
+
+  useEffect(() => {
+    fetch("/api/newsletter/recipes")
+      .then((r) => r.json())
+      .then((d) => setRecipes(d.recipes ?? []))
+      .catch(() => {});
+  }, []);
+
+  function loadRecipe() {
+    const r = recipes.find((x) => `${x.type}:${x.slug}` === picked);
+    if (!r) return;
+    if (markdown.trim() && !window.confirm("Replace the current draft with this recipe?")) return;
+    const built = buildFromRecipe(r);
+    setSubject(built.subject);
+    setMarkdown(built.markdown);
+    setPreviewHtml("");
+    setFeedback({ kind: "info", text: `Loaded "${r.title}" — edit it, then Preview.` });
+  }
 
   async function call(mode: "preview" | "test" | "broadcast") {
     if (!secret) return setFeedback({ kind: "error", text: "Enter the passphrase first." });
@@ -92,6 +163,50 @@ export default function NewsletterComposePage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Editor */}
         <div className="flex flex-col gap-4">
+          <label className="flex flex-col gap-1.5">
+            <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+              Start from a recipe
+            </span>
+            <div className="flex gap-3">
+              <select
+                value={picked}
+                onChange={(e) => setPicked(e.target.value)}
+                className="flex-1 bg-white border border-blush rounded-xl px-4 py-2.5 text-sm text-espresso focus:outline-none focus:border-terracotta/50"
+              >
+                <option value="">Choose a recipe…</option>
+                <optgroup label="Bread">
+                  {recipes
+                    .filter((r) => r.type === "bread")
+                    .map((r) => (
+                      <option key={`bread:${r.slug}`} value={`bread:${r.slug}`}>
+                        {r.title}
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="Coffee">
+                  {recipes
+                    .filter((r) => r.type === "coffee")
+                    .map((r) => (
+                      <option key={`coffee:${r.slug}`} value={`coffee:${r.slug}`}>
+                        {r.title}
+                      </option>
+                    ))}
+                </optgroup>
+              </select>
+              <button
+                type="button"
+                onClick={loadRecipe}
+                disabled={!picked}
+                className="border border-espresso/20 text-espresso font-semibold px-5 py-2.5 rounded-full text-sm hover:bg-blush/30 transition-colors disabled:opacity-50 whitespace-nowrap"
+              >
+                Load
+              </button>
+            </div>
+            <span className="text-xs text-espresso/45">
+              Pre-fills the subject and body (hero, headline, stats, chips, link) — then edit to taste.
+            </span>
+          </label>
+
           <label className="flex flex-col gap-1.5">
             <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
               Passphrase
