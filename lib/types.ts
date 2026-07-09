@@ -27,6 +27,10 @@ export interface BreadFrontmatter {
   inclusions?: string[];
   tastingNotes: string;
   excerpt: string;
+  /** ISO 8601 durations for recipe rich results, e.g. "PT1H", "PT45M", "PT20H" */
+  prepTime?: string;
+  cookTime?: string;
+  totalTime?: string;
 }
 
 export type RoastLevel =

@@ -31,7 +31,7 @@ No test suite is configured.
 ### Key data shapes (`lib/types.ts`)
 
 - **CoffeePost**: `brewRatio`, `extractionTime`, `milkTemp`, `category` (latte/cappuccino/espresso/filter)
-- **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion)
+- **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion), plus optional ISO 8601 durations `prepTime`/`cookTime`/`totalTime` (e.g. `"PT1H"`, `"PT45M"`, `"PT20H"`) that feed the Recipe rich-results schema
 - **BeanPost** (`content/beans/*.mdx`): coffee bean reviews. `roaster`, `origin`, `roastLevel` (light/medium-light/medium/medium-dark/dark), `rating` (0–5), `tastingNotes` (what I taste) vs `officialNotes[]` (what the bag claims), plus optional `region`, `process`, `varietal`, `altitude`, `price`, `buyUrl` (affiliate), `brewMethod`, `wouldRebuy`. `coverImage`/`images[]` are **optional** — omit them and a branded placeholder shows until you add the bag photo.
 - All share: `title`, `date`, `tags[]`, `excerpt`, `type`
 
