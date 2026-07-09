@@ -4,7 +4,7 @@ import { getAllBeanSlugs, getBeanPost } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import Rating from "@/components/ui/Rating";
-import { formatDate, roastLabel } from "@/lib/utils";
+import { formatDate, roastLabel, beanCover } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       openGraph: {
         title: `${frontmatter.title} from ${frontmatter.roaster}`,
         description: frontmatter.excerpt,
-        images: [{ url: frontmatter.coverImage }],
+        images: [{ url: beanCover(frontmatter.coverImage) }],
       },
     };
   } catch {
@@ -56,7 +56,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
   return (
     <>
       <Hero
-        image={f.coverImage}
+        image={beanCover(f.coverImage)}
         imageAlt={f.title}
         title={f.title}
         size="medium"
@@ -107,7 +107,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
             <div className="prose-cb">{content}</div>
 
             {/* Photo gallery */}
-            {f.images.length > 1 && (
+            {f.images && f.images.length > 1 && (
               <div className="mt-14">
                 <h2 className="text-xl font-semibold text-espresso mb-6">Photos</h2>
                 <FullWidthGallery images={f.images} alt={f.title} />

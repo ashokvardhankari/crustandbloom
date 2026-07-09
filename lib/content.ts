@@ -218,7 +218,7 @@ export async function getAllGalleryImages(): Promise<
 
   for (const bean of beans) {
     const url = `/beans/${bean.slug}`;
-    for (const src of bean.frontmatter.images) {
+    for (const src of bean.frontmatter.images ?? []) {
       images.push({ src, alt: bean.frontmatter.title, postUrl: url });
     }
   }
