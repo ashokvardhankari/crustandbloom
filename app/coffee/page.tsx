@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getAllCoffeePostsMeta } from "@/lib/content";
-import PostCard from "@/components/ui/PostCard";
+import CoffeeFilterBar from "@/components/ui/CoffeeFilterBar";
 
 export const metadata: Metadata = {
   title: "Coffee",
@@ -33,11 +33,7 @@ export default async function CoffeePage() {
           <p className="text-lg">No posts yet. Check back soon.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
-        </div>
+        <CoffeeFilterBar posts={posts} />
       )}
     </div>
   );

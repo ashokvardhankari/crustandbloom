@@ -309,9 +309,9 @@ function ExtractionYieldPanel() {
   const [mode, setMode] = useState<"quick" | "refractometer">("quick");
   const [dose, setDose] = useState(18);
   const [bevWeight, setBevWeight] = useState(36);
-  const [tds, setTds] = useState(1.35);
+  const [tds, setTds] = useState(9.5);
 
-  const activeTds = mode === "quick" ? 1.35 : tds;
+  const activeTds = mode === "quick" ? 9.5 : tds;
   const extractionYield =
     dose > 0 ? ((bevWeight * (activeTds / 100)) / dose) * 100 : 0;
   const yieldRounded = Math.round(extractionYield * 100) / 100;
@@ -397,10 +397,10 @@ function ExtractionYieldPanel() {
           {mode === "quick" ? (
             <div>
               <p className="px-4 py-2 text-sm font-semibold text-espresso">
-                1.35%
+                9.5%
               </p>
               <p className="text-[10px] text-espresso/40 mt-1">
-                Typical for well-extracted espresso
+                Typical TDS for well-extracted espresso
               </p>
             </div>
           ) : (
