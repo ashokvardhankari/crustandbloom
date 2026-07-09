@@ -36,10 +36,11 @@ function BrewRatioPanel() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row gap-6">
         <div className="space-y-2">
-          <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+          <label htmlFor="brew-dose" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
             Dose (g)
           </label>
           <input
+            id="brew-dose"
             type="number"
             value={dose}
             onChange={(e) => setDose(Number(e.target.value))}
@@ -212,10 +213,11 @@ function DrinkBuilderPanel() {
       <div className="bg-white rounded-2xl p-6 space-y-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+            <label htmlFor="drinks-dose" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
               Dose (g)
             </label>
             <input
+              id="drinks-dose"
               type="number"
               value={dose}
               onChange={(e) => setDose(Number(e.target.value))}
@@ -224,10 +226,11 @@ function DrinkBuilderPanel() {
             />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+            <label htmlFor="drinks-ratio" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
               Ratio (1:x)
             </label>
             <input
+              id="drinks-ratio"
               type="number"
               value={ratio}
               onChange={(e) => setRatio(Number(e.target.value))}
@@ -247,10 +250,11 @@ function DrinkBuilderPanel() {
 
           {!isEspresso && (
             <div className="space-y-1">
-              <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+              <label htmlFor="drinks-liquid" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
                 {isAmericano ? "Water (ml)" : "Milk (ml)"}
               </label>
               <input
+                id="drinks-liquid"
                 type="number"
                 value={isAmericano ? waterMl : milkMl}
                 onChange={(e) =>
@@ -266,10 +270,11 @@ function DrinkBuilderPanel() {
 
           {!isEspresso && !isAmericano && (
             <div className="space-y-1">
-              <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+              <label htmlFor="drinks-temp" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
                 Milk temp (°C)
               </label>
               <input
+                id="drinks-temp"
                 type="number"
                 value={tempC}
                 onChange={(e) => setTempC(Number(e.target.value))}
@@ -309,9 +314,9 @@ function ExtractionYieldPanel() {
   const [mode, setMode] = useState<"quick" | "refractometer">("quick");
   const [dose, setDose] = useState(18);
   const [bevWeight, setBevWeight] = useState(36);
-  const [tds, setTds] = useState(1.35);
+  const [tds, setTds] = useState(9.5);
 
-  const activeTds = mode === "quick" ? 1.35 : tds;
+  const activeTds = mode === "quick" ? 9.5 : tds;
   const extractionYield =
     dose > 0 ? ((bevWeight * (activeTds / 100)) / dose) * 100 : 0;
   const yieldRounded = Math.round(extractionYield * 100) / 100;
@@ -367,10 +372,11 @@ function ExtractionYieldPanel() {
 
       <div className="flex flex-col sm:flex-row gap-6">
         <div className="space-y-2">
-          <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+          <label htmlFor="yield-dose" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
             Dose (g)
           </label>
           <input
+            id="yield-dose"
             type="number"
             value={dose}
             onChange={(e) => setDose(Number(e.target.value))}
@@ -379,10 +385,11 @@ function ExtractionYieldPanel() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+          <label htmlFor="yield-bev-weight" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
             Beverage weight (g)
           </label>
           <input
+            id="yield-bev-weight"
             type="number"
             value={bevWeight}
             onChange={(e) => setBevWeight(Number(e.target.value))}
@@ -391,20 +398,21 @@ function ExtractionYieldPanel() {
           />
         </div>
         <div className="space-y-2">
-          <label className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
+          <label htmlFor="yield-tds" className="text-xs font-semibold uppercase tracking-widest text-espresso/60">
             TDS %
           </label>
           {mode === "quick" ? (
             <div>
               <p className="px-4 py-2 text-sm font-semibold text-espresso">
-                1.35%
+                9.5%
               </p>
               <p className="text-[10px] text-espresso/40 mt-1">
-                Typical for well-extracted espresso
+                Typical TDS for well-extracted espresso
               </p>
             </div>
           ) : (
             <input
+              id="yield-tds"
               type="number"
               value={tds}
               onChange={(e) => setTds(Number(e.target.value))}
