@@ -15,7 +15,8 @@ test.describe("Baking Calculator", () => {
 
   test("timeline shows multiple steps", async ({ page }) => {
     const steps = page.locator(".rounded-xl").filter({ hasText: /min|hour/ });
-    await expect(steps).toHaveCount({ minimum: 3 });
+    const stepCount = await steps.count();
+    expect(stepCount).toBeGreaterThanOrEqual(3);
   });
 
   test("switching direction to backward planning changes label", async ({ page }) => {
