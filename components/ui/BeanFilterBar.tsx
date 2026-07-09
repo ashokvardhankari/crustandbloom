@@ -47,7 +47,7 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">
           <p className="text-lg">No beans in this roast range yet.</p>
-          <p className="text-sm mt-2">Check back soon — more on the shelf.</p>
+          <p className="text-sm mt-2">Check back soon. More on the shelf.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
