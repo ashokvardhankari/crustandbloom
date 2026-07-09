@@ -118,6 +118,26 @@ export default async function BeanReviewPage({ params }: PageProps) {
           {/* Spec sidebar */}
           <aside className="lg:col-span-1">
             <div className="sticky top-24 space-y-4">
+              {f.buyUrl && (
+                <div className="space-y-2 mb-6">
+                  <a
+                    href={f.buyUrl}
+                    target="_blank"
+                    rel="sponsored noopener noreferrer"
+                    className="btn-primary w-full justify-center"
+                  >
+                    Buy this bag
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </a>
+                  <p className="text-[11px] text-espresso-muted leading-relaxed">
+                    Affiliate link. If you buy through it, I may earn a small commission at
+                    no extra cost to you.
+                  </p>
+                </div>
+              )}
+
               <h2 className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-6">
                 The bean
               </h2>

@@ -48,6 +48,7 @@ export interface BeanFrontmatter {
   roastLevel: RoastLevel;
   altitude?: string;
   price?: string; // e.g. "$18 / 12oz"
+  buyUrl?: string; // where to buy — treated as an affiliate link
   brewMethod?: string;
   rating: number; // 0–5, half-steps allowed
   officialNotes?: string[]; // what the roaster claims
