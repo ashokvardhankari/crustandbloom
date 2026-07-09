@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllBreadSlugs, getBreadPost } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import JsonLd from "@/components/seo/JsonLd";
+import { breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, getCategoryLabel } from "@/lib/utils";
 
 interface PageProps {
@@ -38,9 +40,9 @@ const flavorColors: Record<string, string> = {
 };
 
 export default async function BreadPostPage({ params }: PageProps) {
-  let frontmatter, content;
+  let frontmatter, content, raw;
   try {
-    ({ frontmatter, content } = await getBreadPost(params.slug));
+    ({ frontmatter, content, raw } = await getBreadPost(params.slug));
   } catch {
     notFound();
   }
@@ -49,6 +51,8 @@ export default async function BreadPostPage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd data={breadRecipeJsonLd(params.slug, frontmatter, raw)} />
+
       {/* Hero */}
       <Hero
         image={frontmatter.coverImage}

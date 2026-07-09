@@ -4,6 +4,8 @@ import { getAllBeanSlugs, getBeanPost } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import Rating from "@/components/ui/Rating";
+import JsonLd from "@/components/seo/JsonLd";
+import { beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
 
 interface PageProps {
@@ -55,6 +57,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
   return (
     <>
+      <JsonLd data={beanReviewJsonLd(params.slug, f)} />
+
       <Hero
         image={beanCover(f.coverImage)}
         imageAlt={f.title}

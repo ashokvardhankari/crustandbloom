@@ -6,6 +6,7 @@ const explore = [
   { href: "/bread", label: "Bread" },
   { href: "/gallery", label: "Gallery" },
   { href: "/about", label: "About" },
+  { href: "/feed.xml", label: "RSS" },
 ];
 
 const categories = [
