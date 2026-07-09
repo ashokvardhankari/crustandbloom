@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { PostMeta, BeanFrontmatter } from "@/lib/types";
-import { roastLabel } from "@/lib/utils";
+import { roastLabel, beanCover } from "@/lib/utils";
 import Rating from "./Rating";
 
 export default function BeanCard({ post }: { post: PostMeta<BeanFrontmatter> }) {
@@ -10,7 +10,7 @@ export default function BeanCard({ post }: { post: PostMeta<BeanFrontmatter> }) 
     <Link href={`/beans/${slug}`} className="card-galatea group block h-full">
       <div className="relative aspect-[4/3] overflow-hidden">
         <Image
-          src={f.coverImage}
+          src={beanCover(f.coverImage)}
           alt={f.title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"

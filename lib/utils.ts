@@ -34,6 +34,14 @@ export function getPostUrl(
   return `/${type}/${slug}`;
 }
 
+/** Shown on bean reviews that don't have a bag photo yet. */
+export const BEAN_PLACEHOLDER = "/images/beans/placeholder.jpg";
+
+/** A bean's cover image, falling back to the branded placeholder. */
+export function beanCover(coverImage?: string): string {
+  return coverImage || BEAN_PLACEHOLDER;
+}
+
 /** Coarse roast bucket for filtering: light / medium / dark. */
 export function roastBucket(level: string): "light" | "medium" | "dark" {
   if (level === "light" || level === "medium-light") return "light";

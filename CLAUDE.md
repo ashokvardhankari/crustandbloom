@@ -32,11 +32,43 @@ No test suite is configured.
 
 - **CoffeePost**: `brewRatio`, `extractionTime`, `milkTemp`, `category` (latte/cappuccino/espresso/filter)
 - **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion)
-- Both share: `title`, `date`, `coverImage`, `images[]`, `tags[]`, `excerpt`, `type`
+- **BeanPost** (`content/beans/*.mdx`): coffee bean reviews. `roaster`, `origin`, `roastLevel` (light/medium-light/medium/medium-dark/dark), `rating` (0–5), `tastingNotes` (what I taste) vs `officialNotes[]` (what the bag claims), plus optional `region`, `process`, `varietal`, `altitude`, `price`, `buyUrl` (affiliate), `brewMethod`, `wouldRebuy`. `coverImage`/`images[]` are **optional** — omit them and a branded placeholder shows until you add the bag photo.
+- All share: `title`, `date`, `tags[]`, `excerpt`, `type`
 
 ### Adding a new post
 
 Drop a new `.mdx` file into the appropriate `content/` subfolder. The frontmatter schema must match the types above. No code changes needed — `generateStaticParams` picks it up automatically.
+
+### Adding a bean review
+
+1. Create `content/beans/<slug>.mdx`. You can publish **without a photo** — leave `coverImage` out and a placeholder shows.
+2. When you have the bag shot, drop it in `public/images/beans/` and set `coverImage: "/images/beans/<slug>.jpg"` (and add more to `images[]` for the photo gallery).
+
+Template:
+
+```md
+---
+title: "Bean name"
+date: "YYYY-MM-DD"
+type: "bean"
+roaster: "Roaster name"
+origin: "Ethiopia"            # or "Blend (Latin America)"
+process: "Washed"
+roastLevel: "light"          # light | medium-light | medium | medium-dark | dark
+price: "$18 / 12oz"
+buyUrl: "https://…"           # optional affiliate link → shows a "Buy this bag" button
+rating: 4.5                    # 0–5, half-steps ok
+officialNotes: ["Chocolate", "Toffee"]   # what the bag claims
+tastingNotes: "What I actually taste."
+wouldRebuy: true
+coverImage: "/images/beans/<slug>.jpg"   # optional — omit for a placeholder
+images: ["/images/beans/<slug>.jpg"]      # optional
+tags: ["espresso", "single origin"]
+excerpt: "One-line summary for cards and search."
+---
+
+Body of the review in Markdown.
+```
 
 ### Styling conventions
 

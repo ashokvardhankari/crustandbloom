@@ -54,8 +54,8 @@ export interface BeanFrontmatter {
   officialNotes?: string[]; // what the roaster claims
   tastingNotes: string; // what I actually taste
   wouldRebuy?: boolean;
-  coverImage: string;
-  images: string[];
+  coverImage?: string; // omit until you have the bag photo — a placeholder is shown
+  images?: string[];
   tags: string[];
   excerpt: string;
 }
