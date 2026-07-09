@@ -31,7 +31,7 @@ test.describe("Coffee category filter", () => {
   });
 
   test("selecting a category then All restores all posts", async ({ page }) => {
-    const allButton = page.getByRole("button", { name: /^All$/i });
+    const allButton = page.getByRole("button", { name: /All/i });
     const initialCount = await page.locator(".card-galatea").count();
 
     await page.getByRole("button", { name: /Cappuccino/i }).click();

@@ -10,7 +10,7 @@ test.describe("Coffee Calculator", () => {
       "Coffee Calculator"
     );
     // Yield section should be visible in ratio panel
-    await expect(page.getByText("Yield")).toBeVisible();
+    await expect(page.getByText("Yield", { exact: true })).toBeVisible();
   });
 
   test("brew ratio: changing dose updates yield", async ({ page }) => {
@@ -23,20 +23,20 @@ test.describe("Coffee Calculator", () => {
   });
 
   test("brew ratio: selecting 1:1 ristretto preset updates yield", async ({ page }) => {
-    await page.getByRole("button", { name: /1:1/i }).click();
+    await page.getByRole("button", { name: "1:1", exact: true }).click();
     // 18g dose × 1 = 18g yield
     await expect(page.locator("text=/^18(\\.0)?g$/").first()).toBeVisible();
   });
 
   test("switching to Drink Builder tab shows drink presets", async ({ page }) => {
     await page.getByRole("button", { name: "Drink Builder" }).click();
-    await expect(page.getByRole("button", { name: /Cappuccino/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /Latte/i })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Cappuccino", exact: true })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Latte", exact: true })).toBeVisible();
   });
 
   test("switching to Extraction Yield tab shows extraction percentage", async ({ page }) => {
     await page.getByRole("button", { name: "Extraction Yield" }).click();
-    await expect(page.getByText("Extraction Yield")).toBeVisible();
+    await expect(page.getByText("Extraction Yield").first()).toBeVisible();
     // With 9.5% quick-estimate TDS, 18g dose, 36g yield → ~19% (ideal range)
     const yieldPct = page.locator("text=/^\\d+(\\.\\d+)?%$/").first();
     await expect(yieldPct).toBeVisible();

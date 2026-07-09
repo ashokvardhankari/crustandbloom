@@ -30,6 +30,6 @@ test.describe("Baking Calculator", () => {
     const dtInput = page.locator('input[type="datetime-local"]');
     await dtInput.fill("2025-06-15T08:00");
     // After changing start time, first step should reflect new time
-    await expect(page.getByText(/Sun|Mon|Tue|Wed|Thu|Fri|Sat/)).toBeVisible();
+    await expect(page.getByText(/Sun|Mon|Tue|Wed|Thu|Fri|Sat/).first()).toBeVisible();
   });
 });
