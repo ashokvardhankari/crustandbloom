@@ -34,6 +34,18 @@ export function getPostUrl(
   return `/${type}/${slug}`;
 }
 
+/** Coarse roast bucket for filtering: light / medium / dark. */
+export function roastBucket(level: string): "light" | "medium" | "dark" {
+  if (level === "light" || level === "medium-light") return "light";
+  if (level === "medium-dark" || level === "dark") return "dark";
+  return "medium";
+}
+
+/** Human label for a roast level, e.g. "medium-dark" → "Medium-Dark". */
+export function roastLabel(level: string): string {
+  return level.split("-").map(capitalize).join("-");
+}
+
 export function getCategoryLabel(
   type: "coffee" | "bread",
   category: string
