@@ -5,6 +5,7 @@ import LogoMark from "./LogoMark";
 
 const navLinks = [
   { href: "/coffee", label: "Coffee" },
+  { href: "/beans", label: "Beans" },
   { href: "/bread", label: "Bread" },
   { href: "/gallery", label: "Gallery" },
   { href: "/tools", label: "Tools" },

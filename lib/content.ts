@@ -4,7 +4,12 @@ import matter from "gray-matter";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import type { ReactElement } from "react";
-import type { CoffeeFrontmatter, BreadFrontmatter, PostMeta } from "./types";
+import type {
+  CoffeeFrontmatter,
+  BreadFrontmatter,
+  BeanFrontmatter,
+  PostMeta,
+} from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
 
 // ─── Path helpers ───────────────────────────────────────────────────────────
@@ -135,6 +140,42 @@ export async function getBreadPost(slug: string): Promise<{
   return { frontmatter, content };
 }
 
+// ─── Beans (coffee bean reviews) ──────────────────────────────────────────────
+
+export async function getAllBeanSlugs(): Promise<string[]> {
+  const files = await getFilesInDir(contentPath("beans"));
+  return files.map(toSlug);
+}
+
+export async function getAllBeanPostsMeta(): Promise<PostMeta<BeanFrontmatter>[]> {
+  const slugs = await getAllBeanSlugs();
+  const posts = await Promise.all(
+    slugs.map(async (slug) => {
+      const raw = await readMDX(contentPath("beans", `${slug}.mdx`));
+      const { data } = matter(raw);
+      return { slug, frontmatter: data as BeanFrontmatter };
+    })
+  );
+  return posts.sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+}
+
+export async function getBeanPost(slug: string): Promise<{
+  frontmatter: BeanFrontmatter;
+  content: ReactElement;
+}> {
+  const raw = await readMDX(contentPath("beans", `${slug}.mdx`));
+  const { frontmatter, content } = await compileMDX<BeanFrontmatter>({
+    source: raw,
+    components: MDXComponents,
+    options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
+  });
+  return { frontmatter, content };
+}
+
 // ─── All Posts (mixed feed) ───────────────────────────────────────────────────
 
 export async function getAllPostsMeta(): Promise<
@@ -164,7 +205,7 @@ export async function getAllPostsMeta(): Promise<
 export async function getAllGalleryImages(): Promise<
   { src: string; alt: string; postUrl: string }[]
 > {
-  const all = await getAllPostsMeta();
+  const [all, beans] = await Promise.all([getAllPostsMeta(), getAllBeanPostsMeta()]);
   const images: { src: string; alt: string; postUrl: string }[] = [];
 
   for (const post of all) {
@@ -172,6 +213,13 @@ export async function getAllGalleryImages(): Promise<
     const url = `/${type}/${post.slug}`;
     for (const src of post.frontmatter.images) {
       images.push({ src, alt: post.frontmatter.title, postUrl: url });
+    }
+  }
+
+  for (const bean of beans) {
+    const url = `/beans/${bean.slug}`;
+    for (const src of bean.frontmatter.images) {
+      images.push({ src, alt: bean.frontmatter.title, postUrl: url });
     }
   }
 

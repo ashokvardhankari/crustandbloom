@@ -75,6 +75,11 @@
     @apply category-pill bg-peach/35 text-espresso;
   }
 
+  /* Coffee bean — roasted gold-brown */
+  .category-pill-bean {
+    @apply category-pill bg-dune/40 text-espresso;
+  }
+
   .stat-card {
     @apply flex flex-col gap-1 px-6 py-4 bg-cream-dark rounded-xl;
   }
