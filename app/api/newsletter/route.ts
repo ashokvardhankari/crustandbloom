@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getResend, getSegmentId } from "@/lib/newsletter";
+import { getResend, getSegmentId, sendWelcomeEmail } from "@/lib/newsletter";
 
 export const runtime = "nodejs";
 
@@ -23,17 +23,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true }, { status: 200 });
     }
 
+    const cleanEmail = email.trim().toLowerCase();
     const { error } = await resend.contacts.create({
-      email: email.trim().toLowerCase(),
+      email: cleanEmail,
       segments: [{ id: segmentId }],
       unsubscribed: false,
     });
 
-    // Treat an already-subscribed address as a success rather than an error.
-    if (error && !isAlreadyExists(error)) {
+    if (error) {
+      // An already-subscribed address is a success — and gets no second welcome.
+      if (isAlreadyExists(error)) {
+        return NextResponse.json({ success: true }, { status: 200 });
+      }
       console.error("[newsletter] Resend contacts.create failed:", error);
       return NextResponse.json({ error: "Subscription failed" }, { status: 502 });
     }
+
+    // New subscriber: send the welcome email. Never let it fail the signup.
+    await sendWelcomeEmail(cleanEmail).catch((e) =>
+      console.error("[newsletter] welcome send threw:", e),
+    );
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch {
