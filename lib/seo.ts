@@ -116,6 +116,9 @@ export function breadRecipeJsonLd(
     keywords: ["sourdough", fm.category, fm.flavorProfile]
       .filter(Boolean)
       .join(", "),
+    ...(fm.prepTime && { prepTime: fm.prepTime }),
+    ...(fm.cookTime && { cookTime: fm.cookTime }),
+    ...(fm.totalTime && { totalTime: fm.totalTime }),
     ...(ingredients.length > 0 && { recipeIngredient: ingredients }),
     ...(steps.length > 0 && { recipeInstructions: steps }),
   };
