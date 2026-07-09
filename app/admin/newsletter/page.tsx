@@ -156,7 +156,7 @@ export default function NewsletterComposePage() {
     setMarkdown(built.markdown);
     setPreviewHtml("");
     const names = [bread?.title, coffee?.title].filter(Boolean).join(" + ");
-    setFeedback({ kind: "info", text: `Loaded ${names} — edit it, then Preview.` });
+    setFeedback({ kind: "info", text: `Loaded ${names}. Edit it, then Preview.` });
   }
 
   async function call(mode: "preview" | "test" | "broadcast") {
@@ -260,7 +260,7 @@ export default function NewsletterComposePage() {
                 Load
               </button>
               <span className="text-xs text-espresso/45">
-                Pick a bake, a coffee, or both — pre-fills the draft, then edit to taste.
+                Pick a bake, a coffee, or both. Pre-fills the draft, then edit to taste.
               </span>
             </div>
           </div>
@@ -405,7 +405,7 @@ export default function NewsletterComposePage() {
           </div>
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-3">
-              Blocks — each on its own line
+              Blocks, each on its own line
             </p>
             <ul className="space-y-2.5">
               {shortcodeHelp.map((h) => (

@@ -19,7 +19,7 @@ export default async function BeansPage() {
           Beans<span className="text-terracotta italic">.</span>
         </h1>
         <p className="mt-4 text-espresso/60 text-lg leading-relaxed">
-          Honest notes on the beans I actually brew — where they&apos;re from, what the
+          Honest notes on the beans I actually brew. Where they&apos;re from, what the
           bag claims, and what I really taste in the cup.
         </p>
         <div className="mt-6 h-px w-24 bg-amber" />

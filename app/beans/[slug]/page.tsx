@@ -19,10 +19,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   try {
     const { frontmatter } = await getBeanPost(params.slug);
     return {
-      title: `${frontmatter.title} — ${frontmatter.roaster}`,
+      title: `${frontmatter.title} from ${frontmatter.roaster}`,
       description: frontmatter.excerpt,
       openGraph: {
-        title: `${frontmatter.title} — ${frontmatter.roaster}`,
+        title: `${frontmatter.title} from ${frontmatter.roaster}`,
         description: frontmatter.excerpt,
         images: [{ url: frontmatter.coverImage }],
       },
