@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getAllCoffeeSlugs, getCoffeePost } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import JsonLd from "@/components/seo/JsonLd";
+import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -32,15 +34,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function CoffeePostPage({ params }: PageProps) {
-  let frontmatter, content;
+  let frontmatter, content, raw;
   try {
-    ({ frontmatter, content } = await getCoffeePost(params.slug));
+    ({ frontmatter, content, raw } = await getCoffeePost(params.slug));
   } catch {
     notFound();
   }
 
   return (
     <>
+      <JsonLd data={coffeeRecipeJsonLd(params.slug, frontmatter, raw)} />
+
       {/* Hero */}
       <Hero
         image={frontmatter.coverImage}

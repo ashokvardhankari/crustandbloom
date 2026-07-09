@@ -3,6 +3,8 @@ import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import JsonLd from "@/components/seo/JsonLd";
+import { websiteJsonLd } from "@/lib/seo";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -29,6 +31,11 @@ export const metadata: Metadata = {
     "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
   keywords: ["sourdough", "specialty coffee", "bread baking", "espresso", "cappuccino", "latte", "artisan bread"],
   authors: [{ name: "Crust & Bloom" }],
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -63,6 +70,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${fraunces.variable}`}>
       <body className="bg-cream text-espresso font-jakarta antialiased">
+        <JsonLd data={websiteJsonLd()} />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-terracotta focus:text-white focus:text-sm focus:font-semibold focus:rounded-full focus:shadow-lg"

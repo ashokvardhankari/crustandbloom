@@ -61,6 +61,7 @@ export async function getAllCoffeePostsMeta(): Promise<PostMeta<CoffeeFrontmatte
 export async function getCoffeePost(slug: string): Promise<{
   frontmatter: CoffeeFrontmatter;
   content: ReactElement;
+  raw: string;
 }> {
   const raw = await readMDX(contentPath("coffee", `${slug}.mdx`));
   const { frontmatter, content } = await compileMDX<CoffeeFrontmatter>({
@@ -68,7 +69,7 @@ export async function getCoffeePost(slug: string): Promise<{
     components: MDXComponents,
     options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
-  return { frontmatter, content };
+  return { frontmatter, content, raw };
 }
 
 // ─── Bread ───────────────────────────────────────────────────────────────────
@@ -118,6 +119,7 @@ export async function getInclusionLoaves(): Promise<PostMeta<BreadFrontmatter>[]
 export async function getBreadPost(slug: string): Promise<{
   frontmatter: BreadFrontmatter;
   content: ReactElement;
+  raw: string;
 }> {
   // Search classic first, then inclusions
   let raw: string | null = null;
@@ -137,7 +139,7 @@ export async function getBreadPost(slug: string): Promise<{
     components: MDXComponents,
     options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
-  return { frontmatter, content };
+  return { frontmatter, content, raw };
 }
 
 // ─── Beans (coffee bean reviews) ──────────────────────────────────────────────
