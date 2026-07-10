@@ -5,6 +5,8 @@ const explore = [
   { href: "/beans", label: "Beans" },
   { href: "/bread", label: "Bread" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/newsletter", label: "Newsletter" },
+  { href: "/search", label: "Search" },
   { href: "/about", label: "About" },
   { href: "/feed.xml", label: "RSS" },
 ];

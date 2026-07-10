@@ -8,6 +8,7 @@ import type {
   CoffeeFrontmatter,
   BreadFrontmatter,
   BeanFrontmatter,
+  NewsletterFrontmatter,
   PostMeta,
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
@@ -171,6 +172,44 @@ export async function getBeanPost(slug: string): Promise<{
 }> {
   const raw = await readMDX(contentPath("beans", `${slug}.mdx`));
   const { frontmatter, content } = await compileMDX<BeanFrontmatter>({
+    source: raw,
+    components: MDXComponents,
+    options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
+  });
+  return { frontmatter, content };
+}
+
+// ─── Newsletters (published issue archive) ────────────────────────────────────
+
+export async function getAllNewsletterSlugs(): Promise<string[]> {
+  const files = await getFilesInDir(contentPath("newsletters"));
+  return files.map(toSlug);
+}
+
+export async function getAllNewslettersMeta(): Promise<
+  PostMeta<NewsletterFrontmatter>[]
+> {
+  const slugs = await getAllNewsletterSlugs();
+  const posts = await Promise.all(
+    slugs.map(async (slug) => {
+      const raw = await readMDX(contentPath("newsletters", `${slug}.mdx`));
+      const { data } = matter(raw);
+      return { slug, frontmatter: data as NewsletterFrontmatter };
+    })
+  );
+  return posts.sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+}
+
+export async function getNewsletterPost(slug: string): Promise<{
+  frontmatter: NewsletterFrontmatter;
+  content: ReactElement;
+}> {
+  const raw = await readMDX(contentPath("newsletters", `${slug}.mdx`));
+  const { frontmatter, content } = await compileMDX<NewsletterFrontmatter>({
     source: raw,
     components: MDXComponents,
     options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },

@@ -2,6 +2,7 @@ import type {
   BeanFrontmatter,
   BreadFrontmatter,
   CoffeeFrontmatter,
+  NewsletterFrontmatter,
 } from "./types";
 
 export const SITE_URL = "https://crustbloom.com";
@@ -166,6 +167,22 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
     author: AUTHOR,
     datePublished: fm.date,
     reviewBody: fm.tastingNotes,
+  };
+}
+
+export function newsletterArticleJsonLd(
+  slug: string,
+  fm: NewsletterFrontmatter
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: fm.title,
+    url: `${SITE_URL}/newsletter/${slug}`,
+    description: fm.excerpt,
+    ...(fm.coverImage && { image: absoluteUrl(fm.coverImage) }),
+    author: AUTHOR,
+    datePublished: fm.date,
   };
 }
 

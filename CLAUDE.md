@@ -33,7 +33,12 @@ No test suite is configured.
 - **CoffeePost**: `brewRatio`, `extractionTime`, `milkTemp`, `category` (latte/cappuccino/espresso/filter)
 - **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion), plus optional ISO 8601 durations `prepTime`/`cookTime`/`totalTime` (e.g. `"PT1H"`, `"PT45M"`, `"PT20H"`) that feed the Recipe rich-results schema
 - **BeanPost** (`content/beans/*.mdx`): coffee bean reviews. `roaster`, `origin`, `roastLevel` (light/medium-light/medium/medium-dark/dark), `rating` (0–5), `tastingNotes` (what I taste) vs `officialNotes[]` (what the bag claims), plus optional `region`, `process`, `varietal`, `altitude`, `price`, `buyUrl` (affiliate), `brewMethod`, `wouldRebuy`. `coverImage`/`images[]` are **optional** — omit them and a branded placeholder shows until you add the bag photo.
+- **NewsletterIssue** (`content/newsletters/*.mdx`): the published archive of sent newsletters, rendered at `/newsletter/<slug>`. `title` (the subject line), `issue` (number), `date`, `excerpt`, optional `coverImage`. Body is plain markdown (no email shortcodes — those only work in the composer). After sending a broadcast from `/admin/newsletter`, save a copy here so the archive stays complete.
 - All share: `title`, `date`, `tags[]`, `excerpt`, `type`
+
+### Search
+
+`/search` is client-side: `app/search-index.json/route.ts` statically builds an index (title/tags/excerpt) of every coffee, bread, bean, and newsletter post at build time, and `components/search/SearchClient.tsx` filters it in the browser. New posts are indexed automatically on the next build.
 
 ### Adding a new post
 
