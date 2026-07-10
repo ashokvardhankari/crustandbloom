@@ -64,6 +64,15 @@ export interface BeanFrontmatter {
   excerpt: string;
 }
 
+export interface NewsletterFrontmatter {
+  title: string; // the subject line the issue went out with
+  date: string;
+  type: "newsletter";
+  issue: number;
+  coverImage?: string;
+  excerpt: string;
+}
+
 export type PostFrontmatter = CoffeeFrontmatter | BreadFrontmatter;
 
 export interface PostMeta<T = PostFrontmatter> {

@@ -1,4 +1,8 @@
-import { getAllPostsMeta, getAllBeanPostsMeta } from "@/lib/content";
+import {
+  getAllPostsMeta,
+  getAllBeanPostsMeta,
+  getAllNewslettersMeta,
+} from "@/lib/content";
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
 
 export const dynamic = "force-static";
@@ -20,9 +24,10 @@ interface FeedItem {
 }
 
 export async function GET() {
-  const [posts, beans] = await Promise.all([
+  const [posts, beans, newsletters] = await Promise.all([
     getAllPostsMeta(),
     getAllBeanPostsMeta(),
+    getAllNewslettersMeta(),
   ]);
 
   const items: FeedItem[] = [
@@ -37,6 +42,12 @@ export async function GET() {
       url: `${SITE_URL}/beans/${b.slug}`,
       date: b.frontmatter.date,
       excerpt: b.frontmatter.excerpt,
+    })),
+    ...newsletters.map((n) => ({
+      title: n.frontmatter.title,
+      url: `${SITE_URL}/newsletter/${n.slug}`,
+      date: n.frontmatter.date,
+      excerpt: n.frontmatter.excerpt,
     })),
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
