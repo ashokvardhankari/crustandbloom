@@ -6,6 +6,7 @@ import {
   getBreadPost,
   adjacentPosts,
 } from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -92,6 +93,14 @@ export default async function BreadPostPage({ params }: PageProps) {
           </div>
         </div>
       </div>
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Bread", href: "/bread" },
+          { label: frontmatter.title },
+        ]}
+      />
 
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">

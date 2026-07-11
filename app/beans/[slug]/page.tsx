@@ -9,6 +9,7 @@ import {
   getRelatedPosts,
   tagSlug,
 } from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -78,6 +79,14 @@ export default async function BeanReviewPage({ params }: PageProps) {
         title={f.title}
         size="medium"
         overlay="dark"
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Beans", href: "/beans" },
+          { label: f.title },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">

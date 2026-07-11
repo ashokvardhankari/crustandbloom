@@ -186,6 +186,23 @@ export function newsletterArticleJsonLd(
   };
 }
 
+/**
+ * BreadcrumbList schema for a detail page's trail. Each crumb needs an
+ * absolute `item` URL; the final (current) crumb may omit its href.
+ */
+export function breadcrumbJsonLd(items: { label: string; href?: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.label,
+      ...(crumb.href && { item: absoluteUrl(crumb.href) }),
+    })),
+  };
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",

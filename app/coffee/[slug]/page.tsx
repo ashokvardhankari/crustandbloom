@@ -9,6 +9,7 @@ import {
   getRelatedPosts,
   tagSlug,
 } from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -68,6 +69,14 @@ export default async function CoffeePostPage({ params }: PageProps) {
         title={frontmatter.title}
         size="medium"
         overlay="dark"
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Coffee", href: "/coffee" },
+          { label: frontmatter.title },
+        ]}
       />
 
       {/* Main content */}
