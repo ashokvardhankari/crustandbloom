@@ -12,7 +12,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
-import { formatDate, getCategoryLabel } from "@/lib/utils";
+import { formatDate, formatDuration, getCategoryLabel } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -52,6 +52,9 @@ export default async function BreadPostPage({ params }: PageProps) {
   }
 
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
+  const prepTime = formatDuration(frontmatter.prepTime);
+  const cookTime = formatDuration(frontmatter.cookTime);
+  const totalTime = formatDuration(frontmatter.totalTime);
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
 
   return (
@@ -196,6 +199,27 @@ export default async function BreadPostPage({ params }: PageProps) {
                 <span className="stat-label">Bake Temperature</span>
                 <span className="stat-value">{frontmatter.bakeTemp}</span>
               </div>
+
+              {prepTime && (
+                <div className="stat-card">
+                  <span className="stat-label">Active Prep</span>
+                  <span className="stat-value">{prepTime}</span>
+                </div>
+              )}
+
+              {cookTime && (
+                <div className="stat-card">
+                  <span className="stat-label">Bake Time</span>
+                  <span className="stat-value">{cookTime}</span>
+                </div>
+              )}
+
+              {totalTime && (
+                <div className="stat-card">
+                  <span className="stat-label">Total Time</span>
+                  <span className="stat-value">{totalTime}</span>
+                </div>
+              )}
 
               {frontmatter.flavorProfile && (
                 <div className="stat-card">
