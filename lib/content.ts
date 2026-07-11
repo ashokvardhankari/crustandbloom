@@ -278,6 +278,110 @@ export function adjacentPosts<
   };
 }
 
+// ─── Tags (cross-content archive) ─────────────────────────────────────────────
+
+export interface TaggedEntry {
+  title: string;
+  url: string;
+  kind: "Coffee" | "Bread" | "Beans";
+  excerpt: string;
+  date: string;
+  tags: string[];
+}
+
+/**
+ * Turn a human tag ("single origin", "Sourdough") into a URL-safe slug
+ * ("single-origin", "sourdough"). Tags that differ only in case or spacing
+ * therefore collapse to the same archive page.
+ */
+export function tagSlug(tag: string): string {
+  return tag
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+/** Every coffee, bread, and bean post flattened to a taggable entry. */
+async function getTaggableEntries(): Promise<TaggedEntry[]> {
+  const [posts, beans] = await Promise.all([
+    getAllPostsMeta(),
+    getAllBeanPostsMeta(),
+  ]);
+
+  const fromPosts: TaggedEntry[] = posts.map((p) => ({
+    title: p.frontmatter.title,
+    url: `/${p.frontmatter.type}/${p.slug}`,
+    kind: p.frontmatter.type === "coffee" ? "Coffee" : "Bread",
+    excerpt: p.frontmatter.excerpt,
+    date: p.frontmatter.date,
+    tags:
+      "tags" in p.frontmatter && Array.isArray(p.frontmatter.tags)
+        ? p.frontmatter.tags
+        : [],
+  }));
+
+  const fromBeans: TaggedEntry[] = beans.map((b) => ({
+    title: b.frontmatter.title,
+    url: `/beans/${b.slug}`,
+    kind: "Beans" as const,
+    excerpt: b.frontmatter.excerpt,
+    date: b.frontmatter.date,
+    tags: Array.isArray(b.frontmatter.tags) ? b.frontmatter.tags : [],
+  }));
+
+  return [...fromPosts, ...fromBeans];
+}
+
+/** All distinct tags across the site, most-used first, with their post counts. */
+export async function getAllTags(): Promise<
+  { tag: string; slug: string; count: number }[]
+> {
+  const entries = await getTaggableEntries();
+  const map = new Map<string, { tag: string; count: number }>();
+
+  for (const entry of entries) {
+    for (const tag of entry.tags) {
+      const slug = tagSlug(tag);
+      if (!slug) continue;
+      const existing = map.get(slug);
+      if (existing) existing.count += 1;
+      else map.set(slug, { tag, count: 1 });
+    }
+  }
+
+  return Array.from(map.entries())
+    .map(([slug, { tag, count }]) => ({ slug, tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
+}
+
+/**
+ * Posts carrying the given tag slug, newest first. `tag` is the human label to
+ * display (null when no post matches, so callers can `notFound()`).
+ */
+export async function getPostsByTag(
+  slug: string
+): Promise<{ tag: string | null; entries: TaggedEntry[] }> {
+  const entries = await getTaggableEntries();
+  let displayTag: string | null = null;
+
+  const matched = entries.filter((entry) =>
+    entry.tags.some((tag) => {
+      if (tagSlug(tag) === slug) {
+        if (!displayTag) displayTag = tag;
+        return true;
+      }
+      return false;
+    })
+  );
+
+  matched.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  return { tag: displayTag, entries: matched };
+}
+
 // ─── Gallery: collect all images from all posts ───────────────────────────────
 
 export async function getAllGalleryImages(): Promise<

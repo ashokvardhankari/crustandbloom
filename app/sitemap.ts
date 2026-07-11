@@ -4,15 +4,17 @@ import {
   getAllBreadSlugs,
   getAllBeanSlugs,
   getAllNewsletterSlugs,
+  getAllTags,
 } from "@/lib/content";
 import { SITE_URL } from "@/lib/seo";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [coffee, bread, beans, newsletters] = await Promise.all([
+  const [coffee, bread, beans, newsletters, tags] = await Promise.all([
     getAllCoffeeSlugs(),
     getAllBreadSlugs(),
     getAllBeanSlugs(),
     getAllNewsletterSlugs(),
+    getAllTags(),
   ]);
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -23,6 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/gallery",
     "/newsletter",
     "/search",
+    "/tags",
     "/about",
     "/tools",
     "/tools/baking-calculator",
@@ -38,6 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...bread.map((slug) => `/bread/${slug}`),
     ...beans.map((slug) => `/beans/${slug}`),
     ...newsletters.map((slug) => `/newsletter/${slug}`),
+    ...tags.map(({ slug }) => `/tags/${slug}`),
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     changeFrequency: "monthly" as const,

@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   getAllBeanSlugs,
   getAllBeanPostsMeta,
   getBeanPost,
   adjacentPosts,
+  tagSlug,
 } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
@@ -178,12 +180,13 @@ export default async function BeanReviewPage({ params }: PageProps) {
               {f.tags.length > 0 && (
                 <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
                   {f.tags.map((tag) => (
-                    <span
+                    <Link
                       key={tag}
-                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full"
+                      href={`/tags/${tagSlug(tag)}`}
+                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full hover:bg-blush/60 hover:text-espresso transition-colors"
                     >
                       #{tag}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               )}

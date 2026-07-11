@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import {
   getAllCoffeeSlugs,
   getAllCoffeePostsMeta,
   getCoffeePost,
   adjacentPosts,
+  tagSlug,
 } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
@@ -76,12 +78,13 @@ export default async function CoffeePostPage({ params }: PageProps) {
               {frontmatter.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 ml-auto">
                   {frontmatter.tags.map((tag) => (
-                    <span
+                    <Link
                       key={tag}
-                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full"
+                      href={`/tags/${tagSlug(tag)}`}
+                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full hover:bg-blush/60 hover:text-espresso transition-colors"
                     >
                       #{tag}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               )}
