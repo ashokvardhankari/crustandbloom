@@ -15,7 +15,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
-import { coffeeRecipeJsonLd } from "@/lib/seo";
+import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -30,15 +30,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getCoffeePost(params.slug);
-    return {
+    return articleMetadata({
       title: frontmatter.title,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: frontmatter.title,
-        description: frontmatter.excerpt,
-        images: [{ url: frontmatter.coverImage }],
-      },
-    };
+      image: frontmatter.coverImage,
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Post not found" };
   }

@@ -11,7 +11,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
-import { newsletterArticleJsonLd } from "@/lib/seo";
+import { articleMetadata, newsletterArticleJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -26,17 +26,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getNewsletterPost(params.slug);
-    return {
+    return articleMetadata({
       title: frontmatter.title,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: frontmatter.title,
-        description: frontmatter.excerpt,
-        ...(frontmatter.coverImage && {
-          images: [{ url: frontmatter.coverImage }],
-        }),
-      },
-    };
+      image: frontmatter.coverImage,
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Issue not found" };
   }

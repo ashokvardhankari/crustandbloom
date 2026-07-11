@@ -11,7 +11,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
-import { breadRecipeJsonLd } from "@/lib/seo";
+import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, getCategoryLabel } from "@/lib/utils";
 
 interface PageProps {
@@ -26,15 +26,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getBreadPost(params.slug);
-    return {
+    return articleMetadata({
       title: frontmatter.title,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: frontmatter.title,
-        description: frontmatter.excerpt,
-        images: [{ url: frontmatter.coverImage }],
-      },
-    };
+      image: frontmatter.coverImage,
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Post not found" };
   }

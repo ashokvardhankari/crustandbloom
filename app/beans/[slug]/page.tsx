@@ -16,7 +16,7 @@ import PostNav from "@/components/ui/PostNav";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
-import { beanReviewJsonLd } from "@/lib/seo";
+import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
 
 interface PageProps {
@@ -31,15 +31,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getBeanPost(params.slug);
-    return {
+    return articleMetadata({
       title: `${frontmatter.title} from ${frontmatter.roaster}`,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: `${frontmatter.title} from ${frontmatter.roaster}`,
-        description: frontmatter.excerpt,
-        images: [{ url: beanCover(frontmatter.coverImage) }],
-      },
-    };
+      image: beanCover(frontmatter.coverImage),
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Review not found" };
   }
