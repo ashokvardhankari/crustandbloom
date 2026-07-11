@@ -13,6 +13,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
+import PrintButton from "@/components/ui/PrintButton";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
@@ -59,14 +60,16 @@ export default async function CoffeePostPage({ params }: PageProps) {
     <>
       <JsonLd data={coffeeRecipeJsonLd(params.slug, frontmatter, raw)} />
 
-      {/* Hero */}
-      <Hero
-        image={frontmatter.coverImage}
-        imageAlt={frontmatter.title}
-        title={frontmatter.title}
-        size="medium"
-        overlay="dark"
-      />
+      {/* Hero — dropped from the printout in favour of a plain heading */}
+      <div className="print:hidden">
+        <Hero
+          image={frontmatter.coverImage}
+          imageAlt={frontmatter.title}
+          title={frontmatter.title}
+          size="medium"
+          overlay="dark"
+        />
+      </div>
 
       <Breadcrumbs
         items={[
@@ -78,9 +81,23 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
       {/* Main content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
+        <div className="print-recipe-grid grid grid-cols-1 lg:grid-cols-3 gap-14">
           {/* Body */}
           <article className="lg:col-span-2">
+            {/* Print-only masthead (the on-screen title lives in the hero) */}
+            <div className="hidden print:block mb-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                Crust &amp; Bloom
+              </p>
+              <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
+                {frontmatter.title}
+              </h1>
+            </div>
+
+            <div className="flex justify-end mb-6">
+              <PrintButton />
+            </div>
+
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
               <span className="category-pill-coffee">{frontmatter.category}</span>
@@ -107,7 +124,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* Photo gallery */}
             {frontmatter.images.length > 1 && (
-              <div className="mt-14">
+              <div className="mt-14 print:hidden">
                 <h2 className="text-xl font-semibold text-espresso mb-6">Photos</h2>
                 <FullWidthGallery images={frontmatter.images} alt={frontmatter.title} />
               </div>
