@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllBeanSlugs, getBeanPost } from "@/lib/content";
+import {
+  getAllBeanSlugs,
+  getAllBeanPostsMeta,
+  getBeanPost,
+  adjacentPosts,
+  getRelatedPosts,
+  tagSlug,
+} from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
+import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
+import ShareButton from "@/components/ui/ShareButton";
 import JsonLd from "@/components/seo/JsonLd";
-import { beanReviewJsonLd } from "@/lib/seo";
+import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
 
 interface PageProps {
@@ -20,15 +32,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getBeanPost(params.slug);
-    return {
+    return articleMetadata({
       title: `${frontmatter.title} from ${frontmatter.roaster}`,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: `${frontmatter.title} from ${frontmatter.roaster}`,
-        description: frontmatter.excerpt,
-        images: [{ url: beanCover(frontmatter.coverImage) }],
-      },
-    };
+      image: beanCover(frontmatter.coverImage),
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Review not found" };
   }
@@ -55,6 +64,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
     ...(f.brewMethod ? [{ label: "Brewed as", value: f.brewMethod }] : []),
   ];
 
+  const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
+  const related = await getRelatedPosts(`/beans/${params.slug}`, f.tags);
+
   return (
     <>
       <JsonLd data={beanReviewJsonLd(params.slug, f)} />
@@ -67,10 +79,22 @@ export default async function BeanReviewPage({ params }: PageProps) {
         overlay="dark"
       />
 
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Beans", href: "/beans" },
+          { label: f.title },
+        ]}
+      />
+
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
           {/* Body */}
           <article className="lg:col-span-2">
+            <div className="flex justify-end items-center gap-3 mb-6">
+              <ShareButton title={f.title} tooltip="Share this review" />
+            </div>
+
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
               <span className="category-pill-bean">{roastLabel(f.roastLevel)} roast</span>
@@ -170,12 +194,13 @@ export default async function BeanReviewPage({ params }: PageProps) {
               {f.tags.length > 0 && (
                 <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
                   {f.tags.map((tag) => (
-                    <span
+                    <Link
                       key={tag}
-                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full"
+                      href={`/tags/${tagSlug(tag)}`}
+                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full hover:bg-blush/60 hover:text-espresso transition-colors"
                     >
                       #{tag}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               )}
@@ -183,6 +208,14 @@ export default async function BeanReviewPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <RelatedPosts entries={related} />
+
+      <PostNav
+        label="review"
+        newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/beans/${older.slug}`, title: older.title } : null}
+      />
     </>
   );
 }

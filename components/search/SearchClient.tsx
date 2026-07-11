@@ -43,12 +43,29 @@ export default function SearchClient() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    // Seed the query from the URL (?q=…) so a search is shareable and
+    // survives a refresh; otherwise focus the empty input to start typing.
+    const initial = new URLSearchParams(window.location.search).get("q") ?? "";
+    if (initial) setQuery(initial);
+    else inputRef.current?.focus();
+
     fetch("/search-index.json")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(setEntries)
       .catch(() => setFailed(true));
   }, []);
+
+  // Keep the URL's ?q= in sync with the live query so the current search can
+  // be copied, bookmarked, or reached via the browser's back button.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const trimmed = query.trim();
+    if (trimmed) params.set("q", trimmed);
+    else params.delete("q");
+    const search = params.toString();
+    const url = `${window.location.pathname}${search ? `?${search}` : ""}`;
+    window.history.replaceState(null, "", url);
+  }, [query]);
 
   const results = useMemo(() => {
     if (!entries) return [];

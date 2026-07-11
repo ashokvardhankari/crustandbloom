@@ -8,6 +8,8 @@ export interface CoffeeFrontmatter {
   brewRatio: string;
   extractionTime: string;
   milkTemp?: string;
+  /** Espresso dose in grams for this drink, powering the inline brew calculator (e.g. 18, 21) */
+  dose?: number;
   tags: string[];
   excerpt: string;
 }
@@ -26,6 +28,7 @@ export interface BreadFrontmatter {
   bakeTemp: string;
   inclusions?: string[];
   tastingNotes: string;
+  tags: string[];
   excerpt: string;
   /** ISO 8601 durations for recipe rich results, e.g. "PT1H", "PT45M", "PT20H" */
   prepTime?: string;

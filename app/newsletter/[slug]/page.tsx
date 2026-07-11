@@ -1,10 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllNewsletterSlugs, getNewsletterPost } from "@/lib/content";
+import {
+  getAllNewsletterSlugs,
+  getAllNewslettersMeta,
+  getNewsletterPost,
+  adjacentPosts,
+} from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import PostNav from "@/components/ui/PostNav";
+import ShareButton from "@/components/ui/ShareButton";
 import JsonLd from "@/components/seo/JsonLd";
-import { newsletterArticleJsonLd } from "@/lib/seo";
+import { articleMetadata, newsletterArticleJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -19,17 +27,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getNewsletterPost(params.slug);
-    return {
+    return articleMetadata({
       title: frontmatter.title,
       description: frontmatter.excerpt,
-      openGraph: {
-        title: frontmatter.title,
-        description: frontmatter.excerpt,
-        ...(frontmatter.coverImage && {
-          images: [{ url: frontmatter.coverImage }],
-        }),
-      },
-    };
+      image: frontmatter.coverImage,
+      publishedTime: frontmatter.date,
+    });
   } catch {
     return { title: "Issue not found" };
   }
@@ -43,13 +46,24 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
     notFound();
   }
 
+  const { newer, older } = adjacentPosts(await getAllNewslettersMeta(), params.slug);
+
   return (
     <>
       <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
 
-      <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      <Breadcrumbs
+        maxWidth="max-w-3xl"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Newsletter", href: "/newsletter" },
+          { label: `Issue #${frontmatter.issue}` },
+        ]}
+      />
+
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 pt-8 pb-16">
         <div className="mb-12">
-          <div className="flex items-baseline gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4">
             <span className="inline-block eyebrow bg-blush/40 px-3 py-1 rounded-full">
               Issue #{frontmatter.issue}
             </span>
@@ -59,6 +73,9 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
             >
               {formatDate(frontmatter.date)}
             </time>
+            <div className="ml-auto">
+              <ShareButton title={frontmatter.title} label="Share" tooltip="Share this issue" />
+            </div>
           </div>
           <h1 className="font-display font-semibold text-4xl lg:text-5xl tracking-tight text-espresso leading-tight">
             {frontmatter.title}
@@ -77,6 +94,13 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
           </Link>
         </div>
       </div>
+
+      <PostNav
+        label="letter"
+        maxWidth="max-w-3xl"
+        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/newsletter/${older.slug}`, title: older.title } : null}
+      />
 
       <NewsletterSignup />
     </>

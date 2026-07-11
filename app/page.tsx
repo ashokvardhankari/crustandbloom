@@ -6,6 +6,8 @@ import PostCard from "@/components/ui/PostCard";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqPageJsonLd } from "@/lib/seo";
 import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
@@ -50,6 +52,14 @@ const categories = [
     heading: "Espresso Drinks",
     description: "Cappuccinos, lattes, and every milk-based espresso drink worth dialling in.",
     meta: "Brew notes · Ratios · Technique",
+  },
+  {
+    href: "/beans",
+    image: "/images/beans/ethiopian-tj-bag.jpg",
+    badge: "Beans",
+    heading: "Bean Reviews",
+    description: "Honest notes on the single-origin bags I brew: what the roaster claims versus what's really in the cup.",
+    meta: "Roaster · Origin · Tasting notes",
   },
   {
     href: "/bread",
@@ -366,7 +376,7 @@ export default async function HomePage() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat, i) => (
               <ScrollReveal key={cat.href} delay={i * 120}>
                 <Link href={cat.href} className="card-galatea group block">
@@ -462,6 +472,7 @@ export default async function HomePage() {
             <FAQAccordion items={faqs} />
           </ScrollReveal>
         </div>
+        <JsonLd data={faqPageJsonLd(faqs)} />
       </section>
 
       {/* ── Newsletter ────────────────────────────────────────────────────── */}
