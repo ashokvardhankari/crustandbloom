@@ -382,6 +382,42 @@ export async function getPostsByTag(
   return { tag: displayTag, entries: matched };
 }
 
+/**
+ * Cross-content posts most related to the one at `currentUrl`, ranked by the
+ * number of tags they share (ties broken by recency). Draws from every tagged
+ * content type — a cappuccino brew can surface the espresso bean it shares a
+ * tag with. Returns at most `limit` entries, and an empty list when the post
+ * has no tags or nothing overlaps, so callers can skip the section entirely.
+ */
+export async function getRelatedPosts(
+  currentUrl: string,
+  tags: string[],
+  limit = 3
+): Promise<TaggedEntry[]> {
+  const wanted = new Set(tags.map(tagSlug).filter(Boolean));
+  if (wanted.size === 0) return [];
+
+  const entries = await getTaggableEntries();
+
+  return entries
+    .filter((entry) => entry.url !== currentUrl)
+    .map((entry) => ({
+      entry,
+      shared: entry.tags.reduce(
+        (n, tag) => (wanted.has(tagSlug(tag)) ? n + 1 : n),
+        0
+      ),
+    }))
+    .filter((scored) => scored.shared > 0)
+    .sort(
+      (a, b) =>
+        b.shared - a.shared ||
+        new Date(b.entry.date).getTime() - new Date(a.entry.date).getTime()
+    )
+    .slice(0, limit)
+    .map((scored) => scored.entry);
+}
+
 // ─── Gallery: collect all images from all posts ───────────────────────────────
 
 export async function getAllGalleryImages(): Promise<

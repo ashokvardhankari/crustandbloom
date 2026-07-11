@@ -6,11 +6,13 @@ import {
   getAllBeanPostsMeta,
   getBeanPost,
   adjacentPosts,
+  getRelatedPosts,
   tagSlug,
 } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
+import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
 import { beanReviewJsonLd } from "@/lib/seo";
@@ -64,6 +66,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
   ];
 
   const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
+  const related = await getRelatedPosts(`/beans/${params.slug}`, f.tags);
 
   return (
     <>
@@ -194,6 +197,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <RelatedPosts entries={related} />
 
       <PostNav
         label="review"

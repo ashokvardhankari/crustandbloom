@@ -6,11 +6,13 @@ import {
   getAllCoffeePostsMeta,
   getCoffeePost,
   adjacentPosts,
+  getRelatedPosts,
   tagSlug,
 } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
+import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -50,6 +52,10 @@ export default async function CoffeePostPage({ params }: PageProps) {
   }
 
   const { newer, older } = adjacentPosts(await getAllCoffeePostsMeta(), params.slug);
+  const related = await getRelatedPosts(
+    `/coffee/${params.slug}`,
+    frontmatter.tags
+  );
 
   return (
     <>
@@ -142,6 +148,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <RelatedPosts entries={related} />
 
       <PostNav
         label="brew"
