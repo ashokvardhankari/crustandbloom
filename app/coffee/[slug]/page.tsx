@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllCoffeeSlugs, getCoffeePost } from "@/lib/content";
+import {
+  getAllCoffeeSlugs,
+  getAllCoffeePostsMeta,
+  getCoffeePost,
+  adjacentPosts,
+} from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -40,6 +46,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
   } catch {
     notFound();
   }
+
+  const { newer, older } = adjacentPosts(await getAllCoffeePostsMeta(), params.slug);
 
   return (
     <>
@@ -131,6 +139,12 @@ export default async function CoffeePostPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <PostNav
+        label="brew"
+        newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/coffee/${older.slug}`, title: older.title } : null}
+      />
     </>
   );
 }

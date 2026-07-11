@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllBreadSlugs, getBreadPost } from "@/lib/content";
+import {
+  getAllBreadSlugs,
+  getAllBreadPostsMeta,
+  getBreadPost,
+  adjacentPosts,
+} from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, getCategoryLabel } from "@/lib/utils";
@@ -48,6 +54,7 @@ export default async function BreadPostPage({ params }: PageProps) {
   }
 
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
+  const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
 
   return (
     <>
@@ -201,6 +208,12 @@ export default async function BreadPostPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <PostNav
+        label="loaf"
+        newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/bread/${older.slug}`, title: older.title } : null}
+      />
     </>
   );
 }

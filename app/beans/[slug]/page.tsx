@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllBeanSlugs, getBeanPost } from "@/lib/content";
+import {
+  getAllBeanSlugs,
+  getAllBeanPostsMeta,
+  getBeanPost,
+  adjacentPosts,
+} from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
 import { beanReviewJsonLd } from "@/lib/seo";
@@ -54,6 +60,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
     ...(f.price ? [{ label: "Price", value: f.price }] : []),
     ...(f.brewMethod ? [{ label: "Brewed as", value: f.brewMethod }] : []),
   ];
+
+  const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
 
   return (
     <>
@@ -183,6 +191,12 @@ export default async function BeanReviewPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <PostNav
+        label="review"
+        newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/beans/${older.slug}`, title: older.title } : null}
+      />
     </>
   );
 }

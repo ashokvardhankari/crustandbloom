@@ -117,6 +117,18 @@ export async function getInclusionLoaves(): Promise<PostMeta<BreadFrontmatter>[]
   );
 }
 
+export async function getAllBreadPostsMeta(): Promise<PostMeta<BreadFrontmatter>[]> {
+  const [classic, inclusions] = await Promise.all([
+    getAllClassicBreadMeta(),
+    getInclusionLoaves(),
+  ]);
+  return [...classic, ...inclusions].sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+}
+
 export async function getBreadPost(slug: string): Promise<{
   frontmatter: BreadFrontmatter;
   content: ReactElement;
@@ -239,6 +251,31 @@ export async function getAllPostsMeta(): Promise<
       new Date(b.frontmatter.date).getTime() -
       new Date(a.frontmatter.date).getTime()
   );
+}
+
+// ─── Adjacent posts (newer / older) for prev-next navigation ──────────────────
+
+export interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
+/**
+ * Given a date-descending list of posts and the current slug, return the
+ * chronologically adjacent posts. `newer` is the post one step up the list
+ * (more recent), `older` is one step down. Either can be null at the ends.
+ */
+export function adjacentPosts<
+  T extends { slug: string; frontmatter: { title: string } },
+>(posts: T[], slug: string): { newer: AdjacentPost | null; older: AdjacentPost | null } {
+  const i = posts.findIndex((p) => p.slug === slug);
+  if (i === -1) return { newer: null, older: null };
+  const newer = i > 0 ? posts[i - 1] : null;
+  const older = i < posts.length - 1 ? posts[i + 1] : null;
+  return {
+    newer: newer ? { slug: newer.slug, title: newer.frontmatter.title } : null,
+    older: older ? { slug: older.slug, title: older.frontmatter.title } : null,
+  };
 }
 
 // ─── Gallery: collect all images from all posts ───────────────────────────────

@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllNewsletterSlugs, getNewsletterPost } from "@/lib/content";
+import {
+  getAllNewsletterSlugs,
+  getAllNewslettersMeta,
+  getNewsletterPost,
+  adjacentPosts,
+} from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { newsletterArticleJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -43,6 +49,8 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
     notFound();
   }
 
+  const { newer, older } = adjacentPosts(await getAllNewslettersMeta(), params.slug);
+
   return (
     <>
       <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
@@ -77,6 +85,13 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
           </Link>
         </div>
       </div>
+
+      <PostNav
+        label="letter"
+        maxWidth="max-w-3xl"
+        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/newsletter/${older.slug}`, title: older.title } : null}
+      />
 
       <NewsletterSignup />
     </>
