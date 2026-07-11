@@ -17,7 +17,7 @@ import PrintButton from "@/components/ui/PrintButton";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
-import { formatDate, formatDuration, getCategoryLabel } from "@/lib/utils";
+import { formatDate, formatDuration, getCategoryLabel, slugify } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -62,6 +62,12 @@ export default async function BreadPostPage({ params }: PageProps) {
   const totalTime = formatDuration(frontmatter.totalTime);
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
   const related = await getRelatedPosts(`/bread/${params.slug}`, frontmatter.tags);
+
+  // Every loaf's body leads with a narrative intro before its "Formula" table.
+  // Link straight to that heading (matching the anchor id the MDX renderer emits)
+  // so readers can skip to the recipe, the way every recipe site lets them.
+  const recipeHeading = raw.match(/^#{2,3}\s+(.*\bformula\b.*)$/im);
+  const recipeAnchor = recipeHeading ? slugify(recipeHeading[1]) : null;
 
   return (
     <>
@@ -125,7 +131,31 @@ export default async function BreadPostPage({ params }: PageProps) {
               </h1>
             </div>
 
-            <div className="flex justify-end mb-6">
+            <div className="flex items-center justify-between gap-3 mb-6 print:hidden">
+              {recipeAnchor ? (
+                <a
+                  href={`#${recipeAnchor}`}
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cream bg-terracotta rounded-full px-4 py-2 transition-colors hover:bg-terracotta-dark"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4"
+                    aria-hidden="true"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <polyline points="19 12 12 19 5 12" />
+                  </svg>
+                  Jump to Recipe
+                </a>
+              ) : (
+                <span />
+              )}
               <PrintButton />
             </div>
 
