@@ -8,6 +8,8 @@ interface ShareButtonProps {
   title: string;
   /** Button label noun — reads "Share recipe". */
   label?: string;
+  /** Native tooltip text — defaults to a recipe wording; override for reviews. */
+  tooltip?: string;
 }
 
 /**
@@ -21,7 +23,11 @@ interface ShareButtonProps {
  * works in any secure context (HTTPS / localhost), so the control is always
  * useful and prerenders into the static HTML.
  */
-export default function ShareButton({ title, label = "Share" }: ShareButtonProps) {
+export default function ShareButton({
+  title,
+  label = "Share",
+  tooltip = "Share this recipe",
+}: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
 
   async function handleShare() {
@@ -53,7 +59,7 @@ export default function ShareButton({ title, label = "Share" }: ShareButtonProps
     <button
       type="button"
       onClick={handleShare}
-      title="Share this recipe"
+      title={tooltip}
       className={cn(
         "print:hidden inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest border rounded-full px-4 py-2 transition-colors",
         copied

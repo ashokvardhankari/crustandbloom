@@ -15,6 +15,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
+import ShareButton from "@/components/ui/ShareButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
@@ -90,6 +91,10 @@ export default async function BeanReviewPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
           {/* Body */}
           <article className="lg:col-span-2">
+            <div className="flex justify-end items-center gap-3 mb-6">
+              <ShareButton title={f.title} tooltip="Share this review" />
+            </div>
+
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
               <span className="category-pill-bean">{roastLabel(f.roastLevel)} roast</span>
