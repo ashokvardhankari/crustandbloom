@@ -8,6 +8,8 @@ export interface CoffeeFrontmatter {
   brewRatio: string;
   extractionTime: string;
   milkTemp?: string;
+  /** Espresso dose in grams for this drink, powering the inline brew calculator (e.g. 18, 21) */
+  dose?: number;
   tags: string[];
   excerpt: string;
 }

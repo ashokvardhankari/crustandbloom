@@ -17,6 +17,7 @@ import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
 import CookModeButton from "@/components/ui/CookModeButton";
 import TableOfContents from "@/components/ui/TableOfContents";
+import BrewCalculator from "@/components/ui/BrewCalculator";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
@@ -126,6 +127,11 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* On-page contents */}
             <TableOfContents headings={headings} />
+
+            {/* Interactive brew calculator */}
+            {frontmatter.dose && (
+              <BrewCalculator brewRatio={frontmatter.brewRatio} dose={frontmatter.dose} />
+            )}
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>
