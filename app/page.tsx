@@ -6,6 +6,8 @@ import PostCard from "@/components/ui/PostCard";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqPageJsonLd } from "@/lib/seo";
 import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
@@ -462,6 +464,7 @@ export default async function HomePage() {
             <FAQAccordion items={faqs} />
           </ScrollReveal>
         </div>
+        <JsonLd data={faqPageJsonLd(faqs)} />
       </section>
 
       {/* ── Newsletter ────────────────────────────────────────────────────── */}

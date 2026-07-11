@@ -203,6 +203,25 @@ export function breadcrumbJsonLd(items: { label: string; href?: string }[]) {
   };
 }
 
+/**
+ * FAQPage schema for a list of question/answer pairs (e.g. the homepage FAQ).
+ * Each answer is plain text that must mirror the visible on-page content.
+ */
+export function faqPageJsonLd(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
