@@ -7,6 +7,7 @@ import {
   getBreadPost,
   adjacentPosts,
   getRelatedPosts,
+  extractHeadings,
   tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -14,6 +15,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import TableOfContents from "@/components/ui/TableOfContents";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
@@ -68,6 +70,7 @@ export default async function BreadPostPage({ params }: PageProps) {
   // so readers can skip to the recipe, the way every recipe site lets them.
   const recipeHeading = raw.match(/^#{2,3}\s+(.*\bformula\b.*)$/im);
   const recipeAnchor = recipeHeading ? slugify(recipeHeading[1]) : null;
+  const headings = extractHeadings(raw);
 
   return (
     <>
@@ -197,6 +200,9 @@ export default async function BreadPostPage({ params }: PageProps) {
                 </div>
               )}
             </div>
+
+            {/* On-page contents */}
+            <TableOfContents headings={headings} />
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>

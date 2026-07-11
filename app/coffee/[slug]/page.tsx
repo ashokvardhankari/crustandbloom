@@ -7,6 +7,7 @@ import {
   getCoffeePost,
   adjacentPosts,
   getRelatedPosts,
+  extractHeadings,
   tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -14,6 +15,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import TableOfContents from "@/components/ui/TableOfContents";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
@@ -55,6 +57,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
     `/coffee/${params.slug}`,
     frontmatter.tags
   );
+  const headings = extractHeadings(raw);
 
   return (
     <>
@@ -118,6 +121,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 </div>
               )}
             </div>
+
+            {/* On-page contents */}
+            <TableOfContents headings={headings} />
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>

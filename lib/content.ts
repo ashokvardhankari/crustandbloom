@@ -12,6 +12,7 @@ import type {
   PostMeta,
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
+import { slugify } from "@/lib/utils";
 
 // ─── Path helpers ───────────────────────────────────────────────────────────
 
@@ -276,6 +277,52 @@ export function adjacentPosts<
     newer: newer ? { slug: newer.slug, title: newer.frontmatter.title } : null,
     older: older ? { slug: older.slug, title: older.frontmatter.title } : null,
   };
+}
+
+// ─── On-page table of contents ────────────────────────────────────────────────
+
+export interface TocHeading {
+  text: string;
+  slug: string;
+  level: 2 | 3;
+}
+
+/**
+ * Pull the `##`/`###` headings out of a raw MDX body for an on-page table of
+ * contents. The slugs are produced by the same `slugify()` the MDX renderer
+ * uses for heading `id`s (see MDXComponents), so every entry deep-links to its
+ * section. Fenced code blocks are skipped so a `## foo` inside a code sample
+ * never becomes a contents entry.
+ */
+export function extractHeadings(raw: string): TocHeading[] {
+  const headings: TocHeading[] = [];
+  let inFence = false;
+
+  for (const line of raw.split(/\r?\n/)) {
+    if (/^\s*(```|~~~)/.test(line)) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+
+    const match = line.match(/^(#{2,3})\s+(.+?)\s*#*\s*$/);
+    if (!match) continue;
+
+    // Reduce inline markdown (bold/italic/code/links) to the plain text the
+    // renderer flattens into the heading id, so labels and slugs stay aligned.
+    const text = match[2]
+      .replace(/\*\*([^*]+)\*\*/g, "$1")
+      .replace(/\*([^*]+)\*/g, "$1")
+      .replace(/`([^`]+)`/g, "$1")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+      .trim();
+    const slug = slugify(text);
+    if (!slug) continue;
+
+    headings.push({ text, slug, level: match[1].length === 2 ? 2 : 3 });
+  }
+
+  return headings;
 }
 
 // ─── Tags (cross-content archive) ─────────────────────────────────────────────
