@@ -16,6 +16,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import CookModeButton from "@/components/ui/CookModeButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
@@ -162,7 +163,10 @@ export default async function BreadPostPage({ params }: PageProps) {
               ) : (
                 <span />
               )}
-              <PrintButton />
+              <div className="flex items-center gap-3">
+                <CookModeButton />
+                <PrintButton />
+              </div>
             </div>
 
             {/* Meta */}

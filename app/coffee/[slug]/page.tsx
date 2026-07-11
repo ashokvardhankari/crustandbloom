@@ -15,6 +15,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import CookModeButton from "@/components/ui/CookModeButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
@@ -97,7 +98,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
               </h1>
             </div>
 
-            <div className="flex justify-end mb-6">
+            <div className="flex justify-end items-center gap-3 mb-6">
+              <CookModeButton label="Keep screen on" />
               <PrintButton />
             </div>
 
