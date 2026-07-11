@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
   getAllBreadSlugs,
   getAllBreadPostsMeta,
   getBreadPost,
   adjacentPosts,
+  getRelatedPosts,
+  tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
+import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, formatDuration, getCategoryLabel } from "@/lib/utils";
@@ -56,6 +60,7 @@ export default async function BreadPostPage({ params }: PageProps) {
   const cookTime = formatDuration(frontmatter.cookTime);
   const totalTime = formatDuration(frontmatter.totalTime);
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
+  const related = await getRelatedPosts(`/bread/${params.slug}`, frontmatter.tags);
 
   return (
     <>
@@ -130,6 +135,20 @@ export default async function BreadPostPage({ params }: PageProps) {
               <time dateTime={frontmatter.date} className="text-sm text-espresso-muted ml-auto">
                 {formatDate(frontmatter.date)}
               </time>
+
+              {frontmatter.tags.length > 0 && (
+                <div className="basis-full flex flex-wrap gap-2">
+                  {frontmatter.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/tags/${tagSlug(tag)}`}
+                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full hover:bg-blush/60 hover:text-espresso transition-colors"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* MDX content */}
@@ -238,6 +257,8 @@ export default async function BreadPostPage({ params }: PageProps) {
           </aside>
         </div>
       </div>
+
+      <RelatedPosts entries={related} />
 
       <PostNav
         label="loaf"
