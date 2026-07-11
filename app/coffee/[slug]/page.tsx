@@ -16,6 +16,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
 import CookModeButton from "@/components/ui/CookModeButton";
+import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
 import RelatedPosts from "@/components/ui/RelatedPosts";
@@ -100,6 +101,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
             </div>
 
             <div className="flex justify-end items-center gap-3 mb-6">
+              <ShareButton title={frontmatter.title} />
               <CookModeButton label="Keep screen on" />
               <PrintButton />
             </div>
