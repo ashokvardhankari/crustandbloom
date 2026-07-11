@@ -325,6 +325,73 @@ export function extractHeadings(raw: string): TocHeading[] {
   return headings;
 }
 
+// ─── Recipe formula (interactive batch scaler) ────────────────────────────────
+
+export interface FormulaRow {
+  ingredient: string;
+  weight: string;
+  bakersPct: string;
+}
+
+/**
+ * Pull the ingredient/weight/baker's-% table out of a bread body's raw MDX so
+ * the detail page can render an interactive batch scaler alongside the static
+ * (printable, no-JS) table the MDX renders inline. Self-locates the first
+ * markdown table whose header names an "Ingredient" and a "Weight" column, so
+ * it stays correct whether the loaf writes "## Formula" or "## The Formula" and
+ * ignores any other table in the body. Returns null when there is no such
+ * table (e.g. coffee posts), so callers simply skip the scaler.
+ */
+export function extractFormula(raw: string): FormulaRow[] | null {
+  const lines = raw.split(/\r?\n/);
+  let inFence = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+
+    const header = lines[i].trim();
+    if (!header.startsWith("|")) continue;
+
+    const cols = header.replace(/^\||\|$/g, "").split("|").map((c) => c.trim().toLowerCase());
+    if (!cols.some((c) => c.includes("ingredient")) || !cols.some((c) => c.includes("weight"))) {
+      continue;
+    }
+    // The next line must be the markdown separator row (|---|---|).
+    if (!/^\s*\|[-:\s|]+\|\s*$/.test(lines[i + 1] ?? "")) continue;
+
+    const ingredientIdx = cols.findIndex((c) => c.includes("ingredient"));
+    const weightIdx = cols.findIndex((c) => c.includes("weight"));
+    const pctIdx = cols.findIndex((c) => c.includes("%") || c.includes("baker"));
+
+    const rows: FormulaRow[] = [];
+    for (let j = i + 2; j < lines.length; j++) {
+      const row = lines[j].trim();
+      if (!row.startsWith("|")) break; // table ends at the first non-table line
+      const cells = row.replace(/^\||\|$/g, "").split("|").map(cleanCell);
+      const ingredient = cells[ingredientIdx] ?? "";
+      if (!ingredient) continue;
+      rows.push({
+        ingredient,
+        weight: cells[weightIdx] ?? "",
+        bakersPct: pctIdx >= 0 ? cells[pctIdx] ?? "" : "",
+      });
+    }
+
+    return rows.length > 0 ? rows : null;
+  }
+
+  return null;
+}
+
+/** Strip a markdown table cell down to plain text (drop bold markers). */
+function cleanCell(cell: string): string {
+  return cell.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1").trim();
+}
+
 // ─── Tags (cross-content archive) ─────────────────────────────────────────────
 
 export interface TaggedEntry {

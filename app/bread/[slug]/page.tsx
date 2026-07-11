@@ -8,6 +8,7 @@ import {
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
+  extractFormula,
   tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -16,6 +17,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
 import TableOfContents from "@/components/ui/TableOfContents";
+import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
@@ -71,6 +73,7 @@ export default async function BreadPostPage({ params }: PageProps) {
   const recipeHeading = raw.match(/^#{2,3}\s+(.*\bformula\b.*)$/im);
   const recipeAnchor = recipeHeading ? slugify(recipeHeading[1]) : null;
   const headings = extractHeadings(raw);
+  const formula = extractFormula(raw);
 
   return (
     <>
@@ -203,6 +206,9 @@ export default async function BreadPostPage({ params }: PageProps) {
 
             {/* On-page contents */}
             <TableOfContents headings={headings} />
+
+            {/* Interactive batch scaler (static table still renders in the body below) */}
+            {formula && <RecipeScaler rows={formula} />}
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>
