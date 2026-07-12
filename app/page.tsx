@@ -6,6 +6,8 @@ import PostCard from "@/components/ui/PostCard";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import JsonLd from "@/components/seo/JsonLd";
+import { faqPageJsonLd } from "@/lib/seo";
 import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
@@ -76,6 +78,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={faqPageJsonLd(faqs)} />
+
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative bg-cream overflow-hidden">
         {/* Ambient background wash */}
