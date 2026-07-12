@@ -6,6 +6,7 @@ import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import BrewScaler from "@/components/tools/BrewScaler";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -145,6 +146,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <span className="stat-label">Category</span>
                 <span className="stat-value capitalize">{frontmatter.category}</span>
               </div>
+
+              <BrewScaler brewRatio={frontmatter.brewRatio} />
 
               {/* Divider */}
               <div className="pt-4 border-t border-blush/30">
