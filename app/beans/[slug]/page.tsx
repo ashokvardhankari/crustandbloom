@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllBeanSlugs, getBeanPost } from "@/lib/content";
+import { getAllBeanSlugs, getBeanPost, getBeanAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
 import { beanReviewJsonLd } from "@/lib/seo";
@@ -43,6 +44,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
   }
 
   const f = frontmatter;
+  const adjacent = await getBeanAdjacent(params.slug);
   const specs: { label: string; value: string }[] = [
     { label: "Roaster", value: f.roaster },
     { label: "Origin", value: f.origin },
@@ -117,6 +119,13 @@ export default async function BeanReviewPage({ params }: PageProps) {
                 <FullWidthGallery images={f.images} alt={f.title} />
               </div>
             )}
+
+            <PostNav
+              backHref="/beans"
+              backLabel="All beans"
+              basePath="/beans"
+              adjacent={adjacent}
+            />
           </article>
 
           {/* Spec sidebar */}

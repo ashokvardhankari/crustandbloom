@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllCoffeeSlugs, getCoffeePost } from "@/lib/content";
+import { getAllCoffeeSlugs, getCoffeePost, getCoffeeAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -40,6 +41,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
   } catch {
     notFound();
   }
+
+  const adjacent = await getCoffeeAdjacent(params.slug);
 
   return (
     <>
@@ -89,6 +92,13 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <FullWidthGallery images={frontmatter.images} alt={frontmatter.title} />
               </div>
             )}
+
+            <PostNav
+              backHref="/coffee"
+              backLabel="All coffee"
+              basePath="/coffee"
+              adjacent={adjacent}
+            />
           </article>
 
           {/* Brew specs sidebar */}

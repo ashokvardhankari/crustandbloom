@@ -241,6 +241,59 @@ export async function getAllPostsMeta(): Promise<
   );
 }
 
+// ─── Adjacent posts (previous / next navigation) ──────────────────────────────
+
+export interface AdjacentPost {
+  slug: string;
+  title: string;
+}
+
+export interface AdjacentPosts {
+  /** The older, chronologically-previous post. */
+  previous: AdjacentPost | null;
+  /** The newer, chronologically-next post. */
+  next: AdjacentPost | null;
+}
+
+/**
+ * Given a list already sorted newest-first, find the posts flanking `slug`.
+ * "previous" is the older neighbour (further down the list), "next" the newer.
+ */
+function adjacentFrom<T extends { title: string }>(
+  sorted: PostMeta<T>[],
+  slug: string
+): AdjacentPosts {
+  const i = sorted.findIndex((p) => p.slug === slug);
+  if (i === -1) return { previous: null, next: null };
+  const toAdjacent = (p: PostMeta<T> | undefined): AdjacentPost | null =>
+    p ? { slug: p.slug, title: p.frontmatter.title } : null;
+  return {
+    previous: toAdjacent(sorted[i + 1]),
+    next: toAdjacent(sorted[i - 1]),
+  };
+}
+
+export async function getCoffeeAdjacent(slug: string): Promise<AdjacentPosts> {
+  return adjacentFrom(await getAllCoffeePostsMeta(), slug);
+}
+
+export async function getBeanAdjacent(slug: string): Promise<AdjacentPosts> {
+  return adjacentFrom(await getAllBeanPostsMeta(), slug);
+}
+
+export async function getBreadAdjacent(slug: string): Promise<AdjacentPosts> {
+  const [classic, inclusions] = await Promise.all([
+    getAllClassicBreadMeta(),
+    getInclusionLoaves(),
+  ]);
+  const all = [...classic, ...inclusions].sort(
+    (a, b) =>
+      new Date(b.frontmatter.date).getTime() -
+      new Date(a.frontmatter.date).getTime()
+  );
+  return adjacentFrom(all, slug);
+}
+
 // ─── Gallery: collect all images from all posts ───────────────────────────────
 
 export async function getAllGalleryImages(): Promise<

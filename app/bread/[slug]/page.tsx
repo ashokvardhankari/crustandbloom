@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getAllBreadSlugs, getBreadPost } from "@/lib/content";
+import { getAllBreadSlugs, getBreadPost, getBreadAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, getCategoryLabel } from "@/lib/utils";
@@ -48,6 +49,7 @@ export default async function BreadPostPage({ params }: PageProps) {
   }
 
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
+  const adjacent = await getBreadAdjacent(params.slug);
 
   return (
     <>
@@ -155,6 +157,13 @@ export default async function BreadPostPage({ params }: PageProps) {
                 {frontmatter.tastingNotes}
               </p>
             </div>
+
+            <PostNav
+              backHref="/bread"
+              backLabel="All bread"
+              basePath="/bread"
+              adjacent={adjacent}
+            />
           </article>
 
           {/* Sidebar */}
