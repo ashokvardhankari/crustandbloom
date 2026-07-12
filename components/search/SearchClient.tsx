@@ -43,12 +43,27 @@ export default function SearchClient() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    // Seed from a shared/deep link (?q=…) before focusing so the caret lands
+    // after any pre-filled text. Also powers the WebSite SearchAction target.
+    const initial = new URLSearchParams(window.location.search).get("q") ?? "";
+    if (initial) setQuery(initial);
     inputRef.current?.focus();
     fetch("/search-index.json")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(setEntries)
       .catch(() => setFailed(true));
   }, []);
+
+  // Keep the URL's ?q= in sync with the query so results are shareable and the
+  // back button restores prior searches. Uses replaceState to avoid a history
+  // entry per keystroke.
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const trimmed = query.trim();
+    if (trimmed) url.searchParams.set("q", trimmed);
+    else url.searchParams.delete("q");
+    window.history.replaceState(null, "", url);
+  }, [query]);
 
   const results = useMemo(() => {
     if (!entries) return [];
