@@ -3,6 +3,7 @@ import SearchClient from "@/components/search/SearchClient";
 
 export const metadata: Metadata = {
   title: "Search",
+  alternates: { canonical: "/search" },
   description:
     "Search every Crust & Bloom recipe, bean review, and newsletter issue.",
 };

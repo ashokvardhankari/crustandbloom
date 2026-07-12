@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: frontmatter.excerpt,
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
+      canonical: `/newsletter/${params.slug}`,
     });
   } catch {
     return { title: "Issue not found" };

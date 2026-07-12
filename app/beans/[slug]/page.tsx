@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: frontmatter.excerpt,
       image: beanCover(frontmatter.coverImage),
       publishedTime: frontmatter.date,
+      canonical: `/beans/${params.slug}`,
     });
   } catch {
     return { title: "Review not found" };

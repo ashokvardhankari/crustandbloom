@@ -5,6 +5,7 @@ import { getAllGalleryImages } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Gallery",
+  alternates: { canonical: "/gallery" },
   description:
     "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.",
 };

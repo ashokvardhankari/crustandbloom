@@ -4,6 +4,7 @@ import CoffeeCalculator from "@/components/tools/CoffeeCalculator";
 
 export const metadata: Metadata = {
   title: "Coffee Calculator",
+  alternates: { canonical: "/tools/coffee-calculator" },
   description:
     "Brew ratio calculator, drink builder, and extraction yield calculator for espresso and coffee.",
 };

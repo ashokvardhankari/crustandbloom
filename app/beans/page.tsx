@@ -4,6 +4,7 @@ import BeanFilterBar from "@/components/ui/BeanFilterBar";
 
 export const metadata: Metadata = {
   title: "Beans",
+  alternates: { canonical: "/beans" },
   description:
     "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.",
 };

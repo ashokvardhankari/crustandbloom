@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: frontmatter.excerpt,
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
+      canonical: `/coffee/${params.slug}`,
     });
   } catch {
     return { title: "Post not found" };

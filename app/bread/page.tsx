@@ -5,6 +5,7 @@ import FilterBar from "@/components/ui/FilterBar";
 
 export const metadata: Metadata = {
   title: "Bread",
+  alternates: { canonical: "/bread" },
   description:
     "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.",
 };

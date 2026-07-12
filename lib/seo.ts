@@ -11,6 +11,15 @@ export const SITE_NAME = "Crust & Bloom";
 export const SITE_DESCRIPTION =
   "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.";
 
+/**
+ * Social profiles for the brand. Single source of truth for both the footer
+ * links and the Organization JSON-LD `sameAs`, so a handle change updates both.
+ */
+export const SITE_SOCIAL_LINKS = [
+  { label: "Instagram", href: "https://instagram.com/crustandbloom" },
+  { label: "Pinterest", href: "https://pinterest.com/crustandbloom" },
+] as const;
+
 const AUTHOR = { "@type": "Person", name: SITE_NAME } as const;
 
 export function absoluteUrl(path: string): string {
@@ -32,11 +41,14 @@ export function articleMetadata(opts: {
   description: string;
   image?: string;
   publishedTime?: string;
+  /** Relative path of this page, e.g. "/coffee/foo", for a self-canonical URL. */
+  canonical?: string;
 }): Metadata {
   const images = opts.image ? [opts.image] : undefined;
   return {
     title: opts.title,
     description: opts.description,
+    ...(opts.canonical && { alternates: { canonical: opts.canonical } }),
     openGraph: {
       type: "article",
       title: opts.title,
@@ -259,6 +271,19 @@ export function faqPageJsonLd(items: { question: string; answer: string }[]) {
   };
 }
 
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: SITE_URL,
+    logo: absoluteUrl("/images/site/logo-email.png"),
+    description: SITE_DESCRIPTION,
+    sameAs: SITE_SOCIAL_LINKS.map((s) => s.href),
+  };
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -266,5 +291,14 @@ export function websiteJsonLd() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }

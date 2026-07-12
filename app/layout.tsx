@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
-import { websiteJsonLd } from "@/lib/seo";
+import { websiteJsonLd, organizationJsonLd } from "@/lib/seo";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -76,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakarta.variable} ${fraunces.variable}`}>
       <body className="bg-cream text-espresso font-jakarta antialiased">
+        <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
         <a
           href="#main-content"

@@ -26,7 +26,7 @@ export default function Hero({
   return (
     <section
       className={cn(
-        "relative w-full overflow-hidden",
+        "hero-section relative w-full overflow-hidden",
         size === "full" ? "h-[85vh] min-h-[520px]" : "h-[50vh] min-h-[320px]"
       )}
     >
