@@ -58,6 +58,7 @@ export default function NewsletterSignup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
+                aria-label="Email address"
                 required
                 disabled={status === "loading"}
                 className="flex-1 bg-white text-espresso placeholder:text-espresso/30 border border-blush rounded-full px-6 py-3.5 text-sm focus:outline-none focus:border-terracotta/50 transition-colors disabled:opacity-50 shadow-sm"

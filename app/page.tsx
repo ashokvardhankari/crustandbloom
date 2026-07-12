@@ -54,6 +54,14 @@ const categories = [
     meta: "Brew notes · Ratios · Technique",
   },
   {
+    href: "/beans",
+    image: "/images/beans/ethiopian-tj-cover.jpg",
+    badge: "Beans",
+    heading: "Bean Reviews",
+    description: "Honest notes on the beans I actually brew, from the roaster's claims to what's really in the cup.",
+    meta: "Roaster · Origin · Tasting notes",
+  },
+  {
     href: "/bread",
     image: "/images/site/category-classic.jpg",
     badge: "Classic",
@@ -370,7 +378,7 @@ export default async function HomePage() {
             </h2>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat, i) => (
               <ScrollReveal key={cat.href} delay={i * 120}>
                 <Link href={cat.href} className="card-galatea group block">
