@@ -4,6 +4,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 
 export const metadata: Metadata = {
   title: "Tools",
+  alternates: { canonical: "/tools" },
   description:
     "Calculators and tools for baking and coffee. Plan your sourdough schedule or dial in your espresso.",
 };

@@ -4,6 +4,7 @@ import CoffeeFilterBar from "@/components/ui/CoffeeFilterBar";
 
 export const metadata: Metadata = {
   title: "Coffee",
+  alternates: { canonical: "/coffee" },
   description:
     "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.",
 };

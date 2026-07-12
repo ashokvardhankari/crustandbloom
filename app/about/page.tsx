@@ -4,6 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About",
+  alternates: { canonical: "/about" },
   description:
     "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
 };

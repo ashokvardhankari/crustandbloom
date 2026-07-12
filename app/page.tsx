@@ -12,6 +12,7 @@ import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
   title: "Crust & Bloom: Coffee and Sourdough",
+  alternates: { canonical: "/" },
   description:
     "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
 };

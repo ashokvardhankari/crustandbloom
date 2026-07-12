@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Newsletter",
+  alternates: { canonical: "/newsletter" },
   description:
     "The Crust & Bloom newsletter archive. Every letter from the kitchen: new bakes, coffee pairings, and what's working on the counter.",
 };

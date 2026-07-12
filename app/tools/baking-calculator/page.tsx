@@ -4,6 +4,7 @@ import BakingCalculator from "@/components/tools/BakingCalculator";
 
 export const metadata: Metadata = {
   title: "Baking Calculator",
+  alternates: { canonical: "/tools/baking-calculator" },
   description:
     "Plan your sourdough bake day. Pick a schedule, set your start time or deadline, and get a complete step-by-step timeline.",
 };
