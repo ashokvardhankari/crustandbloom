@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { BAKING_PRESETS } from "@/lib/baking-presets";
 import type { BakingPreset } from "@/lib/baking-presets";
@@ -76,11 +76,18 @@ function isActiveStep(step: ScheduledStep): boolean {
 export default function BakingCalculator() {
   const [presetIndex, setPresetIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
-  const [dateTime, setDateTime] = useState(roundUpToNextHour);
+  // Start empty so the static HTML never bakes in the build-time clock. The
+  // real "next hour" is computed on the client after mount, in the visitor's
+  // own timezone — avoiding a stale default and a hydration mismatch.
+  const [dateTime, setDateTime] = useState("");
+
+  useEffect(() => {
+    setDateTime(roundUpToNextHour());
+  }, []);
 
   const preset = BAKING_PRESETS[presetIndex];
-  const anchor = new Date(dateTime);
-  const schedule = computeSchedule(preset, anchor, direction);
+  const anchor = dateTime ? new Date(dateTime) : null;
+  const schedule = anchor ? computeSchedule(preset, anchor, direction) : null;
 
   return (
     <div className="space-y-10">
@@ -157,13 +164,13 @@ export default function BakingCalculator() {
         {formatDuration(preset.steps.reduce((sum, s) => sum + s.durationMinutes, 0))}
       </p>
 
-      {/* Timeline */}
-      <div className="relative pl-8">
+      {/* Timeline — rendered client-side only, once the current time is known */}
+      <div className="relative pl-8 min-h-[8rem]">
         {/* Vertical line */}
         <div className="absolute left-[11px] top-2 bottom-2 w-px bg-blush" />
 
         <div className="space-y-0">
-          {schedule.map((step, i) => {
+          {(schedule ?? []).map((step, i) => {
             const active = isActiveStep(step);
             return (
               <div key={i} className="relative flex gap-4 pb-8 last:pb-0">
