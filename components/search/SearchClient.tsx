@@ -76,6 +76,25 @@ export default function SearchClient() {
       .map((r) => r.entry);
   }, [entries, query]);
 
+  // The most common tags across all content, surfaced as one-tap searches so
+  // the empty state is a browse hub rather than a blank prompt. Frequency-first
+  // ordering naturally floats tags that match more than one post to the top.
+  const suggestedTags = useMemo(() => {
+    if (!entries) return [];
+    const counts = new Map<string, number>();
+    for (const entry of entries) {
+      for (const tag of entry.tags) {
+        const label = tag.trim();
+        if (!label || label.length > 24) continue;
+        counts.set(label, (counts.get(label) ?? 0) + 1);
+      }
+    }
+    return Array.from(counts.entries())
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 10)
+      .map(([tag]) => tag);
+  }, [entries]);
+
   const searching = query.trim().length > 0;
 
   return (
@@ -124,9 +143,30 @@ export default function SearchClient() {
       )}
 
       {!searching && (
-        <p className="text-espresso/50 text-sm">
-          Type to search every recipe, bean review, and newsletter issue.
-        </p>
+        <div>
+          <p className="text-espresso/50 text-sm">
+            Type to search every recipe, bean review, and newsletter issue.
+          </p>
+          {suggestedTags.length > 0 && (
+            <div className="mt-8">
+              <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-3">
+                Popular searches
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {suggestedTags.map((tag) => (
+                  <button
+                    key={tag}
+                    type="button"
+                    onClick={() => setQuery(tag)}
+                    className="inline-block px-3.5 py-1.5 rounded-full border border-blush bg-white text-sm font-medium text-espresso/80 hover:border-terracotta hover:text-terracotta transition-colors duration-200"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       )}
 
       <div className="grid gap-4" role="list">
