@@ -6,6 +6,7 @@ import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import Rating from "@/components/ui/Rating";
+import TagList from "@/components/ui/TagList";
 import JsonLd from "@/components/seo/JsonLd";
 import { beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
@@ -187,16 +188,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
               )}
 
               {f.tags.length > 0 && (
-                <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
-                  {f.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
+                <TagList tags={f.tags} className="pt-4 border-t border-blush/30" />
               )}
             </div>
           </aside>

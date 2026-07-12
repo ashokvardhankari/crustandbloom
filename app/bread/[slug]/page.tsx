@@ -6,6 +6,7 @@ import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import TagList from "@/components/ui/TagList";
 import DoughCalculator from "@/components/tools/DoughCalculator";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
@@ -182,6 +183,10 @@ export default async function BreadPostPage({ params }: PageProps) {
                 {frontmatter.tastingNotes}
               </p>
             </div>
+
+            {frontmatter.tags && frontmatter.tags.length > 0 && (
+              <TagList tags={frontmatter.tags} className="mt-10" />
+            )}
 
             <PostNav
               backHref="/bread"

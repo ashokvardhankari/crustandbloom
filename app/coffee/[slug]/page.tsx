@@ -6,6 +6,7 @@ import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import TagList from "@/components/ui/TagList";
 import BrewScaler from "@/components/tools/BrewScaler";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
@@ -81,16 +82,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 {formatDate(frontmatter.date)}
               </time>
               {frontmatter.tags.length > 0 && (
-                <div className="flex flex-wrap gap-2 ml-auto">
-                  {frontmatter.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
+                <TagList tags={frontmatter.tags} className="ml-auto" />
               )}
               <div
                 className={frontmatter.tags.length > 0 ? "w-full sm:w-auto" : "ml-auto"}

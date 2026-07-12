@@ -27,6 +27,8 @@ export interface BreadFrontmatter {
   inclusions?: string[];
   tastingNotes: string;
   excerpt: string;
+  /** Optional; present on some inclusion loaves. Powers search + the tag row. */
+  tags?: string[];
   /** ISO 8601 durations for recipe rich results, e.g. "PT1H", "PT45M", "PT20H" */
   prepTime?: string;
   cookTime?: string;
