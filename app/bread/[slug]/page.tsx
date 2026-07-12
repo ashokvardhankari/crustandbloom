@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
-import { formatDate, getCategoryLabel } from "@/lib/utils";
+import { formatDate, formatISODuration, getCategoryLabel } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -52,6 +52,10 @@ export default async function BreadPostPage({ params }: PageProps) {
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
   const adjacent = await getBreadAdjacent(params.slug);
 
+  const prepTime = frontmatter.prepTime ? formatISODuration(frontmatter.prepTime) : null;
+  const cookTime = frontmatter.cookTime ? formatISODuration(frontmatter.cookTime) : null;
+  const totalTime = frontmatter.totalTime ? formatISODuration(frontmatter.totalTime) : null;
+
   return (
     <>
       <JsonLd data={breadRecipeJsonLd(params.slug, frontmatter, raw)} />
@@ -93,6 +97,12 @@ export default async function BreadPostPage({ params }: PageProps) {
               <span className="stat-label">Bake Temp</span>
               <span className="stat-value">{frontmatter.bakeTemp}</span>
             </div>
+            {totalTime && (
+              <div className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8">
+                <span className="stat-label">Total Time</span>
+                <span className="stat-value text-base">{totalTime}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -201,6 +211,21 @@ export default async function BreadPostPage({ params }: PageProps) {
                 <span className="stat-label">Bake Temperature</span>
                 <span className="stat-value">{frontmatter.bakeTemp}</span>
               </div>
+
+              {(prepTime || cookTime || totalTime) && (
+                <div className="stat-card">
+                  <span className="stat-label">Timing</span>
+                  <span className="stat-value text-base leading-relaxed">
+                    {[
+                      prepTime && `${prepTime} active`,
+                      cookTime && `${cookTime} bake`,
+                      totalTime && `${totalTime} total`,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
+                </div>
+              )}
 
               {frontmatter.flavorProfile && (
                 <div className="stat-card">

@@ -55,6 +55,26 @@ export function roastLabel(level: string): string {
   return level.split("-").map(capitalize).join("-");
 }
 
+/**
+ * Turn an ISO 8601 duration (as used for Recipe rich results) into a
+ * human-readable label, e.g. "PT1H" → "1 hr", "PT45M" → "45 min",
+ * "PT1H30M" → "1 hr 30 min". Returns null for anything it can't parse so
+ * callers can skip rendering rather than show a broken value.
+ */
+export function formatISODuration(iso: string): string | null {
+  const match = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?$/.exec(iso.trim());
+  if (!match) return null;
+  const days = Number(match[1] ?? 0);
+  const hours = Number(match[2] ?? 0) + days * 24;
+  const minutes = Number(match[3] ?? 0);
+  if (hours === 0 && minutes === 0) return null;
+
+  const parts: string[] = [];
+  if (hours > 0) parts.push(`${hours} hr`);
+  if (minutes > 0) parts.push(`${minutes} min`);
+  return parts.join(" ");
+}
+
 export function getCategoryLabel(
   type: "coffee" | "bread",
   category: string
