@@ -90,6 +90,15 @@ export default async function HomePage() {
   const latestPosts = allPosts.slice(0, 3);
   const latestBeans = allBeans.slice(0, 3);
 
+  // Hero stats derived from real content so the flagship numbers never go stale.
+  const heroStats: { value: string; label: string }[] = [
+    { value: `${allPosts.length}`, label: allPosts.length === 1 ? "Recipe" : "Recipes" },
+    ...(allBeans.length > 0
+      ? [{ value: `${allBeans.length}`, label: allBeans.length === 1 ? "Bean review" : "Bean reviews" }]
+      : [{ value: "3", label: "Categories" }]),
+    { value: "100%", label: "From scratch" },
+  ];
+
   return (
     <>
       <JsonLd data={faqPageJsonLd(faqs)} />
@@ -149,11 +158,7 @@ export default async function HomePage() {
               {/* Stats */}
               <div className="animate-fade-in-up" style={{ animationDelay: "480ms" }}>
                 <div className="mt-12 grid grid-cols-3 gap-6 border-t border-blush pt-10">
-                  {[
-                    { value: "10", label: "Recipes" },
-                    { value: "3", label: "Categories" },
-                    { value: "100%", label: "From scratch" },
-                  ].map((stat) => (
+                  {heroStats.map((stat) => (
                     <div key={stat.label}>
                       <p className="font-display text-3xl font-semibold text-espresso tabular-nums">{stat.value}</p>
                       <p className="text-xs text-espresso-muted uppercase tracking-widest mt-0.5">
