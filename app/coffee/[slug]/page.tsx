@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllCoffeeSlugs, getCoffeePost, getCoffeeAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
@@ -55,6 +56,14 @@ export default async function CoffeePostPage({ params }: PageProps) {
         title={frontmatter.title}
         size="medium"
         overlay="dark"
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Coffee", href: "/coffee" },
+          { label: frontmatter.title, href: `/coffee/${params.slug}` },
+        ]}
       />
 
       {/* Main content */}

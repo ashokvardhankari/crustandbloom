@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllNewsletterSlugs, getNewsletterPost } from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import JsonLd from "@/components/seo/JsonLd";
 import { newsletterArticleJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -47,7 +48,16 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
     <>
       <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
 
-      <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      <Breadcrumbs
+        containerClassName="max-w-3xl mx-auto px-6 lg:px-8 pt-10"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Newsletter", href: "/newsletter" },
+          { label: frontmatter.title, href: `/newsletter/${params.slug}` },
+        ]}
+      />
+
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 pt-8 pb-16">
         <div className="mb-12">
           <div className="flex items-baseline gap-3 mb-4">
             <span className="inline-block eyebrow bg-blush/40 px-3 py-1 rounded-full">

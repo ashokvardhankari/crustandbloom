@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllBreadSlugs, getBreadPost, getBreadAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
@@ -62,6 +63,14 @@ export default async function BreadPostPage({ params }: PageProps) {
         title={frontmatter.title}
         size="medium"
         overlay="dark"
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Bread", href: "/bread" },
+          { label: frontmatter.title, href: `/bread/${params.slug}` },
+        ]}
       />
 
       {/* Bake stats bar */}

@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getAllBeanSlugs, getBeanPost, getBeanAdjacent } from "@/lib/content";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
@@ -67,6 +68,14 @@ export default async function BeanReviewPage({ params }: PageProps) {
         title={f.title}
         size="medium"
         overlay="dark"
+      />
+
+      <Breadcrumbs
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Beans", href: "/beans" },
+          { label: f.title, href: `/beans/${params.slug}` },
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
