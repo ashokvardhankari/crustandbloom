@@ -183,3 +183,55 @@
     );
   }
 }
+
+/* ─── Print: strip site chrome so recipes print clean for the kitchen ─────── */
+@media print {
+  /* Site chrome, in-page navigation, and anything opted out via .no-print */
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Collapse the image hero to a plain black title (its text is near-white) */
+  .hero-section {
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+  }
+  .hero-section img,
+  .hero-section .gradient-overlay,
+  .hero-section .gradient-overlay-light {
+    display: none !important;
+  }
+  .hero-section > div {
+    position: static !important;
+  }
+  .hero-section h1 {
+    color: #000 !important;
+    padding-bottom: 0 !important;
+  }
+
+  /* Ink-friendly body copy and links */
+  .prose-cb,
+  .prose-cb :where(p, li, td, th, h1, h2, h3, h4, blockquote, strong) {
+    color: #000 !important;
+  }
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+
+  /* Keep recipe cards and images from splitting across pages */
+  .stat-card,
+  table,
+  img {
+    break-inside: avoid;
+  }
+}

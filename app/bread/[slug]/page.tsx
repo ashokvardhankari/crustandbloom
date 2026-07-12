@@ -5,6 +5,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
+import PrintButton from "@/components/ui/PrintButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, formatISODuration, getCategoryLabel } from "@/lib/utils";
@@ -132,9 +133,12 @@ export default async function BreadPostPage({ params }: PageProps) {
                 </span>
               )}
 
-              <time dateTime={frontmatter.date} className="text-sm text-espresso-muted ml-auto">
-                {formatDate(frontmatter.date)}
-              </time>
+              <div className="ml-auto flex items-center gap-5">
+                <PrintButton label="Print recipe" />
+                <time dateTime={frontmatter.date} className="text-sm text-espresso-muted">
+                  {formatDate(frontmatter.date)}
+                </time>
+              </div>
             </div>
 
             {/* MDX content */}
@@ -161,7 +165,7 @@ export default async function BreadPostPage({ params }: PageProps) {
 
             {/* Photo gallery */}
             {frontmatter.images.length > 1 && (
-              <div className="mt-14">
+              <div className="mt-14 no-print">
                 <h2 className="text-xl font-semibold text-espresso mb-6">Photos</h2>
                 <FullWidthGallery images={frontmatter.images} alt={frontmatter.title} />
               </div>

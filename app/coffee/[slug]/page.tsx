@@ -5,6 +5,7 @@ import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
+import PrintButton from "@/components/ui/PrintButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -89,6 +90,11 @@ export default async function CoffeePostPage({ params }: PageProps) {
                   ))}
                 </div>
               )}
+              <div
+                className={frontmatter.tags.length > 0 ? "w-full sm:w-auto" : "ml-auto"}
+              >
+                <PrintButton label="Print brew guide" />
+              </div>
             </div>
 
             {/* MDX content */}
@@ -96,7 +102,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* Photo gallery */}
             {frontmatter.images.length > 1 && (
-              <div className="mt-14">
+              <div className="mt-14 no-print">
                 <h2 className="text-xl font-semibold text-espresso mb-6">Photos</h2>
                 <FullWidthGallery images={frontmatter.images} alt={frontmatter.title} />
               </div>
