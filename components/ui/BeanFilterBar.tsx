@@ -16,17 +16,34 @@ const filters: { value: RoastFilter; label: string; dot: string }[] = [
   { value: "dark", label: "Dark", dot: "⚫" },
 ];
 
+type SortKey = "newest" | "rating";
+
+const sorts: { value: SortKey; label: string }[] = [
+  { value: "newest", label: "Newest" },
+  { value: "rating", label: "Top rated" },
+];
+
 export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
   const [active, setActive] = useState<RoastFilter>("all");
+  const [sort, setSort] = useState<SortKey>("newest");
 
   const filtered =
     active === "all"
       ? posts
       : posts.filter((p) => roastBucket(p.frontmatter.roastLevel) === active);
 
+  // `posts` already arrives newest-first, so "newest" is the incoming order.
+  // "rating" sorts by rating desc, breaking ties by that same recency.
+  const visible =
+    sort === "rating"
+      ? [...filtered].sort(
+          (a, b) => (b.frontmatter.rating ?? 0) - (a.frontmatter.rating ?? 0)
+        )
+      : filtered;
+
   return (
     <div>
-      <div className="flex flex-wrap gap-3 mb-10">
+      <div className="flex flex-wrap items-center gap-3 mb-10">
         {filters.map((f) => (
           <button
             key={f.value}
@@ -42,6 +59,29 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
             {f.label}
           </button>
         ))}
+
+        {/* Sort — pushed to the far end of the same control row */}
+        <div
+          className="ml-auto inline-flex items-center gap-1 rounded-full bg-blush/25 p-1"
+          role="group"
+          aria-label="Sort bean reviews"
+        >
+          {sorts.map((s) => (
+            <button
+              key={s.value}
+              onClick={() => setSort(s.value)}
+              aria-pressed={sort === s.value}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-widest transition-all duration-200",
+                sort === s.value
+                  ? "bg-terracotta text-cream shadow-sm"
+                  : "text-espresso-muted hover:text-espresso"
+              )}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {filtered.length === 0 ? (
@@ -51,7 +91,7 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((post) => (
+          {visible.map((post) => (
             <BeanCard key={post.slug} post={post} />
           ))}
         </div>
