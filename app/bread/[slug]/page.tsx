@@ -6,6 +6,7 @@ import Hero from "@/components/ui/Hero";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
 import PrintButton from "@/components/ui/PrintButton";
+import DoughCalculator from "@/components/tools/DoughCalculator";
 import JsonLd from "@/components/seo/JsonLd";
 import { breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, formatISODuration, getCategoryLabel } from "@/lib/utils";
@@ -238,6 +239,11 @@ export default async function BreadPostPage({ params }: PageProps) {
                   <span className="stat-value capitalize">{frontmatter.flavorProfile}</span>
                 </div>
               )}
+
+              <DoughCalculator
+                hydration={frontmatter.hydration}
+                starterPercentage={frontmatter.starterPercentage}
+              />
 
               <div className="pt-4 border-t border-blush/30">
                 <p className="text-xs text-espresso-muted leading-relaxed">
