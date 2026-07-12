@@ -57,10 +57,10 @@ const categories = [
   },
   {
     href: "/beans",
-    image: "/images/beans/ethiopian-tj-cover.jpg",
+    image: "/images/beans/ethiopian-tj-bag.jpg",
     badge: "Beans",
     heading: "Bean Reviews",
-    description: "Honest notes on the beans I actually brew, from the roaster's claims to what's really in the cup.",
+    description: "Honest notes on the single-origin bags I brew: what the roaster claims versus what's really in the cup.",
     meta: "Roaster · Origin · Tasting notes",
   },
   {
@@ -101,8 +101,6 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd data={faqPageJsonLd(faqs)} />
-
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
       <section className="relative bg-cream overflow-hidden">
         {/* Ambient background wash */}
@@ -518,6 +516,7 @@ export default async function HomePage() {
             <FAQAccordion items={faqs} />
           </ScrollReveal>
         </div>
+        <JsonLd data={faqPageJsonLd(faqs)} />
       </section>
 
       {/* ── Newsletter ────────────────────────────────────────────────────── */}

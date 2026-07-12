@@ -52,25 +52,29 @@ export default function SearchClient() {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    // Seed from a shared/deep link (?q=…) before focusing so the caret lands
-    // after any pre-filled text. Also powers the WebSite SearchAction target.
+    // Seed the query from the URL (?q=…) so a search is shareable and
+    // survives a refresh; otherwise focus the empty input to start typing.
+    // This also powers the WebSite SearchAction deep-link target.
     const initial = new URLSearchParams(window.location.search).get("q") ?? "";
     if (initial) setQuery(initial);
-    inputRef.current?.focus();
+    else inputRef.current?.focus();
+
     fetch("/search-index.json")
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then(setEntries)
       .catch(() => setFailed(true));
   }, []);
 
-  // Keep the URL's ?q= in sync with the query so results are shareable and the
-  // back button restores prior searches. Uses replaceState to avoid a history
-  // entry per keystroke.
+  // Keep the URL's ?q= in sync with the live query so the current search can
+  // be copied, bookmarked, or reached via the browser's back button. Uses
+  // replaceState to avoid a history entry per keystroke.
   useEffect(() => {
-    const url = new URL(window.location.href);
+    const params = new URLSearchParams(window.location.search);
     const trimmed = query.trim();
-    if (trimmed) url.searchParams.set("q", trimmed);
-    else url.searchParams.delete("q");
+    if (trimmed) params.set("q", trimmed);
+    else params.delete("q");
+    const search = params.toString();
+    const url = `${window.location.pathname}${search ? `?${search}` : ""}`;
     window.history.replaceState(null, "", url);
   }, [query]);
 

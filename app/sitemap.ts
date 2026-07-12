@@ -5,6 +5,7 @@ import {
   getInclusionLoaves,
   getAllBeanPostsMeta,
   getAllNewslettersMeta,
+  getAllTags,
 } from "@/lib/content";
 import { SITE_URL } from "@/lib/seo";
 
@@ -28,13 +29,15 @@ function maxDate(a?: Date, b?: Date): Date | undefined {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [coffee, classic, inclusions, beans, newsletters] = await Promise.all([
-    getAllCoffeePostsMeta(),
-    getAllClassicBreadMeta(),
-    getInclusionLoaves(),
-    getAllBeanPostsMeta(),
-    getAllNewslettersMeta(),
-  ]);
+  const [coffee, classic, inclusions, beans, newsletters, tags] =
+    await Promise.all([
+      getAllCoffeePostsMeta(),
+      getAllClassicBreadMeta(),
+      getInclusionLoaves(),
+      getAllBeanPostsMeta(),
+      getAllNewslettersMeta(),
+      getAllTags(),
+    ]);
 
   const bread = [...classic, ...inclusions];
 
@@ -43,10 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const breadLatest = latest(bread);
   const beansLatest = latest(beans);
   const newslettersLatest = latest(newsletters);
-  const siteLatest = [coffeeLatest, breadLatest, beansLatest, newslettersLatest].reduce(
-    (acc, d) => maxDate(acc, d),
-    undefined as Date | undefined
-  );
+  const siteLatest = [
+    coffeeLatest,
+    breadLatest,
+    beansLatest,
+    newslettersLatest,
+  ].reduce((acc, d) => maxDate(acc, d), undefined as Date | undefined);
 
   // Purely static utility pages have no content date, so lastModified is omitted.
   const sectionLatest: Record<string, Date | undefined> = {
@@ -57,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/newsletter": newslettersLatest,
     "/gallery": siteLatest,
     "/search": siteLatest,
+    "/tags": siteLatest,
   };
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -67,6 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/gallery",
     "/newsletter",
     "/search",
+    "/tags",
     "/about",
     "/tools",
     "/tools/baking-calculator",
@@ -93,5 +100,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...postRoutes];
+  // Tag archive pages have no single content date; fall back to the site-wide latest.
+  const tagRoutes: MetadataRoute.Sitemap = tags.map(({ slug }) => ({
+    url: `${SITE_URL}/tags/${slug}`,
+    ...(siteLatest && { lastModified: siteLatest }),
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
+
+  return [...staticRoutes, ...postRoutes, ...tagRoutes];
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import type {
   BeanFrontmatter,
   BreadFrontmatter,
@@ -23,6 +24,45 @@ const AUTHOR = { "@type": "Person", name: SITE_NAME } as const;
 
 export function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path}`;
+}
+
+// ─── Page metadata helpers ───────────────────────────────────────────────────
+
+/**
+ * Metadata for a content detail page (coffee, bread, bean, newsletter).
+ *
+ * Centralises the Open Graph + Twitter card so a shared post shows its own
+ * cover image (not the site default) and is typed `og:type=article`. Without
+ * this, each page overriding only `openGraph` silently inherits the layout's
+ * generic Twitter image and `website` type.
+ */
+export function articleMetadata(opts: {
+  title: string;
+  description: string;
+  image?: string;
+  publishedTime?: string;
+  /** Relative path of this page, e.g. "/coffee/foo", for a self-canonical URL. */
+  canonical?: string;
+}): Metadata {
+  const images = opts.image ? [opts.image] : undefined;
+  return {
+    title: opts.title,
+    description: opts.description,
+    ...(opts.canonical && { alternates: { canonical: opts.canonical } }),
+    openGraph: {
+      type: "article",
+      title: opts.title,
+      description: opts.description,
+      ...(opts.publishedTime && { publishedTime: opts.publishedTime }),
+      ...(images && { images: images.map((url) => ({ url })) }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: opts.title,
+      description: opts.description,
+      ...(images && { images }),
+    },
+  };
 }
 
 // ─── Markdown helpers (for deriving Recipe fields from the MDX body) ─────────
@@ -195,30 +235,38 @@ export function newsletterArticleJsonLd(
   };
 }
 
-export function faqPageJsonLd(faqs: { question: string; answer: string }[]) {
+/**
+ * BreadcrumbList schema for a detail page's trail. Each crumb needs an
+ * absolute `item` URL; the final (current) crumb may omit its href.
+ */
+export function breadcrumbJsonLd(items: { label: string; href?: string }[]) {
   return {
     "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((crumb, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: crumb.label,
+      ...(crumb.href && { item: absoluteUrl(crumb.href) }),
     })),
   };
 }
 
-export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
+/**
+ * FAQPage schema for a list of question/answer pairs (e.g. the homepage FAQ).
+ * Each answer is plain text that must mirror the visible on-page content.
+ */
+export function faqPageJsonLd(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: items.map((item, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      name: item.name,
-      item: absoluteUrl(item.url),
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
     })),
   };
 }

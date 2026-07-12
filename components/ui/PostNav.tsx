@@ -1,67 +1,66 @@
 import Link from "next/link";
-import type { AdjacentPosts } from "@/lib/content";
 
-interface PostNavProps {
-  /** Where the "back to listing" link points, e.g. "/coffee". */
-  backHref: string;
-  /** Label for the back link, e.g. "All coffee". */
-  backLabel: string;
-  /** Base path for adjacent posts, e.g. "/coffee" → "/coffee/<slug>". */
-  basePath: string;
-  adjacent: AdjacentPosts;
+interface NavItem {
+  href: string;
+  title: string;
 }
 
+/**
+ * Chronological previous/next navigation shown at the foot of a post. `newer`
+ * links to the more recent neighbour, `older` to the previous one. Renders
+ * nothing when a post has no neighbours in either direction.
+ */
 export default function PostNav({
-  backHref,
-  backLabel,
-  basePath,
-  adjacent,
-}: PostNavProps) {
-  const { previous, next } = adjacent;
+  newer,
+  older,
+  label = "post",
+  maxWidth = "max-w-7xl",
+}: {
+  newer: NavItem | null;
+  older: NavItem | null;
+  label?: string;
+  maxWidth?: string;
+}) {
+  if (!newer && !older) return null;
 
   return (
     <nav
-      aria-label="Post navigation"
-      className="mt-16 pt-8 border-t border-blush/40"
+      aria-label={`Adjacent ${label} navigation`}
+      className={`${maxWidth} mx-auto px-6 lg:px-8 pb-16`}
     >
-      <Link
-        href={backHref}
-        className="text-sm font-semibold text-terracotta hover:text-terracotta-dark transition-colors duration-200"
-      >
-        ← {backLabel}
-      </Link>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-10 border-t border-blush/40">
+        {newer ? (
+          <Link
+            href={newer.href}
+            className="card-galatea group flex flex-col p-6 text-left"
+          >
+            <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-2">
+              ← Newer {label}
+            </span>
+            <span className="font-display text-lg font-semibold tracking-tight text-espresso group-hover:text-terracotta transition-colors duration-200">
+              {newer.title}
+            </span>
+          </Link>
+        ) : (
+          <span aria-hidden="true" className="hidden sm:block" />
+        )}
 
-      {(previous || next) && (
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {previous ? (
-            <Link
-              href={`${basePath}/${previous.slug}`}
-              className="group flex flex-col gap-1 p-5 rounded-2xl bg-cream-dark hover:bg-blush/30 transition-colors duration-200"
-            >
-              <span className="eyebrow text-espresso-muted">← Previous</span>
-              <span className="font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200">
-                {previous.title}
-              </span>
-            </Link>
-          ) : (
-            <span aria-hidden className="hidden sm:block" />
-          )}
-
-          {next ? (
-            <Link
-              href={`${basePath}/${next.slug}`}
-              className="group flex flex-col gap-1 p-5 rounded-2xl bg-cream-dark hover:bg-blush/30 transition-colors duration-200 sm:text-right sm:items-end"
-            >
-              <span className="eyebrow text-espresso-muted">Next →</span>
-              <span className="font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200">
-                {next.title}
-              </span>
-            </Link>
-          ) : (
-            <span aria-hidden className="hidden sm:block" />
-          )}
-        </div>
-      )}
+        {older ? (
+          <Link
+            href={older.href}
+            className="card-galatea group flex flex-col p-6 text-right"
+          >
+            <span className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-2">
+              Older {label} →
+            </span>
+            <span className="font-display text-lg font-semibold tracking-tight text-espresso group-hover:text-terracotta transition-colors duration-200">
+              {older.title}
+            </span>
+          </Link>
+        ) : (
+          <span aria-hidden="true" className="hidden sm:block" />
+        )}
+      </div>
     </nav>
   );
 }

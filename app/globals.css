@@ -184,54 +184,48 @@
   }
 }
 
-/* ─── Print: strip site chrome so recipes print clean for the kitchen ─────── */
+/* ── Print: clean, ink-friendly recipe printouts ──────────────────────────── */
 @media print {
-  /* Site chrome, in-page navigation, and anything opted out via .no-print */
+  /* Drop site chrome that means nothing on paper and wastes ink */
   header,
   footer,
   nav,
-  .no-print {
+  section[aria-label="Related posts"] {
     display: none !important;
   }
 
   body {
     background: #fff !important;
-    color: #000 !important;
+    color: #1c2b1e !important;
   }
 
-  /* Collapse the image hero to a plain black title (its text is near-white) */
-  .hero-section {
-    height: auto !important;
-    min-height: 0 !important;
-    overflow: visible !important;
+  /* Stack the recipe + spec columns into one readable flow */
+  .print-recipe-grid {
+    display: block !important;
   }
-  .hero-section img,
-  .hero-section .gradient-overlay,
-  .hero-section .gradient-overlay-light {
-    display: none !important;
-  }
-  .hero-section > div {
+
+  /* Sidebar specs shouldn't float or chase the page */
+  .print-recipe-grid .sticky {
     position: static !important;
   }
-  .hero-section h1 {
-    color: #000 !important;
-    padding-bottom: 0 !important;
+
+  /* Neutralise decorative surfaces so type stays crisp on white */
+  .stat-card {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
   }
 
-  /* Ink-friendly body copy and links */
-  .prose-cb,
-  .prose-cb :where(p, li, td, th, h1, h2, h3, h4, blockquote, strong) {
-    color: #000 !important;
+  /* Spell out in-body links so a printed recipe stays useful offline */
+  .prose-cb a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
   }
+
   a {
-    color: #000 !important;
     text-decoration: none !important;
-  }
-
-  /* Keep recipe cards and images from splitting across pages */
-  .stat-card,
-  table,
-  img {
-    break-inside: avoid;
+    color: inherit !important;
   }
 }

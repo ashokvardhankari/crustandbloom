@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Fraunces } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
@@ -61,6 +61,11 @@ export const metadata: Metadata = {
       "A personal site about specialty coffee and artisan sourdough bread.",
     images: ["/images/site/og-default.jpg"],
   },
+};
+
+export const viewport: Viewport = {
+  // Match the sticky cream header so the mobile browser toolbar blends in
+  themeColor: "#F7F4EC",
 };
 
 export default function RootLayout({

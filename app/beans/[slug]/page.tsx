@@ -1,14 +1,23 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllBeanSlugs, getBeanPost, getBeanAdjacent } from "@/lib/content";
+import {
+  getAllBeanSlugs,
+  getAllBeanPostsMeta,
+  getBeanPost,
+  adjacentPosts,
+  getRelatedPosts,
+  tagSlug,
+} from "@/lib/content";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
-import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import PostNav from "@/components/ui/PostNav";
+import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
-import TagList from "@/components/ui/TagList";
+import ShareButton from "@/components/ui/ShareButton";
 import JsonLd from "@/components/seo/JsonLd";
-import { beanReviewJsonLd } from "@/lib/seo";
+import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
 
 interface PageProps {
@@ -23,16 +32,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { frontmatter } = await getBeanPost(params.slug);
-    return {
+    return articleMetadata({
       title: `${frontmatter.title} from ${frontmatter.roaster}`,
       description: frontmatter.excerpt,
-      alternates: { canonical: `/beans/${params.slug}` },
-      openGraph: {
-        title: `${frontmatter.title} from ${frontmatter.roaster}`,
-        description: frontmatter.excerpt,
-        images: [{ url: beanCover(frontmatter.coverImage) }],
-      },
-    };
+      image: beanCover(frontmatter.coverImage),
+      publishedTime: frontmatter.date,
+      canonical: `/beans/${params.slug}`,
+    });
   } catch {
     return { title: "Review not found" };
   }
@@ -47,7 +53,6 @@ export default async function BeanReviewPage({ params }: PageProps) {
   }
 
   const f = frontmatter;
-  const adjacent = await getBeanAdjacent(params.slug);
   const specs: { label: string; value: string }[] = [
     { label: "Roaster", value: f.roaster },
     { label: "Origin", value: f.origin },
@@ -59,6 +64,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
     ...(f.price ? [{ label: "Price", value: f.price }] : []),
     ...(f.brewMethod ? [{ label: "Brewed as", value: f.brewMethod }] : []),
   ];
+
+  const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
+  const related = await getRelatedPosts(`/beans/${params.slug}`, f.tags);
 
   return (
     <>
@@ -76,7 +84,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
         items={[
           { label: "Home", href: "/" },
           { label: "Beans", href: "/beans" },
-          { label: f.title, href: `/beans/${params.slug}` },
+          { label: f.title },
         ]}
       />
 
@@ -84,6 +92,10 @@ export default async function BeanReviewPage({ params }: PageProps) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
           {/* Body */}
           <article className="lg:col-span-2">
+            <div className="flex justify-end items-center gap-3 mb-6">
+              <ShareButton title={f.title} tooltip="Share this review" />
+            </div>
+
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
               <span className="category-pill-bean">{roastLabel(f.roastLevel)} roast</span>
@@ -130,13 +142,6 @@ export default async function BeanReviewPage({ params }: PageProps) {
                 <FullWidthGallery images={f.images} alt={f.title} />
               </div>
             )}
-
-            <PostNav
-              backHref="/beans"
-              backLabel="All beans"
-              basePath="/beans"
-              adjacent={adjacent}
-            />
           </article>
 
           {/* Spec sidebar */}
@@ -188,12 +193,30 @@ export default async function BeanReviewPage({ params }: PageProps) {
               )}
 
               {f.tags.length > 0 && (
-                <TagList tags={f.tags} className="pt-4 border-t border-blush/30" />
+                <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
+                  {f.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/tags/${tagSlug(tag)}`}
+                      className="text-xs px-2 py-0.5 bg-blush/30 text-espresso-muted rounded-full hover:bg-blush/60 hover:text-espresso transition-colors"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
               )}
             </div>
           </aside>
         </div>
       </div>
+
+      <RelatedPosts entries={related} />
+
+      <PostNav
+        label="review"
+        newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title } : null}
+        older={older ? { href: `/beans/${older.slug}`, title: older.title } : null}
+      />
     </>
   );
 }
