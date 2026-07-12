@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { getAllPostsMeta } from "@/lib/content";
+import { getAllPostsMeta, getAllBeanPostsMeta } from "@/lib/content";
 import PostCard from "@/components/ui/PostCard";
+import BeanCard from "@/components/ui/BeanCard";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -82,8 +83,12 @@ const categories = [
 
 
 export default async function HomePage() {
-  const allPosts = await getAllPostsMeta();
+  const [allPosts, allBeans] = await Promise.all([
+    getAllPostsMeta(),
+    getAllBeanPostsMeta(),
+  ]);
   const latestPosts = allPosts.slice(0, 3);
+  const latestBeans = allBeans.slice(0, 3);
 
   return (
     <>
@@ -366,6 +371,39 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ── Latest Bean Reviews ───────────────────────────────────────────── */}
+      {latestBeans.length > 0 && (
+        <section className="bg-white border-y border-blush/40">
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 py-20">
+            <ScrollReveal className="flex items-end justify-between mb-10">
+              <div>
+                <p className="eyebrow mb-2">On the shelf</p>
+                <h2 className="font-display font-semibold text-4xl tracking-tight text-espresso">
+                  Fresh <span className="italic text-terracotta">bean reviews</span>
+                </h2>
+              </div>
+              <Link
+                href="/beans"
+                className="link-underline hidden sm:inline-flex items-center gap-2 text-sm font-medium text-terracotta hover:text-terracotta-dark transition-colors"
+              >
+                All beans
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+              {latestBeans.map((bean, i) => (
+                <ScrollReveal key={bean.slug} delay={i * 120}>
+                  <BeanCard post={bean} />
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Category Spotlight ────────────────────────────────────────────── */}
       <section className="bg-cream-dark">
