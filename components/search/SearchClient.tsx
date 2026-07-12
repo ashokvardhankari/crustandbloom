@@ -20,6 +20,14 @@ const kindStyles: Record<SearchEntry["kind"], string> = {
   Newsletter: "bg-mist/60 text-espresso",
 };
 
+// Stable display order for the result type filter.
+const KIND_ORDER: SearchEntry["kind"][] = [
+  "Coffee",
+  "Bread",
+  "Beans",
+  "Newsletter",
+];
+
 function score(entry: SearchEntry, tokens: string[]): number {
   let total = 0;
   const title = entry.title.toLowerCase();
@@ -40,6 +48,7 @@ export default function SearchClient() {
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const [query, setQuery] = useState("");
   const [failed, setFailed] = useState(false);
+  const [activeKind, setActiveKind] = useState<SearchEntry["kind"] | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -75,6 +84,26 @@ export default function SearchClient() {
       .sort((a, b) => b.points - a.points)
       .map((r) => r.entry);
   }, [entries, query]);
+
+  // Per-type result counts, used to build a filter that only offers content
+  // types actually present in the current results (no dead filters).
+  const kindCounts = useMemo(() => {
+    const counts = new Map<SearchEntry["kind"], number>();
+    for (const r of results) counts.set(r.kind, (counts.get(r.kind) ?? 0) + 1);
+    return counts;
+  }, [results]);
+
+  // Fall back to "All" whenever the active type isn't present in the current
+  // results (e.g. after editing the query), so the visible set is never empty
+  // while results exist.
+  const effectiveKind =
+    activeKind && kindCounts.has(activeKind) ? activeKind : null;
+
+  const visibleResults = useMemo(
+    () =>
+      effectiveKind ? results.filter((r) => r.kind === effectiveKind) : results,
+    [results, effectiveKind]
+  );
 
   // The most common tags across all content, surfaced as one-tap searches so
   // the empty state is a browse hub rather than a blank prompt. Frequency-first
@@ -169,8 +198,46 @@ export default function SearchClient() {
         </div>
       )}
 
+      {!failed && searching && results.length > 0 && kindCounts.size > 1 && (
+        <div
+          className="flex flex-wrap gap-2 mb-6"
+          role="group"
+          aria-label="Filter results by type"
+        >
+          <button
+            type="button"
+            onClick={() => setActiveKind(null)}
+            aria-pressed={effectiveKind === null}
+            className={cn(
+              "inline-block px-3.5 py-1.5 rounded-full border text-sm font-medium transition-colors duration-200",
+              effectiveKind === null
+                ? "border-terracotta bg-terracotta text-white"
+                : "border-blush bg-white text-espresso/80 hover:border-terracotta hover:text-terracotta"
+            )}
+          >
+            All {results.length}
+          </button>
+          {KIND_ORDER.filter((kind) => kindCounts.has(kind)).map((kind) => (
+            <button
+              key={kind}
+              type="button"
+              onClick={() => setActiveKind(kind)}
+              aria-pressed={effectiveKind === kind}
+              className={cn(
+                "inline-block px-3.5 py-1.5 rounded-full border text-sm font-medium transition-colors duration-200",
+                effectiveKind === kind
+                  ? "border-terracotta bg-terracotta text-white"
+                  : "border-blush bg-white text-espresso/80 hover:border-terracotta hover:text-terracotta"
+              )}
+            >
+              {kind} {kindCounts.get(kind)}
+            </button>
+          ))}
+        </div>
+      )}
+
       <div className="grid gap-4" role="list">
-        {results.map((r) => (
+        {visibleResults.map((r) => (
           <Link
             key={r.url}
             href={r.url}
