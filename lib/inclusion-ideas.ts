@@ -728,6 +728,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Bright fermented-citrus heat and salty green-chili zing against melty sharp cheddar and fresh scallion — jalapeño-cheddar's more aromatic Japanese cousin.",
   },
+  {
+    name: "Caprese",
+    flavorProfile: "savory",
+    whyTrending:
+      "The breakout savory loaf of summer 2026 — the caprese salad (tomato, mozzarella, basil) turned into a boule went viral on Instagram via accounts like hercules_noble_food, riding the same 'salad-into-bread' wave as the elote and spinach-artichoke loaves.",
+    inclusions: [
+      "Sun-dried or oven-semi-dried tomatoes (fresh tomato is far too wet — dry it hard or use oil-packed, drained and blotted), chopped, 90g",
+      "Low-moisture mozzarella pearls or cubes, patted dry, 120g",
+      "Fresh basil, chiffonaded, 10g (plus a little dried basil for insurance, since fresh can brown)",
+      "Garlic, minced, plus a splash of good balsamic reduced to a syrup, 15g",
+    ],
+    foldInTip:
+      "Keep the tomatoes bone-dry so they don't slacken the crumb, fold the basil and garlic in during the second set of stretch-and-folds, then laminate the mozzarella and tomatoes in during shaping so they stay in defined red-and-white pockets; a drizzle of the balsamic syrup between folds adds sweet-tart depth.",
+    tastingNote:
+      "Sweet concentrated tomato, milky melted mozzarella, and fragrant basil against the tangy crumb — a caprese salad you can slice and toast, magic with a drizzle of olive oil.",
+  },
+  {
+    name: "Boursin Garlic & Herb",
+    flavorProfile: "savory",
+    whyTrending:
+      "Boursin's viral moment (the baked-Boursin-pasta craze) spilled straight into sourdough in 2025–2026 — the soft garlic-and-herb cheese melts into luscious creamy pockets, the easiest luxe savory upgrade going.",
+    inclusions: [
+      "Boursin garlic & herb cheese (or homemade garlic-herb whipped cream cheese), frozen and cut into small cubes, 130g",
+      "Roasted garlic cloves, 60g",
+      "Fresh chives and parsley, chopped, 8g",
+      "Cracked black pepper plus a little garlic powder for the crust, 4g",
+    ],
+    foldInTip:
+      "Freeze the Boursin cubes so they hold their shape instead of smearing into the gluten, fold the fresh herbs in during the second set of folds, then laminate the frozen cheese cubes and roasted garlic in during shaping so they melt into gooey herbed pockets.",
+    tastingNote:
+      "Rich, creamy garlic-and-herb cheese melting into soft pockets against sweet roasted garlic and a peppery crust — decadent savory comfort in loaf form.",
+  },
+  {
+    name: "Caramelized Onion & Asiago",
+    flavorProfile: "savory",
+    whyTrending:
+      "Repeatedly called a possible all-time-favorite savory inclusion in 2025–2026 baker roundups — deeply caramelized onions folded in with nutty, sharp Asiago, a more rustic cousin of the French onion loaf.",
+    inclusions: [
+      "Yellow onions, slow-caramelized in butter until jammy and deep amber, cooled and squeezed dry, 200g",
+      "Asiago, cubed and a little grated (a mix), 130g",
+      "Fresh thyme, chopped, 4g",
+      "Extra grated Asiago to press onto the crust, 25g",
+    ],
+    foldInTip:
+      "Cool the caramelized onions completely and squeeze out excess moisture so they don't slacken the dough, fold them in with the thyme during the first set of coil folds, then laminate the Asiago in during shaping and press the extra grated cheese onto the top before scoring so it crisps into a lacy crust.",
+    tastingNote:
+      "Sweet, jammy caramelized onion against nutty, salty Asiago that browns into a crackly cheese crust — savory, deeply oniony, and built for a soup night.",
+  },
+  {
+    name: "Chorizo & Manchego",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Spanish tapas flavors are surging (chorizo had a headline 2026 comeback moment), and smoky paprika-spiced chorizo with nutty Manchego makes a bold, oily-in-the-best-way spicy loaf that eats like a tapa.",
+    inclusions: [
+      "Cured Spanish chorizo, diced small and briefly dry-skillet-rendered then blotted of its red oil, cooled, 110g",
+      "Manchego, cubed, 120g",
+      "Smoked paprika (pimentón) plus a pinch of cayenne, 5g",
+      "Fresh parsley and a little orange zest, optional, 6g",
+    ],
+    foldInTip:
+      "Render the diced chorizo briefly and blot off the paprika oil so it doesn't grease out the gluten (save a little to brush the crust for color), fold the smoked paprika in during the second set of folds, then laminate the chorizo and Manchego in during shaping.",
+    tastingNote:
+      "Smoky, garlicky paprika heat from the chorizo against nutty melted Manchego pockets and a paprika-lacquered crust — a Spanish tapas board baked into a tangy loaf.",
+  },
+  {
+    name: "Nashville Hot",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Nashville hot chicken is still one of the biggest viral food trends (The Red Chickz and copycats all over TikTok), and its signature cayenne-brown-sugar heat with pickles translates into a punchy spicy loaf — a fierier cousin of the buffalo-chicken loaf.",
+    inclusions: [
+      "Nashville hot paste: cayenne, smoked paprika, brown sugar, and garlic powder bloomed in a little melted butter, cooled, 30g (plus extra to brush the crust)",
+      "Sharp cheddar, cubed, 120g",
+      "Dill pickles, diced and patted very dry, 70g",
+      "Cooked crumbled chicken or crisp bacon, optional, 90g",
+    ],
+    foldInTip:
+      "Bloom the cayenne-brown-sugar spices in butter and cool so the heat spreads without scorching, fold the paste in during the second set of stretch-and-folds, then laminate the cheddar, well-drained pickles (and chicken/bacon if using) in during shaping; brush the crust with a little more of the hot butter while warm.",
+    tastingNote:
+      "Slow-building cayenne heat rounded by brown-sugar sweetness, sharp melty cheddar, and bright pickle pop — Nashville hot chicken's crave-factor baked into a tangy crumb.",
+  },
+  {
+    name: "Harissa & Whipped Feta",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Harissa whipped feta is a defining 2026 flavor (M&S released a ready-made tub; recipe feeds are full of it) — the North African chili paste ribboned through creamy, tangy feta brings the trendiest spicy-Mediterranean combo into a loaf.",
+    inclusions: [
+      "Harissa paste, reduced slightly so it isn't runny, swirled in, 40g (plus a little to brush the crust)",
+      "Feta, half crumbled in chunks and half whipped smooth to a pipeable spread, 130g",
+      "Roasted red pepper, drained and patted very dry, chopped, 60g",
+      "Toasted sesame or a pinch of caraway plus mint, optional, 6g",
+    ],
+    foldInTip:
+      "Blot the roasted peppers bone-dry, laminate the feta chunks and peppers in during shaping, and pipe a ribbon of the whipped feta and reduced harissa between the coil folds so it marbles through the crumb rather than pooling; brush the crust with a thin harissa glaze before baking for color.",
+    tastingNote:
+      "Smoky, aromatic chili warmth from the harissa ribboned through creamy, salty-tangy feta with sweet roasted-pepper pockets — a mezze-board spread baked straight into a spicy loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -842,6 +938,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Uganda is 2026's emerging origin to watch, and Mt. Elgon naturals deliver berry-and-cocoa sweetness with a syrupy body — a fresh origin for the review shelf beyond the usual Ethiopia/Kenya axis.",
     approxPrice: "$19 / 350g",
   },
+  {
+    name: "Brazil Cerrado (Pulped Natural)",
+    roaster: "Verve Coffee Roasters (Santa Cruz)",
+    origin: "Brazil (Cerrado Mineiro / Sul de Minas)",
+    process: "Pulped natural",
+    roastLevel: "medium-dark",
+    officialNotes: ["Milk chocolate", "Hazelnut", "Caramel", "Brown sugar"],
+    whyTry:
+      "Every bean on this board so far is a bright, high-acid light roast — this fills the gap with a low-acid, chocolate-and-nut espresso base that pulls thick, sweet crema and shines in milk. It's the reference bean for the shaken-espresso and cortado drinks below, and the perfect pairing for the Tiramisu and Chocolate Espresso loaves.",
+    approxPrice: "$18 / 12oz",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -935,6 +1042,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Add ice and shake hard for 15–20 seconds so the oil emulsifies into the espresso — this is the whole trick; under-shaken and it splits.",
       "Pour over a glass of fresh ice.",
       "Top with a splash of barista oat milk and, optionally, a twist of lemon peel and a pinch of flaky salt.",
+    ],
+  },
+  {
+    name: "Cortado",
+    category: "espresso",
+    brewRatio: "1:1 espresso-to-milk",
+    description:
+      "2026's quiet counter-trend to oversized sugary drinks — a small (~4oz) Spanish espresso 'cut' with an equal measure of warm, barely-textured milk that softens the acidity without burying the bean. The espresso stays front and center, so it's the ideal way to taste a chocolatey medium-dark like the Brazil Cerrado above.",
+    buildSteps: [
+      "Pull a fresh double shot (about 36g) into a small 4–4.5oz glass or gibraltar tumbler.",
+      "Steam ~40g of milk to just warm (about 55–60°C) with only a thin skin of microfoam — a cortado has texture, not a cappuccino's airy foam.",
+      "Pour the warm milk straight into the espresso to an even 1:1, letting the crema fold through so there's no distinct foam cap.",
+      "Serve small and drink promptly — no sugar needed; the milk alone rounds the shot into a smooth, espresso-forward sip.",
     ],
   },
 ];
