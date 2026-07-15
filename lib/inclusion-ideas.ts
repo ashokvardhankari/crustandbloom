@@ -1882,6 +1882,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Rich, nutty pistachio-cream ribbons against tart-sweet raspberry bursts and toasted-pistachio crunch — a patisserie pairing turned into a striking green-and-magenta dessert loaf.",
   },
+  {
+    name: "Cheddar Bay Biscuit (Red Lobster copycat)",
+    flavorProfile: "savory",
+    whyTrending:
+      "Red Lobster's Cheddar Bay Biscuits are one of the most-searched copycat bakes of 2025–2026, and bakers have started folding their garlic-butter-cheddar-Old-Bay flavor straight into a sourdough boule — riding the same 'restaurant staple as a loaf' wave as the Marry Me Chicken and broccoli-cheddar loaves.",
+    inclusions: [
+      "Sharp cheddar, cubed small, 130g",
+      "Garlic-herb butter glaze (melted butter, minced garlic, parsley, a little Old Bay) to brush the crust, 40g",
+      "Old Bay or a garlic-salt-parsley blend worked into the dough, 8g",
+      "Chives, chopped, 6g",
+    ],
+    foldInTip:
+      "Fold the Old Bay and chives in during the second set of stretch-and-folds so the seasoning spreads, laminate the cheddar cubes in during shaping, then brush the baked crust with the warm garlic-herb butter twice while it's still hot so it soaks in like the biscuit's signature glaze.",
+    tastingNote:
+      "A savory, garlicky crumb studded with melty cheddar pockets under a buttery, herb-flecked, Old-Bay-scented crust — the drive-through biscuit basket turned into a sliceable loaf.",
+  },
+  {
+    name: "Muhammara (Roasted Red Pepper & Walnut)",
+    flavorProfile: "savory",
+    whyTrending:
+      "Muhammara — the Syrian/Levantine roasted-red-pepper-and-walnut dip with pomegranate molasses — is a named rising 2026 Mediterranean-mezze flavor (following harissa, za'atar, and whipped feta onto menus) and folds into a striking rust-colored savory loaf distinct from the board's other mezze bakes.",
+    inclusions: [
+      "Roasted red peppers, drained hard and patted very dry, chopped, 90g",
+      "Walnuts, toasted and roughly chopped, 80g",
+      "Pomegranate molasses, swirled in, 25g",
+      "Aleppo pepper, cumin, and a little smoked paprika, 6g",
+    ],
+    foldInTip:
+      "Jarred roasted peppers run wet, so strain and blot them bone-dry first; fold the spices and toasted walnuts in during the second set of folds, laminate the peppers in during shaping, and ribbon the pomegranate molasses between the last folds so it streaks the crumb without slackening it.",
+    tastingNote:
+      "Sweet-smoky roasted pepper and toasty walnut against a tangy, faintly fruity pomegranate note and gentle Aleppo warmth — a rust-red mezze dip baked into a savory loaf.",
+  },
+  {
+    name: "Buldak (Korean Fire Chicken)",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Buldak — Korean 'fire chicken' and the Samyang buldak fire-noodle craze — is one of 2026's most viral heat trends, and bakers are folding its sweet-savory gochugaru-gochujang glaze into a fiery cheese-pulled loaf, extending the Korean-fusion wave beyond the board's gochujang and kimchi bakes.",
+    inclusions: [
+      "Cooked shredded chicken tossed in a reduced buldak glaze (gochujang, gochugaru, soy, garlic, a little sugar) then drained well, 120g",
+      "Low-moisture mozzarella, cubed (the cheese-pull is the whole point), 120g",
+      "Gochugaru (Korean chili flakes) worked into the dough, 8g",
+      "Scallions and toasted sesame seeds, 40g",
+    ],
+    foldInTip:
+      "Reduce the buldak glaze thick and drain the sauced chicken well so the extra sauce doesn't over-hydrate the dough; fold the gochugaru in during the first set of folds, then laminate the chicken, mozzarella, and scallions in during shaping so you get spicy meat and molten cheese-pull pockets.",
+    tastingNote:
+      "Sweet-savory building gochugaru heat and glossy buldak glaze against long strings of molten mozzarella — the viral fire-chicken flavor baked into a stretchy, sweat-inducing loaf.",
+  },
+  {
+    name: "Habanero Peach & Sharp Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Habanero-peach is a flagship of 2026's 'fricy' (fruity + spicy) wave — the sweet-heat combo behind viral pepper jellies and hot sauces — and, paired with sharp cheddar, it makes a summery jam-and-cheese loaf that reads fresher than the board's jalapeño and Calabrian bakes.",
+    inclusions: [
+      "Habanero-peach jam or preserves (or thick peach jam plus minced habanero), reduced slightly so it isn't runny, swirled in, 70g",
+      "Dried peach, diced, 60g — or extra freeze-dried peach to keep hydration in check",
+      "Sharp white cheddar, cubed, 120g",
+      "Fresh habanero, seeded, minced, and patted dry (gloves!), 15g",
+    ],
+    foldInTip:
+      "Reduce the jam so it's thick, then ribbon it between the last coil folds; laminate the dried peach, cheddar, and minced habanero in during shaping so the sweet fruit, molten cheese, and slow habanero burn stay in defined pockets. Cool at least 2 hours so the fruit pockets set.",
+    tastingNote:
+      "Juicy sweet peach and tangy cheddar hit first, then a slow, floral habanero heat blooms on the finish — a pepper-jelly-and-cheese board baked into a tangy loaf.",
+  },
+  {
+    name: "Chocolate Hazelnut (Nutella / Gianduja)",
+    flavorProfile: "sweet",
+    whyTrending:
+      "The chocolate-hazelnut swirl loaf is a perennial TikTok favorite that surged again in 2026 as gianduja (the artisan Piedmontese chocolate-hazelnut) crossed from confectionery into bakery — a molten Nutella-style spiral that's the sweet crowd-pleaser skeptics ask for by name.",
+    inclusions: [
+      "Chocolate-hazelnut spread (Nutella or a good gianduja), warmed for swirling, 130g",
+      "Toasted skinned hazelnuts, roughly chopped, 70g",
+      "Dark chocolate chunks, 60g",
+      "A little cocoa and flaky salt to finish the crust, 10g",
+    ],
+    foldInTip:
+      "Laminate the dough thin, spread the warmed chocolate-hazelnut spread over it, and scatter the toasted hazelnuts and dark chocolate, then roll and coil-fold so it spirals through the crumb; keep the spread off the very edges so the seam still seals, and finish the crust with a dusting of cocoa and flaky salt.",
+    tastingNote:
+      "Molten chocolate-hazelnut ribbons and pockets of dark chocolate against toasty, crunchy hazelnuts through a soft crumb — a jar of Nutella spiraled into a sliceable dessert loaf.",
+  },
+  {
+    name: "Key Lime Pie",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Key lime pie is a defining 2026 'nostalgic dessert as a loaf' bake (joining s'mores, banana pudding, and peach cobbler) — bright key-lime tang, sweet condensed-milk creaminess, and a buttery graham-cracker crunch translated into a swirled sweet sourdough.",
+    inclusions: [
+      "Key lime zest from 4–5 key limes (or 2 regular limes), tossed with a little sugar, 25g, plus a splash of lime juice swapped for part of the dough water, 20g",
+      "Sweetened condensed milk, dolloped in for creamy pockets, 90g — or white chocolate chips, 80g",
+      "Graham crackers, crushed into a butter-toasted crumble for the swirl and crust, 60g",
+      "Cream cheese, frozen and cubed, optional for a cheesecake edge, 80g",
+    ],
+    foldInTip:
+      "Toss the zest with sugar and stir it plus the lime juice in early so the citrus spreads; laminate the dough thin, dollop the condensed milk (and frozen cream cheese) and scatter the graham crumble over it, then roll and coil-fold so it spirals — press extra graham crumble onto the crust before scoring for the pie-crust crunch.",
+    tastingNote:
+      "Bright, tangy key-lime perfume and creamy sweet condensed-milk pockets against a buttery graham-cracker crunch — a slice of key lime pie turned into a tangy sourdough loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -2116,6 +2212,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
     whyTry:
       "The board's East-African coffees are all Ethiopian, Kenyan, or Ugandan — there's no Rwanda, one of 2026's fastest-rising 'origin to watch' specialty countries and a distinct cup in its own right. High-grown washed Red Bourbon from the hills around Lake Kivu gives a clean, silky, tea-like body with red-currant and orange-blossom brightness and a brown-sugar sweetness — softer and rounder than a punchy Kenyan SL28 and more delicate than a fruit-bomb natural. (It's also the origin where the notorious 'potato defect' can appear, so a well-sorted specialty lot is worth reviewing to show how far Rwandan sorting has come.) Brew it as a pour-over for the florals or pull it as a sweet, gentle filter-forward espresso; it doubles as the elegant base for a marocchino or an einspänner.",
     approxPrice: "$19 / 12oz",
+  },
+  {
+    name: "Mexico Chiapas (Washed)",
+    roaster: "Chiapas Coffee / Café Femenino / widely stocked",
+    origin: "Mexico (Chiapas / Sierra Madre)",
+    process: "Washed",
+    roastLevel: "medium",
+    officialNotes: ["Milk chocolate", "Toasted almond", "Caramel", "Soft citrus"],
+    whyTry:
+      "The board covers South America (Colombia, Brazil, Peru), Central America (Guatemala, Honduras, El Salvador, Costa Rica), Africa, Indonesia, and Asia — but there's no Mexico, the largest specialty origin in North America and a top source of organic and women-produced (Café Femenino) lots. High-grown washed Chiapas is a gentle, approachable, cocoa-and-almond cup with a soft citrus lift and a clean, mild body — the antidote to a punchy Kenyan and a natural pairing for the board's Mexican bakes (elote, chamoy, chile relleno) and the Café de Olla drink. Pull it as a smooth, low-drama espresso or brew it as an easygoing everyday filter.",
+    approxPrice: "$18 / 12oz",
   },
 ];
 
@@ -2353,6 +2460,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Pull a fresh single or double shot (about 18–36g) — a chocolatey medium-dark plays perfectly with the cocoa — directly into the glass.",
       "Steam a small amount of milk to a silky, dense microfoam and spoon just a thin layer over the espresso so it sits as a pale cap, not a full latte's worth.",
       "Finish with a final dusting of cocoa over the foam; serve small and drink promptly while the layers are still distinct.",
+    ],
+  },
+  {
+    name: "Vietnamese Salt Coffee (Cà Phê Muối)",
+    category: "filter",
+    brewRatio: "phin drip (roughly 1:2)",
+    description:
+      "Huế's breakout coffee — strong phin-brewed coffee over sweetened condensed milk crowned with a lightly salted whipped-cream foam — is one of the biggest viral café orders of 2025–2026 (millions of TikTok posts) as forecasters keep spotlighting specific regional traditions over generic 'salted' lattes. The pinch of salt rounds out the bitterness and lifts the sweetness, and it's a perfect showcase for a bold, chocolatey dark roast (or the sugarcane decaf) rather than a delicate light one.",
+    buildSteps: [
+      "Spoon 1–2 tbsp sweetened condensed milk into the bottom of a tall glass.",
+      "Brew a small, strong cup of coffee — traditionally dark Vietnamese robusta through a phin filter, but any bold, chocolatey medium-dark works — and let it drip straight over the condensed milk, about 40–60ml.",
+      "Make the salted cream: whisk cold heavy cream (or a cream-and-milk mix) with a small pinch of fine salt using a handheld frother until it holds soft, just-pourable peaks.",
+      "Fill the glass with ice, spoon and pour the salted cream over the top so it floats in a thick cap, and serve unstirred with a straw so each sip pulls salty cream through the sweet coffee (stir once to combine if you prefer it even).",
     ],
   },
 ];
