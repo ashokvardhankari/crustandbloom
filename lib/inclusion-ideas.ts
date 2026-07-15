@@ -1978,6 +1978,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Bright, tangy key-lime perfume and creamy sweet condensed-milk pockets against a buttery graham-cracker crunch — a slice of key lime pie turned into a tangy sourdough loaf.",
   },
+  {
+    name: "French Dip (Roast Beef & Provolone)",
+    flavorProfile: "savory",
+    whyTrending:
+      "The French dip is the next sandwich-as-loaf after Reuben, Philly, Cubano, and muffuletta — 2026 deli-loaf coverage keeps naming it — and it's distinct from the board's cheesesteak because the flavor comes from a rich beefy au jus folded into the crumb rather than peppers and onions, finished with molten provolone.",
+    inclusions: [
+      "Deli roast beef, thinly sliced and torn into small pieces, patted dry, 120g",
+      "Concentrated beef au jus / demi-glace, reduced thick and cooled, swapped for part of the dough water, 60g",
+      "Provolone, cut into small cubes, 120g",
+      "Caramelized shallots plus fresh thyme and cracked pepper, 50g",
+    ],
+    foldInTip:
+      "Reduce the au jus until it's a thick, cool paste and swap it for an equal weight of water at mixing for a savory beef-scented crumb; fold the thyme and caramelized shallots in during the second set of folds, then laminate the roast beef and provolone in during shaping so you get beefy shreds and molten cheese pockets. Serve toasted with extra warm jus for dipping.",
+    tastingNote:
+      "A deeply beefy, herb-and-shallot crumb studded with tender roast beef and molten provolone — a French dip sandwich, jus and all, baked into a tangy loaf that begs to be dunked.",
+  },
+  {
+    name: "Butternut Squash, Sage & Brown Butter",
+    flavorProfile: "savory",
+    whyTrending:
+      "Roasted-squash-and-sage is a defining 2026 autumn savory bake (the elegant cousin of the pumpkin-spice wave) — brown butter and nutty Gruyère turn caramelized butternut into a golden, dinner-party loaf distinct from the board's sweet pumpkin bake.",
+    inclusions: [
+      "Butternut squash, cubed small, roasted hard until caramelized and dried out, cooled, 150g",
+      "Gruyère or aged fontina, cubed, 110g",
+      "Brown butter, cooked to a nutty deep gold and cooled, brushed through the lamination, 30g",
+      "Fresh sage, chopped, plus a little grated nutmeg, 6g",
+    ],
+    foldInTip:
+      "Roast the squash hard so it's caramelized and dry (steamed or under-roasted squash weeps and slackens the dough), then cool it; fold the sage and nutmeg in during the second set of folds, brush the brown butter over the laminated sheet, and lay the squash and Gruyère across it during shaping so the sweet squash and molten cheese stay in defined pockets.",
+    tastingNote:
+      "Sweet, caramelized butternut and nutty brown butter against melty Gruyère and earthy sage — a plate of roasted-squash pasta turned into a golden, savory autumn loaf.",
+  },
+  {
+    name: "Italian Grinder (Hot Giardiniera, Salami & Provolone)",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The Italian grinder is one of TikTok's biggest sandwich crazes, and bakers are folding its defining hot giardiniera (spicy pickled Chicago-style vegetables) with cured meats and provolone into a loaf — the heat and vinegar bite make it distinct from the board's muffuletta (olive salad) and pepperoni bakes.",
+    inclusions: [
+      "Hot giardiniera (spicy pickled peppers, celery, carrot), drained hard and chopped, 90g",
+      "Genoa salami and capicola, diced, patted of grease, 90g",
+      "Provolone, cubed, 110g",
+      "Dried oregano, garlic, and a pinch of crushed red pepper, 6g",
+    ],
+    foldInTip:
+      "Drain and blot the giardiniera bone-dry so its brine and oil don't slacken the dough, and pat the cured meats to shed grease; fold the oregano and red pepper in during the second set of folds, then laminate the giardiniera, meats, and provolone in during shaping so the tangy-spicy peppers and molten cheese alternate through the crumb.",
+    tastingNote:
+      "Vinegary, spicy pickled-pepper crunch against salty cured salami and molten provolone — a Chicago-style Italian grinder baked into a tangy, punchy loaf.",
+  },
+  {
+    name: "Tandoori Chicken & Mint",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Tandoori chicken is a rising 2026 globally-inspired meal-in-a-loaf that reads fresher than the board's creamy tikka masala — it's the drier, yogurt-and-spice-marinated, char-edged version, brightened with a fresh mint-cilantro streak instead of a rich gravy.",
+    inclusions: [
+      "Cooked tandoori-marinated chicken (yogurt, garam masala, ginger-garlic, Kashmiri chili, lemon), charred, cooled, and diced small, 130g",
+      "Kashmiri chili powder and a little smoked paprika worked into the dough for color and gentle heat, 6g (keep total spice under ~1% of flour)",
+      "Fresh mint and cilantro, chopped, ribboned in, 25g",
+      "Red onion, finely diced and patted dry, plus a squeeze of lemon zest, 40g",
+    ],
+    foldInTip:
+      "Char and cool the marinated chicken and blot it dry so the yogurt marinade doesn't over-hydrate the dough; keep the added ground spice under ~1% of flour (garam masala's warm spices are anti-microbial and can stall the culture), fold the Kashmiri chili in during the first set of folds for an even blush, then laminate the chicken, red onion, and herbs in during shaping.",
+    tastingNote:
+      "Smoky, char-edged tandoori spice and gentle Kashmiri warmth against a bright, cooling streak of fresh mint and cilantro — a plate of tandoori chicken baked into a tangy loaf.",
+  },
+  {
+    name: "Banana Pudding",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Banana pudding is a flagship of 2026's 'nostalgic dessert as a loaf' wave (alongside s'mores, peach cobbler, and key lime pie) — the Southern icebox classic of vanilla custard, sliced banana, and Nilla wafers translated into a swirled sweet sourdough, distinct from the board's rum-caramel bananas foster.",
+    inclusions: [
+      "Freeze-dried banana, crushed, plus a little banana extract, 40g (freeze-dried keeps hydration in check where fresh banana runs wet)",
+      "Vanilla pudding / pastry cream, dolloped in cold for creamy pockets, 100g — or white chocolate chips, 80g",
+      "Vanilla wafers (Nilla-style), broken into a butter-toasted crumble for the swirl and crust, 60g",
+      "Vanilla bean paste, 6g",
+    ],
+    foldInTip:
+      "Use freeze-dried banana (fresh weeps and greys the crumb), stir it plus the vanilla in early; laminate the dough thin, dollop the cold pudding and scatter the wafer crumble over it, then roll and coil-fold so it spirals — press extra wafer crumble onto the crust before scoring for the icebox-pie crunch.",
+    tastingNote:
+      "Creamy vanilla-custard pockets and sweet banana against a buttery toasted-wafer crunch — a bowl of Southern banana pudding turned into a tangy sliceable loaf.",
+  },
+  {
+    name: "Peanut Butter & Jelly",
+    flavorProfile: "sweet",
+    whyTrending:
+      "PB&J is the ultimate nostalgic-comfort swirl loaf riding 2026's childhood-throwback sweet trend — salty-sweet peanut butter ribboned with bright fruit jam, a crowd-pleaser that (like the board's Nutella loaf) skeptics ask for by name.",
+    inclusions: [
+      "Natural peanut butter, warmed loose for swirling (a little peanut butter powder in the dough deepens it), 120g",
+      "Thick grape or strawberry jam, reduced slightly so it isn't runny, 80g",
+      "Roasted salted peanuts, roughly chopped, 50g",
+      "A pinch of flaky salt and light brown sugar for the swirl, 15g",
+    ],
+    foldInTip:
+      "Reduce the jam so it's thick (runny jam blows out into holes), then laminate the dough thin, spread the loosened peanut butter, ribbon the jam, and scatter the chopped peanuts and brown sugar before rolling and coil-folding so the two spiral separately through the crumb; keep the fillings off the edges so the seam still seals, and finish with flaky salt. Cool fully so the jam pockets set.",
+    tastingNote:
+      "Salty-rich peanut butter ribbons weaving through bright sweet-tart jam with a roasted-peanut crunch — the lunchbox classic spiraled into a tangy sourdough loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -2223,6 +2319,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
     whyTry:
       "The board covers South America (Colombia, Brazil, Peru), Central America (Guatemala, Honduras, El Salvador, Costa Rica), Africa, Indonesia, and Asia — but there's no Mexico, the largest specialty origin in North America and a top source of organic and women-produced (Café Femenino) lots. High-grown washed Chiapas is a gentle, approachable, cocoa-and-almond cup with a soft citrus lift and a clean, mild body — the antidote to a punchy Kenyan and a natural pairing for the board's Mexican bakes (elote, chamoy, chile relleno) and the Café de Olla drink. Pull it as a smooth, low-drama espresso or brew it as an easygoing everyday filter.",
     approxPrice: "$18 / 12oz",
+  },
+  {
+    name: "Papua New Guinea Sigri Estate (Washed)",
+    roaster: "Sey Coffee / Paradise Coffee / widely stocked",
+    origin: "Papua New Guinea (Western Highlands / Waghi Valley / Sigri Estate)",
+    process: "Washed",
+    roastLevel: "medium-light",
+    officialNotes: ["Milk chocolate", "Baked apple", "Brown sugar", "Black tea"],
+    whyTry:
+      "Every origin on the board sits in the Americas, Africa, Indonesia, or mainland Asia — there's no Oceania/Pacific coffee at all, a whole growing region missing. Papua New Guinea (genetically close to Ethiopian heirloom, brought via Jamaica Blue Mountain seed) is the classic Pacific origin, and the estate-grown, fully washed Sigri lots from the high Waghi Valley are its benchmark: a rounded, syrupy, medium-bodied cup of milk chocolate, baked apple, and brown sugar with a black-tea finish — sweeter and rounder than a bright African washed coffee but cleaner than a wet-hulled Sumatra sitting on the same island arc. It's a forgiving, crowd-pleasing everyday espresso and a comforting pour-over that fills a genuine geographic gap.",
+    approxPrice: "$19 / 12oz",
   },
 ];
 
@@ -2473,6 +2580,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Brew a small, strong cup of coffee — traditionally dark Vietnamese robusta through a phin filter, but any bold, chocolatey medium-dark works — and let it drip straight over the condensed milk, about 40–60ml.",
       "Make the salted cream: whisk cold heavy cream (or a cream-and-milk mix) with a small pinch of fine salt using a handheld frother until it holds soft, just-pourable peaks.",
       "Fill the glass with ice, spoon and pour the salted cream over the top so it floats in a thick cap, and serve unstirred with a straw so each sip pulls salty cream through the sweet coffee (stir once to combine if you prefer it even).",
+    ],
+  },
+  {
+    name: "Yuanyang (Hong Kong Coffee-Milk-Tea)",
+    category: "filter",
+    brewRatio: "roughly 3 parts milk tea : 7 parts coffee",
+    description:
+      "Yuanyang (鴛鴦) — Hong Kong's iconic cha chaan teng blend of strong coffee and creamy Hong-Kong-style milk tea over sweetened condensed or evaporated milk — is having a 2026 specialty moment as forecasters keep spotlighting specific regional coffee traditions over generic 'dirty' or 'flavored' lattes. The tannic black tea rounds off the coffee's edge for a smooth, malty, deeply comforting cup, and it's a natural showcase for a bold, chocolatey medium-dark (like the Brazil Cerrado or the new PNG Sigri) rather than a delicate light roast.",
+    buildSteps: [
+      "Brew a strong black tea — a robust Ceylon or an English-breakfast blend, ideally strained through a cloth 'stocking' the HK way — and, separately, brew a small, strong cup of coffee (bold medium-dark or a dark filter).",
+      "Combine roughly 3 parts milk tea to 7 parts coffee to taste (start there and adjust — the coffee should lead, the tea should round it out).",
+      "Stir in sweetened condensed milk to taste, or evaporated milk plus a little sugar, until it's silky and lightly sweet.",
+      "Serve hot in a thick cup, or pour over a tall glass of ice for the summer version; a straw and a stir bring the malty tea and coffee together in every sip.",
     ],
   },
 ];
