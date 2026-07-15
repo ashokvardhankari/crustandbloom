@@ -1209,6 +1209,103 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Gooey toasted-marshmallow pockets, molten chocolate, and crunchy honey-graham shards through a lightly spiced crumb — a campfire s'more turned into a sliceable, tangy dessert loaf.",
   },
+  {
+    name: "Quesabirria",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Birria is the runaway viral Mexican flavor of 2026, and after the taco and grilled-cheese versions bakers are now folding the chili-braised beef and its consommé straight into a loaf (the Sourdough Geeks group has run whole birria experiments) — a rich, dip-in-the-broth quesabirria in boule form.",
+    inclusions: [
+      "Birria consommé (the chili-braising liquid), skimmed of most of its fat and reduced to concentrate it, cooled, and swapped for part of the dough water, 80g",
+      "Shredded birria beef, drained well, patted dry, and cooled, 120g",
+      "Oaxaca or low-moisture mozzarella (plus a little Monterey Jack), cubed, 120g",
+      "The birria's own chile mix (guajillo/ancho + a pinch of the cumin-oregano braise spices — keep total added spice under ~1% of flour since cumin is anti-microbial), 5g",
+    ],
+    foldInTip:
+      "The consommé is both watery and fatty — skim off most of the fat (fat shortens the gluten) and reduce it so it isn't runny, then swap it for an equal weight of water at mixing for a deep chili-stained crumb; drain and blot the beef bone-dry, keep the added braise spice under 1% of the flour (cumin is anti-microbial and stalls the culture above that), then laminate the beef and cheese in during shaping. Brush the crust with a little of the red consommé fat for color and serve with a cup of warm consommé for dipping.",
+    tastingNote:
+      "A deep, chili-red crumb tasting of the guajillo-ancho braise, savory shredded beef, and stringy melted cheese pockets — a quesabirria taco turned into a loaf you tear and dunk in warm consommé.",
+  },
+  {
+    name: "Thai Green Curry & Chicken",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Globally-inspired 'meal-in-a-loaf' bakes are a defining 2026 vein, and Thai green curry is the one bakers keep recreating — the fragrant green-curry-and-coconut paste worked into the crumb with chicken and lime leaf makes an aromatic, creamy-hot loaf unlike anything else on the board.",
+    inclusions: [
+      "Green curry paste, bloomed briefly in a little of the thick coconut cream then cooled, whisked into the dough water (reduce hydration to compensate), 45g",
+      "Reduced coconut cream (thick, not the watery milk), cooled and swapped for part of the dough water, 60g",
+      "Cooked shredded chicken, tossed in a little of the curry, drained well, and cooled, 120g",
+      "Makrint (kaffir) lime leaf and Thai basil, finely slivered, plus lime zest, 8g",
+    ],
+    foldInTip:
+      "Bloom the curry paste in coconut cream to wake up the aromatics, cool it, and whisk it plus the reduced coconut cream into the dough water (cut the plain water to match — coconut cream is rich and its fat softens the gluten, so keep the total modest); fold the slivered lime leaf, Thai basil, and zest in during the second set of folds, then laminate the well-drained chicken in during shaping.",
+    tastingNote:
+      "A fragrant, gently green crumb perfumed with lemongrass, lime leaf, and coconut against a slow green-chili warmth and savory chicken — a bowl of Thai green curry baked into a tangy, aromatic loaf.",
+  },
+  {
+    name: "Chile Relleno",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The next Mexican dish-as-loaf after birria — the chile relleno (a whole roasted poblano stuffed with melty cheese) folded into a boule brings a deeper, smokier, milder pepper than the jalapeño and Hatch loaves already on the board, riding 2026's regional-specificity heat wave.",
+    inclusions: [
+      "Roasted poblano peppers, peeled, seeded, drained hard, and patted very dry, chopped, 100g",
+      "Queso Oaxaca or Monterey Jack (plus a little sharp cheddar), cubed, 130g",
+      "Fire-roasted tomato, drained and reduced to a thick salsa-roja swirl, 40g",
+      "Ground cumin (kept under 1% of flour), Mexican oregano, and garlic, 4g",
+    ],
+    foldInTip:
+      "Roast and steam the poblanos so the skins slip off, then drain and blot them bone-dry (they hold a lot of water) so they don't slacken the dough; keep the cumin under 1% of the flour since it's anti-microbial, laminate the poblanos and cheese in during shaping, and ribbon the reduced roasted-tomato salsa between the coil folds for a red streak through the crumb.",
+    tastingNote:
+      "Smoky, mild roasted-poblano warmth and stringy melted cheese pockets against a tangy roasted-tomato ribbon — a chile relleno turned into a sliceable loaf, gorgeous split and griddled.",
+  },
+  {
+    name: "Sticky Toffee Date",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Sticky toffee pudding is a defining 2026 'elevated comfort' dessert (sticky-toffee banana breads and puddings are all over the feeds), and its date-and-toffee flavor translates into a lusciously sweet, caramel-pocketed sourdough — the year's coziest dessert loaf.",
+    inclusions: [
+      "Medjool dates, pitted, chopped, and soaked in hot water (or a little dark tea) until soft, then drained, 120g",
+      "Toffee / dulce de leche, dolloped in cold so it stays in gooey pockets, 90g",
+      "Dark brown or muscovado sugar plus a little vanilla and a pinch of espresso powder for depth, 40g",
+      "Toasted pecans, chopped, plus flaky salt for the crust, 50g",
+    ],
+    foldInTip:
+      "Soak the dates until jammy and drain them well so they plump the crumb without wetting it, work the muscovado sugar and vanilla into the dough at mixing, fold the softened dates in during the first set of folds so they melt into sticky pockets, then laminate the cold toffee and pecans in during shaping so the toffee stays in molten caramel pools; finish the crust with flaky salt.",
+    tastingNote:
+      "A dark, moist, caramel-scented crumb studded with jammy dates and molten toffee pools, toasty pecans, and a flaky-salt finish — sticky toffee pudding turned into a sliceable, tangy dessert loaf.",
+  },
+  {
+    name: "Apple Fritter",
+    flavorProfile: "sweet",
+    whyTrending:
+      "One of the biggest sweet-sourdough bakes of 2026 (the sourdough apple-fritter loaf is everywhere, fresh and discard versions alike) — a cinnamon-brown-sugar apple swirl through the crumb finished with a vanilla glaze, the bakery-case apple fritter as a tangy loaf.",
+    inclusions: [
+      "Firm sweet-tart apples (Honeycrisp, Fuji, or Gala), diced small, tossed with lemon and lightly pre-cooked or salted-and-drained so they shed water, 130g",
+      "Cinnamon-brown-sugar swirl: light brown sugar plus cinnamon and a little softened butter, 70g",
+      "Vanilla glaze for after baking: powdered sugar whisked with a little milk and vanilla, 40g",
+      "A pinch of nutmeg in the crumb, 2g",
+    ],
+    foldInTip:
+      "Use firm apples and dry them (a quick sauté or a salt-and-drain) so they don't turn the crumb gummy; laminate the dough thin, scatter the apples and cinnamon-brown-sugar swirl, then roll and coil-fold so it spirals through the crumb like a fritter's cross-section. Cool the loaf fully, then drizzle the vanilla glaze over the top for the signature bakery finish.",
+    tastingNote:
+      "A soft crumb spiraled with cinnamon-brown-sugar and tender apple pockets under a sweet vanilla glaze — the glazed apple fritter reimagined as a sliceable, tangy loaf.",
+  },
+  {
+    name: "Croque Monsieur",
+    flavorProfile: "savory",
+    whyTrending:
+      "After the Reuben, muffuletta, and Philly, the French café classic is the next sandwich-as-loaf — the croque monsieur (ham, Gruyère, béchamel, and Dijon) folded into a boule turns the ultimate toasted sandwich into bread, a bistro counterpart to the pancetta-Gruyère loaf.",
+    inclusions: [
+      "Thick-cut cooked ham, diced small and patted dry, 110g",
+      "Gruyère, cubed (plus a little grated Comté), 120g",
+      "Thick béchamel, made stiff and cooled solid, then cut into small cubes so it stays in creamy pockets, 90g",
+      "Dijon mustard worked into the dough plus a pinch of nutmeg and cracked pepper, 15g",
+      "Extra grated Gruyère to press onto the crust, 20g",
+    ],
+    foldInTip:
+      "Make the béchamel stiff (extra flour, cooled hard in the fridge) and cut it into cubes so it holds its shape instead of dissolving into the dough; work the Dijon and nutmeg in at mixing, then laminate the ham, Gruyère, and béchamel cubes in during shaping and press the extra grated Gruyère onto the top so it browns into a lacy, croque-style crust.",
+    tastingNote:
+      "Savory ham, nutty melted Gruyère, and creamy nutmeg-scented béchamel pockets with a Dijon lift through a tangy crumb under a browned cheese crust — a croque monsieur baked into a loaf, unbeatable griddled with an egg for a croque madame.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1378,6 +1475,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every origin on this board sits in Latin America, Africa, or Indonesia — there's no coffee from the Arabian Peninsula, the ancestral home of coffee itself (the port of Mocha gave 'mocha' its name). Yemen's ancient landrace varieties dried whole in the high desert give a singular wild, winey, deeply spiced natural that tastes like nothing else in the cup — Qima has been reviving these heritage lots and taking them to the top of the specialty scene. It's the essential heritage-origin benchmark and a fascinating counterpoint to the clean, modern co-ferments and washed lots above. Brew as a gentle pour-over to catch the dried-fruit-to-cocoa arc.",
     approxPrice: "$32 / 250g",
   },
+  {
+    name: "India Araku Valley (Natural)",
+    roaster: "Blue Tokai Coffee Roasters (widely stocked)",
+    origin: "India (Araku Valley, Andhra Pradesh)",
+    process: "Natural (dry-processed)",
+    roastLevel: "medium",
+    officialNotes: ["Dark chocolate", "Jaggery", "Stone fruit", "Warm spice"],
+    whyTry:
+      "India is 2026's rising specialty origin — its home 'third wave' is booming and Western roasters are finally stocking single-origin Indian lots — yet the only Asian coffee on this board is an Indonesian. Araku Valley is India's flagship specialty region (award-winning, tribal-farmed, high-altitude), and a natural Araku is a syrupy, chocolate-and-jaggery cup with stone-fruit sweetness and a whisper of the warm spice India is known for — a distinct, low-and-mid-acid origin that fills the mainland-Asia geographic gap and pulls beautifully as a milk-drink espresso. Brew as pour-over to catch the fruit, or as espresso for the jaggery-cocoa depth.",
+    approxPrice: "$20 / 250g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1536,6 +1644,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Add the shot to a shaker or a tall jug with a scoop of ice and shake hard (or blend with a hand frother) for 20–30 seconds until it's cold and foamy; pour over a glass of fresh ice.",
       "Make the kaimaki foam: froth cold milk (no sugar) with a handheld frother, tilting the jug, until it holds a thick, glossy, pourable foam.",
       "Spoon and pour the cold milk foam over the top so it sits in a dense cap; serve with a straw and no stirring so you drink through the foam.",
+    ],
+  },
+  {
+    name: "Einspänner",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "The 12th-century Viennese coffee — espresso under a thick cap of unsweetened whipped cream, served in a glass — reborn as one of 2026's biggest café drinks via Korean coffee culture and TikTok (where it's ordered hot or iced). You sip the espresso through the cream so it sweetens and softens on the way down. A chocolatey medium-dark like the Brazil Cerrado or the India Araku above is ideal under all that cream.",
+    buildSteps: [
+      "Whip cold heavy cream (a touch of vanilla or a teaspoon of sugar is optional — the classic is barely sweet) to soft, just-pourable peaks, not stiff.",
+      "For the iced version, fill a clear glass with ice; for hot, warm the glass. Pull a fresh double shot (about 36g) — a chocolatey medium-dark stands up best under the cream — and pour it into the glass (over the ice for iced).",
+      "Spoon and pour the whipped cream gently over the back of a spoon so it floats in a thick, glossy cap that sits on top rather than sinking.",
+      "Don't stir — drink straight through the cream so each sip pulls cold cream through hot (or iced) espresso; dust the cap with cocoa if you like.",
     ],
   },
 ];
