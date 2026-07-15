@@ -1690,6 +1690,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Creamy sweet-ricotta pockets studded with chocolate chips, toasty pistachio, and bright candied-orange bursts through a tender crumb — a cannoli turned into a sliceable, tangy dessert loaf.",
   },
+  {
+    name: "Chicken Parmesan",
+    flavorProfile: "savory",
+    whyTrending:
+      "The chicken-parm loaf is one of 2026's viral 'dinner-as-a-boule' bakes on Instagram and TikTok — crispy chicken, marinara, and molten mozzarella-parmesan turned into a savory sourdough that eats like the casserole, riding the same salad/meal-into-bread wave as the caprese and marry-me-chicken loaves.",
+    inclusions: [
+      "Cooked breaded chicken (leftover cutlets or nuggets), diced small and re-crisped so it stays firm, 120g",
+      "Thick marinara or sun-dried-tomato paste, reduced hard until jammy and cooled (thin sauce slackens the dough), 70g",
+      "Low-moisture mozzarella, cubed, 110g",
+      "Parmesan, grated, plus dried oregano and a pinch of garlic powder, 50g",
+    ],
+    foldInTip:
+      "Reduce the marinara to a thick paste and cool it, and re-crisp the diced chicken so it doesn't go soggy, then fold the oregano and grated parmesan in during the second set of folds and laminate the chicken, mozzarella, and jammy marinara in during shaping so they stay in defined pockets; press extra parmesan onto the crust before scoring.",
+    tastingNote:
+      "Savory tomato depth, crisp-tender chicken, and stretchy melted mozzarella with a parmesan-lacquered crust — chicken parmesan you can slice and toast.",
+  },
+  {
+    name: "Loaded Baked Potato",
+    flavorProfile: "savory",
+    whyTrending:
+      "A viral comfort-food loaf of 2025–2026 — the loaded baked potato (potato, bacon, cheddar, sour cream, chives) folded into a boule, a hearty savory bake bakers keep posting alongside the broccoli-cheddar and French-onion 'soup/side-into-bread' trend.",
+    inclusions: [
+      "Cooked potato, cubed small and patted very dry (leftover roasted or boiled, or dehydrated potato flakes worked into the dough), 120g",
+      "Thick-cut bacon, cooked crisp and diced, 90g",
+      "Sharp cheddar, cubed, 110g",
+      "Sour-cream / buttermilk-ranch powder plus chopped chives, 12g",
+    ],
+    foldInTip:
+      "Make sure the potato is bone-dry (steamy potato slackens the dough — roast or air-dry the cubes, or use a spoon of potato flakes to soak up moisture), then toss the potato, bacon, and cheddar with the sour-cream powder and chives and laminate the whole mix in during shaping so every pocket is seasoned.",
+    tastingNote:
+      "Fluffy potato, smoky bacon, and melty sharp cheddar with a tangy sour-cream-and-chive backbone — a loaded baked potato baked into a chewy crumb.",
+  },
+  {
+    name: "Spicy Vodka (Gigi Hadid)",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The viral 'spicy vodka' / Gigi Hadid pasta sauce (creamy tomato with Calabrian-chili heat and parmesan) crossed from the internet's most-made pasta into a 2026 sourdough — a blushing, gently spicy savory loaf riding the same swicy tomato wave as the 'nduja and pepperoni loaves.",
+    inclusions: [
+      "Spicy vodka / tomato-cream sauce, reduced hard until jammy and cooled (thin sauce over-hydrates the dough), swirled in, 70g",
+      "Calabrian chili paste, whisked into the dough water, 20g",
+      "Low-moisture mozzarella or crumbled burrata, patted dry, 110g",
+      "Parmesan, grated, plus fresh basil and a pinch of chili flakes, 50g",
+    ],
+    foldInTip:
+      "Reduce the vodka sauce to a thick jam and cool it so it stays in pockets, whisk the Calabrian paste into the water at mixing for an even blush crumb (reduce the plain water to match), then fold the basil and parmesan in during the second set of folds and laminate the mozzarella and jammy sauce in during shaping.",
+    tastingNote:
+      "A rosy, creamy-tomato crumb with a slow Calabrian burn, molten mozzarella pockets, and salty parmesan — the internet's favorite pasta sauce baked into a tangy loaf.",
+  },
+  {
+    name: "Suya-Spiced Beef",
+    flavorProfile: "spicy",
+    whyTrending:
+      "West African flavors are a named 2026 rising trend, and suya — the Nigerian street-grilled beef coated in yaji, a peanut-and-chili spice — makes a bold, nutty-spicy meat loaf that fills a genuine geographic gap between the board's berbere (Ethiopian) and peri-peri (Southern African) entries.",
+    inclusions: [
+      "Cooked beef (thin-sliced steak or seasoned mince), tossed in yaji and drained of fat, 120g",
+      "Yaji suya spice (ground roasted peanut, cayenne, ginger, garlic, paprika, bouillon), 15g — keep any single warming spice under ~1% of flour",
+      "Roasted red onion and red bell pepper, diced and patted very dry, 70g",
+      "Toasted crushed peanuts for the crumb and crust, 40g",
+    ],
+    foldInTip:
+      "Blot the cooked beef and the roasted onion-pepper bone-dry (rendered fat and vegetable water both slacken the dough), fold the yaji and half the peanuts in during the second set of folds so the spice perfumes the whole crumb, then laminate the beef and onion-pepper in during shaping; press the remaining peanuts onto the crust.",
+    tastingNote:
+      "Smoky-nutty peanut warmth and a building cayenne-ginger heat against savory beef and sweet roasted pepper — Nigerian suya turned into a bold, tangy loaf.",
+  },
+  {
+    name: "Churro & Dulce de Leche",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Churro-flavored bakes are all over 2026 sweet-sourdough feeds — a cinnamon-sugar swirl with a molten dulce-de-leche ribbon, the fried-street-snack format that follows the same crunchy-cinnamon path as the Panera cinnamon-crunch loaf but with a caramel core.",
+    inclusions: [
+      "Cinnamon-sugar swirl (light brown sugar plus cinnamon), 70g",
+      "Dulce de leche, warmed slightly for swirling, 100g",
+      "Softened butter for the swirl, 25g",
+      "Turbinado-and-cinnamon 'churro' sugar for the crust, 30g",
+    ],
+    foldInTip:
+      "Laminate the dough thin, spread the softened butter, drizzle the dulce de leche, and dust the cinnamon-sugar, then roll and coil-fold so the caramel and cinnamon spiral through the crumb; roll the shaped loaf's crust in the turbinado-cinnamon sugar for the signature churro crackle.",
+    tastingNote:
+      "A soft cinnamon-swirled crumb ribboned with molten caramel dulce de leche under a crunchy churro-sugar crust — the fried-dough classic as a sliceable loaf.",
+  },
+  {
+    name: "Red Velvet & Cream Cheese",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Red velvet crossed from cakes into 2026's viral sweet-sourdough 'flights' — a subtly cocoa, dramatically crimson crumb studded with white-chocolate and dolloped with tangy cream cheese, the color-forward dessert loaf that joins the ube-purple, matcha-green, and beetroot-magenta visual-trend axis.",
+    inclusions: [
+      "Dutch-process cocoa (a modest amount — red velvet is barely chocolatey), bloomed into the warm dough water, 12g",
+      "Natural red color (beetroot powder for a clean-label crimson, or a little gel color), worked into the dough, 8g",
+      "Cream cheese, frozen and cubed, dolloped in cold, 110g",
+      "White chocolate chips plus a splash of buttermilk swapped for part of the water and vanilla bean paste, 90g",
+    ],
+    foldInTip:
+      "Bloom the small amount of cocoa and the color into the warm water for an even crimson crumb (reduce the plain water to match) and swap a little buttermilk in for tang, then laminate the frozen cream cheese and white chocolate in during shaping so they stay in defined pockets against the red crumb.",
+    tastingNote:
+      "A striking crimson, lightly cocoa crumb with creamy tangy cream-cheese pockets and sweet white-chocolate melts — red velvet cake turned into a sliceable sourdough.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1903,6 +1999,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "There's no Peruvian on the board despite Peru being one of 2026's fastest-rising, often-organic South-American value origins — the only South Americans here are Colombia and Brazil. A washed Cajamarca is a clean, sweet, gently floral cup with a brown-sugar-and-cacao body and an almond finish that punches well above its price and pulls a forgiving, syrupy espresso. It's the ideal 'bridge' origin for anyone stepping up from supermarket coffee, and the natural pairing for the Peruvian aji amarillo loaf above. Brew as a pour-over for the apple-and-cacao sweetness or as an easy everyday espresso.",
     approxPrice: "$18 / 12oz",
   },
+  {
+    name: "Sumatra Mandheling (Wet-Hulled)",
+    roaster: "Onyx Coffee Lab / widely stocked",
+    origin: "Indonesia (North Sumatra / Lintong / Mandailing)",
+    process: "Wet-hulled (Giling Basah)",
+    roastLevel: "medium-dark",
+    officialNotes: ["Dark chocolate", "Cedar", "Tobacco", "Earthy"],
+    whyTry:
+      "Every coffee on the board is either bright-and-fruity or clean-and-chocolatey — none captures the polarizing, intensely earthy low-acid register that defines classic Sumatra, and none uses the wet-hull (giling basah) process, unique to Indonesia, that creates it. Sumatra's Gayo carbonic-maceration lot here is a clean fruity CM natural, the opposite cup. Wet-hulling strips the parchment at 30–40% moisture, producing the signature blue-green bean and a heavy, full-bodied cup of dark chocolate, cedar, and tobacco with almost no acidity — a genuine processing and flavor-profile gap. Roasted medium-dark it's a syrupy, comforting espresso base that grounds a milk drink and pairs with the chocolatey loaves; it's also the ideal base coffee for a café de olla.",
+    approxPrice: "$18 / 12oz",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -2113,6 +2220,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Pull a fresh hot double shot (about 36g) — a chocolatey medium-dark melts the gelato into the richest cream.",
       "Pour the hot espresso directly over the gelato so it begins melting into a warm-cold, foamy pool.",
       "Serve immediately with a spoon; finish with grated chocolate, toasted chopped nuts, or a crumbled biscotti if you like.",
+    ],
+  },
+  {
+    name: "Café de Olla",
+    category: "filter",
+    brewRatio: "brewed (roughly 1:12)",
+    description:
+      "Mexico's traditional clay-pot spiced coffee — coarse grounds gently simmered with canela (Mexican cinnamon), piloncillo (unrefined cane sugar), and often clove or star anise — is having a 2026 global-café moment as forecasters spotlight specific regional traditions over generic 'spiced lattes.' Sweet, earthy, and aromatic, it's the ideal way to show off an earthy medium-dark like the new Sumatra Mandheling (or the chocolatey Brazil Cerrado) and the natural coffee counterpart to the board's Mexican loaves (elote, chamoy, aji amarillo).",
+    buildSteps: [
+      "Bring about 4 cups of water to a simmer with a stick of Mexican canela (Ceylon cinnamon — softer and fruitier than cassia), 30–40g piloncillo (or dark brown sugar), and optionally a clove or a star anise; stir until the sugar dissolves.",
+      "Add ~4 tablespoons of coarsely ground medium-dark coffee off the boil, stir once, cover, and steep 4–5 minutes — simmer gently rather than brewing fast so the spices and coffee fully infuse.",
+      "Let it settle so the grounds sink, then pour through a fine strainer into small cups or clay jarritos.",
+      "Serve hot and unsweetened-to-taste (the piloncillo is the sweetness), traditionally alongside pan dulce; for an iced version, cool and pour over ice with a splash of milk.",
     ],
   },
 ];
