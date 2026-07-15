@@ -7,3 +7,6 @@ public/images/drafts/
 .env
 .env*.local
 .env.production
+
+# Claude Code local tooling (settings, launch config, worktrees)
+.claude/
