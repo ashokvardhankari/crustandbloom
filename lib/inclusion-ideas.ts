@@ -632,6 +632,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A deep bittersweet cocoa crumb with an espresso backbone and molten dark-chocolate pockets — the loaf that pairs itself with your morning shot.",
   },
+  {
+    name: "Lemon Poppyseed",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Named a leading 2026 sourdough flavor by bakery trend forecasters (bright citrus + speckled texture) and riding the Taylor-Swift-fueled sweet-loaf wave right alongside her viral blueberry-lemon loaf — a sunny, sugared-zest crumb.",
+    inclusions: [
+      "Lemon zest from 3 lemons, tossed with light sugar to draw out the oils, 25g",
+      "Poppy seeds, 20g",
+      "A little fresh lemon juice swapped for part of the dough water, 20g",
+      "White chocolate chips, optional, 60g",
+    ],
+    foldInTip:
+      "Toss the zest with the sugar and stir it plus the poppy seeds in early (first set of stretch-and-folds) so both spread evenly; swap the lemon juice for an equal weight of water at mixing, and laminate the white chocolate in during shaping if using.",
+    tastingNote:
+      "A fragrant, sunny crumb flecked with poppy seeds and perfumed with sugared lemon zest — the classic muffin flavor as a tangy sliceable loaf.",
+  },
+  {
+    name: "Chocolate Orange",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Flagged as a rising 2026 sweet-crossover sourdough by British Baker / bakery trend reports — the Terry's-chocolate-orange pairing (bittersweet cocoa + bright citrus) folded into a loaf.",
+    inclusions: [
+      "Dutch-process cocoa, bloomed into the warm dough water, 22g",
+      "Orange zest from 2 oranges, plus a splash of orange juice swapped for part of the water, 60g",
+      "Dark chocolate chunks (60–70%), 110g",
+      "Candied orange peel, finely chopped, optional, 40g",
+    ],
+    foldInTip:
+      "Bloom the cocoa into the warm water (reduce the plain water to match) for an even chocolate crumb and stir in the orange juice; fold the zest in during the second set of folds, then laminate the dark chocolate (and candied peel) in during shaping so they stay in molten pockets.",
+    tastingNote:
+      "A bittersweet cocoa crumb lifted by bright orange oil, with molten dark-chocolate pockets and little chewy bursts of candied peel — Terry's chocolate orange you can toast.",
+  },
+  {
+    name: "Cookies & Cream",
+    flavorProfile: "sweet",
+    whyTrending:
+      "A breakout of the viral 'sourdough flight' trend on TikTok (bakers baking mini loaves in dessert flavors) — crushed chocolate sandwich cookies and white chocolate baked into a soft crumb.",
+    inclusions: [
+      "Chocolate sandwich cookies (Oreo-style), roughly broken into chunks, 100g",
+      "White chocolate chips, 90g",
+      "Cream cheese, frozen and cubed, optional for a cheesecake edge, 80g",
+      "Vanilla bean paste, 6g",
+    ],
+    foldInTip:
+      "Keep the cookie pieces chunky and add them late — laminate them with the white chocolate (and frozen cream cheese) in during shaping so they don't dissolve and grey out the whole crumb; stir the vanilla in at mixing.",
+    tastingNote:
+      "Cocoa-cookie crunch and creamy white-chocolate melts through a vanilla crumb — cookies and cream as a sliceable dessert loaf.",
+  },
+  {
+    name: "Baklava Walnut-Honey",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Baklava-inspired formats were called out as a defining 2026 'elevated comfort' trend (layered, nutty, honey-soaked) — the walnut-cinnamon-honey filling and buttery phyllo crunch reimagined as a swirled sourdough.",
+    inclusions: [
+      "Walnuts (or a walnut-pistachio mix), toasted and finely chopped, tossed with cinnamon and a pinch of clove, 120g",
+      "Kataifi or crushed phyllo, toasted in butter until deep golden and crisp, 50g",
+      "Honey, warmed for swirling, plus extra to brush the crust, 70g",
+      "A little orange-blossom or rose water, optional, 3g",
+    ],
+    foldInTip:
+      "Toast the phyllo/kataifi in butter and cool it fully so it stays crunchy, then laminate the dough thin, brush with the warm honey (and blossom water), scatter the spiced walnuts and phyllo, and roll it up so the layers spiral through the crumb; brush the baked crust with a little more honey while warm.",
+    tastingNote:
+      "Spiced honey-soaked walnut ribbons against shards of buttery phyllo crunch — a slice of baklava turned into tangy sourdough.",
+  },
+  {
+    name: "Mango Chamoy",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The clearest example of 2026's 'fricy' (fruity + spicy) wave that trend forecasters say is crossing from snacks into bakery — sweet-tart-spicy Mexican chamoy with dried mango and a Tajín-dusted crust.",
+    inclusions: [
+      "Dried mango, diced and pre-soaked (or add a little extra dough water for it to plump), 100g",
+      "Chamoy sauce, reduced slightly so it isn't runny, swirled in, 50g",
+      "Tajín / chili-lime seasoning plus the zest of 1 lime, 6g",
+      "Pickled or fresh jalapeño, finely diced and patted dry, optional, 30g",
+    ],
+    foldInTip:
+      "Pre-soak the dried mango (or add extra water at mixing so it plumps in the dough), then laminate the mango and jalapeño in during shaping and ribbon the reduced chamoy between the folds; dust the crust with a little Tajín before scoring. Cool at least 2 hours — the mango pockets act like molten jam.",
+    tastingNote:
+      "Juicy mango against a sweet-salty-tangy chamoy swirl and a slow chili-lime tingle — a Mexican street-snack flavor baked into a tangy loaf.",
+  },
+  {
+    name: "Yuzu Kosho & White Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Yuzu kosho — the Japanese fermented chili-citrus paste — was named specifically in 2026 'fricy'/botanical trend coverage as it moves from specialty menus into bakery; its bright, salty heat is a fresh spin on the jalapeño-cheddar loaf.",
+    inclusions: [
+      "Yuzu kosho paste, whisked into the dough water (it's salty — cut added salt to compensate), 30g",
+      "Sharp white cheddar, cubed, 130g",
+      "Scallions, thinly sliced, 40g",
+      "Yuzu or lemon zest, from 1 fruit",
+    ],
+    foldInTip:
+      "Whisk the yuzu kosho into the water at mixing (reducing the loaf's salt since the paste is salty), fold the zest and scallions in during the second set of folds, then laminate the cheddar cubes in during shaping so they stay in melty pockets.",
+    tastingNote:
+      "Bright fermented-citrus heat and salty green-chili zing against melty sharp cheddar and fresh scallion — jalapeño-cheddar's more aromatic Japanese cousin.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
