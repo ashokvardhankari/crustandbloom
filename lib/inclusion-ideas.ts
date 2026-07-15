@@ -538,6 +538,100 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Sweet, mellow pockets of whole roasted garlic against salty parmesan and piney herbs — a garlic-bread lover's dream in boule form.",
   },
+  {
+    name: "Hatch Green Chile & Smoked Gouda",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The Southwest's signature loaf, a staple of New Mexico bakers (Alegre Bread) and a big fall-harvest trend — roasted Hatch green chiles folded in with smoky melting cheese.",
+    inclusions: [
+      "Roasted Hatch green chiles, drained hard and patted very dry, chopped, 90g",
+      "Smoked Gouda, cut into 1/4-inch cubes, 110g",
+      "Sharp white cheddar, cubed, 60g",
+      "Ground cumin plus garlic powder, 4g",
+    ],
+    foldInTip:
+      "Canned or jarred chiles run wet, so strain and pat them bone-dry first, then laminate the chiles and both cheeses in during the first set of folds so they form defined pockets rather than slackening the crumb.",
+    tastingNote:
+      "Roasty, earthy Hatch-chile warmth against smoky molten gouda pockets — a New Mexico green-chile classic baked into a tangy loaf.",
+  },
+  {
+    name: "Elote (Mexican Street Corn)",
+    flavorProfile: "spicy",
+    whyTrending:
+      "A viral fusion in the Sourdough Geeks group — esquites (corn, cotija, chili-lime) folded into a loaf that bakers keep calling 'like jalapeño cheddar but even better.'",
+    inclusions: [
+      "Fire-roasted or grilled corn kernels, drained and patted very dry, 130g",
+      "Cotija, crumbled, 80g",
+      "Pickled or fresh jalapeño, diced small, 30g",
+      "Tajín / chili-lime seasoning plus the zest of 1 lime, 6g",
+    ],
+    foldInTip:
+      "Corn is wet and will slacken the dough, so dry it as much as you can, then laminate the corn, cotija, and jalapeño in during shaping; dust the crust with a little extra Tajín before scoring.",
+    tastingNote:
+      "Sweet charred corn, salty cotija, and a tangy chili-lime kick — Mexican street corn baked straight into a chewy crumb.",
+  },
+  {
+    name: "Za'atar, Olive & Feta",
+    flavorProfile: "savory",
+    whyTrending:
+      "Rides the continuing Mediterranean-mezze wave — earthy za'atar (sumac, thyme, sesame) with briny olives and feta, a fresh Levantine spin on the popular olive-feta loaf.",
+    inclusions: [
+      "Za'atar spice blend, 15g (plus a pinch for the crust)",
+      "Feta, crumbled into chunks, 90g",
+      "Kalamata olives, pitted, halved, and dried, 80g",
+      "Good extra-virgin olive oil to brush the crust, 15g",
+    ],
+    foldInTip:
+      "Fold the za'atar in during the second set of stretch-and-folds so its flavor spreads, laminate the feta and olives in during shaping, then brush the crust with olive oil and a final pinch of za'atar before baking.",
+    tastingNote:
+      "Herby, tangy sumac-and-thyme za'atar against briny olives and salty feta pockets — a mezze board in sliceable loaf form.",
+  },
+  {
+    name: "Cinnamon Crunch Swirl (Panera copycat)",
+    flavorProfile: "sweet",
+    whyTrending:
+      "One of TikTok's biggest copycat bakes — the Panera cinnamon-crunch swirl reimagined as sourdough, sharpened by the Taylor-Swift-fueled cinnamon-swirl craze.",
+    inclusions: [
+      "Cinnamon-sugar swirl: light brown sugar plus cinnamon, 80g",
+      "Softened butter for the swirl, 30g",
+      "Turbinado-and-cinnamon 'crunch' topping for the crust, 30g",
+    ],
+    foldInTip:
+      "Laminate the dough thin, spread the softened butter, and sprinkle the cinnamon-sugar, then roll and coil-fold so it spirals through the crumb; press the turbinado-cinnamon topping onto the crust for the signature crackly crust.",
+    tastingNote:
+      "A soft cinnamon-swirled crumb under a crackly caramelized cinnamon-sugar crust — the Panera crunch bagel as a tangy sliceable loaf.",
+  },
+  {
+    name: "Strawberries & Cream",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Summer 2025's breakout flavor (M&S's viral Wimbledon strawberries-and-cream sandwich spilled into baking) — freeze-dried strawberries and cream cheese folded into a springtime loaf.",
+    inclusions: [
+      "Freeze-dried strawberries (not fresh — fresh runs the dough wet), lightly crushed, 40g",
+      "Cream cheese, frozen and cubed, 100g — or white chocolate chips, 90g",
+      "Vanilla bean paste, 6g",
+    ],
+    foldInTip:
+      "Freeze-dried strawberries keep the hydration in check, so avoid fresh; dollop the frozen cream cheese and scatter the crushed berries over the laminated dough during shaping so they stay in defined pink pockets instead of bleeding through.",
+    tastingNote:
+      "Tart-sweet strawberry pockets against creamy, tangy cream cheese — Wimbledon strawberries and cream you can toast.",
+  },
+  {
+    name: "Chocolate Espresso",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Repeatedly called the sweet loaf that wins over skeptics — a sophisticated bittersweet mocha crumb that ties your baking straight into your morning espresso.",
+    inclusions: [
+      "Dutch-process cocoa, bloomed into the warm dough water, 25g",
+      "Strong cooled espresso or cold brew, swapped for part of the dough water, 60g",
+      "Dark chocolate chunks (60–70%), 110g",
+      "Instant espresso powder for depth, 6g",
+    ],
+    foldInTip:
+      "Bloom the cocoa and espresso powder into the warm water for an even mocha crumb (reduce the plain water to match), then laminate the dark chocolate chunks in during shaping so they stay in molten pockets.",
+    tastingNote:
+      "A deep bittersweet cocoa crumb with an espresso backbone and molten dark-chocolate pockets — the loaf that pairs itself with your morning shot.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -630,6 +724,28 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "A balanced, richer Central American cup with cocoa and brown-sugar sweetness and a syrupy body — an easy bridge from darker roasts into specialty, and a great everyday espresso.",
     approxPrice: "$19 / 12oz",
   },
+  {
+    name: "El Vergel — Lychee Thermal-Shock Co-Ferment",
+    roaster: "Sey Coffee (Brooklyn)",
+    origin: "Colombia (Tolima / El Vergel Estate)",
+    process: "Thermal-shock co-ferment (natural)",
+    roastLevel: "light",
+    officialNotes: ["Lychee", "Strawberry", "Rosé", "Candied"],
+    whyTry:
+      "Co-ferments are the defining experimental process of 2026 (68% of specialty roasters now stock them), and El Vergel is the estate that put competition-grade fruit-in-the-tank lots on the map — the clearest way to taste what co-fermentation actually does. Brew fresh as pour-over.",
+    approxPrice: "$28 / 250g",
+  },
+  {
+    name: "Uganda Sipi Falls (Natural)",
+    roaster: "Square Mile Coffee Roasters (London)",
+    origin: "Uganda (Mt. Elgon / Sipi Falls)",
+    process: "Natural",
+    roastLevel: "medium-light",
+    officialNotes: ["Red berries", "Cocoa", "Orange", "Syrupy"],
+    whyTry:
+      "Uganda is 2026's emerging origin to watch, and Mt. Elgon naturals deliver berry-and-cocoa sweetness with a syrupy body — a fresh origin for the review shelf beyond the usual Ethiopia/Kenya axis.",
+    approxPrice: "$19 / 350g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -697,6 +813,32 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Fill a tall glass with ice and pour in cold milk, leaving room at the top.",
       "Pull a double shot of espresso and pour it over the iced milk.",
       "Spoon the pistachio cold foam over the top and finish with crushed toasted pistachios.",
+    ],
+  },
+  {
+    name: "Dirty Matcha Latte",
+    category: "latte",
+    brewRatio: "1:2",
+    description:
+      "A top-five café drink of 2026 — a bright ceremonial-matcha base 'dirtied' with a shot of espresso for a layered green-and-brown cup that unites tea and coffee people in one glass.",
+    buildSteps: [
+      "Sift 2g ceremonial-grade matcha (culinary turns muddy and bitter) and whisk with a splash of ~80°C water until smooth and frothy.",
+      "Fill a tall glass with ice, pour in cold milk (oat holds the layers best), then the matcha, stirring to an even green.",
+      "Pull a fresh double shot of espresso.",
+      "Slowly pour the espresso over the back of a spoon so it floats over the green; stir just before drinking.",
+    ],
+  },
+  {
+    name: "Oleato Shaken Espresso",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "The Starbucks-born olive-oil coffee trend, still viral in 2026 — espresso shaken with good extra-virgin olive oil for a silky, buttery, lightly peppery cup.",
+    buildSteps: [
+      "Pull a double shot and add it to a shaker with a tablespoon of a peppery extra-virgin olive oil (cheap oil tastes greasy — use a fruity Sicilian or Tuscan).",
+      "Add ice and shake hard for 15–20 seconds so the oil emulsifies into the espresso — this is the whole trick; under-shaken and it splits.",
+      "Pour over a glass of fresh ice.",
+      "Top with a splash of barista oat milk and, optionally, a twist of lemon peel and a pinch of flaky salt.",
     ],
   },
 ];
