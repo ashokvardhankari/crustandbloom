@@ -1402,6 +1402,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A tender crumb studded with jammy caramelized banana, molten rum-caramel pools, and toasty pecans with a flaky-salt finish — Bananas Foster turned into a sliceable, tangy dessert loaf.",
   },
+  {
+    name: "Marry Me Chicken",
+    flavorProfile: "savory",
+    whyTrending:
+      "'Marry Me Chicken' has been one of the internet's stickiest viral dinners since 2023 and is still surging into 2026 bakes — the creamy sun-dried-tomato, parmesan, and basil sauce (with a whisper of chili flake) folds into a savory loaf that reads as a comforting dinner-in-bread, distinct from the plainer sun-dried-tomato loaf.",
+    inclusions: [
+      "Cooked shredded chicken tossed in a little of the sauce then drained well, 110g",
+      "Oil-packed sun-dried tomatoes, drained, blotted, and chopped, 70g",
+      "Parmesan, grated, plus a little to press on the crust, 90g",
+      "Fresh basil chiffonade plus a pinch of red pepper flakes and roasted garlic, 12g",
+    ],
+    foldInTip:
+      "Drain the sauced chicken and blot the sun-dried tomatoes so their oil doesn't grease the gluten, fold the basil, garlic, and chili flakes in during the second set of stretch-and-folds, then laminate the chicken, tomatoes, and grated parmesan in during shaping; press a little extra parmesan onto the crust so it crisps.",
+    tastingNote:
+      "Savory shredded chicken, sweet-tangy sun-dried tomato, and nutty parmesan with a fragrant basil-and-garlic lift and the faintest chili warmth — the viral creamy-chicken dinner turned into a sliceable loaf.",
+  },
+  {
+    name: "Broccoli Cheddar Soup Boule",
+    flavorProfile: "savory",
+    whyTrending:
+      "Soup-as-a-loaf keeps trending after the breakout French onion boule, and broccoli-cheddar (Panera's most-copied soup) is the obvious next translation — finely chopped roasted broccoli and sharp cheddar baked straight into a crumb meant to eat like its own bread bowl.",
+    inclusions: [
+      "Broccoli florets, roasted until dry and browned then finely chopped, 120g",
+      "Extra-sharp cheddar, cubed, 130g",
+      "Grated carrot, squeezed very dry, 40g",
+      "Onion powder, garlic powder, and a pinch of dry mustard, 6g",
+    ],
+    foldInTip:
+      "Roast the broccoli hard so it sheds its water (steamed broccoli will slacken the dough) and wring the grated carrot bone-dry, fold the seasonings in during the first set of folds, then laminate the broccoli, carrot, and cheddar cubes in during shaping so the cheese forms melty pockets.",
+    tastingNote:
+      "Nutty roasted broccoli and sweet flecks of carrot against sharp molten cheddar pockets — Panera's broccoli-cheddar soup baked into a tangy crumb that is its own bread bowl.",
+  },
+  {
+    name: "Chicken Tikka Masala",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Regional-specific Indian flavors are a named 2026 rising vein (tying neatly to the India Araku bean on this board), and chicken tikka masala — Britain's adopted national dish — folds into a loaf as a warmly spiced, tomato-and-cream meal-in-bread that goes beyond generic 'curry.'",
+    inclusions: [
+      "Cooked tikka chicken tossed in a thick, reduced masala sauce then drained well, 120g",
+      "Tomato-onion masala paste, reduced until jammy and cooled, 60g",
+      "Paneer, cubed small, or extra sharp cheddar, 80g",
+      "Garam masala, ginger, and a little kasoori methi (keep total spice under ~1% of the flour), 8g",
+    ],
+    foldInTip:
+      "Reduce the masala hard so it isn't watery and drain the chicken well, work the reduced paste into the dough at mixing for a warm-toned crumb, and keep the garam masala under about 1% of the flour since cumin, clove, and cinnamon in the blend are anti-microbial and will stall the culture; laminate the chicken and paneer in during shaping.",
+    tastingNote:
+      "A warm ginger-and-garam-masala crumb with jammy tomato-onion depth, tender spiced chicken, and mild creamy paneer pockets — chicken tikka masala turned into a tangy, sliceable loaf.",
+  },
+  {
+    name: "Sichuan Mala Chili Crisp",
+    flavorProfile: "spicy",
+    whyTrending:
+      "'Mala' (numbing-hot Sichuan peppercorn plus chili) is the specific 2026 heat forecasters call the next step past plain chili crisp — its tingly, aromatic burn is a distinct sensation from the salsa-macha and chili-crunch loaves already on the board.",
+    inclusions: [
+      "Sichuan chili crisp, oil drained off so mostly the crunchy solids remain, 30g",
+      "Toasted, coarsely ground Sichuan peppercorns for the málà tingle, 5g",
+      "Sharp cheddar or Monterey Jack, cubed, 120g",
+      "Scallions and toasted sesame seeds, 45g",
+    ],
+    foldInTip:
+      "Drain the oil off the chili crisp so hydration stays put and keep back the solids, fold the ground Sichuan peppercorn and sesame in during the second set of folds so the numbing spice spreads evenly, then laminate the chili-crisp solids, cheese, and scallions in during shaping.",
+    tastingNote:
+      "A slow building chili heat wrapped in the citrusy, lip-tingling buzz of Sichuan peppercorn against melty cheese and fresh scallion — chili-crisp's numbing málà cousin baked into a tangy loaf.",
+  },
+  {
+    name: "Cardamom Bun (Kardemummabullar)",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Scandinavian cardamom bakes are a named 2026 sweet trend (the kardemummabulle has become the cool-café rival to the cinnamon roll), and its fragrant crushed-cardamom-and-brown-sugar swirl with a pearl-sugar crust translates beautifully into a swirled sweet sourdough.",
+    inclusions: [
+      "Freshly crushed green cardamom seeds, worked into the dough plus more in the swirl, 8g",
+      "Cardamom-brown-sugar swirl paste with softened butter, 90g",
+      "Pearl sugar (nib sugar) for the crust, 30g",
+      "Orange zest, optional, from 1 orange",
+    ],
+    foldInTip:
+      "Crush the cardamom fresh and work some into the dough at mixing for an even fragrance, then laminate the dough thin, spread the softened cardamom-butter-sugar paste, and roll and coil-fold so it spirals through the crumb; press pearl sugar onto the crust before baking for the signature crunch.",
+    tastingNote:
+      "A warm, floral cardamom crumb swirled with buttery brown sugar under a crackly pearl-sugar crust — the Swedish cardamom bun turned into a tangy sliceable loaf.",
+  },
+  {
+    name: "Black Sesame Swirl",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Black sesame is a leading 2026 Asian-dessert flavor crossing into Western bakeries (nutty, toasty, faintly bitter, dramatic charcoal-grey crumb), and a black-sesame-paste swirl with white chocolate is the sophisticated, less-sugary sweet loaf trend-watchers keep flagging.",
+    inclusions: [
+      "Black sesame paste (or ground toasted black sesame with a little honey), warmed for swirling, 110g",
+      "Toasted black and white sesame seeds, 25g",
+      "White chocolate chips, 80g",
+      "A little honey or brown sugar worked into the dough, 25g",
+    ],
+    foldInTip:
+      "Loosen the black sesame paste so it's pipeable, laminate the dough thin and spread it, scatter the toasted sesame seeds and white chocolate, then roll and coil-fold so the dark paste marbles through the crumb in grey-black ribbons; stir the honey in at mixing.",
+    tastingNote:
+      "A striking charcoal-grey crumb ribboned with nutty, toasty black-sesame paste and creamy white-chocolate melts — a sophisticated, barely-sweet loaf that eats like an East-Asian dessert.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
