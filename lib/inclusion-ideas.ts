@@ -1594,6 +1594,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Tart, jammy rhubarb pockets against a creamy vanilla-custard swirl through a tender crumb — the retro rhubarb-and-custard sweet dissolved into a springtime loaf.",
   },
+  {
+    name: "Beetroot & Goat Cheese",
+    flavorProfile: "savory",
+    whyTrending:
+      "Naturally jewel-magenta crumb loaves are a viral 2026 'colorful sourdough' trend (roasted beetroot dyes the dough without artificial color), and the earthy-sweet beet against tangy, creamy chèvre and toasted walnut is the salad-into-bread combo bakers keep posting.",
+    inclusions: [
+      "Beetroot, roasted until soft then puréed (or finely grated raw and wrung bone-dry), swapped for part of the dough water for a magenta crumb, 120g purée",
+      "Soft goat cheese (chèvre), frozen and cut into small cubes, 110g",
+      "Toasted walnuts, roughly chopped, 50g",
+      "Fresh thyme plus orange zest and cracked black pepper, 4g",
+    ],
+    foldInTip:
+      "Blend the beet purée into the dough water at mixing (cut the plain water to match) for an even magenta crumb — if using raw beet, grate and wring it bone-dry first or it will slacken the dough; freeze the goat cheese cubes so they hold their shape instead of smearing, fold the walnuts, thyme, and zest in during the second set of folds, then laminate the frozen chèvre in during shaping.",
+    tastingNote:
+      "A striking magenta-pink crumb with earthy-sweet beetroot, creamy tangy goat-cheese pockets, and toasty walnut crunch lifted by orange and thyme — a beet-and-chèvre salad baked into a jaw-dropping loaf.",
+  },
+  {
+    name: "Smash Burger",
+    flavorProfile: "savory",
+    whyTrending:
+      "The smash-burger craze is one of 2026's biggest food obsessions, and the burger-as-loaf is the next meal-in-a-loaf after the Philly and Cubano — griddled beef, melty cheese, pickle, and special-sauce spices folded into a sesame-crusted boule.",
+    inclusions: [
+      "Ground beef, seasoned, crisped hard in a skillet, drained of its fat, and cooled, 120g",
+      "American or sharp cheddar, cubed, 110g",
+      "Dill pickles, diced and patted VERY dry, 60g",
+      "Special-sauce dust (dried onion, mustard powder, smoked paprika, tomato powder) worked into the dough, plus sesame seeds for the crust, 8g",
+    ],
+    foldInTip:
+      "Drain the crisped beef of its fat and wring the pickles bone-dry so grease and brine don't slacken the dough, work the special-sauce spices into the dough at mixing, then laminate the beef, cheese, and pickles in together during shaping; press sesame seeds onto the crust before scoring for the burger-bun nod.",
+    tastingNote:
+      "Savory griddled-beef, molten cheese, and a bright pickle pop with a tangy special-sauce hum through the crumb under a toasted sesame crust — a smash burger baked into a loaf, unbeatable split and griddled.",
+  },
+  {
+    name: "Aji Amarillo & Queso Fresco",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Peruvian food is a named 2026 rising cuisine, and aji amarillo — the fruity, sunshine-yellow chili behind causa and ají de gallina — is the fresh heat source forecasters flag as it crosses into Western kitchens; folded in with crumbly queso fresco it makes a distinct golden, brightly-spiced loaf unlike the green-and-red chili loaves already on the board.",
+    inclusions: [
+      "Aji amarillo paste, whisked into the dough water (reduce hydration slightly since it's a wet paste), 40g",
+      "Queso fresco or Cotija, crumbled, 110g",
+      "Fire-roasted corn or choclo kernels, drained and patted very dry, 70g",
+      "Lime zest, garlic, and a little huacatay or cilantro, 6g",
+    ],
+    foldInTip:
+      "Whisk the aji amarillo into the water at mixing for an even golden, gently spicy crumb (cut the plain water to match), dry the corn hard so it doesn't slacken the dough, fold the lime zest, garlic, and herb in during the second set of folds, then laminate the queso fresco and corn in during shaping so the cheese stays in crumbly pockets.",
+    tastingNote:
+      "A sunny golden crumb carrying the fruity medium heat of aji amarillo against salty crumbles of fresh cheese and sweet pops of corn — a Peruvian ají loaf that's bright and warming rather than sharply fiery.",
+  },
+  {
+    name: "Thai Chili Jam (Nam Prik Pao) & Cashew",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Nam prik pao — Thailand's sweet-smoky roasted-chili jam — is on 2026's regional-specificity heat list as Thai pastes cross from tom yum into bakery; its jammy tamarind-and-dried-chili depth swirled through a loaf with buttery toasted cashews is a fresh Thai spin distinct from the green-curry loaf.",
+    inclusions: [
+      "Nam prik pao (Thai roasted chili jam), most of its oil drained off, swirled in, 40g",
+      "Toasted cashews, roughly chopped, 70g",
+      "Firm Monterey Jack or a mild gouda, cubed, optional, 100g",
+      "Kaffir lime leaf slivered fine plus scallion and a squeeze of lime, 6g",
+    ],
+    foldInTip:
+      "Drain most of the oil off the chili jam so hydration stays put (save a little to brush the crust for sheen), fold the lime leaf and scallion in during the second set of folds, then ribbon the nam prik pao across the laminated dough with the cashews (and cheese) during shaping so its smoky-sweet heat marbles through the crumb.",
+    tastingNote:
+      "Sweet-smoky roasted-chili depth with a tamarind tang and a slow building heat against buttery toasted cashews and a bright kaffir-lime lift — a spoonful of Thai chili jam baked into a tangy loaf.",
+  },
+  {
+    name: "Peach Cobbler",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Stone fruit is having a 2026 moment and peach cobbler is the Southern-nostalgia dessert forecasters keep naming for the year's 'elevated comfort / nostalgic indulgence' sweet play — spiced peaches and a buttery cinnamon-brown-sugar streusel folded into a sweet sourdough.",
+    inclusions: [
+      "Peaches (freeze-dried, or fresh/canned drained hard and pre-cooked with sugar until jammy, then cooled), 90g",
+      "Cinnamon-brown-sugar streusel (flour, butter, brown sugar, cinnamon) baked crisp and cooled, 70g",
+      "Vanilla bean paste plus a pinch of nutmeg, 6g",
+      "Turbinado sugar for the crust, 20g",
+    ],
+    foldInTip:
+      "Peaches are wet, so use freeze-dried or cook fresh/canned peaches down to a thick jam and drain and cool them; stir the vanilla in at mixing, laminate the peaches in during shaping so they stay in defined pockets, and scatter the cooled streusel through so it stays crunchy; press turbinado onto the crust for a cobbler-topping crackle. Cool at least 2 hours before slicing — the peach pockets act like hot jam.",
+    tastingNote:
+      "Jammy spiced-peach pockets and buttery cinnamon-streusel crunch through a tender vanilla crumb — a warm peach cobbler turned into a sliceable, tangy dessert loaf.",
+  },
+  {
+    name: "Cannoli",
+    flavorProfile: "sweet",
+    whyTrending:
+      "The cannoli flavor — sweet ricotta, chocolate chips, pistachio, and candied orange — is a viral Italian-dessert crossover in 2026 sweet bakes (cannoli everything, from cakes to cold foam), and it makes a creamy, less-sugary sweet loaf that eats like the pastry's filling.",
+    inclusions: [
+      "Ricotta, drained overnight and lightly sweetened, dolloped in cold (or a stiff ricotta-mascarpone mix), 120g",
+      "Mini chocolate chips, 80g",
+      "Toasted pistachios, chopped, plus a little candied orange peel, 60g",
+      "Vanilla bean paste plus orange zest and a pinch of cinnamon, 6g",
+    ],
+    foldInTip:
+      "Drain the ricotta overnight so it isn't watery (a stiff drained ricotta stays in defined pockets instead of dissolving into the crumb), stir the vanilla and zest in at mixing, then laminate the cold sweetened ricotta, chocolate chips, pistachios, and candied peel in during shaping; dust the cooled crust with powdered sugar for the pastry-case finish.",
+    tastingNote:
+      "Creamy sweet-ricotta pockets studded with chocolate chips, toasty pistachio, and bright candied-orange bursts through a tender crumb — a cannoli turned into a sliceable, tangy dessert loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1796,6 +1892,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every bean on this board is a Geisha, SL28, Bourbon, or landrace variety — there's no Pacamara, which is one of the most distinctive varietals in specialty coffee and a clear gap. Pacamara is a Salvadoran cross of the giant Maragogipe and Pacas, prized for enormous beans and a wild, syrupy, fruit-forward cup unlike anything else; the Diamantina family's celebrated Los Pirineos estate is the benchmark producer. A natural-process Pacamara is a juicy, jammy strawberry-and-grape light roast that shows why El Salvador (a rising Central-American origin with a deep varietal story) belongs on any serious tasting board — brew it as a filter to let the giant beans' fruit unfurl.",
     approxPrice: "$23 / 250g",
   },
+  {
+    name: "Peru Cajamarca (Washed)",
+    roaster: "Passenger Coffee (Lancaster) / widely stocked",
+    origin: "Peru (Cajamarca / Jaén)",
+    process: "Washed",
+    roastLevel: "medium-light",
+    officialNotes: ["Brown sugar", "Red apple", "Cacao nib", "Almond"],
+    whyTry:
+      "There's no Peruvian on the board despite Peru being one of 2026's fastest-rising, often-organic South-American value origins — the only South Americans here are Colombia and Brazil. A washed Cajamarca is a clean, sweet, gently floral cup with a brown-sugar-and-cacao body and an almond finish that punches well above its price and pulls a forgiving, syrupy espresso. It's the ideal 'bridge' origin for anyone stepping up from supermarket coffee, and the natural pairing for the Peruvian aji amarillo loaf above. Brew as a pour-over for the apple-and-cacao sweetness or as an easy everyday espresso.",
+    approxPrice: "$18 / 12oz",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1993,6 +2100,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Brew a light-roast coffee gently — traditionally coarse grounds simmered briefly in a dallah pot, but a light pour-over or French press works — steeping the crushed cardamom (and a thread of saffron or a clove, if you like) with the grounds.",
       "Let it settle so the grounds and pods sink, then pour the clear coffee off the top into small handleless finjan cups, filling each only a third full.",
       "Serve unsweetened and hot, traditionally alongside a date to offset the light, aromatic bitterness — no milk.",
+    ],
+  },
+  {
+    name: "Affogato",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "Dessert-coffee is having a 2026 café comeback, and the affogato — a hot double shot 'drowning' a scoop of cold vanilla gelato so it melts into a warm-cold cream — is the simplest and most elegant of them. It's the perfect showcase for a chocolatey medium-dark like the Brazil Cerrado above, and it doubles as dessert alongside any of the sweet loaves on the board.",
+    buildSteps: [
+      "Scoop a generous ball of good vanilla gelato or ice cream into a small chilled glass or cup.",
+      "Pull a fresh hot double shot (about 36g) — a chocolatey medium-dark melts the gelato into the richest cream.",
+      "Pour the hot espresso directly over the gelato so it begins melting into a warm-cold, foamy pool.",
+      "Serve immediately with a spoon; finish with grated chocolate, toasted chopped nuts, or a crumbled biscotti if you like.",
     ],
   },
 ];
