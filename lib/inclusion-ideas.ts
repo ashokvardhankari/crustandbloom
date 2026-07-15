@@ -1113,6 +1113,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A tender, faintly toffee-nutty enriched crumb from the brown butter with molten dark-and-milk chocolate pockets and a flaky-salt finish — a warm chocolate-chip cookie turned into a sliceable, tangy dessert loaf.",
   },
+  {
+    name: "Philly Cheesesteak",
+    flavorProfile: "savory",
+    whyTrending:
+      "The next deli-sandwich-as-loaf after the Reuben and muffuletta — 2026's 'meal-inspired loaf' wave keeps recreating familiar dishes in bread form, and the Philly (shaved steak, sweated onions and peppers, melty provolone) is the obvious crowd-pleaser to fold into a boule.",
+    inclusions: [
+      "Shaved ribeye or sirloin, quick-seared, chopped small, drained of its juices, and cooled, 120g",
+      "Yellow onion and green bell pepper, sweated in the beef fat until soft, squeezed dry, and cooled, 120g",
+      "Provolone (and a little white American for gooeyness), cubed, 120g",
+      "Worcestershire plus garlic powder and cracked black pepper, 6g",
+    ],
+    foldInTip:
+      "Cook the steak and the onion-pepper mix, then drain and blot both bone-dry and cool them fully so their juices don't slacken the dough; fold the Worcestershire and pepper in during the second set of folds, then laminate the steak, vegetables, and provolone in together during shaping so every slice eats like a bite of the sandwich.",
+    tastingNote:
+      "Savory shaved beef, sweet soft onions and peppers, and molten provolone pockets through a tangy crumb — a whole cheesesteak baked into a loaf that's unbeatable griddled with extra cheese.",
+  },
+  {
+    name: "Spanakopita (Spinach & Feta)",
+    flavorProfile: "savory",
+    whyTrending:
+      "Rides the durable Mediterranean-mezze wave into a specific Greek classic — the spanakopita filling (spinach, feta, dill, scallion, lemon) folded into a loaf is the meal-inspired savory bake bakers keep requesting, a fresher, herbier cousin of the spinach-artichoke loaf.",
+    inclusions: [
+      "Frozen spinach, thawed and squeezed VERY dry, chopped, 120g",
+      "Feta, crumbled into chunks, 130g",
+      "Scallions and fresh dill, chopped, 20g",
+      "Lemon zest, a little garlic, and a pinch of nutmeg, 6g",
+    ],
+    foldInTip:
+      "The make-or-break step is wringing the spinach bone-dry in a towel so its water doesn't turn the crumb gummy; fold the scallions, dill, lemon zest, garlic, and nutmeg in during the second set of folds, then laminate the squeezed spinach and feta in during shaping so they stay in defined green-and-white pockets.",
+    tastingNote:
+      "Earthy spinach, salty tangy feta, and bright dill-and-lemon lift through a chewy crumb — the whole spanakopita filling baked into a loaf, gorgeous brushed with olive oil and toasted.",
+  },
+  {
+    name: "Peri-Peri Chicken & Pepper Jack",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Peri-peri is explicitly named a rising 2026 heat source by IFT's flavor outlook (alongside serrano and Thai chili) as the Nando's-fueled African-bird's-eye-chili craze goes mainstream — its bright, garlicky, citrus-lifted burn makes a fresh, globally-inspired spin on the buffalo-chicken loaf.",
+    inclusions: [
+      "Cooked shredded chicken tossed in peri-peri sauce (bird's-eye chili, garlic, lemon, smoked paprika) then drained well, 120g",
+      "Pepper Jack, cubed, 120g",
+      "Roasted red pepper, drained and patted very dry, chopped, 60g",
+      "Lemon zest, smoked paprika, and a little dried oregano, 5g",
+    ],
+    foldInTip:
+      "Drain the sauced chicken thoroughly and blot the roasted peppers bone-dry so their moisture doesn't over-hydrate the dough, fold the lemon zest, paprika, and oregano in during the second set of folds, then laminate the chicken, Pepper Jack, and peppers in together during shaping; brush the crust with a little peri-peri sauce for color.",
+    tastingNote:
+      "Bright, garlicky bird's-eye heat lifted by lemon and smoky paprika against melty Pepper Jack and sweet roasted-pepper pockets — a plate of peri-peri chicken baked into a tangy, lively loaf.",
+  },
+  {
+    name: "Cajun Andouille & Pepper Jack",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Cajun/Creole flavors are surging as 2026's regional-bold trend rewards specificity (the Minnesota State Fair's 2026 lineup features Cajun shrimp and dirty rice) — smoky andouille sausage and the Holy Trinity of onion, pepper, and celery with a Cajun-spiced crumb make a punchy, dirty-rice-in-loaf-form bake.",
+    inclusions: [
+      "Andouille sausage, diced small, dry-skillet-rendered and blotted of its oil, cooled, 110g",
+      "The 'Holy Trinity': onion, green bell pepper, and celery, finely diced, sweated soft, squeezed dry, and cooled, 100g",
+      "Pepper Jack or sharp cheddar, cubed, 110g",
+      "Cajun seasoning (paprika, cayenne, garlic, thyme, oregano) worked into the dough, 8g",
+    ],
+    foldInTip:
+      "Render the andouille and blot off its oil, and sweat then wring the trinity vegetables dry so their moisture doesn't slacken the dough; work the Cajun seasoning into the dough at mixing so the whole crumb is spiced, then laminate the sausage, vegetables, and cheese in together during shaping.",
+    tastingNote:
+      "Smoky, garlicky andouille and a warm cayenne-thyme spice run all through the crumb against melty cheese and sweet soft trinity vegetables — a bowl of dirty rice reimagined as a bold, tangy loaf.",
+  },
+  {
+    name: "Carrot Cake",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Named a defining 2026 'elevated comfort / nostalgic indulgence' bake as vegetable-forward desserts surge — the carrot-cake flavor (spiced crumb, grated carrot, walnuts, raisins, and cream-cheese pockets) folded into a sweet sourdough is the cozy dessert loaf trend forecasters keep pointing to.",
+    inclusions: [
+      "Carrot, finely grated, tossed with a little sugar, rested, and squeezed to shed some moisture, 120g grated",
+      "Cream cheese, frozen and cut into small cubes, for cheesecake-frosting pockets, 100g",
+      "Toasted walnuts or pecans, chopped, plus golden raisins, 90g",
+      "Warm spice: cinnamon, ginger, nutmeg, and a pinch of clove, plus light brown sugar, 40g",
+    ],
+    foldInTip:
+      "Squeeze some water out of the grated carrot so the crumb doesn't turn gummy, work the spices and brown sugar into the dough at mixing, fold the carrot in during the first set of folds so it colors the crumb evenly, then laminate the frozen cream cheese, nuts, and raisins in during shaping so the cheese stays in defined frosting-like pockets.",
+    tastingNote:
+      "A moist, warmly spiced crumb flecked orange with carrot, studded with toasty nuts and sweet raisins, and shot through with tangy cream-cheese pockets — carrot cake turned into a sliceable, tangy dessert loaf.",
+  },
+  {
+    name: "S'mores",
+    flavorProfile: "sweet",
+    whyTrending:
+      "The campfire-nostalgia dessert loaf all over the 2026 sweet-sourdough feeds (marshmallows are now a named suggested inclusion) — graham-cracker crunch, molten chocolate, and toasted marshmallow hit the exact nostalgia-plus-texture-contrast sweet spot forecasters call the year's dominant indulgence play.",
+    inclusions: [
+      "Mini marshmallows (or torn marshmallows), frozen so they hold their shape, 80g",
+      "Dark and milk chocolate chunks, 110g",
+      "Graham crackers, roughly crushed into chunks, 70g (plus a little to press onto the crust)",
+      "A little cinnamon and light brown sugar plus honey to nod to the graham, 25g",
+    ],
+    foldInTip:
+      "Freeze the marshmallows so they don't dissolve into the dough, keep the graham pieces chunky, and add everything late — laminate the frozen marshmallows, chocolate, and graham in during shaping so the marshmallows leave gooey pockets and the graham stays crunchy; press extra graham onto the crust and, if you like, torch a few marshmallows on top after baking.",
+    tastingNote:
+      "Gooey toasted-marshmallow pockets, molten chocolate, and crunchy honey-graham shards through a lightly spiced crumb — a campfire s'more turned into a sliceable, tangy dessert loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1271,6 +1367,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "The single most famous coffee in the world and the varietal that started the Geisha craze — the Peterson family's washed Esmeralda Geisha is the reference tea-like, floral, world-record cup every serious taster should sit down with once. The board has a natural Colombian Gesha (Onyx) but not the washed Panama benchmark that defined the whole category. Brew as a gentle pour-over and taste it black, hot and as it cools, to catch the jasmine-to-peach arc.",
     approxPrice: "$45 / 100g",
   },
+  {
+    name: "Yemen Haraaz (Natural)",
+    roaster: "Qima Coffee (London) — widely stocked",
+    origin: "Yemen (Haraaz, Sana'a highlands)",
+    process: "Natural (dry-processed)",
+    roastLevel: "medium-light",
+    officialNotes: ["Dark chocolate", "Dried fig", "Baking spice", "Boozy fruit"],
+    whyTry:
+      "Every origin on this board sits in Latin America, Africa, or Indonesia — there's no coffee from the Arabian Peninsula, the ancestral home of coffee itself (the port of Mocha gave 'mocha' its name). Yemen's ancient landrace varieties dried whole in the high desert give a singular wild, winey, deeply spiced natural that tastes like nothing else in the cup — Qima has been reviving these heritage lots and taking them to the top of the specialty scene. It's the essential heritage-origin benchmark and a fascinating counterpoint to the clean, modern co-ferments and washed lots above. Brew as a gentle pour-over to catch the dried-fruit-to-cocoa arc.",
+    approxPrice: "$32 / 250g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1416,6 +1523,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Pull a fresh double shot of espresso directly over the condensed milk and stir until it dissolves into a caramel base.",
       "Steam milk to a silky microfoam (or fill with cold milk and ice for the iced version, which is how it most often trends).",
       "Pour the milk in and stir once so the sweetness distributes evenly; no syrup needed — the condensed milk is the whole trick.",
+    ],
+  },
+  {
+    name: "Freddo Cappuccino",
+    category: "cappuccino",
+    brewRatio: "1:2",
+    description:
+      "Greece's national iced coffee, spreading fast onto global café menus in 2025–2026 — a hard-shaken cold espresso topped with 'kaimaki,' a thick, barely-sweet whipped cold milk foam. It's the elegant, milk-crowned counterpart to the shakerato and the ideal way to show off a chocolatey medium-dark like the Brazil Cerrado above.",
+    buildSteps: [
+      "Pull a fresh double shot (about 36g) — a chocolatey medium-dark froths thickest — and, if you like, dissolve a little sugar into it while hot (the Greek default is 'metrios,' lightly sweet).",
+      "Add the shot to a shaker or a tall jug with a scoop of ice and shake hard (or blend with a hand frother) for 20–30 seconds until it's cold and foamy; pour over a glass of fresh ice.",
+      "Make the kaimaki foam: froth cold milk (no sugar) with a handheld frother, tilting the jug, until it holds a thick, glossy, pourable foam.",
+      "Spoon and pour the cold milk foam over the top so it sits in a dense cap; serve with a straw and no stirring so you drink through the foam.",
     ],
   },
 ];
