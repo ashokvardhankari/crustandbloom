@@ -824,6 +824,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Smoky, aromatic chili warmth from the harissa ribboned through creamy, salty-tangy feta with sweet roasted-pepper pockets — a mezze-board spread baked straight into a spicy loaf.",
   },
+  {
+    name: "Truffle & Wild Mushroom",
+    flavorProfile: "savory",
+    whyTrending:
+      "The luxe savory loaf topping 2026's gourmet 'inclusion flight' boards (a truffle-mushroom loaf featured alongside garlic-confit and pancetta loaves), and a long-running Forager Chef / Sourdough Geeks favorite — dried wild mushrooms rehydrated so the bread genuinely tastes of mushroom, finished with a whisper of truffle.",
+    inclusions: [
+      "Dried porcini / mixed wild mushrooms, rehydrated in hot water then squeezed dry and chopped (save the strained soaking liquid), 40g dried",
+      "The strained mushroom soaking liquid, cooled and swapped for part of the dough water, 100g",
+      "Fontina or Gruyère, cubed, 110g",
+      "Truffle paste or a few drops of real truffle oil, plus thyme and a little roasted garlic, 15g",
+    ],
+    foldInTip:
+      "Use the strained mushroom-soaking liquid as part of your dough water for deep umami, squeeze the rehydrated mushrooms bone-dry and fold them in with the thyme during the first set of folds, laminate the cheese in at shaping, and add the truffle very sparingly at shaping — a little reads elegant, too much turns synthetic.",
+    tastingNote:
+      "Deep, earthy wild-mushroom umami all through the crumb with molten cheese pockets and a haunting truffle perfume — a decadent savory loaf built for a swipe of butter or a soft egg.",
+  },
+  {
+    name: "Sun-Dried Tomato & Goat Cheese",
+    flavorProfile: "savory",
+    whyTrending:
+      "A repeatedly name-checked 2025–2026 'gourmet twist' inclusion — sweet-tart oil-packed sun-dried tomatoes against tangy, creamy chèvre, the Mediterranean-deli pairing that reads more refined than the cheddar version.",
+    inclusions: [
+      "Oil-packed sun-dried tomatoes, drained, blotted well, and chopped, 90g",
+      "Soft goat cheese (chèvre), frozen and cut into small cubes, 110g",
+      "Fresh basil and oregano, chopped, 6g",
+      "Toasted pine nuts, optional, plus a little of the tomato oil to brush the crust, 30g",
+    ],
+    foldInTip:
+      "Freeze the goat cheese cubes so they hold their shape instead of smearing, blot the tomatoes so their oil doesn't grease the gluten, fold the herbs in during the second set of folds, then laminate the tomatoes, cheese, and pine nuts in during shaping; brush the crust with a little tomato oil for color.",
+    tastingNote:
+      "Concentrated sweet-tart tomato against creamy, tangy goat-cheese pockets and toasty pine nuts — a sun-drenched deli loaf that's stunning with olive oil or under a fried egg.",
+  },
+  {
+    name: "Zucchini & Parmesan",
+    flavorProfile: "savory",
+    whyTrending:
+      "The garden-glut savory loaf getting fresh 2026 attention — grated zucchini and sharp Parmesan make a moist, tender savory crumb that pairs beautifully with soups and salads, a lighter alternative to the heavy cheese loaves.",
+    inclusions: [
+      "Zucchini, coarsely grated, tossed with salt, rested 20 min, then squeezed VERY dry in a towel, 150g grated (about 90g after squeezing)",
+      "Parmesan, cubed and grated (a mix), 110g",
+      "Garlic, minced, plus lemon zest and cracked black pepper, 8g",
+      "Extra grated Parmesan to press onto the crust, 25g",
+    ],
+    foldInTip:
+      "Zucchini is nearly all water, so salt it, rest it, and wring it out hard in a towel — this is the make-or-break step or the loaf turns gummy; fold the squeezed zucchini, garlic, zest, and pepper in during the first set of folds, laminate the Parmesan at shaping, and press extra Parmesan onto the top so it crisps.",
+    tastingNote:
+      "A tender, moist crumb flecked green with grated zucchini, sharp nutty Parmesan pockets, and a lacy cheese crust with a bright lemon-pepper lift — savory, garden-fresh, and soup's best friend.",
+  },
+  {
+    name: "Chipotle Chocolate",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The textbook example of 2026's structural 'swicy' shift that trend forecasters (bakeryandsnacks, McCormick's Flavor Forecast) keep naming — instead of a chili drizzle on top, smoky chipotle heat is folded straight into a dark-chocolate crumb, a grown-up sweet-heat loaf.",
+    inclusions: [
+      "Dutch-process cocoa, bloomed into the warm dough water, 22g",
+      "Ground chipotle plus a pinch of cinnamon, bloomed with the cocoa, 5g",
+      "Dark chocolate chunks (60–70%), 110g",
+      "Light brown sugar in the crumb plus smoked flaky salt for the crust, 25g",
+    ],
+    foldInTip:
+      "Bloom the cocoa, chipotle, and cinnamon into the warm water together (reduce the plain water to match) so the heat spreads evenly instead of hot-spotting, work the brown sugar in at mixing, then laminate the dark chocolate chunks in during shaping so they stay in molten pockets; finish the crust with smoked flaky salt.",
+    tastingNote:
+      "A deep bittersweet cocoa crumb with molten dark-chocolate pockets and a slow, smoky chipotle warmth that builds on the finish — the swicy loaf that wins over people who think they don't like heat in dessert.",
+  },
+  {
+    name: "Calabrian Chili & Honey",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Named a 'super unique sweet-and-spicy' 2026 combo in inclusion roundups — fiery, fruity Calabrian chili paste ribboned with honey (the sharper, more assertive hot-honey the swicy trend is moving toward) and melty cheese.",
+    inclusions: [
+      "Calabrian chili paste (or chopped oil-packed Calabrian chilies), drained of excess oil, 35g",
+      "Honey, warmed for drizzling, plus extra to brush the crust, 45g",
+      "Provolone or fontina, cubed, 120g",
+      "Fresh oregano and a little garlic, 5g",
+    ],
+    foldInTip:
+      "Drain the chili paste of excess oil so hydration stays put, fold the oregano and garlic in during the second set of folds, then laminate the cheese in at shaping and ribbon the Calabrian chili and honey between the coil folds (wear gloves); brush the baked crust with a little more honey while warm for a lacquered, sweet-hot finish.",
+    tastingNote:
+      "Bright, fruity Calabrian heat and floral honey against melty cheese pockets and a glossy sweet-hot crust — the sharpest, most assertive swicy loaf on the board, made for antipasto night.",
+  },
+  {
+    name: "Pimento Cheese & Pickled Jalapeño",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Pimento cheese — 'the caviar of the South' — is having a national moment, and bakers are folding the sharp-cheddar-and-pimento spread (spiked with pickled jalapeño) straight into a loaf for a tangy, creamy, gently spicy Southern crowd-pleaser.",
+    inclusions: [
+      "Sharp cheddar, cubed, 120g",
+      "Cream cheese, frozen and cut into small cubes, 80g",
+      "Diced pimentos or roasted red pepper, drained and blotted very dry, 50g",
+      "Pickled jalapeños, diced and patted dry, plus smoked paprika and a pinch of cayenne, 40g",
+    ],
+    foldInTip:
+      "Freeze the cream cheese cubes so they hold their shape, blot the pimentos and pickled jalapeños bone-dry so their brine doesn't slacken the dough, fold the smoked paprika and cayenne in during the second set of folds, then laminate the cheddar, cream cheese, pimentos, and jalapeños in together during shaping.",
+    tastingNote:
+      "Creamy, tangy pimento-cheese pockets against sharp cheddar, sweet roasted pepper, and a bright pickled-jalapeño kick — a Southern snack-board spread baked into a soft, gently spicy loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -949,6 +1045,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every bean on this board so far is a bright, high-acid light roast — this fills the gap with a low-acid, chocolate-and-nut espresso base that pulls thick, sweet crema and shines in milk. It's the reference bean for the shaken-espresso and cortado drinks below, and the perfect pairing for the Tiramisu and Chocolate Espresso loaves.",
     approxPrice: "$18 / 12oz",
   },
+  {
+    name: "Honduras Santa Bárbara — Yellow Honey",
+    roaster: "Black & White Coffee Roasters (Raleigh)",
+    origin: "Honduras (Santa Bárbara)",
+    process: "Yellow honey",
+    roastLevel: "medium-light",
+    officialNotes: ["Honeycomb", "Red apple", "Dried apricot", "Nougat"],
+    whyTry:
+      "Honey process is the one gap in this board's line-up — every other bean is washed, natural, or an experimental co-ferment, and 2026 coverage keeps flagging the full 'natural / honey / washed' spectrum as the way to taste how process alone reshapes a cup. This yellow-honey Santa Bárbara is the sweet, syrupy-bodied middle path: cleaner than a natural, rounder and more caramel-sweet than a washed. Brew as pour-over or a forgiving everyday espresso.",
+    approxPrice: "$20 / 12oz",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1055,6 +1162,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Steam ~40g of milk to just warm (about 55–60°C) with only a thin skin of microfoam — a cortado has texture, not a cappuccino's airy foam.",
       "Pour the warm milk straight into the espresso to an even 1:1, letting the crema fold through so there's no distinct foam cap.",
       "Serve small and drink promptly — no sugar needed; the milk alone rounds the shot into a smooth, espresso-forward sip.",
+    ],
+  },
+  {
+    name: "Caffè Shakerato",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "The Italian purist's answer to the sugary shaken-espresso wave — just espresso and ice shaken hard until it turns silky and crowned with a thick natural foam, no syrup. It's re-trending in 2026 as the elegant, unsweetened counter to the brown-sugar version, and it's the clearest way to show off a chocolatey medium-dark like the Brazil Cerrado.",
+    buildSteps: [
+      "Pull a fresh double shot (about 36g) — a chocolatey medium-dark froths thickest — into a cocktail shaker.",
+      "Add a scoop of ice (and, if you like, no more than a bar-spoon of sugar or a splash of simple syrup — the classic is unsweetened).",
+      "Shake hard for 20–30 seconds until the shaker frosts over and the espresso builds a dense caramel-colored foam.",
+      "Double-strain (no ice) into a chilled coupe or small glass so it pours out silky with a thick foam cap; drink immediately before it separates.",
     ],
   },
 ];
