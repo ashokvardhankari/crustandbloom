@@ -1017,6 +1017,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Bright garlicky-vinegary sriracha warmth rounded by honey against melty sharp-cheddar pockets and fresh scallion — the crave-factor of sriracha-mayo baked into a tangy loaf, more flavor than fire.",
   },
+  {
+    name: "Gochujang Hot Honey & Asiago",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The exact test loaf 2026 bakers are posting (e.g. wyld.woman.bakery) as the 'swicy' trend matures — gochujang and hot honey are two of the specific heat sources (alongside harissa and Calabrian chile) that flavor forecasters name for taking sweet-heat 'to the next level,' here folded structurally into the crumb with nutty Asiago rather than drizzled on top.",
+    inclusions: [
+      "Gochujang, whisked into the dough water (reduce hydration ~5% since it's a wet paste), 50g",
+      "Hot honey, warmed for ribboning, plus extra to brush the crust, 45g",
+      "Asiago, cubed and a little grated, 120g",
+      "Scallions and toasted sesame seeds, 40g",
+    ],
+    foldInTip:
+      "Whisk the gochujang into the water at mixing so its fermented sweet-heat spreads through the whole crumb, fold the scallions and sesame in during the second set of folds, then laminate the Asiago in at shaping and ribbon the hot honey between the coil folds (wear gloves); brush the baked crust with a little more hot honey while warm for a lacquered sweet-hot finish.",
+    tastingNote:
+      "Deep fermented gochujang warmth and floral hot-honey sweetness woven all through a tangy crumb with nutty melted Asiago pockets and a glossy sweet-hot crust — the swicy loaf built for the fermented-chili era.",
+  },
+  {
+    name: "Serrano & Candied Jalapeño Double Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The 'elevated jalapeño cheddar' that went viral after one baker's 12-loaf, five-round test — instead of one pepper it layers fresh jalapeño, serrano for real kick, and candied jalapeño for sweetness, with white and yellow cheddar and a splash of jalapeño juice in the dough, turning the board's most classic combo into a complex swicy showpiece.",
+    inclusions: [
+      "Fresh jalapeños (seeded) plus a serrano or two for heat, diced and patted very dry, 90g",
+      "Candied jalapeños ('cowboy candy'), drained and blotted, chopped, 50g",
+      "White and yellow sharp cheddar, cubed, 140g",
+      "A splash of pickled-jalapeño brine swapped for part of the dough water, 30g",
+    ],
+    foldInTip:
+      "Swap the jalapeño brine for an equal weight of water at mixing for background heat and flavor, pat all the peppers bone-dry so their moisture doesn't slacken the dough, then laminate the fresh peppers, candied jalapeños, and both cheddars in together during shaping so sharp heat and sweet candied bursts alternate through the crumb; sprinkle a little extra cheddar on top to crisp.",
+    tastingNote:
+      "Layered green heat — grassy fresh jalapeño, a serrano bite, and sweet candied-jalapeño pops — against two melty cheddars and a crackly cheese crust, the jalapeño-cheddar loaf turned all the way up.",
+  },
+  {
+    name: "Salsa Macha & Oaxaca Cheese",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Spiced chili oils are a headline 2026 heat source — the IFT Outlook and flavor forecasters specifically flag salsa macha (Mexican dried-chili-and-seed oil) and Sichuan chili crisp as rising — and folding nutty, smoky salsa macha into a loaf with stringy Oaxaca cheese is the Mexican answer to the viral chili-crunch bake.",
+    inclusions: [
+      "Salsa macha (dried chili, garlic, peanut, and sesame oil), most of the oil drained off, 35g",
+      "Oaxaca or low-moisture mozzarella, pulled or cubed, 130g",
+      "Toasted peanuts and sesame seeds from the macha, 30g",
+      "A little cotija to crumble on the crust plus lime zest, 20g",
+    ],
+    foldInTip:
+      "Spoon off most of the macha's oil so hydration stays put (save a little to brush the crust for color and sheen), then spoon the chili-nut solids across the laminated dough with the cheese and toasted peanuts and fold up during shaping; press cotija and a little extra sesame onto the crust before scoring.",
+    tastingNote:
+      "Smoky, nutty, garlicky dried-chili warmth and crunchy peanut-sesame bits against stringy melted Oaxaca cheese and a salty cotija crust — the depth of salsa macha, more toasty than fiery, baked into a tangy loaf.",
+  },
+  {
+    name: "Muffuletta Olive Salad",
+    flavorProfile: "savory",
+    whyTrending:
+      "The New Orleans deli sandwich is the next 'sandwich-as-loaf' after the Reuben — its briny chopped olive salad (olives, giardiniera, garlic, herbs) folded in with provolone and salami turns the muffuletta's whole flavor into a boule, riding 2026's Promiscuous-Palate love of bold, briny deli formats.",
+    inclusions: [
+      "Olive salad: green and Kalamata olives, giardiniera, and roasted red pepper, chopped and drained VERY well, 120g",
+      "Provolone, cubed, 110g",
+      "Genoa salami or mortadella, diced small and patted dry, 70g",
+      "Dried oregano, garlic, and a splash of the olive-salad oil to brush the crust, 8g",
+    ],
+    foldInTip:
+      "The olive salad is packed in oil and brine, so drain and blot it hard or it will grease and slacken the dough; fold the oregano and garlic in during the second set of folds, then laminate the drained olive salad, provolone, and salami in together during shaping and brush the crust with a little of the reserved oil for sheen.",
+    tastingNote:
+      "Briny, garlicky olive-and-giardiniera punch against melty provolone and savory cured salami — the whole muffuletta baked into a chewy crumb, unbeatable pressed into a grilled sandwich.",
+  },
+  {
+    name: "Pancetta & Gruyère",
+    flavorProfile: "savory",
+    whyTrending:
+      "One of the cured-pork 'gourmet flight' loaves featured alongside the truffle-mushroom bake on 2026 inclusion boards — crisped pancetta lardons rendered of their fat and folded in with nutty Gruyère make a rich, bistro-style savory loaf, a more refined cousin of the bacon-cheddar-ranch loaf.",
+    inclusions: [
+      "Pancetta, diced small, rendered crisp, drained on paper, and cooled, 110g",
+      "Gruyère, cubed, 120g",
+      "Fresh thyme and cracked black pepper, 5g",
+      "A little grated Gruyère to press onto the crust, 20g",
+    ],
+    foldInTip:
+      "Render the pancetta until crisp and drain it well on paper towel so its fat doesn't grease out the gluten, cool it fully, fold the thyme and pepper in during the second set of folds, then laminate the pancetta and Gruyère cubes in during shaping and press the extra grated Gruyère onto the top so it browns into a lacy crust.",
+    tastingNote:
+      "Salty, savory crisped-pancetta bits against nutty melted Gruyère pockets and a thyme-and-pepper lift, with a crackly cheese crust — a bistro flavor baked into a tangy loaf, made for a soft egg or a bowl of soup.",
+  },
+  {
+    name: "Brown Butter Chocolate Chunk Cookie",
+    flavorProfile: "sweet",
+    whyTrending:
+      "The enriched-dessert crossover Puratos calls the 'sourdough revolution' into pastries — bakers are chasing the brown-butter chocolate-chip cookie flavor in a loaf, browning the butter for nutty toffee depth and folding in chocolate chunks and flaky salt for the ultimate sweet toast.",
+    inclusions: [
+      "Butter, browned until nutty and cooled to soft, worked into the dough (an enriched sweet dough), 50g",
+      "Dark and milk chocolate chunks, 120g",
+      "Light brown sugar plus a little vanilla bean paste, 40g",
+      "Toasted pecans or walnuts, optional, plus flaky salt for the crust, 40g",
+    ],
+    foldInTip:
+      "Brown the butter until it smells of toffee, cool it to a soft paste, and work it plus the brown sugar and vanilla into the dough as an enrichment (it slows fermentation a little, so give it extra time), then laminate the chocolate chunks (and nuts) in during shaping so they stay in molten pockets; finish the crust with flaky salt.",
+    tastingNote:
+      "A tender, faintly toffee-nutty enriched crumb from the brown butter with molten dark-and-milk chocolate pockets and a flaky-salt finish — a warm chocolate-chip cookie turned into a sliceable, tangy dessert loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1164,6 +1260,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every Ethiopian on this board so far is a washed Yirgacheffe — but the classic 'blueberry-bomb' natural comes from Guji, the region that year after year produces the most explosive fruit-forward naturals (whole cherries dried on raised beds for weeks). It's the essential natural-Ethiopia benchmark, and its bright, refreshing character also makes it the ideal bean for the viral coffee lemonade below. Brew as pour-over for the full blueberry-to-cocoa range.",
     approxPrice: "$21 / 250g",
   },
+  {
+    name: "Panama Hacienda La Esmeralda Geisha (Washed)",
+    roaster: "La Esmeralda / roasted by Onyx, Prodigal, or Proud Mary",
+    origin: "Panama (Boquete / Jaramillo)",
+    process: "Washed",
+    roastLevel: "light",
+    officialNotes: ["Jasmine", "Bergamot", "Peach", "Honeysuckle"],
+    whyTry:
+      "The single most famous coffee in the world and the varietal that started the Geisha craze — the Peterson family's washed Esmeralda Geisha is the reference tea-like, floral, world-record cup every serious taster should sit down with once. The board has a natural Colombian Gesha (Onyx) but not the washed Panama benchmark that defined the whole category. Brew as a gentle pour-over and taste it black, hot and as it cools, to catch the jasmine-to-peach arc.",
+    approxPrice: "$45 / 100g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1296,6 +1403,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Fill a tall clear glass with ice and pour in the lemonade until about three-quarters full.",
       "Pull a fresh double shot of espresso — a bright, fruity light roast (a natural Ethiopian is ideal) plays best against the citrus.",
       "Slowly pour the espresso over the back of a spoon so it floats in a dark layer over the lemonade; garnish with a lemon wheel and stir just before drinking.",
+    ],
+  },
+  {
+    name: "Spanish Latte (Café con Leche Condensada)",
+    category: "latte",
+    brewRatio: "1:2",
+    description:
+      "One of the most-ordered café drinks of 2025–2026 as milk-forward, gently sweet 'comfort coffee' takes over from oversized syrup drinks — espresso and steamed milk sweetened with a little sweetened condensed milk for a silky, caramel-rounded latte (Middle Eastern and Latin cafés popularized it, and it went viral again on TikTok). A chocolatey medium-dark like the Brazil Cerrado above is ideal.",
+    buildSteps: [
+      "Spoon 1–2 tsp sweetened condensed milk into a glass or cup — more gives the signature dulce-de-leche roundness, less keeps it grown-up.",
+      "Pull a fresh double shot of espresso directly over the condensed milk and stir until it dissolves into a caramel base.",
+      "Steam milk to a silky microfoam (or fill with cold milk and ice for the iced version, which is how it most often trends).",
+      "Pour the milk in and stir once so the sweetness distributes evenly; no syrup needed — the condensed milk is the whole trick.",
     ],
   },
 ];
