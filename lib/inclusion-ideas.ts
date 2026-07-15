@@ -1498,6 +1498,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A striking charcoal-grey crumb ribboned with nutty, toasty black-sesame paste and creamy white-chocolate melts — a sophisticated, barely-sweet loaf that eats like an East-Asian dessert.",
   },
+  {
+    name: "Marmite & Extra-Mature Cheddar",
+    flavorProfile: "savory",
+    whyTrending:
+      "Britain's ultimate umami loaf — the Marmite-and-cheese toastie flavor baked straight into a boule, riding the 2026 'extreme umami / love-it-or-hate-it' savory wave alongside the miso and gochujang loaves and championed by UK bakers on Instagram and r/Sourdough.",
+    inclusions: [
+      "Marmite (or Vegemite), thinned with a little warm water and whisked into the dough water (it's very salty — cut the loaf's added salt to compensate), 30g",
+      "Extra-mature / vintage cheddar, cut into small cubes, 140g",
+      "Chives, chopped, 8g",
+      "Extra Marmite whisked with a little melted butter to brush the crust, 15g",
+    ],
+    foldInTip:
+      "Whisk the Marmite into the water at mixing (reducing the loaf's salt since the yeast extract is intensely salty) for an even umami crumb, fold the chives in during the second set of stretch-and-folds, then laminate the cheddar cubes in during shaping; brush the baked crust with the Marmite-butter while warm for a lacquered savory top.",
+    tastingNote:
+      "A deeply savory, malty-umami crumb the colour of dark toast, studded with sharp molten cheddar pockets — the Marmite-and-cheese toastie you can slice, with the yeast extract's tang doubling down on the sourdough's own.",
+  },
+  {
+    name: "Wild Garlic (Ramp) & Aged Cheddar",
+    flavorProfile: "savory",
+    whyTrending:
+      "The defining spring 2026 foraging bake — wild garlic (ramps/ramsons) is the seasonal green everyone's pesto-ing and folding into bread, a milder, greener, more aromatic take on the garlic-and-cheese loaf that trend-watchers flag every March–April.",
+    inclusions: [
+      "Wild garlic (ramp) leaves, blanched briefly, squeezed bone-dry, and chopped (or blitzed into a thick oil-light pesto), 60g",
+      "Aged / extra-sharp cheddar, cubed, 130g",
+      "A little grated Parmesan for depth, 30g",
+      "Lemon zest from 1 lemon, plus cracked black pepper, 3g",
+    ],
+    foldInTip:
+      "Blanch and wring the wild garlic bone-dry (raw leaves weep water and dull to olive-drab), fold the chopped leaves, zest, and pepper in during the second set of stretch-and-folds so the green spreads, then laminate the cheddar and Parmesan in during shaping so the cheese stays in defined pockets.",
+    tastingNote:
+      "A gentle, green, garlicky perfume — softer and more herbal than roasted garlic — laced through a tangy crumb with sharp melted cheddar pockets, the taste of a spring hedgerow in bread form.",
+  },
+  {
+    name: "Berbere & Honey Butter",
+    flavorProfile: "spicy",
+    whyTrending:
+      "East-African spicing is a named 2026 heat trend — berbere (the Ethiopian chili-and-warm-spice blend) is crossing from stews into bakery, and pairing its complex smoky heat with a honey-butter swirl hits the year's dominant 'swicy / structural heat' play from a fresh regional angle.",
+    inclusions: [
+      "Berbere spice blend, bloomed briefly in a little warm butter to wake the chilies and spices, then cooled, 12g (keep it under ~1% of flour — the clove/fenugreek/cinnamon in it are anti-microbial and can stall the culture)",
+      "Honey, warmed for swirling, 40g",
+      "Softened butter for the swirl, 25g",
+      "Aged white cheddar or a firm feta, cubed, optional, 90g",
+    ],
+    foldInTip:
+      "Bloom the berbere in warm butter and cool it, fold about half into the dough during the second set of folds for an even warm-red crumb, then laminate the dough thin and swirl the honey plus the remaining spiced butter (and cheese cubes) over it before rolling so the heat and sweetness ribbon through.",
+    tastingNote:
+      "A warm brick-red crumb with layered berbere spice — smoky chili, fenugreek, and warm baking spice — chased by a mellow honey-butter sweetness, savory-hot and aromatic rather than sharply fiery.",
+  },
+  {
+    name: "Sambal & Toasted Coconut",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Indonesian sambal is on 2026's regional-specificity heat list (forecasters name Indonesian, Filipino, and Thai chili pastes by name) — the funky, garlicky, shrimp-paste heat of sambal against sweet toasted coconut is a fresh Southeast-Asian spin on the chili-crisp loaf.",
+    inclusions: [
+      "Sambal oelek or sambal terasi, cooked down in a dry skillet until the excess liquid steams off, then cooled, 40g",
+      "Toasted shredded coconut, 60g",
+      "Kaffir lime leaf, very finely slivered, plus lime zest, 4g",
+      "Firm Monterey Jack or gouda, cubed, optional, 100g",
+    ],
+    foldInTip:
+      "Cook the sambal dry so its brine doesn't slacken the crumb and cool it, fold the lime leaf and zest in during the second set of folds, then laminate the reduced sambal, toasted coconut, and cheese in during shaping so the coconut stays crisp and the heat forms defined pockets.",
+    tastingNote:
+      "Garlicky, funky-fermented chili heat against sweet toasty coconut and a bright kaffir-lime lift — a Southeast-Asian sambal loaf that's savory-hot with an aromatic tropical edge.",
+  },
+  {
+    name: "Pandan & Coconut (Kaya)",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Pandan is one of 2026's breakout dessert flavors crossing from Southeast-Asian kitchens into Western bakeries (grassy-vanilla, naturally jade-green), and a kaya (pandan-coconut jam) swirl turns it into the sophisticated, less-sugary sweet loaf trend-watchers keep flagging alongside ube and black sesame.",
+    inclusions: [
+      "Pandan extract or paste, mixed into the dough water for a jade crumb, 10g",
+      "Kaya (pandan-coconut jam), warmed for swirling, 100g",
+      "Toasted shredded coconut, 50g",
+      "White chocolate chips, optional, 70g",
+    ],
+    foldInTip:
+      "Blend the pandan into the water at mixing for an even green crumb, then laminate the dough thin, spread the kaya, scatter the toasted coconut (and white chocolate), and roll and coil-fold so the jam marbles through in fragrant green-gold ribbons.",
+    tastingNote:
+      "A soft jade-green crumb ribboned with grassy-vanilla pandan and rich coconut kaya, with toasty coconut flecks — a Singaporean kaya-toast breakfast reimagined as a tender sweet loaf.",
+  },
+  {
+    name: "Rhubarb & Custard",
+    flavorProfile: "sweet",
+    whyTrending:
+      "A nostalgic British sweet-shop flavor named a rising 2026 bakery trend as rhubarb has its 'it-ingredient' moment — tart roasted rhubarb against a creamy vanilla-custard swirl, the retro sweet-and-sour combo reimagined as a spring sourdough.",
+    inclusions: [
+      "Rhubarb, roasted with a little sugar until soft, drained hard, and patted dry (fresh rhubarb is very wet — roasting and draining is essential), chopped, 90g",
+      "Thick vanilla custard or crème pâtissière, chilled and dolloped in, 100g",
+      "Vanilla bean paste, 6g",
+      "A little demerara sugar for the crust, 20g",
+    ],
+    foldInTip:
+      "Roast and drain the rhubarb bone-dry so its juice doesn't stain and slacken the whole crumb, stir the vanilla in at mixing, then laminate the chilled custard dollops and rhubarb in during shaping so they stay in defined pink-and-cream pockets; press demerara onto the crust for crunch, and cool at least 2 hours before slicing.",
+    tastingNote:
+      "Tart, jammy rhubarb pockets against a creamy vanilla-custard swirl through a tender crumb — the retro rhubarb-and-custard sweet dissolved into a springtime loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1689,6 +1785,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every bean on this board is fully caffeinated — there's no decaf at all, and single-origin specialty decaf is the clearest remaining category gap (and a genuinely hot 2026 sub-trend as roasters take decaf seriously). Colombia's sugarcane (natural ethyl-acetate) process is the gold standard: it strips the caffeine gently while keeping far more of the cup's sweetness and body than the old solvent methods, giving a clean, chocolatey, caramel-and-red-apple coffee you'd struggle to pick out as decaf. It's the essential 'evening espresso' and milk-drink bean for anyone who wants a second Einspänner or Spanish latte after dinner without the jitters — pull it as espresso for the caramel-cocoa depth or brew it as a comforting pour-over.",
     approxPrice: "$19 / 250g",
   },
+  {
+    name: "El Salvador Los Pirineos Pacamara (Natural)",
+    roaster: "Widely stocked (e.g. Onyx, Sey, Prodigal)",
+    origin: "El Salvador (Usulután / Los Pirineos)",
+    process: "Natural",
+    roastLevel: "light",
+    officialNotes: ["Strawberry", "Grape candy", "Cocoa nib", "Molasses"],
+    whyTry:
+      "Every bean on this board is a Geisha, SL28, Bourbon, or landrace variety — there's no Pacamara, which is one of the most distinctive varietals in specialty coffee and a clear gap. Pacamara is a Salvadoran cross of the giant Maragogipe and Pacas, prized for enormous beans and a wild, syrupy, fruit-forward cup unlike anything else; the Diamantina family's celebrated Los Pirineos estate is the benchmark producer. A natural-process Pacamara is a juicy, jammy strawberry-and-grape light roast that shows why El Salvador (a rising Central-American origin with a deep varietal story) belongs on any serious tasting board — brew it as a filter to let the giant beans' fruit unfurl.",
+    approxPrice: "$23 / 250g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1873,6 +1980,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Make the egg cream: whisk 1 fresh egg yolk with 2–3 tsp sweetened condensed milk (and a drop of vanilla) with a handheld frother for 2–3 minutes until it's pale, thick, and mousse-like — set the bowl over warm water while whisking if you'd like it warm and cooked-through.",
       "Pour the hot coffee into a small glass or cup, then spoon the thick egg cream over the top so it floats in a dense, glossy custard cap.",
       "Serve without stirring (dust with cocoa if you like) and sip the hot coffee up through the sweet foam; for the iced version, pour over ice instead.",
+    ],
+  },
+  {
+    name: "Cardamom Coffee (Qahwa / Gahwa)",
+    category: "filter",
+    brewRatio: "brewed (roughly 1:12)",
+    description:
+      "The heritage coffee of the Arabian Peninsula — lightly roasted beans brewed with green cardamom (and sometimes saffron or clove) and served in small cups — is having a global-café moment in 2026 as forecasters spotlight specific regional traditions over generic 'spiced lattes.' Fragrant, barely bitter, and unsweetened, it's the ideal way to show off a heritage landrace bean like the Yemen Haraaz natural above, whose ancestry is bound up with this very ritual.",
+    buildSteps: [
+      "Coarsely crush 4–6 green cardamom pods (crack them so the seeds perfume the brew) per two small cups of water.",
+      "Brew a light-roast coffee gently — traditionally coarse grounds simmered briefly in a dallah pot, but a light pour-over or French press works — steeping the crushed cardamom (and a thread of saffron or a clove, if you like) with the grounds.",
+      "Let it settle so the grounds and pods sink, then pour the clear coffee off the top into small handleless finjan cups, filling each only a third full.",
+      "Serve unsweetened and hot, traditionally alongside a date to offset the light, aromatic bitterness — no milk.",
     ],
   },
 ];
