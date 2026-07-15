@@ -1786,6 +1786,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A striking crimson, lightly cocoa crumb with creamy tangy cream-cheese pockets and sweet white-chocolate melts — red velvet cake turned into a sliceable sourdough.",
   },
+  {
+    name: "Tomato Soup & Grilled Cheese",
+    flavorProfile: "savory",
+    whyTrending:
+      "The next entry in 2026's breakout 'soup-as-a-loaf' sub-genre that the French-onion and broccoli-cheddar boules kicked off — the ultimate comfort-food pairing (creamy tomato soup + a molten grilled-cheese) folded into one nostalgic loaf, all over comfort-baking TikTok this winter.",
+    inclusions: [
+      "Tomato paste plus a little sun-dried-tomato paste, whisked into the dough water for a tangy red crumb (paste, not soup — soup is far too wet), 60g",
+      "Sharp cheddar and low-moisture mozzarella, cubed, 150g",
+      "Dried basil and a pinch of smoked paprika, 5g",
+      "Grated Parmesan to press onto the crust, 25g",
+    ],
+    foldInTip:
+      "Whisk the concentrated tomato paste into the water at mixing (reduce the plain water to match) for an even rosy crumb without slackening the dough, fold the basil and paprika in during the second set of stretch-and-folds, then laminate the cheddar and mozzarella in during shaping so they stay in molten pockets; press Parmesan onto the crust before scoring so it crisps like the buttered edge of a grilled cheese.",
+    tastingNote:
+      "A tangy, faintly smoky tomato crumb shot through with melty cheddar-and-mozzarella pockets under a crisped Parmesan crust — tomato soup and grilled cheese in one sliceable loaf, made to be dunked.",
+  },
+  {
+    name: "Green Goddess",
+    flavorProfile: "savory",
+    whyTrending:
+      "Green Goddess — the herb-packed dressing-turned-everything flavor — is one of 2026's biggest savory crossovers (Green Goddess salads, dips, and seasonings are everywhere), and its bright basil-tarragon-chive-parsley punch with a whisper of buttermilk tang folds beautifully into a fresh, verdant loaf distinct from the board's cheese-forward savories.",
+    inclusions: [
+      "Fresh soft herbs — basil, tarragon, chives, parsley, and dill — finely chopped, 25g",
+      "Buttermilk swapped for part of the dough water for tang, 60g",
+      "Garlic and the zest of 1 lemon, minced, 10g",
+      "Feta or crumbled goat cheese, optional, 80g",
+    ],
+    foldInTip:
+      "Swap the buttermilk in for an equal weight of water at mixing for a subtle tang, fold the chopped herbs, garlic, and lemon zest in during the second set of stretch-and-folds so the green flecks distribute evenly (add them then, not earlier, so they keep their color), and laminate the feta in during shaping if using.",
+    tastingNote:
+      "A fresh, herb-flecked crumb humming with basil, tarragon, and chive against a bright lemon-buttermilk tang — the Green Goddess salad reimagined as a verdant, aromatic loaf that's magic under a poached egg.",
+  },
+  {
+    name: "Flamin' Hot Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The viral 'snackification' loaf of 2026 — bakers crushing Flamin' Hot Cheetos into the dough for a shockingly red crumb and a tangy, spicy corn-cheese hit, one of the most-shared novelty bakes in the Sourdough Geeks group.",
+    inclusions: [
+      "Flamin' Hot Cheetos (or Takis), crushed to a coarse powder, most worked into the dough plus some reserved for the crust, 60g",
+      "Sharp cheddar, cubed, 130g",
+      "A little cayenne and smoked paprika to reinforce the heat, 3g",
+      "Ground Flamin' Hot dust for rolling the shaped loaf, 20g",
+    ],
+    foldInTip:
+      "Work most of the crushed Flamin' Hot powder and the cayenne into the dough during the first set of stretch-and-folds for an even red-orange crumb, laminate the cheddar in during shaping, then roll the shaped boule in the reserved dust before its final proof so the crust bakes up crimson and spicy.",
+    tastingNote:
+      "A startling red crumb with a tangy, salty, corn-chip spice and melty sharp-cheddar pockets — the guilty-pleasure snack turned into a crackly, genuinely craveable spicy loaf.",
+  },
+  {
+    name: "Bang Bang",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Bang Bang sauce — the sweet-chili-plus-sriracha-mayo combo behind viral bang-bang shrimp, chicken, and broccoli — is one of 2026's dominant 'swicy' flavors crossing from restaurant menus into everything, and its creamy sweet-hot punch folds into a loaf that eats like the sauce itself.",
+    inclusions: [
+      "Sweet chili sauce, reduced slightly so it isn't runny, swirled in, 50g",
+      "Sriracha, whisked into the dough water (reduce hydration to match), 25g",
+      "Monterey Jack or a mild melting cheese, cubed, 120g",
+      "Scallions and toasted sesame seeds, 40g",
+    ],
+    foldInTip:
+      "Whisk the sriracha into the water at mixing (reduce the plain water to match its moisture), reduce the sweet chili sauce so it stays put and ribbon it between the coil folds, then fold the scallions and sesame in during the second set and laminate the cheese in during shaping so the sweet-hot swirl runs through melty pockets.",
+    tastingNote:
+      "A creamy, sweet-then-spicy swirl of chili and sriracha against melty mild-cheese pockets and fresh scallion — the viral bang-bang sauce baked straight into a tangy, addictive loaf.",
+  },
+  {
+    name: "Miso Caramel",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Miso caramel is a flagship of 2026's 'elevated comfort' sweet trend (named alongside brown butter and baklava by bakery forecasters) — the salted-caramel evolution where fermented miso adds a deep, savory, umami edge that plays perfectly against sourdough's own fermented tang.",
+    inclusions: [
+      "Miso caramel swirl: soft caramel or dulce de leche whisked with a little white miso until smooth and pipeable, 130g",
+      "White miso worked into the swirl (it's salty — keep the loaf's added salt light), included above",
+      "Toasted pecans or walnuts, chopped, 60g",
+      "Flaky salt and a little turbinado to finish the crust, 10g",
+    ],
+    foldInTip:
+      "Whisk the miso into the soft caramel until smooth (keep the dough's own salt light to compensate), laminate the dough thin and pipe the miso-caramel over it with the toasted nuts, then roll and coil-fold so it spirals through the crumb; finish the crust with flaky salt and turbinado before scoring.",
+    tastingNote:
+      "Deep salted-caramel ribbons with a savory, umami miso undertone and toasty nut crunch through a soft crumb — the sweet-savory 'elevated comfort' loaf that leans into sourdough's own funk.",
+  },
+  {
+    name: "Pistachio & Raspberry",
+    flavorProfile: "sweet",
+    whyTrending:
+      "A darling of 2026's visual-forward bakers — the pistachio-and-raspberry pairing (a patisserie classic) makes a loaf that's as stunning as it is delicious, with green nut flecks and jammy magenta swirls, riding the same pistachio wave as the Dubai loaf but in a fresher, fruit-forward direction.",
+    inclusions: [
+      "Pistachio cream or paste, warmed for swirling, 100g",
+      "Freeze-dried raspberries (fresh runs the dough wet), lightly crushed, 40g — or a thick reduced raspberry jam, 70g",
+      "Toasted pistachios, roughly chopped, 50g",
+      "White chocolate chips, optional, 60g",
+    ],
+    foldInTip:
+      "Laminate the dough thin, spread the pistachio cream over it, and scatter the crushed freeze-dried raspberries and chopped pistachios (freeze-dried keeps the hydration in check and the swirl vivid), then roll and coil-fold so green and magenta streak the crumb; add the white chocolate during shaping if using.",
+    tastingNote:
+      "Rich, nutty pistachio-cream ribbons against tart-sweet raspberry bursts and toasted-pistachio crunch — a patisserie pairing turned into a striking green-and-magenta dessert loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -2010,6 +2106,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Every coffee on the board is either bright-and-fruity or clean-and-chocolatey — none captures the polarizing, intensely earthy low-acid register that defines classic Sumatra, and none uses the wet-hull (giling basah) process, unique to Indonesia, that creates it. Sumatra's Gayo carbonic-maceration lot here is a clean fruity CM natural, the opposite cup. Wet-hulling strips the parchment at 30–40% moisture, producing the signature blue-green bean and a heavy, full-bodied cup of dark chocolate, cedar, and tobacco with almost no acidity — a genuine processing and flavor-profile gap. Roasted medium-dark it's a syrupy, comforting espresso base that grounds a milk drink and pairs with the chocolatey loaves; it's also the ideal base coffee for a café de olla.",
     approxPrice: "$18 / 12oz",
   },
+  {
+    name: "Rwanda Nyamasheke (Washed Red Bourbon)",
+    roaster: "Nova Coffee / Question Coffee / widely stocked",
+    origin: "Rwanda (Western Province / Lake Kivu / Nyamasheke)",
+    process: "Washed",
+    roastLevel: "medium-light",
+    officialNotes: ["Red currant", "Orange blossom", "Brown sugar", "Black tea"],
+    whyTry:
+      "The board's East-African coffees are all Ethiopian, Kenyan, or Ugandan — there's no Rwanda, one of 2026's fastest-rising 'origin to watch' specialty countries and a distinct cup in its own right. High-grown washed Red Bourbon from the hills around Lake Kivu gives a clean, silky, tea-like body with red-currant and orange-blossom brightness and a brown-sugar sweetness — softer and rounder than a punchy Kenyan SL28 and more delicate than a fruit-bomb natural. (It's also the origin where the notorious 'potato defect' can appear, so a well-sorted specialty lot is worth reviewing to show how far Rwandan sorting has come.) Brew it as a pour-over for the florals or pull it as a sweet, gentle filter-forward espresso; it doubles as the elegant base for a marocchino or an einspänner.",
+    approxPrice: "$19 / 12oz",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -2233,6 +2340,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Add ~4 tablespoons of coarsely ground medium-dark coffee off the boil, stir once, cover, and steep 4–5 minutes — simmer gently rather than brewing fast so the spices and coffee fully infuse.",
       "Let it settle so the grounds sink, then pour through a fine strainer into small cups or clay jarritos.",
       "Serve hot and unsweetened-to-taste (the piloncillo is the sweetness), traditionally alongside pan dulce; for an iced version, cool and pour over ice with a splash of milk.",
+    ],
+  },
+  {
+    name: "Marocchino",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "The small northern-Italian classic — espresso, a dusting of cocoa, and a little milk foam layered in a glass — is having a 2026 specialty-café revival as the elegant, cocoa-kissed middle ground between a cortado and a mocha (and the antidote to oversized syrupy 'mochas'). Served in a clear glass so the dark-cocoa-cream-espresso layers show, it's the ideal tiny drink to show off a chocolatey medium-dark like the Brazil Cerrado above.",
+    buildSteps: [
+      "Dust the inside of a small clear glass with unsweetened cocoa powder (some baristas add a thin smear of melted chocolate for the deluxe version).",
+      "Pull a fresh single or double shot (about 18–36g) — a chocolatey medium-dark plays perfectly with the cocoa — directly into the glass.",
+      "Steam a small amount of milk to a silky, dense microfoam and spoon just a thin layer over the espresso so it sits as a pale cap, not a full latte's worth.",
+      "Finish with a final dusting of cocoa over the foam; serve small and drink promptly while the layers are still distinct.",
     ],
   },
 ];
