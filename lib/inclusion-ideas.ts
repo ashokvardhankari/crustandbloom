@@ -1306,6 +1306,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Savory ham, nutty melted Gruyère, and creamy nutmeg-scented béchamel pockets with a Dijon lift through a tangy crumb under a browned cheese crust — a croque monsieur baked into a loaf, unbeatable griddled with an egg for a croque madame.",
   },
+  {
+    name: "Cubano",
+    flavorProfile: "savory",
+    whyTrending:
+      "The next sandwich-as-loaf after the Reuben, muffuletta, Philly, and croque — the Cuban sandwich (roast pork, ham, Swiss, pickle, and yellow mustard) folded into a boule rides 2026's 'meal-inspired loaf' wave and the year's love of bold, briny, pressed-deli formats.",
+    inclusions: [
+      "Roast pork (mojo-marinated if you have it — garlic, cumin kept light, orange, and oregano), diced small, drained, and cooled, 100g",
+      "Thick-cut cooked ham, diced small and patted dry, 90g",
+      "Swiss or Gruyère, cubed, 110g",
+      "Dill pickles, diced and patted VERY dry, plus yellow mustard worked into the dough and a little more to brush the crust, 60g",
+    ],
+    foldInTip:
+      "Drain and blot the pork and ham bone-dry and wring the pickles very dry so their brine doesn't slacken the dough (keep any cumin in the mojo under ~1% of the flour, since it's anti-microbial and stalls the culture); work the mustard in at mixing, then laminate the pork, ham, Swiss, and pickles in together during shaping. Brush the crust with a little mustard for the pressed-Cubano nod.",
+    tastingNote:
+      "Garlicky roast pork, savory ham, melty Swiss, and bright pickle-and-mustard tang through a chewy crumb — a whole Cuban sandwich baked into a loaf that's magic split and pressed on a griddle.",
+  },
+  {
+    name: "Bacon Jam & Gruyère",
+    flavorProfile: "savory",
+    whyTrending:
+      "Bacon jam — the sweet-savory slow-cooked bacon-onion-and-brown-sugar spread — is a runaway 2026 condiment (all over burger and cheese-board feeds), and swirled through a loaf with nutty Gruyère it makes a deeper, jammier, more grown-up cousin of the bacon-cheddar-ranch loaf.",
+    inclusions: [
+      "Bacon jam (bacon slow-cooked down with onion, brown sugar, coffee, and a splash of vinegar until thick and spreadable), cooled to a firm paste, 110g",
+      "Gruyère, cubed, 120g",
+      "Fresh thyme and cracked black pepper, 5g",
+      "A little grated Gruyère to press onto the crust, 20g",
+    ],
+    foldInTip:
+      "Cook the bacon jam down until it's thick and jammy (not runny) and cool it firm so it stays in defined pockets instead of greasing the gluten, fold the thyme and pepper in during the second set of folds, then dot the bacon jam across the laminated dough with the Gruyère cubes during shaping and roll up; press the extra grated Gruyère onto the top so it browns into a lacy crust.",
+    tastingNote:
+      "Sweet-smoky-savory bacon-jam ribbons — caramelized onion, brown sugar, and a coffee-vinegar edge — against nutty melted Gruyère pockets and a crackly cheese crust, a decadent savory loaf built for a soft egg or a burger.",
+  },
+  {
+    name: "Jerk Chicken & Pineapple",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Caribbean cooking is one of 2026's named rising cuisines as trend forecasters reward regional specificity over generic 'global fusion,' and Jamaican jerk — the scotch-bonnet-and-allspice heat lifted by sweet grilled pineapple — is the swicy, tropical spin bakers are folding into loaves this year.",
+    inclusions: [
+      "Cooked shredded chicken tossed in jerk seasoning/marinade (scotch bonnet, allspice, thyme, ginger, scallion, brown sugar) then drained well and cooled, 120g",
+      "Fresh or canned pineapple, diced small, drained hard, and patted very dry (or lightly grilled first to drive off water), 90g",
+      "Sharp white cheddar or Pepper Jack, cubed, 100g",
+      "Scallions, thyme, a little lime zest, and extra allspice, 6g",
+    ],
+    foldInTip:
+      "Pineapple is very wet, so drain and blot it bone-dry (grilling it first concentrates the sweetness and drives off water) and drain the sauced chicken well so their moisture doesn't over-hydrate the dough; fold the scallions, thyme, zest, and allspice in during the second set of folds, then laminate the chicken, pineapple, and cheese in together during shaping. Cool the loaf fully — the pineapple pockets act like hot jam.",
+    tastingNote:
+      "Warm scotch-bonnet-and-allspice jerk heat lifted by sweet-tart pockets of pineapple against melty cheese and fresh scallion — a plate of jerk chicken and grilled pineapple baked into a tangy, tropical loaf.",
+  },
+  {
+    name: "Bánh Mì",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Vietnamese food is explicitly named in 2026's regional-specificity trend, and the bánh mì — the whole Vietnamese sandwich, with its pickled daikon-and-carrot, jalapeño, cilantro, and savory-sweet pork — is the meal-in-a-loaf bakers keep recreating, a bright, herby, pickly cousin of the Cubano and Philly loaves.",
+    inclusions: [
+      "Quick-pickled daikon and carrot, drained and squeezed VERY dry, 90g",
+      "Cooked savory-sweet pork (char siu-style or pâté-spiked seasoned pork), diced small, drained, and cooled, 110g",
+      "Fresh jalapeño, seeded, diced, and patted dry, plus a little sriracha simmered thick, 40g",
+      "Cilantro and scallion, chopped, plus a splash of the pickle brine and a little Maggi/soy swapped into the dough water, 20g",
+    ],
+    foldInTip:
+      "The make-or-break step is wringing the pickled daikon and carrot bone-dry so their brine doesn't slacken the dough; swap a little of the brine (and a dash of Maggi/soy) for part of the dough water for background tang, drain the pork well, then fold the cilantro and scallion in during the second set of folds and laminate the pork, pickles, and jalapeño in together during shaping. Keep the sriracha thick so it doesn't over-hydrate.",
+    tastingNote:
+      "Bright pickled-vegetable tang and fresh cilantro against savory-sweet pork, a jalapeño-and-sriracha kick, and a whisper of umami through a chewy crumb — the whole bánh mì baked into a lively, tangy loaf.",
+  },
+  {
+    name: "Gingerbread & Candied Ginger",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Warm-spice holiday bakes are a named 2026 sweet-sourdough vein (gingerbread and molasses keep topping seasonal roundups), and a deeply spiced molasses crumb studded with chewy candied-ginger bursts is the cozy, nostalgic dessert loaf forecasters point to for the fall-and-winter season.",
+    inclusions: [
+      "Blackstrap or dark molasses plus a little dark brown sugar, worked into the dough at mixing, 60g",
+      "Warm spice: ginger, cinnamon, and a pinch each of clove, nutmeg, and allspice (keep the total spice under ~1% of the flour), 8g",
+      "Candied/crystallized ginger, finely chopped, 70g",
+      "Toasted pecans or a little orange zest, optional, 50g",
+    ],
+    foldInTip:
+      "Work the molasses, brown sugar, and spices into the dough at mixing so the whole crumb is dark and gingery — but keep the total warm spice under about 1% of the flour, since clove, cinnamon, and ginger are anti-microbial and will stall the culture if you overdo it (the added sugar also speeds fermentation, so watch the bulk); fold the candied ginger (and pecans/zest) in during the second set of folds so the chewy bursts spread evenly.",
+    tastingNote:
+      "A dark, moist, deeply spiced molasses crumb shot through with chewy sweet-hot candied-ginger bursts and toasty pecans — a gingerbread cookie turned into a sliceable, tangy holiday loaf.",
+  },
+  {
+    name: "Bananas Foster",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Banana desserts are surging into sweet sourdough (banana bread's showier cousin), and the New Orleans classic — caramelized banana flambéed in brown-sugar-rum-and-cinnamon sauce — folds into a loaf as a rich, boozy-caramel dessert bake that rides 2026's 'elevated comfort / nostalgic indulgence' wave.",
+    inclusions: [
+      "Ripe bananas, sliced and caramelized in butter, brown sugar, cinnamon, and a splash of dark rum until jammy, then cooled and drained of excess syrup, 120g",
+      "Dulce de leche or the reduced rum-caramel, dolloped in cold so it stays in gooey pockets, 70g",
+      "Toasted pecans or walnuts, chopped, 60g",
+      "Light brown sugar plus a little vanilla and flaky salt for the crust, 30g",
+    ],
+    foldInTip:
+      "Caramelize and cool the bananas and drain off the loose syrup so they don't wet the crumb, work the brown sugar and vanilla into the dough at mixing (the sugar speeds fermentation, so watch the bulk), fold the caramelized bananas in during the first set of folds so they melt into soft pockets, then laminate the cold caramel and pecans in during shaping so the caramel stays in molten pools; finish the crust with flaky salt.",
+    tastingNote:
+      "A tender crumb studded with jammy caramelized banana, molten rum-caramel pools, and toasty pecans with a flaky-salt finish — Bananas Foster turned into a sliceable, tangy dessert loaf.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1486,6 +1582,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "India is 2026's rising specialty origin — its home 'third wave' is booming and Western roasters are finally stocking single-origin Indian lots — yet the only Asian coffee on this board is an Indonesian. Araku Valley is India's flagship specialty region (award-winning, tribal-farmed, high-altitude), and a natural Araku is a syrupy, chocolate-and-jaggery cup with stone-fruit sweetness and a whisper of the warm spice India is known for — a distinct, low-and-mid-acid origin that fills the mainland-Asia geographic gap and pulls beautifully as a milk-drink espresso. Brew as pour-over to catch the fruit, or as espresso for the jaggery-cocoa depth.",
     approxPrice: "$20 / 250g",
   },
+  {
+    name: "Colombia Sugarcane Decaf (EA)",
+    roaster: "Widely stocked (e.g. Onyx, Corvus, Trade)",
+    origin: "Colombia (Huila / Cauca)",
+    process: "Sugarcane EA decaf (washed base)",
+    roastLevel: "medium",
+    officialNotes: ["Milk chocolate", "Caramel", "Red apple", "Brown sugar"],
+    whyTry:
+      "Every bean on this board is fully caffeinated — there's no decaf at all, and single-origin specialty decaf is the clearest remaining category gap (and a genuinely hot 2026 sub-trend as roasters take decaf seriously). Colombia's sugarcane (natural ethyl-acetate) process is the gold standard: it strips the caffeine gently while keeping far more of the cup's sweetness and body than the old solvent methods, giving a clean, chocolatey, caramel-and-red-apple coffee you'd struggle to pick out as decaf. It's the essential 'evening espresso' and milk-drink bean for anyone who wants a second Einspänner or Spanish latte after dinner without the jitters — pull it as espresso for the caramel-cocoa depth or brew it as a comforting pour-over.",
+    approxPrice: "$19 / 250g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1657,6 +1764,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "For the iced version, fill a clear glass with ice; for hot, warm the glass. Pull a fresh double shot (about 36g) — a chocolatey medium-dark stands up best under the cream — and pour it into the glass (over the ice for iced).",
       "Spoon and pour the whipped cream gently over the back of a spoon so it floats in a thick, glossy cap that sits on top rather than sinking.",
       "Don't stir — drink straight through the cream so each sip pulls cold cream through hot (or iced) espresso; dust the cap with cocoa if you like.",
+    ],
+  },
+  {
+    name: "Vietnamese Egg Coffee (Cà Phê Trứng)",
+    category: "filter",
+    brewRatio: "phin drip (roughly 1:2)",
+    description:
+      "Hanoi's iconic café drink — strong phin-brewed coffee under a thick, sweet, custardy cap of egg yolk whipped with condensed milk — is one of 2026's breakout café orders as forecasters spotlight specific regional cuisines (Vietnamese, Filipino, Thai) over generic 'global' fusion. It eats almost like tiramisu in a cup and is the perfect showcase for a bold, chocolatey dark roast (or the new sugarcane decaf) rather than a delicate light one.",
+    buildSteps: [
+      "Brew a small, strong cup of coffee — traditionally a dark Vietnamese robusta through a phin filter, but any bold, chocolatey medium-dark works; keep it concentrated, about 40–60ml.",
+      "Make the egg cream: whisk 1 fresh egg yolk with 2–3 tsp sweetened condensed milk (and a drop of vanilla) with a handheld frother for 2–3 minutes until it's pale, thick, and mousse-like — set the bowl over warm water while whisking if you'd like it warm and cooked-through.",
+      "Pour the hot coffee into a small glass or cup, then spoon the thick egg cream over the top so it floats in a dense, glossy custard cap.",
+      "Serve without stirring (dust with cocoa if you like) and sip the hot coffee up through the sweet foam; for the iced version, pour over ice instead.",
     ],
   },
 ];
