@@ -920,6 +920,103 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "Creamy, tangy pimento-cheese pockets against sharp cheddar, sweet roasted pepper, and a bright pickled-jalapeño kick — a Southern snack-board spread baked into a soft, gently spicy loaf.",
   },
+  {
+    name: "Reuben (Corned Beef, Swiss & Kraut)",
+    flavorProfile: "savory",
+    whyTrending:
+      "The deli-sandwich-as-loaf trend hit the Reuben in 2026 — bakers build a rye-leaning boule with pickle brine and caraway, then fold in corned beef, Swiss, and sauerkraut so the whole sandwich lives in the crumb.",
+    inclusions: [
+      "Dill pickle brine, swapped for part of the dough water for that rye-deli tang, 60g",
+      "Caraway seeds, toasted, worked into the dough, 8g",
+      "Cooked corned beef (or pastrami), diced small and patted dry, 100g",
+      "Swiss or Gruyère, cubed, 110g",
+      "Sauerkraut, squeezed VERY dry and chopped, 70g",
+    ],
+    foldInTip:
+      "Swap the pickle brine for an equal weight of water at mixing and stir the toasted caraway in early; the make-or-break step is wringing the sauerkraut bone-dry so its brine doesn't slacken the dough, then laminate the corned beef, Swiss, and kraut in together during shaping. A little Thousand-Island-style paprika-and-mustard dust on the crust nods to the dressing.",
+    tastingNote:
+      "Caraway-scented, gently tangy crumb studded with savory corned beef, melty Swiss pockets, and bright funky kraut — a hot Reuben you can slice and griddle.",
+  },
+  {
+    name: "Pretzel & Beer Cheese",
+    flavorProfile: "savory",
+    whyTrending:
+      "Pretzel sourdough is a runaway 2026 trend — a baking-soda-bathed loaf with a deep-mahogany salty crust and a soft chewy interior, here stuffed with sharp cheddar and a splash of beer for a beer-cheese-dip-in-bread-form.",
+    inclusions: [
+      "Amber ale or lager, reduced by half and cooled, swapped for part of the dough water, 80g",
+      "Sharp cheddar, cubed, 130g",
+      "Baking-soda bath: 30g baking soda dissolved in 1L water for a 15–20 second dunk before baking",
+      "Pretzel salt or coarse flaky salt for the crust, plus a little grated cheddar to crisp on top, 15g",
+    ],
+    foldInTip:
+      "Reduce and cool the beer and swap it for an equal weight of water at mixing; laminate the cheddar cubes in during shaping. After the final proof, gently dunk the shaped loaf in the warm baking-soda bath for 15–20 seconds (don't skip this — it's what makes the true pretzel crust and color), then score, salt heavily, and bake.",
+    tastingNote:
+      "A glossy mahogany pretzel crust with a pretzel-salt crackle over a soft chewy crumb shot through with molten sharp-cheddar pockets — a warm soft pretzel and beer-cheese in one slice.",
+  },
+  {
+    name: "Pesto & Mozzarella",
+    flavorProfile: "savory",
+    whyTrending:
+      "A summery, aromatic laminated loaf all over the baking feeds in 2026 — basil pesto rippled through the crumb with milky mozzarella pearls, the fresh green counterpart to the caprese loaf.",
+    inclusions: [
+      "Basil pesto, drained of excess oil and used sparingly (too much seeps out during shaping), 60g",
+      "Low-moisture mozzarella pearls or cubes, patted dry, 130g",
+      "Toasted pine nuts, 30g",
+      "Grated Parmesan to press onto the crust, 25g",
+    ],
+    foldInTip:
+      "Pesto is oily, so measure it and go light — drain off the surface oil and spread a thin layer over the laminated dough, then scatter the mozzarella and pine nuts and fold up during shaping; a heavy hand makes it weep and turns the dough hard to handle. Press the Parmesan onto the crust before scoring so it crisps.",
+    tastingNote:
+      "Fragrant basil-garlic pesto swirled green through the crumb with milky melted mozzarella and toasty pine nuts — high summer in a loaf, unbeatable toasted for a caprese sandwich.",
+  },
+  {
+    name: "Earl Grey & White Chocolate",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Tea-infused bakes are a named 2026 flavor axis (forecasters flag Earl Grey and chai crossing from cakes into bread) — bergamot-scented Earl Grey steeped into the dough water against creamy white chocolate for an elegant, perfumed sweet loaf.",
+    inclusions: [
+      "Earl Grey tea, 3–4 bags (or 8g loose) steeped strong in the hot dough water overnight then strained out, plus 2g finely ground leaves worked into the dough for flecks and aroma",
+      "White chocolate chips or chunks, 110g",
+      "Orange zest, from 1 orange, to amplify the bergamot, 8g",
+      "A little honey or light brown sugar, 20g",
+    ],
+    foldInTip:
+      "Steep the tea strong in the hot water overnight for a pronounced bergamot infusion, strain the bags out, and mix the dough with that tea-water plus the honey; fold the ground leaves and orange zest in during the first set of stretch-and-folds, then laminate the white chocolate in during shaping so it stays in creamy pockets.",
+    tastingNote:
+      "A fragrant, faintly floral bergamot crumb flecked with tea against sweet, creamy white-chocolate melts and a lift of orange — a cup of Earl Grey turned into toast.",
+  },
+  {
+    name: "'Nduja & Hot Honey",
+    flavorProfile: "spicy",
+    whyTrending:
+      "'Nduja — the soft, spreadable Calabrian chili salami — is having a major 2026 moment (all over pizza and toast feeds), and dolloped into a loaf with hot honey it makes the richest, most assertive swicy bake going, a fierier cousin of the Calabrian-chili-and-honey loaf.",
+    inclusions: [
+      "'Nduja, briefly warmed in a dry skillet to loosen it and render some of its chili oil (blot off the excess), cooled to a soft paste, 90g",
+      "Hot honey, warmed for drizzling, plus extra to brush the crust, 45g",
+      "Provolone or fontina, cubed, 110g",
+      "Fresh oregano and a little orange zest, 5g",
+    ],
+    foldInTip:
+      "'Nduja is soft and oily, so warm it just enough to spread, blot off the rendered red oil so it doesn't grease the gluten (save a little to brush the crust for color), and add it late — dot it across the laminated dough with the cheese during shaping and ribbon the hot honey between the coil folds (wear gloves); brush the baked crust with more hot honey while warm.",
+    tastingNote:
+      "Deep, smoky-spicy pork-and-chili richness from the 'nduja against floral hot-honey sweetness, melty cheese pockets, and a lacquered sweet-hot crust — the boldest swicy loaf on the board, made for a runny egg on top.",
+  },
+  {
+    name: "Sweet Sriracha & Sharp Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "Sriracha keeps climbing the sweet-heat charts, and 2026 bakers are folding a sweetened sriracha glaze into cheddar loaves — a brighter, more garlicky-vinegary spin on jalapeño-cheddar that reads more flavor than fire.",
+    inclusions: [
+      "Sweet sriracha glaze: sriracha simmered briefly with a little honey and garlic until jammy, cooled, 45g (plus a little to brush the crust)",
+      "Extra-sharp cheddar, cubed, 130g",
+      "Scallions, thinly sliced, 40g",
+      "Toasted sesame seeds for the crust, 10g",
+    ],
+    foldInTip:
+      "Simmer the sriracha with honey and garlic into a jammy glaze so it isn't runny, cool it, then ribbon it across the laminated dough with the cheddar and scallions during shaping; brush the crust with a little more glaze and press on sesame before baking. Freshly shred/cube the cheddar and keep the glaze thick so the moisture stays in check.",
+    tastingNote:
+      "Bright garlicky-vinegary sriracha warmth rounded by honey against melty sharp-cheddar pockets and fresh scallion — the crave-factor of sriracha-mayo baked into a tangy loaf, more flavor than fire.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -1056,6 +1153,17 @@ export const BEAN_IDEAS: BeanIdea[] = [
       "Honey process is the one gap in this board's line-up — every other bean is washed, natural, or an experimental co-ferment, and 2026 coverage keeps flagging the full 'natural / honey / washed' spectrum as the way to taste how process alone reshapes a cup. This yellow-honey Santa Bárbara is the sweet, syrupy-bodied middle path: cleaner than a natural, rounder and more caramel-sweet than a washed. Brew as pour-over or a forgiving everyday espresso.",
     approxPrice: "$20 / 12oz",
   },
+  {
+    name: "Ethiopia Guji (Natural)",
+    roaster: "SEY / Onyx / Roastworks (widely stocked)",
+    origin: "Ethiopia (Guji, Oromia)",
+    process: "Natural (dry-processed)",
+    roastLevel: "light",
+    officialNotes: ["Blueberry", "Strawberry", "Baking chocolate", "Floral"],
+    whyTry:
+      "Every Ethiopian on this board so far is a washed Yirgacheffe — but the classic 'blueberry-bomb' natural comes from Guji, the region that year after year produces the most explosive fruit-forward naturals (whole cherries dried on raised beds for weeks). It's the essential natural-Ethiopia benchmark, and its bright, refreshing character also makes it the ideal bean for the viral coffee lemonade below. Brew as pour-over for the full blueberry-to-cocoa range.",
+    approxPrice: "$21 / 250g",
+  },
 ];
 
 /** Creative espresso/latte drinks trending in 2025–2026. */
@@ -1175,6 +1283,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Add a scoop of ice (and, if you like, no more than a bar-spoon of sugar or a splash of simple syrup — the classic is unsweetened).",
       "Shake hard for 20–30 seconds until the shaker frosts over and the espresso builds a dense caramel-colored foam.",
       "Double-strain (no ice) into a chilled coupe or small glass so it pours out silky with a thick foam cap; drink immediately before it separates.",
+    ],
+  },
+  {
+    name: "Coffee Lemonade (Dirty Lemonade)",
+    category: "espresso",
+    brewRatio: "1:2",
+    description:
+      "The breakout summer drink of 2026 (91M+ TikTok posts as 'dirty lemonade,' with Scandinavian café roots) — a fresh tart lemonade poured over ice and 'dirtied' with a shot of espresso for a bright, sweet-tart, dairy-free pick-me-up. A fruity natural like the Guji above sings here.",
+    buildSteps: [
+      "Make a fresh lemonade base: fresh lemon juice and a little simple syrup to taste, cut with cold water.",
+      "Fill a tall clear glass with ice and pour in the lemonade until about three-quarters full.",
+      "Pull a fresh double shot of espresso — a bright, fruity light roast (a natural Ethiopian is ideal) plays best against the citrus.",
+      "Slowly pour the espresso over the back of a spoon so it floats in a dark layer over the lemonade; garnish with a lemon wheel and stir just before drinking.",
     ],
   },
 ];
