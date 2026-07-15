@@ -52,7 +52,7 @@ export interface DrinkIdea {
   buildSteps: string[];
 }
 
-/** 15 trending sourdough inclusions across savory / sweet / spicy. */
+/** Trending sourdough inclusions across savory / sweet / spicy. */
 export const INCLUSION_IDEAS: InclusionIdea[] = [
   {
     name: "French Onion Soup Boule",
@@ -442,6 +442,102 @@ export const INCLUSION_IDEAS: InclusionIdea[] = [
     tastingNote:
       "A creamsicle in bread form — fragrant orange with rounded vanilla warmth and a tender, lightly sweet crumb.",
   },
+  {
+    name: "Dubai Chocolate Pistachio Crunch",
+    flavorProfile: "sweet",
+    whyTrending:
+      "The single biggest viral flavor of 2024–2026 folded into a loaf — the 'Can't Get Knafeh of It' Dubai chocolate bar (pistachio-tahini cream + crunchy kataifi + chocolate) reimagined as sourdough all over TikTok and the Sourdough Geeks group.",
+    inclusions: [
+      "Pistachio cream / pistachio-tahini spread, warmed for swirling, 120g",
+      "Kataifi (shredded phyllo) or shredded wheat, toasted in butter until golden and crisp, 60g",
+      "Dark or milk chocolate, chopped into chunks, 100g",
+      "Toasted pistachios, roughly chopped, 40g",
+    ],
+    foldInTip:
+      "Toast the kataifi in butter and cool it fully so it stays crunchy, then laminate the dough thin, spread the pistachio cream over it, scatter the kataifi, chocolate, and pistachios, and roll it up so the layers spiral through the crumb like the bar's cross-section.",
+    tastingNote:
+      "Rich nutty pistachio cream ribbons and molten chocolate against shards of buttery kataifi crunch — the viral candy bar as a sliceable dessert loaf.",
+  },
+  {
+    name: "Tiramisu",
+    flavorProfile: "sweet",
+    whyTrending:
+      "Coffee-dessert loaves are surging in dessert-bread roundups — tiramisu's espresso, mascarpone, and cocoa translate beautifully into a swirled sweet sourdough (and pair perfectly with your own espresso).",
+    inclusions: [
+      "Strong cooled espresso or cold brew, swapped for part of the dough water, 80g",
+      "Mascarpone, dolloped in cold, 120g",
+      "White chocolate chips, 80g",
+      "Cocoa powder for dusting the crust plus a little in the swirl, 15g",
+    ],
+    foldInTip:
+      "Swap the cooled espresso for an equal weight of water at mixing for a mocha-tinted crumb, laminate the cold mascarpone and white chocolate in during shaping so they stay in creamy pockets, and dust the crust with cocoa before scoring.",
+    tastingNote:
+      "Espresso-scented crumb with creamy mascarpone pockets, mellow white chocolate, and a bittersweet cocoa crust — tiramisu you can toast.",
+  },
+  {
+    name: "Kimchi & Aged Cheddar",
+    flavorProfile: "spicy",
+    whyTrending:
+      "The flagship of the Asian-fusion sourdough wave — funky, fermented kimchi paired with sharp cheese, everywhere on baking TikTok and YouTube in 2025–2026.",
+    inclusions: [
+      "Well-fermented kimchi, chopped small and cooked dry in a hot skillet until the juice cooks off, then cooled, 120g",
+      "Aged sharp cheddar or Monterey Jack, cubed, 120g",
+      "Scallions, sliced, 40g",
+      "Toasted sesame seeds, 10g",
+    ],
+    foldInTip:
+      "Cook the chopped kimchi in a dry skillet until it looks dry so its brine doesn't slacken the dough, cool it fully, then laminate it with the cheese, scallions, and sesame during shaping.",
+    tastingNote:
+      "Double-fermented tang from kimchi and starter, gentle chili warmth, and melty sharp cheese — savory, funky, and built for a next-level grilled cheese.",
+  },
+  {
+    name: "Buffalo Chicken & Blue Cheese",
+    flavorProfile: "spicy",
+    whyTrending:
+      "A perennial game-day favorite climbing 2025–2026 savory add-in lists — buffalo wing flavor (hot sauce, chicken, blue cheese) baked straight into a loaf.",
+    inclusions: [
+      "Cooked shredded chicken tossed in Buffalo hot sauce then drained well, 120g",
+      "Blue cheese, crumbled, 70g",
+      "Sharp cheddar, cubed, 70g",
+      "Celery, finely diced and patted dry, plus chives, 40g",
+    ],
+    foldInTip:
+      "Drain the sauced chicken thoroughly so excess hot sauce doesn't over-hydrate the dough, then laminate everything in together during shaping so tangy blue cheese and spicy chicken alternate through the crumb.",
+    tastingNote:
+      "Vinegary Buffalo heat, savory shredded chicken, and funky blue cheese with a fresh celery snap — a plate of wings in chewy loaf form.",
+  },
+  {
+    name: "Cacio e Pepe",
+    flavorProfile: "savory",
+    whyTrending:
+      "The Roman-pasta-inspired loaf that became a TikTok staple in 2025 — just pecorino and cracked black pepper, but wildly popular for how much punch two ingredients deliver.",
+    inclusions: [
+      "Pecorino Romano, finely grated (grate rather than cube to keep the crumb tight), 130g",
+      "Parmesan, finely grated, 40g",
+      "Coarsely cracked black pepper, toasted briefly to bloom, 8g",
+      "Extra grated pecorino to press onto the crust, 25g",
+    ],
+    foldInTip:
+      "Fold the cracked pepper in during the first set of stretch-and-folds, then work the finely grated pecorino and parmesan evenly through the dough during the second set (grated, not chunked, so it flavors every bite without blowing out big holes); press extra pecorino onto the crust before scoring.",
+    tastingNote:
+      "Sharp, salty pecorino woven all the way through a tender crumb with a warm, peppery bite and a crisp cheese-lacquered crust — cacio e pepe you can slice.",
+  },
+  {
+    name: "Roasted Garlic & Herb Parmesan",
+    flavorProfile: "savory",
+    whyTrending:
+      "A repeatedly top-ranked savory add-in — whole cloves of slow-roasted garlic turned sweet and mellow, folded in with parmesan and fresh herbs.",
+    inclusions: [
+      "Garlic cloves, slow-roasted whole until soft and golden, 90g",
+      "Parmesan, cubed and grated (a mix), 110g",
+      "Fresh rosemary and thyme, chopped, 6g",
+      "Garlic powder for the crust, 4g",
+    ],
+    foldInTip:
+      "Fold the herbs and grated parmesan in during the second set of stretch-and-folds, then laminate the whole roasted garlic cloves and parmesan cubes in during shaping so the cloves stay intact and buttery.",
+    tastingNote:
+      "Sweet, mellow pockets of whole roasted garlic against salty parmesan and piney herbs — a garlic-bread lover's dream in boule form.",
+  },
 ];
 
 /** Specialty beans worth reviewing next. */
@@ -588,6 +684,19 @@ export const DRINK_IDEAS: DrinkIdea[] = [
       "Add the sweetened shot to a shaker with ice and shake hard for 15–20 seconds to build a frothy crema.",
       "Pour over a glass of fresh ice.",
       "Top with a splash of milk or oat milk and a final dusting of cinnamon.",
+    ],
+  },
+  {
+    name: "Pistachio Cream Cold Foam Latte",
+    category: "latte",
+    brewRatio: "1:2",
+    description:
+      "Riding the same pistachio craze as the Dubai chocolate loaf — an iced latte crowned with a whipped pistachio-cream cold foam, one of the most-ordered specialty drinks of 2025–2026.",
+    buildSteps: [
+      "Whisk or froth cold milk with a spoonful of pistachio cream (or pistachio syrup) and a splash of heavy cream until it holds soft peaks.",
+      "Fill a tall glass with ice and pour in cold milk, leaving room at the top.",
+      "Pull a double shot of espresso and pour it over the iced milk.",
+      "Spoon the pistachio cold foam over the top and finish with crushed toasted pistachios.",
     ],
   },
 ];
