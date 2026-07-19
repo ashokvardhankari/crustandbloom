@@ -34,4 +34,5 @@ export const DRINK_PRESETS: DrinkPreset[] = [
   { name: "Americano", slug: "americano", isCustom: false, dose: 18, ratioMultiplier: 2, milkMl: null, waterMl: 180, milkTempC: null, image: "/images/coffee/drink-americano.jpg", note: "Espresso + hot water" },
   { name: "My Cappuccino", slug: "my-cappuccino", isCustom: true, dose: 21, ratioMultiplier: 2, milkMl: 180, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-cappuccino.jpg", note: "Counter Culture Forty-Six, wet cap style" },
   { name: "My Honey Lavender Latte", slug: "my-honey-lavender", isCustom: true, dose: 18, ratioMultiplier: 2.5, milkMl: 240, waterMl: null, milkTempC: 62, image: "/images/coffee/drink-my-honey-lavender.jpg", note: "Oat milk, lavender syrup + honey" },
+  { name: "My Mocha", slug: "my-mocha", isCustom: true, dose: 18, ratioMultiplier: 2, milkMl: 240, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-mocha.jpg", note: "Counter Culture Forty-Six + local chocolate sauce" },
 ];
