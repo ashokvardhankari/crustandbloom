@@ -63,6 +63,14 @@ export function pageAlternates(canonical: string): Metadata["alternates"] {
  * cover image (not the site default) and is typed `og:type=article`. Without
  * this, each page overriding only `openGraph` silently inherits the layout's
  * generic Twitter image and `website` type.
+ *
+ * Because Next shallow-merges nested metadata, a page's `openGraph` replaces the
+ * layout's wholesale — so `url`, `siteName`, and `locale` must be re-declared
+ * here or they vanish from every detail page. `og:url` is what Facebook,
+ * LinkedIn, Slack, and iMessage read to canonicalise and label a shared link,
+ * and `og:site_name` brands the preview card; both were absent site-wide until
+ * this set them explicitly. The cover image also carries an `alt` for
+ * accessibility parity with the layout's default OG image.
  */
 export function articleMetadata(opts: {
   title: string;
@@ -72,7 +80,9 @@ export function articleMetadata(opts: {
   /** Relative path of this page, e.g. "/coffee/foo", for a self-canonical URL. */
   canonical?: string;
 }): Metadata {
-  const images = opts.image ? [opts.image] : undefined;
+  const images = opts.image
+    ? [{ url: opts.image, alt: opts.title }]
+    : undefined;
   return {
     title: opts.title,
     description: opts.description,
@@ -84,14 +94,17 @@ export function articleMetadata(opts: {
       type: "article",
       title: opts.title,
       description: opts.description,
+      siteName: SITE_NAME,
+      locale: "en_US",
+      ...(opts.canonical && { url: absoluteUrl(opts.canonical) }),
       ...(opts.publishedTime && { publishedTime: opts.publishedTime }),
-      ...(images && { images: images.map((url) => ({ url })) }),
+      ...(images && { images }),
     },
     twitter: {
       card: "summary_large_image",
       title: opts.title,
       description: opts.description,
-      ...(images && { images }),
+      ...(opts.image && { images: [opts.image] }),
     },
   };
 }
