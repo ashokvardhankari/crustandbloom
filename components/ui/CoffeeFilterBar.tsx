@@ -29,11 +29,16 @@ export default function CoffeeFilterBar({ posts }: CoffeeFilterBarProps) {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-3 mb-10">
+      <div
+        className="flex flex-wrap gap-3 mb-10"
+        role="group"
+        aria-label="Filter drinks by type"
+      >
         {filters.map((f) => (
           <button
             key={f.value}
             onClick={() => setActive(f.value)}
+            aria-pressed={active === f.value}
             className={cn(
               "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200",
               active === f.value

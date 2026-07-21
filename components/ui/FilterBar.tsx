@@ -28,11 +28,16 @@ export default function FilterBar({ posts }: FilterBarProps) {
   return (
     <div>
       {/* Filter pills */}
-      <div className="flex flex-wrap gap-3 mb-10">
+      <div
+        className="flex flex-wrap gap-3 mb-10"
+        role="group"
+        aria-label="Filter loaves by flavor"
+      >
         {filters.map((f) => (
           <button
             key={f.value}
             onClick={() => setActiveFilter(f.value)}
+            aria-pressed={activeFilter === f.value}
             className={cn(
               "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200",
               activeFilter === f.value
