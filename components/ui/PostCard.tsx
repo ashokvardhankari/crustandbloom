@@ -22,10 +22,13 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       ? "category-pill-classic"
       : "category-pill-inclusion";
 
-  // Bread bakes span same-day (8 hr) to overnight (20+ hr); surface the total
-  // time on the card so readers can plan before clicking through.
+  // At-a-glance signature spec surfaced from the detail page onto the card:
+  // bread bakes span same-day (8 hr) to overnight (20+ hr), so show total time;
+  // coffee's defining number is its brew ratio (strength), so show that.
   const totalTime =
     frontmatter.type === "bread" ? formatDuration(frontmatter.totalTime) : null;
+  const brewRatio =
+    frontmatter.type === "coffee" ? frontmatter.brewRatio?.trim() || null : null;
 
   const timeMeta = totalTime ? (
     <span className="inline-flex items-center gap-1 text-xs text-espresso-muted">
@@ -44,6 +47,24 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
         />
       </svg>
       <span>{totalTime} total</span>
+    </span>
+  ) : brewRatio ? (
+    <span className="inline-flex items-center gap-1 text-xs text-espresso-muted">
+      <svg
+        className="w-3.5 h-3.5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 3h6m-5 0v5.586a1 1 0 01-.293.707l-4.414 4.414A2 2 0 006.707 17H17.293a2 2 0 001.414-3.293l-4.414-4.414A1 1 0 0114 8.586V3"
+        />
+      </svg>
+      <span>{brewRatio} ratio</span>
     </span>
   ) : null;
 
