@@ -18,6 +18,7 @@ import BrewedInLinks from "@/components/ui/BrewedInLinks";
 import CostPerCup from "@/components/ui/CostPerCup";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import MoreFromOrigin from "@/components/ui/MoreFromOrigin";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
@@ -341,6 +342,13 @@ export default async function BeanReviewPage({ params }: PageProps) {
         newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title, date: newer.date } : null}
         older={older ? { href: `/beans/${older.slug}`, title: older.title, date: older.date } : null}
       />
+
+      {/* End-of-read conversion prompt — the primary CTA (subscribers hear
+          first about dried-starter batches); print:hidden since a signup form
+          is dead weight on paper. */}
+      <div className="print:hidden">
+        <NewsletterSignup />
+      </div>
     </>
   );
 }

@@ -28,6 +28,7 @@ import ShotYield from "@/components/ui/ShotYield";
 import BeanLink from "@/components/ui/BeanLink";
 import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd, SITE_HOST } from "@/lib/seo";
@@ -395,6 +396,13 @@ export default async function CoffeePostPage({ params }: PageProps) {
         newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title, date: newer.date } : null}
         older={older ? { href: `/coffee/${older.slug}`, title: older.title, date: older.date } : null}
       />
+
+      {/* End-of-read conversion prompt — the primary CTA (subscribers hear
+          first about dried-starter batches); print:hidden since a signup form
+          is dead weight on paper. */}
+      <div className="print:hidden">
+        <NewsletterSignup />
+      </div>
     </>
   );
 }

@@ -27,6 +27,7 @@ import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMe
 import DoughYield from "@/components/ui/DoughYield";
 import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd, SITE_HOST } from "@/lib/seo";
 import {
@@ -447,6 +448,13 @@ export default async function BreadPostPage({ params }: PageProps) {
         newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title, date: newer.date } : null}
         older={older ? { href: `/bread/${older.slug}`, title: older.title, date: older.date } : null}
       />
+
+      {/* End-of-read conversion prompt — the primary CTA (subscribers hear
+          first about dried-starter batches); print:hidden since a signup form
+          is dead weight on paper. */}
+      <div className="print:hidden">
+        <NewsletterSignup />
+      </div>
     </>
   );
 }
