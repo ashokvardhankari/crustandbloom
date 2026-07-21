@@ -290,8 +290,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
       <PostNav
         label="review"
-        newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/beans/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/beans/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/beans/${older.slug}`, title: older.title, date: older.date } : null}
       />
     </>
   );

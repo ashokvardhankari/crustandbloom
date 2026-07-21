@@ -369,6 +369,8 @@ export async function getAllPostsMeta(): Promise<
 export interface AdjacentPost {
   slug: string;
   title: string;
+  /** Publish date (ISO) of the neighbour, shown for chronological context. */
+  date: string;
 }
 
 /**
@@ -377,15 +379,19 @@ export interface AdjacentPost {
  * (more recent), `older` is one step down. Either can be null at the ends.
  */
 export function adjacentPosts<
-  T extends { slug: string; frontmatter: { title: string } },
+  T extends { slug: string; frontmatter: { title: string; date: string } },
 >(posts: T[], slug: string): { newer: AdjacentPost | null; older: AdjacentPost | null } {
   const i = posts.findIndex((p) => p.slug === slug);
   if (i === -1) return { newer: null, older: null };
   const newer = i > 0 ? posts[i - 1] : null;
   const older = i < posts.length - 1 ? posts[i + 1] : null;
   return {
-    newer: newer ? { slug: newer.slug, title: newer.frontmatter.title } : null,
-    older: older ? { slug: older.slug, title: older.frontmatter.title } : null,
+    newer: newer
+      ? { slug: newer.slug, title: newer.frontmatter.title, date: newer.frontmatter.date }
+      : null,
+    older: older
+      ? { slug: older.slug, title: older.frontmatter.title, date: older.frontmatter.date }
+      : null,
   };
 }
 

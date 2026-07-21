@@ -1,8 +1,11 @@
 import Link from "next/link";
+import { formatDate } from "@/lib/utils";
 
 interface NavItem {
   href: string;
   title: string;
+  /** ISO publish date of the neighbour, shown as chronological context. */
+  date?: string;
 }
 
 /**
@@ -40,6 +43,11 @@ export default function PostNav({
             <span className="font-display text-lg font-semibold tracking-tight text-espresso group-hover:text-terracotta transition-colors duration-200">
               {newer.title}
             </span>
+            {newer.date && (
+              <time dateTime={newer.date} className="mt-2 text-xs text-espresso-muted">
+                {formatDate(newer.date)}
+              </time>
+            )}
           </Link>
         ) : (
           <span aria-hidden="true" className="hidden sm:block" />
@@ -56,6 +64,11 @@ export default function PostNav({
             <span className="font-display text-lg font-semibold tracking-tight text-espresso group-hover:text-terracotta transition-colors duration-200">
               {older.title}
             </span>
+            {older.date && (
+              <time dateTime={older.date} className="mt-2 text-xs text-espresso-muted">
+                {formatDate(older.date)}
+              </time>
+            )}
           </Link>
         ) : (
           <span aria-hidden="true" className="hidden sm:block" />

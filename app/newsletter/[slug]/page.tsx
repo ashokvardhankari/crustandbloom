@@ -118,8 +118,8 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
       <PostNav
         label="letter"
         maxWidth="max-w-3xl"
-        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/newsletter/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/newsletter/${older.slug}`, title: older.title, date: older.date } : null}
       />
 
       <NewsletterSignup />

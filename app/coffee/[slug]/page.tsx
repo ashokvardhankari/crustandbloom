@@ -332,8 +332,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
       <PostNav
         label="brew"
-        newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/coffee/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/coffee/${older.slug}`, title: older.title, date: older.date } : null}
       />
     </>
   );

@@ -380,8 +380,8 @@ export default async function BreadPostPage({ params }: PageProps) {
 
       <PostNav
         label="loaf"
-        newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/bread/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/bread/${older.slug}`, title: older.title, date: older.date } : null}
       />
     </>
   );
