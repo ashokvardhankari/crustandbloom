@@ -52,6 +52,13 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
         </div>
       )}
 
+      {/* Announce the filtered photo count to screen readers as the category
+          changes — the visible masonry is the sighted counterpart to this
+          live status message (mirrors the archive filter bars). */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {visible.length} {visible.length === 1 ? "photo" : "photos"} shown
+      </p>
+
       {/* Masonry-style column layout */}
       <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
         {visible.map((image, i) => (
