@@ -99,13 +99,18 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
   // At-a-glance shopping specs shown in a stats bar under the hero, mirroring the
   // coffee/bread pages' glance bars so a bag's key buying signals (who roasted it,
-  // where it's from, how dark, what it costs) are visible without scrolling to the
-  // sidebar. Price only appears when the bean carries one.
+  // where it's from, how dark, what it costs, and the buy-again verdict) are
+  // visible without scrolling to the sidebar. Price and Verdict only appear when
+  // the bean carries them. The rebuy verdict is a review's most decisive takeaway
+  // — the archive card already surfaces it as a badge — so it belongs up here too.
   const glanceStats: { label: string; value: string; wide?: boolean }[] = [
     { label: "Roaster", value: f.roaster, wide: true },
     { label: "Origin", value: f.origin, wide: true },
     { label: "Roast", value: roastLabel(f.roastLevel) },
     ...(f.price ? [{ label: "Price", value: f.price }] : []),
+    ...(f.wouldRebuy !== undefined
+      ? [{ label: "Verdict", value: f.wouldRebuy ? "Would rebuy" : "Won't rebuy", wide: true }]
+      : []),
   ];
 
   return (
