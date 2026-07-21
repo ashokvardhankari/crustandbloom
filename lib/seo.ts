@@ -365,7 +365,11 @@ export function coffeeRecipeJsonLd(
     dateModified: fm.date,
     recipeCategory: "Drink",
     recipeYield: "1 cup",
-    keywords: fm.tags.join(", "),
+    // Merge the drink's category (latte/cappuccino/…) in with its authored tags,
+    // deduped, matching how breadRecipeJsonLd folds its base descriptors into
+    // keywords — a drink whose category isn't also a tag (e.g. the mocha, tagged
+    // mocha/chocolate but category "latte") would otherwise lose that signal.
+    keywords: keywordList([fm.category, ...fm.tags]),
     ...(fm.ingredients &&
       fm.ingredients.length > 0 && { recipeIngredient: fm.ingredients }),
     ...(steps.length > 0 && { recipeInstructions: steps }),
