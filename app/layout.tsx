@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "Crust & Bloom",
     description:
       "A personal site about specialty coffee and artisan sourdough bread.",
-    images: ["/images/site/og-default.jpg"],
+    images: [{ url: DEFAULT_OG_IMAGE.url, alt: DEFAULT_OG_IMAGE.alt }],
   },
 };
 

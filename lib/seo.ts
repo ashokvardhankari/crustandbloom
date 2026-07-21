@@ -107,7 +107,7 @@ export function listingMetadata(opts: {
       card: "summary_large_image",
       title: opts.title,
       description: opts.description,
-      images: [DEFAULT_OG_IMAGE.url],
+      images: [{ url: DEFAULT_OG_IMAGE.url, alt: DEFAULT_OG_IMAGE.alt }],
     },
   };
 }
@@ -127,8 +127,9 @@ export function listingMetadata(opts: {
  * here or they vanish from every detail page. `og:url` is what Facebook,
  * LinkedIn, Slack, and iMessage read to canonicalise and label a shared link,
  * and `og:site_name` brands the preview card; both were absent site-wide until
- * this set them explicitly. The cover image also carries an `alt` for
- * accessibility parity with the layout's default OG image.
+ * this set them explicitly. The cover image also carries an `alt` on both the
+ * Open Graph and Twitter cards so assistive tech reading a shared link preview
+ * gets a described image (parity with the layout's default OG image).
  */
 export function articleMetadata(opts: {
   title: string;
@@ -169,7 +170,7 @@ export function articleMetadata(opts: {
       card: "summary_large_image",
       title: opts.title,
       description: opts.description,
-      ...(opts.image && { images: [opts.image] }),
+      ...(opts.image && { images: [{ url: opts.image, alt: opts.title }] }),
     },
   };
 }
