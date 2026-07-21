@@ -8,6 +8,7 @@ import {
   getBeanPost,
   adjacentPosts,
   getRelatedPosts,
+  extractHeadings,
   tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
@@ -22,6 +23,7 @@ import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
 import RoastMeter from "@/components/ui/RoastMeter";
 import ShareButton from "@/components/ui/ShareButton";
+import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover } from "@/lib/utils";
@@ -51,14 +53,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function BeanReviewPage({ params }: PageProps) {
-  let frontmatter, content;
+  let frontmatter, content, raw;
   try {
-    ({ frontmatter, content } = await getBeanPost(params.slug));
+    ({ frontmatter, content, raw } = await getBeanPost(params.slug));
   } catch {
     notFound();
   }
 
   const f = frontmatter;
+  const headings = extractHeadings(raw);
   const specs: { label: string; value: string }[] = [
     { label: "Roaster", value: f.roaster },
     { label: "Origin", value: f.origin },
@@ -155,6 +158,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
                 <p className="text-espresso/80 leading-relaxed">{f.tastingNotes}</p>
               </div>
             </div>
+
+            {/* On-page contents */}
+            <TableOfContents headings={headings} />
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>

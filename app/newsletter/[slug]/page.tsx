@@ -7,12 +7,14 @@ import {
   getNewsletterPost,
   getPostsLinkedFrom,
   adjacentPosts,
+  extractHeadings,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import InThisIssue from "@/components/ui/InThisIssue";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import PostNav from "@/components/ui/PostNav";
 import ShareButton from "@/components/ui/ShareButton";
+import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, newsletterArticleJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -42,13 +44,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function NewsletterIssuePage({ params }: PageProps) {
-  let frontmatter, content;
+  let frontmatter, content, raw;
   try {
-    ({ frontmatter, content } = await getNewsletterPost(params.slug));
+    ({ frontmatter, content, raw } = await getNewsletterPost(params.slug));
   } catch {
     notFound();
   }
 
+  const headings = extractHeadings(raw);
   const { newer, older } = adjacentPosts(await getAllNewslettersMeta(), params.slug);
 
   // Coffee/bread/bean posts this letter links to, shown as scannable cards.
@@ -90,6 +93,9 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
         </div>
 
         <InThisIssue posts={linkedPosts} />
+
+        {/* On-page contents */}
+        <TableOfContents headings={headings} />
 
         <div className="prose-cb">{content}</div>
 

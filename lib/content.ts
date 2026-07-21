@@ -183,6 +183,7 @@ export async function getAllBeanPostsMeta(): Promise<PostMeta<BeanFrontmatter>[]
 export async function getBeanPost(slug: string): Promise<{
   frontmatter: BeanFrontmatter;
   content: ReactElement;
+  raw: string;
 }> {
   const raw = await readMDX(contentPath("beans", `${slug}.mdx`));
   const { frontmatter, content } = await compileMDX<BeanFrontmatter>({
@@ -190,7 +191,7 @@ export async function getBeanPost(slug: string): Promise<{
     components: MDXComponents,
     options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
-  return { frontmatter, content };
+  return { frontmatter, content, raw };
 }
 
 // ─── Newsletters (published issue archive) ────────────────────────────────────
@@ -221,6 +222,7 @@ export async function getAllNewslettersMeta(): Promise<
 export async function getNewsletterPost(slug: string): Promise<{
   frontmatter: NewsletterFrontmatter;
   content: ReactElement;
+  raw: string;
 }> {
   const raw = await readMDX(contentPath("newsletters", `${slug}.mdx`));
   const { frontmatter, content } = await compileMDX<NewsletterFrontmatter>({
@@ -228,7 +230,7 @@ export async function getNewsletterPost(slug: string): Promise<{
     components: MDXComponents,
     options: { parseFrontmatter: true, mdxOptions: { remarkPlugins: [remarkGfm] } },
   });
-  return { frontmatter, content };
+  return { frontmatter, content, raw };
 }
 
 /**
