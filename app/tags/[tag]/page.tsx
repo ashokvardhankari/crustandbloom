@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTags, getPostsByTag, getRelatedTags } from "@/lib/content";
 import JsonLd from "@/components/seo/JsonLd";
+import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 import { cn, formatDate } from "@/lib/utils";
 
@@ -42,25 +43,38 @@ export default async function TagPage({ params }: PageProps) {
   const relatedTags = await getRelatedTags(params.tag);
 
   return (
-    <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
-      {/* Treat the tag page as a curated collection: an ordered ItemList of the
-          posts sharing this tag, mirroring the archive pages' structured data. */}
-      <JsonLd
-        data={collectionPageJsonLd({
-          name: `Posts tagged #${tag}`,
-          description: `Every recipe, bean review, and note tagged “${tag}” on Crust & Bloom.`,
-          path: `/tags/${params.tag}`,
-          items: entries.map((entry) => ({ title: entry.title, path: entry.url })),
-        })}
+    <>
+      {/* A #tag page is two levels deep (Home › Tags › #tag), like the detail
+          pages — give it the same breadcrumb trail + BreadcrumbList JSON-LD they
+          emit, which the tag pages previously lacked (only a "← All tags" link). */}
+      <Breadcrumbs
+        maxWidth="max-w-3xl"
+        items={[
+          { label: "Home", href: "/" },
+          { label: "Tags", href: "/tags" },
+          { label: `#${tag}` },
+        ]}
       />
-      <div className="mb-10 animate-fade-in-up">
-        <Link
-          href="/tags"
-          className="eyebrow mb-3 inline-block text-espresso-muted hover:text-terracotta transition-colors"
-        >
-          ← All tags
-        </Link>
-        <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
+
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 pt-10 pb-16">
+        {/* Treat the tag page as a curated collection: an ordered ItemList of the
+            posts sharing this tag, mirroring the archive pages' structured data. */}
+        <JsonLd
+          data={collectionPageJsonLd({
+            name: `Posts tagged #${tag}`,
+            description: `Every recipe, bean review, and note tagged “${tag}” on Crust & Bloom.`,
+            path: `/tags/${params.tag}`,
+            items: entries.map((entry) => ({ title: entry.title, path: entry.url })),
+          })}
+        />
+        <div className="mb-10 animate-fade-in-up">
+          <Link
+            href="/tags"
+            className="eyebrow mb-3 inline-block text-espresso-muted hover:text-terracotta transition-colors"
+          >
+            ← All tags
+          </Link>
+          <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
           #{tag}
           <span className="text-terracotta italic">.</span>
         </h1>
@@ -125,6 +139,7 @@ export default async function TagPage({ params }: PageProps) {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 }
