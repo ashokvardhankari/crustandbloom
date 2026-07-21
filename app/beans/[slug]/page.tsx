@@ -117,17 +117,20 @@ export default async function BeanReviewPage({ params }: PageProps) {
     <>
       <JsonLd data={beanReviewJsonLd(params.slug, f)} />
 
-      <Hero
-        image={beanCover(f.coverImage)}
-        imageAlt={f.title}
-        title={f.title}
-        subtitle={f.excerpt}
-        size="medium"
-        overlay="dark"
-      />
+      {/* Hero — dropped from the printout in favour of a plain heading */}
+      <div className="print:hidden">
+        <Hero
+          image={beanCover(f.coverImage)}
+          imageAlt={f.title}
+          title={f.title}
+          subtitle={f.excerpt}
+          size="medium"
+          overlay="dark"
+        />
+      </div>
 
       {/* Bean stats bar */}
-      <div className="bg-cream-dark border-b border-blush/30">
+      <div className="bg-cream-dark border-b border-blush/30 print:hidden">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
           <div className="flex flex-wrap gap-4 lg:gap-0 lg:divide-x lg:divide-blush/30">
             {glanceStats.map((stat) => (
@@ -154,10 +157,21 @@ export default async function BeanReviewPage({ params }: PageProps) {
       />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-14">
+        <div className="print-recipe-grid grid grid-cols-1 lg:grid-cols-3 gap-14">
           {/* Body */}
           <article className="lg:col-span-2">
-            <div className="flex justify-end items-center gap-3 mb-6">
+            {/* Print-only masthead (the on-screen title lives in the hero) */}
+            <div className="hidden print:block mb-6">
+              <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                Crust &amp; Bloom
+              </p>
+              <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
+                {f.title}
+              </h1>
+              <p className="text-sm text-espresso-muted mt-1">from {f.roaster}</p>
+            </div>
+
+            <div className="flex justify-end items-center gap-3 mb-6 print:hidden">
               <ShareButton title={f.title} tooltip="Share this review" />
             </div>
 
