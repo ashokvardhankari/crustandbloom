@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 interface NavLink {
   href: string;
@@ -79,16 +80,27 @@ export default function MobileMenu({ links }: { links: NavLink[] }) {
           className="absolute top-16 left-0 right-0 bg-cream border-b border-blush/40 shadow-sm"
         >
           <nav className="flex flex-col px-6 py-4 gap-4">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-base font-medium text-espresso/70 hover:text-espresso transition-colors py-1"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {links.map((link) => {
+              const active =
+                pathname === link.href ||
+                pathname.startsWith(`${link.href}/`);
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "text-base font-medium transition-colors py-1",
+                    active
+                      ? "text-terracotta"
+                      : "text-espresso/70 hover:text-espresso"
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       )}
