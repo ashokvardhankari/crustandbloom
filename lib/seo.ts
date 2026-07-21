@@ -23,6 +23,17 @@ export const SITE_SOCIAL_LINKS = [
 
 const AUTHOR = { "@type": "Person", name: SITE_NAME } as const;
 
+/**
+ * Reference to the site-wide Organization node (injected once per page by the
+ * root layout via `organizationJsonLd`, which carries the brand `name` + `logo`).
+ * Used as the `publisher` on detail-page Recipe/Review/Article structured data
+ * so those entities resolve to a single publisher in the page's JSON-LD graph
+ * — the same `@id` reference `websiteJsonLd` already uses — rather than each
+ * page redeclaring (or, until now, omitting) the publisher. Article rich
+ * results in particular recommend a `publisher` with a logo, which this supplies.
+ */
+const PUBLISHER = { "@id": `${SITE_URL}/#organization` } as const;
+
 export function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path}`;
 }
@@ -215,6 +226,7 @@ export function breadRecipeJsonLd(
     description: fm.excerpt,
     image: fm.images.map(absoluteUrl),
     author: AUTHOR,
+    publisher: PUBLISHER,
     datePublished: fm.date,
     recipeCategory: "Bread",
     recipeYield: "1 loaf",
@@ -243,6 +255,7 @@ export function coffeeRecipeJsonLd(
     description: fm.excerpt,
     image: fm.images.map(absoluteUrl),
     author: AUTHOR,
+    publisher: PUBLISHER,
     datePublished: fm.date,
     recipeCategory: "Drink",
     recipeYield: "1 cup",
@@ -290,6 +303,7 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
       worstRating: 0,
     },
     author: AUTHOR,
+    publisher: PUBLISHER,
     datePublished: fm.date,
     reviewBody: fm.tastingNotes,
   };
@@ -307,6 +321,7 @@ export function newsletterArticleJsonLd(
     description: fm.excerpt,
     ...(fm.coverImage && { image: absoluteUrl(fm.coverImage) }),
     author: AUTHOR,
+    publisher: PUBLISHER,
     datePublished: fm.date,
   };
 }
