@@ -4,6 +4,7 @@ import BeanFilterBar from "@/components/ui/BeanFilterBar";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
 import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
+import { roastBucket } from "@/lib/utils";
 
 const PAGE_DESCRIPTION =
   "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.";
@@ -28,6 +29,18 @@ export default async function BeansPage() {
     (b) => b.frontmatter.wouldRebuy !== undefined
   );
   const rebuyYes = rebuyVotes.filter((b) => b.frontmatter.wouldRebuy).length;
+
+  // How the shelf splits across the light/medium/dark roast buckets — the same
+  // three buckets the filter directly below uses (via roastBucket), so the mix
+  // reads at a glance and matches the filter's grouping. Empty buckets drop out,
+  // mirroring the bread archive's flavor-profile breakdown.
+  const roastCounts = (["light", "medium", "dark"] as const)
+    .map((bucket) => ({
+      label: bucket,
+      count: beans.filter((b) => roastBucket(b.frontmatter.roastLevel) === bucket)
+        .length,
+    }))
+    .filter((r) => r.count > 0);
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -89,6 +102,28 @@ export default async function BeansPage() {
                 </p>
                 <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
                   Would rebuy
+                </p>
+              </div>
+            )}
+
+            {roastCounts.length > 0 && (
+              <div>
+                <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                  {roastCounts.map((r, i) => (
+                    <span key={r.label}>
+                      {r.count}
+                      <span className="text-base font-medium text-espresso-muted capitalize">
+                        {" "}
+                        {r.label}
+                      </span>
+                      {i < roastCounts.length - 1 && (
+                        <span className="text-espresso-muted"> · </span>
+                      )}
+                    </span>
+                  ))}
+                </p>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                  Roast levels
                 </p>
               </div>
             )}
