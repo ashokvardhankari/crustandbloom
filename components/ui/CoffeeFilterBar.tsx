@@ -46,7 +46,7 @@ export default function CoffeeFilterBar({ posts }: CoffeeFilterBarProps) {
                 : "bg-blush/40 text-espresso hover:bg-blush/70"
             )}
           >
-            <span>{f.dot}</span>
+            <span aria-hidden="true">{f.dot}</span>
             {f.label}
           </button>
         ))}

@@ -45,7 +45,7 @@ export default function FilterBar({ posts }: FilterBarProps) {
                 : "bg-blush/40 text-espresso hover:bg-blush/70"
             )}
           >
-            <span>{f.emoji}</span>
+            <span aria-hidden="true">{f.emoji}</span>
             {f.label}
           </button>
         ))}
