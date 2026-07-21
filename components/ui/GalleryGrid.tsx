@@ -64,8 +64,11 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
               <Image
                 src={image.src}
                 alt={image.alt}
-                width={0}
-                height={0}
+                // Real intrinsic dimensions (read at build time) let next/image
+                // reserve the aspect-ratio box so the masonry doesn't reflow as
+                // photos load; 0/0 is the graceful fallback for an unread size.
+                width={image.width ?? 0}
+                height={image.height ?? 0}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="w-full h-auto group-hover:scale-105 transition-transform duration-500 ease-out"
               />

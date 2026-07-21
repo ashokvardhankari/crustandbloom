@@ -106,4 +106,8 @@ export interface GalleryImage {
   /** Link back to the post the photo belongs to. */
   postUrl: string;
   category: GalleryCategory;
+  /** Intrinsic pixel dimensions, read from the file at build time, so the grid can
+   *  reserve each photo's aspect-ratio box and avoid layout shift while images load. */
+  width?: number;
+  height?: number;
 }

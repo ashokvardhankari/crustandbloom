@@ -14,6 +14,7 @@ import type {
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
 import { slugify, beanCover, readingTime } from "@/lib/utils";
+import { readImageSize } from "@/lib/image-size";
 
 // ─── Path helpers ───────────────────────────────────────────────────────────
 
@@ -726,6 +727,19 @@ export async function getAllGalleryImages(): Promise<GalleryImage[]> {
       images.push({ src, alt: bean.frontmatter.title, title: bean.frontmatter.title, postUrl: url, category: "beans" });
     }
   }
+
+  // Read each photo's intrinsic dimensions from disk at build time so the
+  // gallery can reserve its aspect-ratio box up front (no layout shift as the
+  // masonry streams in). Unreadable files simply keep width/height undefined.
+  await Promise.all(
+    images.map(async (image) => {
+      const size = await readImageSize(image.src);
+      if (size) {
+        image.width = size.width;
+        image.height = size.height;
+      }
+    })
+  );
 
   return images;
 }
