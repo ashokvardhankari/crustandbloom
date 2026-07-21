@@ -196,7 +196,27 @@ export function coffeeRecipeJsonLd(
   };
 }
 
+/**
+ * Build a schema.org Offer from a bean's `price` string (e.g. "$18 / 12oz",
+ * "~$7 / 13oz"). Parses the first dollar amount as USD and attaches the
+ * affiliate `buyUrl` as the offer URL when one exists, so the reviewed product
+ * carries its price in structured data. Returns undefined when no dollar amount
+ * can be read, so the Product simply omits `offers`.
+ */
+function beanOffer(price?: string, buyUrl?: string) {
+  if (!price) return undefined;
+  const dollars = /\$\s*(\d+(?:\.\d+)?)/.exec(price);
+  if (!dollars) return undefined;
+  return {
+    "@type": "Offer",
+    priceCurrency: "USD",
+    price: dollars[1],
+    ...(buyUrl && { url: buyUrl, availability: "https://schema.org/InStock" }),
+  };
+}
+
 export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
+  const offers = beanOffer(fm.price, fm.buyUrl);
   return {
     "@context": "https://schema.org",
     "@type": "Review",
@@ -206,6 +226,7 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
       name: `${fm.roaster} ${fm.title}`,
       brand: { "@type": "Brand", name: fm.roaster },
       ...(fm.coverImage && { image: absoluteUrl(fm.coverImage) }),
+      ...(offers && { offers }),
     },
     reviewRating: {
       "@type": "Rating",
