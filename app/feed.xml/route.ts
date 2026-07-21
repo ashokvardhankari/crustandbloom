@@ -143,6 +143,11 @@ ${categories}${enclosure ? `\n${enclosure}` : ""}
     <link>${SITE_URL}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
     <language>en-us</language>
+    <image>
+      <url>${SITE_URL}/images/site/logo-email.png</url>
+      <title>${escapeXml(SITE_NAME)}</title>
+      <link>${SITE_URL}</link>
+    </image>
 ${lastBuildDate ? `    <lastBuildDate>${lastBuildDate}</lastBuildDate>\n` : ""}    <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml"/>
 ${rssItems}
   </channel>
