@@ -4,12 +4,14 @@ import { notFound } from "next/navigation";
 import {
   getAllBeanSlugs,
   getAllBeanPostsMeta,
+  getAllCoffeePostsMeta,
   getBeanPost,
   adjacentPosts,
   getRelatedPosts,
   tagSlug,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import BrewedInLinks from "@/components/ui/BrewedInLinks";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -67,6 +69,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
   const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
   const related = await getRelatedPosts(`/beans/${params.slug}`, f.tags);
+  const brewedIn = (await getAllCoffeePostsMeta()).filter(
+    (c) => c.frontmatter.beans === params.slug
+  );
 
   return (
     <>
@@ -199,6 +204,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
                   <span className="stat-value">{f.wouldRebuy ? "Yes" : "No"}</span>
                 </div>
               )}
+
+              <BrewedInLinks recipes={brewedIn} />
 
               {f.tags.length > 0 && (
                 <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
