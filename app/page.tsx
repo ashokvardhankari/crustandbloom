@@ -27,7 +27,7 @@ const faqs: FAQItem[] = [
   {
     question: "What hydration are your sourdoughs?",
     answer:
-      "Classic country sourdough runs at 78%. Inclusion loaves vary. Cheese loaves tend to go a bit lower (72%) since fat in the inclusions affects gluten development. Each post documents the exact percentage.",
+      "Classic country sourdough runs at 75%. Inclusion loaves range from about 70% to 78% depending on what's folded in. A filled calzone dough goes lower for easier shaping, while the everything-bagel and parmesan loaves push up toward 78%. Each post documents the exact percentage.",
   },
   {
     question: "How do you store sourdough bread?",
