@@ -1,10 +1,17 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export interface FAQItem {
   question: string;
   answer: string;
+  /**
+   * Optional cross-link shown beneath the answer (e.g. a review or archive the
+   * answer describes). Purely a navigation affordance — it is NOT part of the
+   * FAQPage JSON-LD, which only carries the plain question/answer text.
+   */
+  link?: { href: string; label: string };
 }
 
 export default function FAQAccordion({ items }: { items: FAQItem[] }) {
@@ -61,6 +68,18 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
             <p className="pt-4 pb-1 text-sm text-espresso/65 leading-relaxed pr-12">
               {item.answer}
             </p>
+            {item.link && (
+              <Link
+                href={item.link.href}
+                className="link-underline mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-terracotta hover:text-terracotta-dark transition-colors"
+                tabIndex={open ? undefined : -1}
+              >
+                {item.link.label}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            )}
           </div>
         </div>
         );

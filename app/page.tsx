@@ -23,11 +23,13 @@ const faqs: FAQItem[] = [
     question: "What coffee beans do you use?",
     answer:
       "I rotate through single-origin beans from a few trusted roasters depending on the season. Right now I'm working with a washed Ethiopian for espresso. It has that classic jasmine and stone fruit character that pulls beautifully.",
+    link: { href: "/beans/washed-ethiopia-guji", label: "Read my review of it" },
   },
   {
     question: "What hydration are your sourdoughs?",
     answer:
       "Classic country sourdough runs at 75%. Inclusion loaves range from about 70% to 78% depending on what's folded in. A filled calzone dough goes lower for easier shaping, while the everything-bagel and parmesan loaves push up toward 78%. Each post documents the exact percentage.",
+    link: { href: "/bread", label: "Browse the loaves" },
   },
   {
     question: "How do you store sourdough bread?",
