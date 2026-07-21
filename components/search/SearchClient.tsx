@@ -9,6 +9,8 @@ interface SearchEntry {
   url: string;
   kind: "Coffee" | "Bread" | "Beans" | "Newsletter";
   tags: string[];
+  /** Hidden searchable text (categories, inclusion ingredients, tasting notes). */
+  keywords: string[];
   excerpt: string;
   date: string;
 }
@@ -33,11 +35,13 @@ function score(entry: SearchEntry, tokens: string[]): number {
   const title = entry.title.toLowerCase();
   const tags = entry.tags.join(" ").toLowerCase();
   const excerpt = entry.excerpt.toLowerCase();
+  const keywords = (entry.keywords ?? []).join(" ").toLowerCase();
   for (const token of tokens) {
     let hit = 0;
     if (title.includes(token)) hit += 3;
     if (tags.includes(token)) hit += 2;
     if (excerpt.includes(token)) hit += 1;
+    if (keywords.includes(token)) hit += 1;
     if (hit === 0) return 0; // every token must match somewhere
     total += hit;
   }
