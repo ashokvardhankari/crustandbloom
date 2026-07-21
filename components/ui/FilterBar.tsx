@@ -51,6 +51,12 @@ export default function FilterBar({ posts }: FilterBarProps) {
         ))}
       </div>
 
+      {/* Announce the filtered count to screen readers as filters change — the
+          visible grid is the sighted counterpart to this live status message. */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {filtered.length} {filtered.length === 1 ? "loaf" : "loaves"} shown
+      </p>
+
       {/* Results */}
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">

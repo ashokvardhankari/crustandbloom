@@ -52,6 +52,12 @@ export default function CoffeeFilterBar({ posts }: CoffeeFilterBarProps) {
         ))}
       </div>
 
+      {/* Announce the filtered count to screen readers as filters change — the
+          visible grid is the sighted counterpart to this live status message. */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {filtered.length} {filtered.length === 1 ? "drink" : "drinks"} shown
+      </p>
+
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">
           <p className="text-lg">No drinks in this category yet.</p>

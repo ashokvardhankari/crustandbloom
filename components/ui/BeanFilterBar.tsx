@@ -91,6 +91,12 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
         </div>
       </div>
 
+      {/* Announce the filtered count to screen readers as filters change — the
+          visible grid is the sighted counterpart to this live status message. */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {filtered.length} {filtered.length === 1 ? "bean" : "beans"} shown
+      </p>
+
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">
           <p className="text-lg">No beans in this roast range yet.</p>
