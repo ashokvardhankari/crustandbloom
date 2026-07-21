@@ -148,12 +148,41 @@ function formulaIngredients(raw: string): string[] {
   return ingredients;
 }
 
+/**
+ * A section that is never a method step regardless of where it sits: the
+ * formula/ingredient table, the "My Recipe vs." comparison, an ingredient/bean
+ * deep-dive ("The Bean", "On the Seasoning"), a tips list ("Notes", "Notes on
+ * the Filling"), or a bean-review verdict.
+ */
+const DISCUSSION_HEADING =
+  /formula|ingredient|recipe vs|the bean|verdict|\bnotes?\b|^on the\b/i;
+
+/** Headings that name an actual baking/brewing action, used to find where the method begins. */
+const METHOD_HEADING =
+  /\b(mix|knead|ferment|prove?|proof|laminat|shap|bak|steam|pull|pour|assembl|feed|cook|rest|bloom|cool|coat)/i;
+
 /** Turn the post's H2 sections into HowToStep entries, skipping non-method ones. */
 function instructionSteps(raw: string) {
-  return sections(raw)
-    .filter(
-      (s) => !/formula|ingredient|recipe vs|the bean|verdict/i.test(s.heading)
-    )
+  const secs = sections(raw);
+
+  // Bread recipes open with a Formula table, then often an ingredient spotlight
+  // ("The Cheddar", "The Sun-Dried Tomatoes") before the first real step. Find
+  // where the method actually begins so those spotlights aren't emitted as
+  // cooking instructions. Coffee posts have no Formula section, so this is a
+  // no-op for them and their noise is caught by DISCUSSION_HEADING alone.
+  const formulaIdx = secs.findIndex((s) => /formula|ingredient/i.test(s.heading));
+  const methodIdx =
+    formulaIdx === -1
+      ? -1
+      : secs.findIndex((s, i) => i > formulaIdx && METHOD_HEADING.test(s.heading));
+
+  return secs
+    .filter((s, i) => {
+      if (DISCUSSION_HEADING.test(s.heading)) return false;
+      // Drop ingredient spotlights wedged between the Formula and the method.
+      if (methodIdx !== -1 && i > formulaIdx && i < methodIdx) return false;
+      return true;
+    })
     .map((s) => ({
       "@type": "HowToStep",
       name: s.heading,
