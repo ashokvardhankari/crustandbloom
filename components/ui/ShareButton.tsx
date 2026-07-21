@@ -56,6 +56,7 @@ export default function ShareButton({
   }
 
   return (
+    <>
     <button
       type="button"
       onClick={handleShare}
@@ -102,5 +103,15 @@ export default function ShareButton({
       )}
       {copied ? "Link copied" : label}
     </button>
+    {/*
+      The visible label swaps to "Link copied", but a focused button's changed
+      text isn't reliably re-announced by screen readers. This always-present
+      polite live region announces the copy confirmation for assistive tech,
+      matching the status-message pattern used by the search UI and signup form.
+    */}
+    <span role="status" aria-live="polite" className="sr-only">
+      {copied ? "Link copied to clipboard" : ""}
+    </span>
+    </>
   );
 }
