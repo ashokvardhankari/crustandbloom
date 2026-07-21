@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { PostMeta, PostFrontmatter } from "@/lib/types";
-import { formatDate, getCategoryLabel } from "@/lib/utils";
+import { formatDate, formatDuration, getCategoryLabel } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
 interface PostCardProps {
@@ -22,6 +22,31 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
       ? "category-pill-classic"
       : "category-pill-inclusion";
 
+  // Bread bakes span same-day (8 hr) to overnight (20+ hr); surface the total
+  // time on the card so readers can plan before clicking through.
+  const totalTime =
+    frontmatter.type === "bread" ? formatDuration(frontmatter.totalTime) : null;
+
+  const timeMeta = totalTime ? (
+    <span className="inline-flex items-center gap-1 text-xs text-espresso-muted">
+      <svg
+        className="w-3.5 h-3.5"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <span>{totalTime} total</span>
+    </span>
+  ) : null;
+
   if (size === "compact") {
     return (
       <Link href={href} className="card-galatea group flex h-full">
@@ -37,6 +62,7 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
         <div className="p-5 flex flex-col justify-center gap-2 min-w-0">
           <div className="flex items-center gap-3">
             <span className={pillClass}>{categoryLabel}</span>
+            {timeMeta}
           </div>
           <h3 className="font-display font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200 text-lg leading-snug text-balance">
             {frontmatter.title}
@@ -77,6 +103,8 @@ export default function PostCard({ post, size = "default" }: PostCardProps) {
           >
             {formatDate(frontmatter.date)}
           </time>
+          {timeMeta && <span className="text-espresso-muted/40">·</span>}
+          {timeMeta}
         </div>
 
         <h3
