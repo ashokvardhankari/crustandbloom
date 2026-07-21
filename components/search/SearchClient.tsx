@@ -209,6 +209,29 @@ export default function SearchClient() {
         </div>
       )}
 
+      {/* Result count — announced to screen readers as the query changes (the
+          live-filtering counterpart to the calculators' aria-live values) and
+          shown visibly, since the type-filter row only appears when more than
+          one kind matches, leaving single-kind searches with no count at all.
+          Hidden but still announced on zero results, which have their own
+          friendly message above. */}
+      {!failed && searching && entries !== null && (
+        <p
+          role="status"
+          aria-live="polite"
+          className={cn(
+            "text-sm text-espresso/50 mb-6",
+            results.length === 0 && "sr-only"
+          )}
+        >
+          {results.length === 0
+            ? `No results for “${query.trim()}”`
+            : `${results.length} result${
+                results.length === 1 ? "" : "s"
+              } for “${query.trim()}”`}
+        </p>
+      )}
+
       {!failed && searching && results.length > 0 && kindCounts.size > 1 && (
         <div
           className="flex flex-wrap gap-2 mb-6"
