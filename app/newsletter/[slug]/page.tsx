@@ -5,9 +5,11 @@ import {
   getAllNewsletterSlugs,
   getAllNewslettersMeta,
   getNewsletterPost,
+  getPostsLinkedFrom,
   adjacentPosts,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import InThisIssue from "@/components/ui/InThisIssue";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import PostNav from "@/components/ui/PostNav";
 import ShareButton from "@/components/ui/ShareButton";
@@ -49,6 +51,9 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
 
   const { newer, older } = adjacentPosts(await getAllNewslettersMeta(), params.slug);
 
+  // Coffee/bread/bean posts this letter links to, shown as scannable cards.
+  const linkedPosts = await getPostsLinkedFrom(params.slug);
+
   return (
     <>
       <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
@@ -83,6 +88,8 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
           </h1>
           <div className="mt-6 h-px w-24 bg-amber" />
         </div>
+
+        <InThisIssue posts={linkedPosts} />
 
         <div className="prose-cb">{content}</div>
 

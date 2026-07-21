@@ -13,7 +13,7 @@ import type {
   GalleryImage,
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
-import { slugify } from "@/lib/utils";
+import { slugify, beanCover } from "@/lib/utils";
 
 // ─── Path helpers ───────────────────────────────────────────────────────────
 
@@ -261,6 +261,77 @@ export async function getNewslettersFeaturing(
         new Date(b.frontmatter.date).getTime() -
         new Date(a.frontmatter.date).getTime()
     );
+}
+
+/** A coffee/bread/bean post a newsletter issue links to, resolved for a card. */
+export interface LinkedPost {
+  title: string;
+  url: string;
+  kind: "Coffee" | "Bread" | "Beans";
+  coverImage: string;
+}
+
+/**
+ * The forward complement of getNewslettersFeaturing: the coffee, bread, and bean
+ * posts a given issue's body links to, in order of first appearance and deduped.
+ * Used to surface an "In this issue" block of cross-link cards at the top of a
+ * newsletter page, so a text-heavy letter shows at a glance what it covers.
+ * Each link is resolved against real post metadata, so a link to a post that no
+ * longer exists is silently dropped. Returns an empty array when nothing links.
+ */
+export async function getPostsLinkedFrom(
+  newsletterSlug: string
+): Promise<LinkedPost[]> {
+  const raw = await readMDX(contentPath("newsletters", `${newsletterSlug}.mdx`));
+  const { content } = matter(raw);
+
+  const [coffee, bread, beans] = await Promise.all([
+    getAllCoffeePostsMeta(),
+    getAllBreadPostsMeta(),
+    getAllBeanPostsMeta(),
+  ]);
+
+  const index = new Map<string, LinkedPost>();
+  for (const p of coffee) {
+    index.set(`/coffee/${p.slug}`, {
+      title: p.frontmatter.title,
+      url: `/coffee/${p.slug}`,
+      kind: "Coffee",
+      coverImage: p.frontmatter.coverImage,
+    });
+  }
+  for (const p of bread) {
+    index.set(`/bread/${p.slug}`, {
+      title: p.frontmatter.title,
+      url: `/bread/${p.slug}`,
+      kind: "Bread",
+      coverImage: p.frontmatter.coverImage,
+    });
+  }
+  for (const p of beans) {
+    index.set(`/beans/${p.slug}`, {
+      title: p.frontmatter.title,
+      url: `/beans/${p.slug}`,
+      kind: "Beans",
+      coverImage: beanCover(p.frontmatter.coverImage),
+    });
+  }
+
+  // Scan the body for internal post links, keeping first-appearance order and
+  // deduping. Exact-path lookup means "/bread/fig" can't resolve a
+  // "/bread/fig-walnut" post — only a real link to an existing post matches.
+  const linkRe = /\/(?:coffee|bread|beans)\/[a-z0-9-]+/g;
+  const seen = new Set<string>();
+  const linked: LinkedPost[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = linkRe.exec(content)) !== null) {
+    const url = match[0];
+    if (seen.has(url)) continue;
+    seen.add(url);
+    const post = index.get(url);
+    if (post) linked.push(post);
+  }
+  return linked;
 }
 
 // ─── All Posts (mixed feed) ───────────────────────────────────────────────────
