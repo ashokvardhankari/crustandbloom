@@ -12,6 +12,7 @@ import {
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BrewedInLinks from "@/components/ui/BrewedInLinks";
+import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -67,10 +68,16 @@ export default async function BeanReviewPage({ params }: PageProps) {
     ...(f.brewMethod ? [{ label: "Brewed as", value: f.brewMethod }] : []),
   ];
 
-  const { newer, older } = adjacentPosts(await getAllBeanPostsMeta(), params.slug);
+  const allBeans = await getAllBeanPostsMeta();
+  const { newer, older } = adjacentPosts(allBeans, params.slug);
   const related = await getRelatedPosts(`/beans/${params.slug}`, f.tags);
   const brewedIn = (await getAllCoffeePostsMeta()).filter(
     (c) => c.frontmatter.beans === params.slug
+  );
+  // Other bags reviewed from the same roaster, newest-first (allBeans arrives
+  // in that order), excluding the one being viewed.
+  const moreFromRoaster = allBeans.filter(
+    (b) => b.slug !== params.slug && b.frontmatter.roaster === f.roaster
   );
 
   return (
@@ -206,6 +213,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
               )}
 
               <BrewedInLinks recipes={brewedIn} />
+
+              <MoreFromRoaster roaster={f.roaster} beans={moreFromRoaster} />
 
               {f.tags.length > 0 && (
                 <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
