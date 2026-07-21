@@ -231,6 +231,38 @@ export async function getNewsletterPost(slug: string): Promise<{
   return { frontmatter, content };
 }
 
+/**
+ * Newsletters whose body links to a given recipe path (e.g. "/bread/foo" or
+ * "/coffee/bar"), newest issue first. Used to surface a "Featured in the
+ * newsletter" cross-link on recipe pages — the reverse of the links the
+ * letters already carry into the site. The path must terminate at a non-slug
+ * character so "/bread/fig" can't match a "/bread/fig-walnut" link. Returns an
+ * empty array when no issue references the recipe.
+ */
+export async function getNewslettersFeaturing(
+  recipePath: string
+): Promise<PostMeta<NewsletterFrontmatter>[]> {
+  const escaped = recipePath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const linkRe = new RegExp(`${escaped}(?![\\w-])`);
+  const slugs = await getAllNewsletterSlugs();
+  const matches = await Promise.all(
+    slugs.map(async (slug) => {
+      const raw = await readMDX(contentPath("newsletters", `${slug}.mdx`));
+      const { data, content } = matter(raw);
+      return linkRe.test(content)
+        ? { slug, frontmatter: data as NewsletterFrontmatter }
+        : null;
+    })
+  );
+  return matches
+    .filter((m): m is PostMeta<NewsletterFrontmatter> => m !== null)
+    .sort(
+      (a, b) =>
+        new Date(b.frontmatter.date).getTime() -
+        new Date(a.frontmatter.date).getTime()
+    );
+}
+
 // ─── All Posts (mixed feed) ───────────────────────────────────────────────────
 
 export async function getAllPostsMeta(): Promise<

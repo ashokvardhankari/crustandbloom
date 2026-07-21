@@ -5,6 +5,7 @@ import {
   getAllBreadSlugs,
   getAllBreadPostsMeta,
   getBreadPost,
+  getNewslettersFeaturing,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -22,6 +23,7 @@ import TableOfContents from "@/components/ui/TableOfContents";
 import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMeter";
+import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, formatDuration, getCategoryLabel, slugify } from "@/lib/utils";
@@ -70,6 +72,9 @@ export default async function BreadPostPage({ params }: PageProps) {
   const totalTime = formatDuration(frontmatter.totalTime);
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
   const related = await getRelatedPosts(`/bread/${params.slug}`, frontmatter.tags);
+
+  // Newsletter issues that link to this recipe, for a reverse cross-link.
+  const featuredIn = await getNewslettersFeaturing(`/bread/${params.slug}`);
 
   // Every loaf's body leads with a narrative intro before its "Formula" table.
   // Link straight to that heading (matching the anchor id the MDX renderer emits)
@@ -319,6 +324,9 @@ export default async function BreadPostPage({ params }: PageProps) {
                   <span className="stat-value capitalize">{frontmatter.flavorProfile}</span>
                 </div>
               )}
+
+              {/* Newsletter issues that featured this loaf */}
+              <FeaturedInNewsletter issues={featuredIn} />
 
               <div className="pt-4 border-t border-blush/30">
                 <p className="text-xs text-espresso-muted leading-relaxed">

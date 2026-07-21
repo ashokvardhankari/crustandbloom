@@ -6,6 +6,7 @@ import {
   getAllCoffeePostsMeta,
   getCoffeePost,
   getAllBeanPostsMeta,
+  getNewslettersFeaturing,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -22,6 +23,7 @@ import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
 import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
 import BeanLink from "@/components/ui/BeanLink";
+import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
@@ -71,6 +73,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
   const bean = frontmatter.beans
     ? (await getAllBeanPostsMeta()).find((b) => b.slug === frontmatter.beans) ?? null
     : null;
+
+  // Newsletter issues that link to this recipe, for a reverse cross-link.
+  const featuredIn = await getNewslettersFeaturing(`/coffee/${params.slug}`);
 
   return (
     <>
@@ -201,6 +206,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
                   <BeanLink bean={bean} />
                 </div>
               )}
+
+              {/* Newsletter issues that featured this drink */}
+              <FeaturedInNewsletter issues={featuredIn} />
 
               {/* Divider */}
               <div className="pt-4 border-t border-blush/30">
