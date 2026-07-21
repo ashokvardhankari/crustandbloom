@@ -46,6 +46,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       image: beanCover(frontmatter.coverImage),
       publishedTime: frontmatter.date,
       canonical: `/beans/${params.slug}`,
+      section: "Beans",
+      tags: frontmatter.tags,
     });
   } catch {
     return { title: "Review not found" };

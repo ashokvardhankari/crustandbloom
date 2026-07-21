@@ -51,6 +51,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
       canonical: `/coffee/${params.slug}`,
+      section: "Coffee",
+      tags: frontmatter.tags,
     });
   } catch {
     return { title: "Post not found" };

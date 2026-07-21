@@ -137,6 +137,10 @@ export function articleMetadata(opts: {
   publishedTime?: string;
   /** Relative path of this page, e.g. "/coffee/foo", for a self-canonical URL. */
   canonical?: string;
+  /** Content section for `article:section` (e.g. "Coffee", "Bread", "Beans", "Newsletter"). */
+  section?: string;
+  /** Post tags, emitted as one `article:tag` each so platforms can categorise the share. */
+  tags?: string[];
 }): Metadata {
   const images = opts.image
     ? [{ url: opts.image, alt: opts.title }]
@@ -154,6 +158,9 @@ export function articleMetadata(opts: {
       description: opts.description,
       siteName: SITE_NAME,
       locale: "en_US",
+      authors: [SITE_NAME],
+      ...(opts.section && { section: opts.section }),
+      ...(opts.tags && opts.tags.length > 0 && { tags: opts.tags }),
       ...(opts.canonical && { url: absoluteUrl(opts.canonical) }),
       ...(opts.publishedTime && { publishedTime: opts.publishedTime }),
       ...(images && { images }),
