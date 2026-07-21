@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllTags, getPostsByTag } from "@/lib/content";
+import { getAllTags, getPostsByTag, getRelatedTags } from "@/lib/content";
 import { cn, formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -31,6 +31,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function TagPage({ params }: PageProps) {
   const { tag, entries } = await getPostsByTag(params.tag);
   if (!tag) notFound();
+
+  const relatedTags = await getRelatedTags(params.tag);
 
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
@@ -85,6 +87,27 @@ export default async function TagPage({ params }: PageProps) {
           </Link>
         ))}
       </div>
+
+      {relatedTags.length > 0 && (
+        <div className="mt-14 pt-8 border-t border-blush/50">
+          <h2 className="eyebrow text-espresso-muted mb-4">Related tags</h2>
+          <div className="flex flex-wrap gap-2.5" role="list">
+            {relatedTags.map((related) => (
+              <Link
+                key={related.slug}
+                href={`/tags/${related.slug}`}
+                role="listitem"
+                className="inline-flex items-center gap-1.5 rounded-full border border-blush bg-cream px-3.5 py-1.5 text-sm text-espresso hover:border-terracotta hover:text-terracotta transition-colors"
+              >
+                #{related.tag}
+                <span className="text-xs text-espresso-muted">
+                  {related.count}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

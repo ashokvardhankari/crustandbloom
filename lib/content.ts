@@ -601,6 +601,39 @@ export async function getPostsByTag(
 }
 
 /**
+ * Tags that co-occur with `slug` — i.e. tags applied to the same posts that
+ * carry this tag — ranked by how many posts they share (ties broken
+ * alphabetically). Gives a tag detail page lateral navigation to neighbouring
+ * topics instead of dead-ending at "← All tags". Returns at most `limit`, and
+ * an empty list when the tag stands alone, so callers can skip the section.
+ */
+export async function getRelatedTags(
+  slug: string,
+  limit = 12
+): Promise<{ tag: string; slug: string; count: number }[]> {
+  const entries = await getTaggableEntries();
+  const matched = entries.filter((entry) =>
+    entry.tags.some((tag) => tagSlug(tag) === slug)
+  );
+
+  const map = new Map<string, { tag: string; count: number }>();
+  for (const entry of matched) {
+    for (const tag of entry.tags) {
+      const otherSlug = tagSlug(tag);
+      if (!otherSlug || otherSlug === slug) continue;
+      const existing = map.get(otherSlug);
+      if (existing) existing.count += 1;
+      else map.set(otherSlug, { tag, count: 1 });
+    }
+  }
+
+  return Array.from(map.entries())
+    .map(([otherSlug, { tag, count }]) => ({ slug: otherSlug, tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag))
+    .slice(0, limit);
+}
+
+/**
  * Cross-content posts most related to the one at `currentUrl`, ranked by the
  * number of tags they share (ties broken by recency). Draws from every tagged
  * content type — a cappuccino brew can surface the espresso bean it shares a
