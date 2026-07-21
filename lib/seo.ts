@@ -282,6 +282,25 @@ function instructionSteps(raw: string, pageUrl: string) {
 
 // ─── JSON-LD builders ─────────────────────────────────────────────────────────
 
+/**
+ * Build a Recipe `keywords` string from an ordered list of candidate terms,
+ * dropping empties and case-insensitive duplicates (first occurrence wins). Lets
+ * a recipe's base descriptors and its authored tags merge into one comma list
+ * without "sourdough"/"sweet" repeating when a tag echoes a base term.
+ */
+function keywordList(values: (string | undefined)[]): string {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const v of values) {
+    if (!v) continue;
+    const key = v.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(v);
+  }
+  return out.join(", ");
+}
+
 export function breadRecipeJsonLd(
   slug: string,
   fm: BreadFrontmatter,
@@ -301,9 +320,12 @@ export function breadRecipeJsonLd(
     datePublished: fm.date,
     recipeCategory: "Bread",
     recipeYield: `1 ${fm.yieldUnit ?? "loaf"}`,
-    keywords: ["sourdough", fm.category, fm.flavorProfile]
-      .filter(Boolean)
-      .join(", "),
+    keywords: keywordList([
+      "sourdough",
+      fm.category,
+      fm.flavorProfile,
+      ...fm.tags,
+    ]),
     ...(fm.prepTime && { prepTime: fm.prepTime }),
     ...(fm.cookTime && { cookTime: fm.cookTime }),
     ...(fm.totalTime && { totalTime: fm.totalTime }),
