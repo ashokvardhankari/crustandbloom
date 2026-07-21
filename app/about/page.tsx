@@ -7,14 +7,14 @@ import {
   getAllBeanPostsMeta,
   getAllGalleryImages,
 } from "@/lib/content";
-import { pageAlternates } from "@/lib/seo";
+import { listingMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "About",
-  alternates: pageAlternates("/about"),
   description:
     "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
-};
+  canonical: "/about",
+});
 
 export default async function AboutPage() {
   // "By the numbers" strip — every figure is derived from the content on disk so

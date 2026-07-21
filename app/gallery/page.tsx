@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { getAllGalleryImages } from "@/lib/content";
 import GalleryGrid from "@/components/ui/GalleryGrid";
-import { pageAlternates } from "@/lib/seo";
+import { listingMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Gallery",
-  alternates: pageAlternates("/gallery"),
   description:
     "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.",
-};
+  canonical: "/gallery",
+});
 
 export default async function GalleryPage() {
   const images = await getAllGalleryImages();

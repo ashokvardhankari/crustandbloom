@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { getAllCoffeePostsMeta } from "@/lib/content";
 import CoffeeFilterBar from "@/components/ui/CoffeeFilterBar";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 
 const PAGE_DESCRIPTION =
   "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Coffee",
-  alternates: pageAlternates("/coffee"),
   description: PAGE_DESCRIPTION,
-};
+  canonical: "/coffee",
+});
 
 const categoryLabels: {
   key: "espresso" | "cappuccino" | "latte" | "filter";

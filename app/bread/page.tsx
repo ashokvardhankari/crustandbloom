@@ -3,16 +3,16 @@ import { getAllClassicBreadMeta, getInclusionLoaves } from "@/lib/content";
 import PostCard from "@/components/ui/PostCard";
 import FilterBar from "@/components/ui/FilterBar";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 
 const PAGE_DESCRIPTION =
   "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Bread",
-  alternates: pageAlternates("/bread"),
   description: PAGE_DESCRIPTION,
-};
+  canonical: "/bread",
+});
 
 const flavorLabels: { key: "savory" | "sweet" | "spicy"; label: string }[] = [
   { key: "savory", label: "savory" },

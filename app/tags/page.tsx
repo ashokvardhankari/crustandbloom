@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllTags } from "@/lib/content";
 import { cn } from "@/lib/utils";
+import { listingMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Tags",
   description:
     "Browse every recipe, bean review, and note on Crust & Bloom by tag.",
-};
+  canonical: "/tags",
+});
 
 // Four visual weights for the cloud, lightest → heaviest. A tag's tier is
 // picked from how its count compares to the most-used tag, so the busiest

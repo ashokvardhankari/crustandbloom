@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
-import { websiteJsonLd, organizationJsonLd, FEED_ALTERNATE_TYPES } from "@/lib/seo";
+import { websiteJsonLd, organizationJsonLd, FEED_ALTERNATE_TYPES, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -43,14 +43,7 @@ export const metadata: Metadata = {
     title: "Crust & Bloom",
     description:
       "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
-    images: [
-      {
-        url: "/images/site/og-default.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Crust & Bloom",
-      },
-    ],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",

@@ -4,17 +4,17 @@ import { getAllNewslettersMeta } from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 const PAGE_DESCRIPTION =
   "The Crust & Bloom newsletter archive. Every letter from the kitchen: new bakes, coffee pairings, and what's working on the counter.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Newsletter",
-  alternates: pageAlternates("/newsletter"),
   description: PAGE_DESCRIPTION,
-};
+  canonical: "/newsletter",
+});
 
 export default async function NewsletterArchivePage() {
   const issues = await getAllNewslettersMeta();

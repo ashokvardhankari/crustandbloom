@@ -3,16 +3,16 @@ import { getAllBeanPostsMeta } from "@/lib/content";
 import BeanFilterBar from "@/components/ui/BeanFilterBar";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 
 const PAGE_DESCRIPTION =
   "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = listingMetadata({
   title: "Beans",
-  alternates: pageAlternates("/beans"),
   description: PAGE_DESCRIPTION,
-};
+  canonical: "/beans",
+});
 
 export default async function BeansPage() {
   const beans = await getAllBeanPostsMeta();

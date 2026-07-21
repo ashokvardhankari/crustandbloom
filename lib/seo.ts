@@ -54,6 +54,64 @@ export function pageAlternates(canonical: string): Metadata["alternates"] {
   return { canonical, types: FEED_ALTERNATE_TYPES };
 }
 
+/**
+ * The site-wide default social share image, used by pages that have no single
+ * cover photo of their own (the homepage and every listing/static page). Shared
+ * between the root layout and `listingMetadata` so the dimensions/alt stay in
+ * one place.
+ */
+export const DEFAULT_OG_IMAGE = {
+  url: "/images/site/og-default.jpg",
+  width: 1200,
+  height: 630,
+  alt: SITE_NAME,
+} as const;
+
+/**
+ * Metadata for a listing/static page — archives (/coffee, /bread, /beans,
+ * /newsletter) and standalone pages (/gallery, /tools, /about, /search, /tags).
+ *
+ * These pages set only a top-level `title`/`description`, which Next does NOT
+ * copy into Open Graph — so a shared /coffee link rendered the layout's generic
+ * site-wide card, and (because the layout's `openGraph.url` is the homepage)
+ * `og:url` pointed every listing page at "/", telling Facebook/LinkedIn/Slack to
+ * canonicalise the share to the homepage. This helper gives each page its own
+ * `og:title`/`og:description`/`og:url` plus a matching Twitter card.
+ *
+ * Because Next shallow-merges the `openGraph` object, setting it here replaces
+ * the layout's wholesale, so `type`/`siteName`/`locale`/`image` are re-declared
+ * (the same merge quirk `articleMetadata` handles). `og:type` stays "website"
+ * since these aren't articles, and the shared default image is used since these
+ * pages have no cover photo.
+ */
+export function listingMetadata(opts: {
+  title: string;
+  description: string;
+  /** Relative path of this page, e.g. "/coffee", for a self-canonical + og:url. */
+  canonical: string;
+}): Metadata {
+  return {
+    title: opts.title,
+    description: opts.description,
+    alternates: pageAlternates(opts.canonical),
+    openGraph: {
+      type: "website",
+      title: opts.title,
+      description: opts.description,
+      siteName: SITE_NAME,
+      locale: "en_US",
+      url: absoluteUrl(opts.canonical),
+      images: [DEFAULT_OG_IMAGE],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: opts.title,
+      description: opts.description,
+      images: [DEFAULT_OG_IMAGE.url],
+    },
+  };
+}
+
 // ─── Page metadata helpers ───────────────────────────────────────────────────
 
 /**
