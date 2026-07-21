@@ -432,6 +432,26 @@ export function collectionPageJsonLd(opts: {
 }
 
 /**
+ * AboutPage schema for the /about page. Ties the page to the site-wide
+ * Organization node (`mainEntity` → the same `@id` the layout injects), giving
+ * search engines an explicit "this is the about page for this brand" signal —
+ * the structured-data counterpart the About page previously lacked while every
+ * other primary page type (archives → CollectionPage, detail pages →
+ * Recipe/Review/Article, home → FAQPage) already emitted one.
+ */
+export function aboutPageJsonLd(opts: { name: string; description: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: opts.name,
+    description: opts.description,
+    url: absoluteUrl("/about"),
+    mainEntity: { "@id": `${SITE_URL}/#organization` },
+    publisher: PUBLISHER,
+  };
+}
+
+/**
  * BreadcrumbList schema for a detail page's trail. Each crumb needs an
  * absolute `item` URL; the final (current) crumb may omit its href.
  */

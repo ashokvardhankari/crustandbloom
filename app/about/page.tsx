@@ -7,12 +7,15 @@ import {
   getAllBeanPostsMeta,
   getAllGalleryImages,
 } from "@/lib/content";
-import { listingMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { aboutPageJsonLd, listingMetadata } from "@/lib/seo";
+
+const ABOUT_DESCRIPTION =
+  "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.";
 
 export const metadata: Metadata = listingMetadata({
   title: "About",
-  description:
-    "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
+  description: ABOUT_DESCRIPTION,
   canonical: "/about",
 });
 
@@ -34,6 +37,13 @@ export default async function AboutPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={aboutPageJsonLd({
+          name: "About Crust & Bloom",
+          description: ABOUT_DESCRIPTION,
+        })}
+      />
+
       {/* Header */}
       <div className="mb-14 animate-fade-in-up">
         <p className="eyebrow mb-3">
