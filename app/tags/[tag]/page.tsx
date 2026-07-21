@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllTags, getPostsByTag, getRelatedTags } from "@/lib/content";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
 import { cn, formatDate } from "@/lib/utils";
 
 interface PageProps {
@@ -22,10 +24,15 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { tag } = await getPostsByTag(params.tag);
   if (!tag) return { title: "Tag not found" };
-  return {
+  // listingMetadata gives each tag page its own canonical, RSS autodiscovery,
+  // and social card — without it every tag page inherited the homepage's og:url
+  // and generic share card (the same shallow-merge gap fixed for the fixed
+  // listing pages), telling social platforms to canonicalise shares to "/".
+  return listingMetadata({
     title: `#${tag}`,
     description: `Every recipe, bean review, and note tagged “${tag}” on Crust & Bloom.`,
-  };
+    canonical: `/tags/${params.tag}`,
+  });
 }
 
 export default async function TagPage({ params }: PageProps) {
@@ -36,6 +43,16 @@ export default async function TagPage({ params }: PageProps) {
 
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      {/* Treat the tag page as a curated collection: an ordered ItemList of the
+          posts sharing this tag, mirroring the archive pages' structured data. */}
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: `Posts tagged #${tag}`,
+          description: `Every recipe, bean review, and note tagged “${tag}” on Crust & Bloom.`,
+          path: `/tags/${params.tag}`,
+          items: entries.map((entry) => ({ title: entry.title, path: entry.url })),
+        })}
+      />
       <div className="mb-10 animate-fade-in-up">
         <Link
           href="/tags"
