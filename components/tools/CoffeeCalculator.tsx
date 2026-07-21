@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { RATIO_PRESETS, DRINK_PRESETS } from "@/lib/coffee-presets";
 
@@ -304,6 +305,16 @@ function DrinkBuilderPanel({ initialIdx = 0 }: { initialIdx?: number }) {
 
         {preset.note && (
           <p className="text-xs text-espresso/50 italic">{preset.note}</p>
+        )}
+
+        {preset.recipeSlug && (
+          <Link
+            href={`/coffee/${preset.recipeSlug}`}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-terracotta hover:underline"
+          >
+            Read the full {preset.name.replace(/^My\s+/, "")} recipe
+            <span aria-hidden="true">→</span>
+          </Link>
         )}
       </div>
     </div>
