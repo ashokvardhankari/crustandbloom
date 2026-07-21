@@ -27,7 +27,7 @@ import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
+import { formatDate, withTempConversion } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -190,7 +190,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
               {frontmatter.milkTemp && (
                 <div className="stat-card">
                   <span className="stat-label">Milk Temperature</span>
-                  <span className="stat-value">{frontmatter.milkTemp}</span>
+                  <span className="stat-value text-base">
+                    {withTempConversion(frontmatter.milkTemp) ?? frontmatter.milkTemp}
+                  </span>
                 </div>
               )}
 

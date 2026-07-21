@@ -132,6 +132,32 @@ export function doughYield(rows: FormulaRow[]): {
   return { grams: Math.round(grams), loaves };
 }
 
+/**
+ * Annotate a temperature string with its converted equivalent so a °C spec also
+ * shows °F and vice-versa — the site quotes bake temps in °F but milk temps in
+ * °C, and readers think in one system or the other. Every "<n>°C"/"<n>°F" token
+ * is converted in place, so compound values like "500°F, then 450°F" annotate
+ * each step. Returns null when no temperature token is present, so callers can
+ * fall back to the raw string.
+ */
+export function withTempConversion(value?: string): string | null {
+  if (!value) return null;
+  let found = false;
+  const out = value.replace(
+    /(\d+(?:\.\d+)?)\s*°\s*([CF])/gi,
+    (_m, num: string, unit: string) => {
+      found = true;
+      const n = Number(num);
+      const converted =
+        unit.toUpperCase() === "C"
+          ? `${Math.round((n * 9) / 5 + 32)}°F`
+          : `${Math.round(((n - 32) * 5) / 9)}°C`;
+      return `${num}°${unit.toUpperCase()} (${converted})`;
+    }
+  );
+  return found ? out : null;
+}
+
 export function getCategoryLabel(
   type: "coffee" | "bread",
   category: string

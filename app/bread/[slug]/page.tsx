@@ -27,7 +27,13 @@ import DoughYield from "@/components/ui/DoughYield";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
-import { formatDate, formatDuration, getCategoryLabel, slugify } from "@/lib/utils";
+import {
+  formatDate,
+  formatDuration,
+  getCategoryLabel,
+  slugify,
+  withTempConversion,
+} from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -68,6 +74,9 @@ export default async function BreadPostPage({ params }: PageProps) {
   }
 
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
+  const bakeTemp = withTempConversion(frontmatter.bakeTemp) ?? frontmatter.bakeTemp;
+  const bulkFermentation =
+    withTempConversion(frontmatter.bulkFermentation) ?? frontmatter.bulkFermentation;
   const prepTime = formatDuration(frontmatter.prepTime);
   const cookTime = formatDuration(frontmatter.cookTime);
   const totalTime = formatDuration(frontmatter.totalTime);
@@ -114,11 +123,11 @@ export default async function BreadPostPage({ params }: PageProps) {
             </div>
             <div className="stat-card flex-1 min-w-[160px] bg-transparent px-0 lg:px-8">
               <span className="stat-label">Bulk Fermentation</span>
-              <span className="stat-value text-base">{frontmatter.bulkFermentation}</span>
+              <span className="stat-value text-base">{bulkFermentation}</span>
             </div>
             <div className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8">
               <span className="stat-label">Bake Temp</span>
-              <span className="stat-value">{frontmatter.bakeTemp}</span>
+              <span className="stat-value text-base">{bakeTemp}</span>
             </div>
           </div>
         </div>
@@ -290,12 +299,12 @@ export default async function BreadPostPage({ params }: PageProps) {
 
               <div className="stat-card">
                 <span className="stat-label">Bulk Fermentation</span>
-                <span className="stat-value text-base">{frontmatter.bulkFermentation}</span>
+                <span className="stat-value text-base">{bulkFermentation}</span>
               </div>
 
               <div className="stat-card">
                 <span className="stat-label">Bake Temperature</span>
-                <span className="stat-value">{frontmatter.bakeTemp}</span>
+                <span className="stat-value text-base">{bakeTemp}</span>
               </div>
 
               {/* Total dough weight + loaf estimate, derived from the formula */}
