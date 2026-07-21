@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { PostMeta, CoffeeFrontmatter } from "@/lib/types";
+import { getCategoryLabel } from "@/lib/utils";
 
 /**
  * The reverse of BeanLink: a compact list of coffee recipes brewed with this
@@ -37,7 +38,7 @@ export default function BrewedInLinks({
             </div>
             <div className="min-w-0 flex-1 py-3 pr-4 space-y-1">
               <span className="block text-xs font-semibold uppercase tracking-widest text-espresso-muted capitalize">
-                {f.category}
+                {getCategoryLabel("coffee", f.category)}
               </span>
               <h3 className="font-display font-semibold text-espresso leading-snug text-balance group-hover:text-terracotta transition-colors">
                 {f.title}

@@ -74,6 +74,11 @@ export default async function CoffeePostPage({ params }: PageProps) {
   );
   const headings = extractHeadings(raw);
 
+  // Canonical display label for the drink's category, computed once and reused
+  // by the meta pill, glance bar, and sidebar so all three stay in sync (e.g.
+  // "filter" → "Filter Coffee" everywhere), mirroring the bread page's pattern.
+  const categoryLabel = getCategoryLabel("coffee", frontmatter.category);
+
   // Every drink's body leads with a narrative intro (and often a bean/comparison
   // aside) before the actual brewing steps begin. Link straight to the first
   // instructional heading — pulling the shot, or the syrup you make first — so
@@ -124,7 +129,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
       : []),
     {
       label: "Category",
-      value: getCategoryLabel("coffee", frontmatter.category),
+      value: categoryLabel,
       wide: true,
     },
   ];
@@ -221,7 +226,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
-              <span className="category-pill-coffee">{frontmatter.category}</span>
+              <span className="category-pill-coffee">{categoryLabel}</span>
               <time dateTime={frontmatter.date} className="text-sm text-espresso-muted">
                 {formatDate(frontmatter.date)}
               </time>
@@ -302,7 +307,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
               <div className="stat-card">
                 <span className="stat-label">Category</span>
-                <span className="stat-value">{getCategoryLabel("coffee", frontmatter.category)}</span>
+                <span className="stat-value">{categoryLabel}</span>
               </div>
 
               {/* Beans used — cross-link to the bag's review */}

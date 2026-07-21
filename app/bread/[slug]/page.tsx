@@ -103,7 +103,7 @@ export default async function BreadPostPage({ params }: PageProps) {
           href: `/coffee/${pairedCoffee.slug}`,
           coverImage: pairedCoffee.frontmatter.coverImage,
           title: pairedCoffee.frontmatter.title,
-          kindLabel: pairedCoffee.frontmatter.category,
+          kindLabel: getCategoryLabel("coffee", pairedCoffee.frontmatter.category),
           meta: `${pairedCoffee.frontmatter.brewRatio} ratio`,
         },
       ]
