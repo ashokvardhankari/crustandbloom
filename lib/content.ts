@@ -679,14 +679,14 @@ export async function getAllGalleryImages(): Promise<GalleryImage[]> {
     const type = post.frontmatter.type; // "coffee" | "bread"
     const url = `/${type}/${post.slug}`;
     for (const src of post.frontmatter.images) {
-      images.push({ src, alt: post.frontmatter.title, postUrl: url, category: type });
+      images.push({ src, alt: post.frontmatter.title, title: post.frontmatter.title, postUrl: url, category: type });
     }
   }
 
   for (const bean of beans) {
     const url = `/beans/${bean.slug}`;
     for (const src of bean.frontmatter.images ?? []) {
-      images.push({ src, alt: bean.frontmatter.title, postUrl: url, category: "beans" });
+      images.push({ src, alt: bean.frontmatter.title, title: bean.frontmatter.title, postUrl: url, category: "beans" });
     }
   }
 

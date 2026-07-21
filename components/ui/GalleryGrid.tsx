@@ -69,11 +69,19 @@ export default function GalleryGrid({ images }: GalleryGridProps) {
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 className="w-full h-auto group-hover:scale-105 transition-transform duration-500 ease-out"
               />
-              {/* Hover overlay */}
-              <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/20 transition-colors duration-300 flex items-center justify-center">
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-cream text-xs font-semibold uppercase tracking-widest bg-espresso/60 px-3 py-1.5 rounded-full">
-                  View post
-                </span>
+              {/* Hover overlay — names the post each photo links to */}
+              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-espresso/70 via-espresso/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="p-3">
+                  <p className="text-cream text-sm font-semibold leading-snug line-clamp-2">
+                    {image.title}
+                  </p>
+                  <span className="mt-1 inline-flex items-center gap-1 text-cream/80 text-[11px] font-medium uppercase tracking-widest">
+                    View post
+                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </span>
+                </div>
               </div>
             </div>
           </Link>

@@ -97,6 +97,8 @@ export type GalleryFilter = "all" | GalleryCategory;
 export interface GalleryImage {
   src: string;
   alt: string;
+  /** Title of the post the photo belongs to, shown on the gallery hover overlay. */
+  title: string;
   /** Link back to the post the photo belongs to. */
   postUrl: string;
   category: GalleryCategory;
