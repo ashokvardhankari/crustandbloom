@@ -557,25 +557,46 @@ async function getTaggableEntries(): Promise<TaggedEntry[]> {
   return [...fromPosts, ...fromBeans];
 }
 
-/** All distinct tags across the site, most-used first, with their post counts. */
+/**
+ * All distinct tags across the site, most-used first, with their post counts
+ * and the date of the newest post carrying each tag (`lastModified`, ISO string
+ * — omitted when no tagged post has a parseable date). The latest date lets the
+ * sitemap report an honest per-tag freshness signal instead of a site-wide one.
+ */
 export async function getAllTags(): Promise<
-  { tag: string; slug: string; count: number }[]
+  { tag: string; slug: string; count: number; lastModified?: string }[]
 > {
   const entries = await getTaggableEntries();
-  const map = new Map<string, { tag: string; count: number }>();
+  const map = new Map<
+    string,
+    { tag: string; count: number; latest?: string }
+  >();
 
   for (const entry of entries) {
+    const time = new Date(entry.date).getTime();
+    const hasDate = !Number.isNaN(time);
     for (const tag of entry.tags) {
       const slug = tagSlug(tag);
       if (!slug) continue;
       const existing = map.get(slug);
-      if (existing) existing.count += 1;
-      else map.set(slug, { tag, count: 1 });
+      if (existing) {
+        existing.count += 1;
+        if (hasDate && (!existing.latest || time > new Date(existing.latest).getTime())) {
+          existing.latest = entry.date;
+        }
+      } else {
+        map.set(slug, { tag, count: 1, latest: hasDate ? entry.date : undefined });
+      }
     }
   }
 
   return Array.from(map.entries())
-    .map(([slug, { tag, count }]) => ({ slug, tag, count }))
+    .map(([slug, { tag, count, latest }]) => ({
+      slug,
+      tag,
+      count,
+      ...(latest && { lastModified: latest }),
+    }))
     .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
 
