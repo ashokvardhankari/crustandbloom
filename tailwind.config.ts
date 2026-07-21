@@ -116,6 +116,34 @@ const config: Config = {
               color: "#2E4A30",
               fontStyle: "italic",
             },
+            // Recipe prose carries real tables — every bread "Formula" (weights +
+            // baker's %) and the cappuccino comparison table. The typography
+            // plugin styles them with cold gray borders that clash with the warm
+            // blush/cream palette every other surface uses, so re-tone them here:
+            // a cream-dark header band, blush rules, and comfortable cell padding
+            // (including the first/last cells the plugin otherwise flushes to 0,
+            // which look cramped once the header has a background).
+            thead: { borderBottomColor: "#A4C898" },
+            "thead th": {
+              color: "#1C2B1E",
+              fontWeight: "600",
+              backgroundColor: "#EDE8D8",
+              paddingTop: "0.6em",
+              paddingBottom: "0.6em",
+              paddingLeft: "0.75em",
+              paddingRight: "0.75em",
+            },
+            "thead th:first-child": { paddingLeft: "0.75em" },
+            "thead th:last-child": { paddingRight: "0.75em" },
+            "tbody tr": { borderBottomColor: "rgba(196, 222, 184, 0.5)" },
+            "tbody td, tfoot td": {
+              paddingTop: "0.6em",
+              paddingBottom: "0.6em",
+              paddingLeft: "0.75em",
+              paddingRight: "0.75em",
+            },
+            "tbody td:first-child, tfoot td:first-child": { paddingLeft: "0.75em" },
+            "tbody td:last-child, tfoot td:last-child": { paddingRight: "0.75em" },
           },
         },
       },
