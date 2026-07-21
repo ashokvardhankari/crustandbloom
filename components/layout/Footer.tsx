@@ -12,6 +12,7 @@ const explore = [
   { href: "/tags", label: "Tags" },
   { href: "/about", label: "About" },
   { href: "/feed.xml", label: "RSS" },
+  { href: "/feed.json", label: "JSON Feed" },
 ];
 
 const categories = [

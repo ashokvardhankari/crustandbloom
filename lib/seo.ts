@@ -63,14 +63,16 @@ export function absoluteUrl(path: string): string {
 }
 
 /**
- * RSS autodiscovery alternate, emitted as `<link rel="alternate"
- * type="application/rss+xml">`. Must be repeated on every page's `alternates`:
+ * Feed autodiscovery alternates, emitted as `<link rel="alternate">` tags — the
+ * RSS feed (`application/rss+xml`) and its JSON Feed 1.1 companion
+ * (`application/feed+json`). Must be repeated on every page's `alternates`:
  * Next shallow-merges nested metadata, so a page declaring `alternates.canonical`
  * overwrites the layout's `alternates.types` wholesale — which silently dropped
- * the feed link from every canonical-bearing page (i.e. all of them).
+ * the feed links from every canonical-bearing page (i.e. all of them).
  */
 export const FEED_ALTERNATE_TYPES = {
   "application/rss+xml": "/feed.xml",
+  "application/feed+json": "/feed.json",
 } as const;
 
 /** Canonical URL plus feed autodiscovery for a page's `alternates` block. */
