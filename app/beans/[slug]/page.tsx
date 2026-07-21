@@ -15,6 +15,7 @@ import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
+import RoastMeter from "@/components/ui/RoastMeter";
 import ShareButton from "@/components/ui/ShareButton";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
@@ -59,7 +60,6 @@ export default async function BeanReviewPage({ params }: PageProps) {
     ...(f.region ? [{ label: "Region", value: f.region }] : []),
     ...(f.process ? [{ label: "Process", value: f.process }] : []),
     ...(f.varietal ? [{ label: "Varietal", value: f.varietal }] : []),
-    { label: "Roast", value: `${roastLabel(f.roastLevel)}` },
     ...(f.altitude ? [{ label: "Altitude", value: f.altitude }] : []),
     ...(f.price ? [{ label: "Price", value: f.price }] : []),
     ...(f.brewMethod ? [{ label: "Brewed as", value: f.brewMethod }] : []),
@@ -175,6 +175,14 @@ export default async function BeanReviewPage({ params }: PageProps) {
                 <span className="stat-label">Rating</span>
                 <span className="stat-value">
                   <Rating value={f.rating} />
+                </span>
+              </div>
+
+              <div className="stat-card">
+                <span className="stat-label">Roast</span>
+                <span className="stat-value flex flex-col gap-1.5">
+                  <span className="text-base">{roastLabel(f.roastLevel)}</span>
+                  <RoastMeter level={f.roastLevel} />
                 </span>
               </div>
 
