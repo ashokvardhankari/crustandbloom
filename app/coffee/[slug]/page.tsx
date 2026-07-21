@@ -30,7 +30,7 @@ import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
-import { formatDate, getCategoryLabel, withTempConversion } from "@/lib/utils";
+import { formatDate, getCategoryLabel, slugify, withTempConversion } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -70,6 +70,15 @@ export default async function CoffeePostPage({ params }: PageProps) {
     frontmatter.tags
   );
   const headings = extractHeadings(raw);
+
+  // Every drink's body leads with a narrative intro (and often a bean/comparison
+  // aside) before the actual brewing steps begin. Link straight to the first
+  // instructional heading — pulling the shot, or the syrup you make first — so
+  // readers can skip to the method, matching the bread pages' "Jump to Recipe".
+  const recipeHeading = raw.match(
+    /^#{2,3}\s+(.*\b(?:shot|espresso|syrup|steam(?:ing)?|pull(?:ing)?|brew(?:ing)?|pour|assembly|method)\b.*)$/im
+  );
+  const recipeAnchor = recipeHeading ? slugify(recipeHeading[1].trim()) : null;
 
   // Cross-link to the bean review this drink is brewed with, if one is named
   // in frontmatter and the review actually exists on disk.
@@ -132,10 +141,36 @@ export default async function CoffeePostPage({ params }: PageProps) {
               </h1>
             </div>
 
-            <div className="flex justify-end items-center gap-3 mb-6">
-              <ShareButton title={frontmatter.title} />
-              <CookModeButton label="Keep screen on" />
-              <PrintButton />
+            <div className="flex items-center justify-between gap-3 mb-6">
+              {recipeAnchor ? (
+                <a
+                  href={`#${recipeAnchor}`}
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cream bg-terracotta rounded-full px-4 py-2 transition-colors hover:bg-terracotta-dark print:hidden"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4"
+                    aria-hidden="true"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <polyline points="19 12 12 19 5 12" />
+                  </svg>
+                  Jump to Recipe
+                </a>
+              ) : (
+                <span />
+              )}
+              <div className="flex items-center gap-3">
+                <ShareButton title={frontmatter.title} />
+                <CookModeButton label="Keep screen on" />
+                <PrintButton />
+              </div>
             </div>
 
             {/* Meta */}
