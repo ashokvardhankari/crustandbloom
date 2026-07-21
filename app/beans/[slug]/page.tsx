@@ -14,6 +14,7 @@ import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BrewedInLinks from "@/components/ui/BrewedInLinks";
 import CostPerCup from "@/components/ui/CostPerCup";
 import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
+import MoreFromOrigin from "@/components/ui/MoreFromOrigin";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
@@ -79,6 +80,16 @@ export default async function BeanReviewPage({ params }: PageProps) {
   // in that order), excluding the one being viewed.
   const moreFromRoaster = allBeans.filter(
     (b) => b.slug !== params.slug && b.frontmatter.roaster === f.roaster
+  );
+  // Other bags from the same origin — crosses roaster lines, so two Ethiopian
+  // bags from different roasters connect here. Exclude the current bean and any
+  // already shown in the roaster block above so nothing lists twice.
+  const roasterSlugs = new Set(moreFromRoaster.map((b) => b.slug));
+  const moreFromOrigin = allBeans.filter(
+    (b) =>
+      b.slug !== params.slug &&
+      b.frontmatter.origin === f.origin &&
+      !roasterSlugs.has(b.slug)
   );
 
   return (
@@ -218,6 +229,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
               <BrewedInLinks recipes={brewedIn} />
 
               <MoreFromRoaster roaster={f.roaster} beans={moreFromRoaster} />
+
+              <MoreFromOrigin origin={f.origin} beans={moreFromOrigin} />
 
               {f.tags.length > 0 && (
                 <div className="pt-4 border-t border-blush/30 flex flex-wrap gap-2">
