@@ -302,7 +302,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
               <div className="stat-card">
                 <span className="stat-label">Category</span>
-                <span className="stat-value capitalize">{frontmatter.category}</span>
+                <span className="stat-value">{getCategoryLabel("coffee", frontmatter.category)}</span>
               </div>
 
               {/* Beans used — cross-link to the bag's review */}
