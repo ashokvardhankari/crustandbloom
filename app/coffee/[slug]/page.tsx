@@ -22,6 +22,7 @@ import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
 import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
+import ShotYield from "@/components/ui/ShotYield";
 import BeanLink from "@/components/ui/BeanLink";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
@@ -186,6 +187,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <span className="stat-label">Extraction Time</span>
                 <span className="stat-value">{frontmatter.extractionTime}</span>
               </div>
+
+              {/* Derived grams-in → grams-out from dose × brew ratio */}
+              <ShotYield dose={frontmatter.dose} brewRatio={frontmatter.brewRatio} />
 
               {frontmatter.milkTemp && (
                 <div className="stat-card">

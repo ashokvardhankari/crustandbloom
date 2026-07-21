@@ -133,6 +133,27 @@ export function doughYield(rows: FormulaRow[]): {
 }
 
 /**
+ * Derive an espresso shot's grams-in / grams-out from its dose and brew ratio.
+ * Espresso is ratio-driven — the target yield is the dose times the "1:N" ratio
+ * — so a reader scanning the specs can see the actual weights (e.g. "18 g →
+ * 45 g") without opening the interactive calculator, mirroring the derived Yield
+ * stat on bread pages. Returns null when the dose is missing or the ratio can't
+ * be parsed, so callers just skip rendering.
+ */
+export function shotYield(
+  dose?: number,
+  brewRatio?: string
+): { doseIn: string; yieldOut: string; ratio: number } | null {
+  if (!(typeof dose === "number" && dose > 0) || !brewRatio) return null;
+  const parts = brewRatio.split(":");
+  if (parts.length !== 2) return null;
+  const ratio = Number(parts[1]);
+  if (!(Number.isFinite(ratio) && ratio > 0)) return null;
+  const fmt = (n: number) => String(Math.round(n * 10) / 10);
+  return { doseIn: fmt(dose), yieldOut: fmt(dose * ratio), ratio };
+}
+
+/**
  * Annotate a temperature string with its converted equivalent so a °C spec also
  * shows °F and vice-versa — the site quotes bake temps in °F but milk temps in
  * °C, and readers think in one system or the other. Every "<n>°C"/"<n>°F" token
