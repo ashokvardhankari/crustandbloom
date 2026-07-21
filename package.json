@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "gen:images": "node scripts/gemini-generate.js"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",

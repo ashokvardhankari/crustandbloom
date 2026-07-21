@@ -15,6 +15,20 @@
 
 export type FlavorProfile = "savory" | "sweet" | "spicy";
 
+/**
+ * Stable filename slug for an inclusion idea, used to look up its cover photo in
+ * `public/images/inclusions/<slug>.jpg`. Diacritics are stripped and any run of
+ * non-alphanumerics collapses to a single dash.
+ */
+export function inclusionSlug(name: string): string {
+  return name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 export interface InclusionIdea {
   /** Catchy working title for the loaf. */
   name: string;
@@ -30,6 +44,11 @@ export interface InclusionIdea {
   foldInTip: string;
   /** What to expect in the finished crumb/crust. */
   tastingNote: string;
+  /**
+   * Optional cover photo (e.g. "/images/drafts/french-onion-boule.jpg"). When
+   * set, the admin card shows the photo instead of the generated artwork.
+   */
+  image?: string;
 }
 
 export interface BeanIdea {
