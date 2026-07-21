@@ -28,7 +28,7 @@ import DoughYield from "@/components/ui/DoughYield";
 import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
+import { articleMetadata, breadRecipeJsonLd, SITE_HOST } from "@/lib/seo";
 import {
   durationToMinutes,
   formatDate,
@@ -188,6 +188,9 @@ export default async function BreadPostPage({ params }: PageProps) {
               <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
                 {frontmatter.title}
               </h1>
+              <p className="text-xs text-espresso-muted mt-2">
+                {SITE_HOST}/bread/{params.slug}
+              </p>
             </div>
 
             <div className="flex items-center justify-between gap-3 mb-6 print:hidden">

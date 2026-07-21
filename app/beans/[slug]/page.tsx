@@ -27,7 +27,7 @@ import RoastMeter from "@/components/ui/RoastMeter";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
+import { articleMetadata, beanReviewJsonLd, SITE_HOST } from "@/lib/seo";
 import { formatDate, roastLabel, beanCover, readingTime } from "@/lib/utils";
 
 interface PageProps {
@@ -178,6 +178,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
                 {f.title}
               </h1>
               <p className="text-sm text-espresso-muted mt-1">from {f.roaster}</p>
+              <p className="text-xs text-espresso-muted mt-2">
+                {SITE_HOST}/beans/{params.slug}
+              </p>
             </div>
 
             <div className="flex justify-end items-center gap-3 mb-6 print:hidden">

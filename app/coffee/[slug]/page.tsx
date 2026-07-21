@@ -30,7 +30,7 @@ import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
+import { articleMetadata, coffeeRecipeJsonLd, SITE_HOST } from "@/lib/seo";
 import { formatDate, getCategoryLabel, slugify, withTempConversion } from "@/lib/utils";
 import { DRINK_PRESETS } from "@/lib/coffee-presets";
 
@@ -197,6 +197,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
               <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
                 {frontmatter.title}
               </h1>
+              <p className="text-xs text-espresso-muted mt-2">
+                {SITE_HOST}/coffee/{params.slug}
+              </p>
             </div>
 
             <div className="flex items-center justify-between gap-3 mb-6 print:hidden">

@@ -9,6 +9,13 @@ import type {
 } from "./types";
 
 export const SITE_URL = "https://crustbloom.com";
+/**
+ * Bare host of SITE_URL (no scheme), for human-readable display where a full
+ * URL would be noise — e.g. the source line printed on a recipe/review printout
+ * so a printed page carries a way back to its page online (the print stylesheet
+ * spells out in-body links for the same reason, but never the page's own URL).
+ */
+export const SITE_HOST = SITE_URL.replace(/^https?:\/\//, "");
 export const SITE_NAME = "Crust & Bloom";
 export const SITE_DESCRIPTION =
   "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.";
