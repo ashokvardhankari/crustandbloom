@@ -3,6 +3,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import CoffeeCalculator from "@/components/tools/CoffeeCalculator";
 import JsonLd from "@/components/seo/JsonLd";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import ToolRecipeLinks from "@/components/ui/ToolRecipeLinks";
+import { getAllCoffeePostsMeta } from "@/lib/content";
 import { listingMetadata, toolApplicationJsonLd } from "@/lib/seo";
 import { DRINK_PRESETS } from "@/lib/coffee-presets";
 
@@ -15,7 +17,13 @@ export const metadata: Metadata = listingMetadata({
   canonical: "/tools/coffee-calculator",
 });
 
-export default function CoffeeCalculatorPage() {
+export default async function CoffeeCalculatorPage() {
+  // Once a drink's ratios are dialled in, the natural next step is an actual
+  // recipe to pull — coffee recipes deep-link into this calculator (?drink=)
+  // but it never linked back. Surface the espresso drinks (newest-first).
+  const drinks = await getAllCoffeePostsMeta();
+  const featuredDrinks = drinks.slice(0, 3);
+
   return (
     <>
       {/* A calculator page is two levels deep (Home › Tools › Coffee Calculator),
@@ -117,6 +125,17 @@ export default function CoffeeCalculatorPage() {
             </div>
           </div>
         </noscript>
+
+        <ToolRecipeLinks
+          heading="Drinks to dial in"
+          intro="Ratios ready? Pull one of these espresso drinks next, step by step."
+          posts={featuredDrinks}
+          browse={
+            drinks.length > featuredDrinks.length
+              ? { href: "/coffee", label: `See all ${drinks.length} espresso drinks` }
+              : null
+          }
+        />
       </div>
     </>
   );

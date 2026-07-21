@@ -3,6 +3,8 @@ import ScrollReveal from "@/components/ui/ScrollReveal";
 import BakingCalculator from "@/components/tools/BakingCalculator";
 import JsonLd from "@/components/seo/JsonLd";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import ToolRecipeLinks from "@/components/ui/ToolRecipeLinks";
+import { getAllBreadPostsMeta } from "@/lib/content";
 import { listingMetadata, toolApplicationJsonLd } from "@/lib/seo";
 import { BAKING_PRESETS } from "@/lib/baking-presets";
 
@@ -24,7 +26,13 @@ export const metadata: Metadata = listingMetadata({
   canonical: "/tools/baking-calculator",
 });
 
-export default function BakingCalculatorPage() {
+export default async function BakingCalculatorPage() {
+  // A baker who's just planned their day needs a loaf to bake it on — recipes
+  // deep-link into this calculator (?schedule=) but it never linked back. Surface
+  // the newest few loaves (newest-first), with a link to the full archive.
+  const loaves = await getAllBreadPostsMeta();
+  const featuredLoaves = loaves.slice(0, 3);
+
   return (
     <>
       {/* A calculator page is two levels deep (Home › Tools › Baking Calculator),
@@ -117,6 +125,17 @@ export default function BakingCalculatorPage() {
             })}
           </div>
         </noscript>
+
+        <ToolRecipeLinks
+          heading="Recipes to bake"
+          intro="Got your schedule dialled in? Put it to work on one of these sourdough loaves."
+          posts={featuredLoaves}
+          browse={
+            loaves.length > featuredLoaves.length
+              ? { href: "/bread", label: `See all ${loaves.length} sourdough recipes` }
+              : null
+          }
+        />
       </div>
     </>
   );
