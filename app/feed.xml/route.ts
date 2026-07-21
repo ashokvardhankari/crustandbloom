@@ -123,6 +123,7 @@ export async function GET() {
       <link>${item.url}</link>
       <guid isPermaLink="true">${item.url}</guid>
       <pubDate>${new Date(item.date).toUTCString()}</pubDate>
+      <dc:creator>${escapeXml(SITE_NAME)}</dc:creator>
       <description>${escapeXml(item.excerpt)}</description>
 ${categories}${enclosure ? `\n${enclosure}` : ""}
     </item>`;
@@ -136,13 +137,29 @@ ${categories}${enclosure ? `\n${enclosure}` : ""}
     ? new Date(items[0].date).toUTCString()
     : undefined;
 
+  // Copyright year range spans oldest → newest content, derived from the item
+  // dates (items are sorted newest-first) so it stays honest and deterministic
+  // without a build clock. Collapses to a single year when all content is same-year.
+  const contentYears = items.map((i) => new Date(i.date).getUTCFullYear());
+  const newestYear = contentYears[0];
+  const oldestYear = contentYears[contentYears.length - 1];
+  const copyrightRange =
+    items.length && oldestYear !== newestYear
+      ? `${oldestYear}–${newestYear}`
+      : `${newestYear ?? ""}`;
+  const copyright = items.length
+    ? `© ${copyrightRange} ${SITE_NAME}. All rights reserved.`
+    : undefined;
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
   <channel>
     <title>${escapeXml(SITE_NAME)}</title>
     <link>${SITE_URL}</link>
     <description>${escapeXml(SITE_DESCRIPTION)}</description>
     <language>en-us</language>
+${copyright ? `    <copyright>${escapeXml(copyright)}</copyright>\n` : ""}    <generator>Next.js</generator>
+    <dc:creator>${escapeXml(SITE_NAME)}</dc:creator>
     <image>
       <url>${SITE_URL}/images/site/logo-email.png</url>
       <title>${escapeXml(SITE_NAME)}</title>
