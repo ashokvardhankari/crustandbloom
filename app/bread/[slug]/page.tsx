@@ -163,6 +163,12 @@ export default async function BreadPostPage({ params }: PageProps) {
               <span className="stat-label">Bake Temp</span>
               <span className="stat-value text-base">{bakeTemp}</span>
             </div>
+            {totalTime && (
+              <div className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8">
+                <span className="stat-label">Total Time</span>
+                <span className="stat-value">{totalTime}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
