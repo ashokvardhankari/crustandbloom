@@ -364,7 +364,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
               {/* Beans used — cross-link to the bag's review */}
               {bean && (
-                <div className="pt-2">
+                <div className="pt-2 print:hidden">
                   <span className="stat-label mb-2 block">Brewed with</span>
                   <BeanLink bean={bean} />
                 </div>

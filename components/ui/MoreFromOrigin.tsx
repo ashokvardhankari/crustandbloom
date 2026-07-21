@@ -20,7 +20,7 @@ export default function MoreFromOrigin({
   if (beans.length === 0) return null;
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 print:hidden">
       <span className="stat-label mb-2 block">More from {origin}</span>
       <div className="space-y-2">
         {beans.map((bean) => (

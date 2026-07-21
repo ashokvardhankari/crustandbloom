@@ -26,7 +26,7 @@ export default function PairsWith({ pairings }: { pairings: PairingLink[] }) {
   if (pairings.length === 0) return null;
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 print:hidden">
       <span className="stat-label mb-2 flex items-center gap-1.5">
         <svg
           className="w-3.5 h-3.5 text-terracotta/70"

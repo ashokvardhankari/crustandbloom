@@ -16,7 +16,7 @@ export default function BrewedInLinks({
   if (recipes.length === 0) return null;
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 print:hidden">
       <span className="stat-label mb-2 block">
         Brewed in {recipes.length === 1 ? "this recipe" : "these recipes"}
       </span>

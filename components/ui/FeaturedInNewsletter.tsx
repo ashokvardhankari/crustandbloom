@@ -16,7 +16,7 @@ export default function FeaturedInNewsletter({
   if (issues.length === 0) return null;
 
   return (
-    <div className="pt-2">
+    <div className="pt-2 print:hidden">
       <span className="stat-label mb-2 block">Featured in the newsletter</span>
       <div className="space-y-2">
         {issues.map(({ slug, frontmatter: f }) => (
