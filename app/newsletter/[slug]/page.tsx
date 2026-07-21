@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   getAllNewsletterSlugs,
@@ -98,6 +99,23 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
           </h1>
           <div className="mt-6 h-px w-24 bg-amber" />
         </div>
+
+        {/* Lead cover photo — the issue's own coverImage, until now shown only
+            on the archive card and as the og:image but never on the letter it
+            belongs to. Given as the primary lead visual within the reading
+            column (the letter has no full-bleed hero like the recipe pages). */}
+        {frontmatter.coverImage && (
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-cream-dark mb-12">
+            <Image
+              src={frontmatter.coverImage}
+              alt={frontmatter.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
 
         <InThisIssue posts={linkedPosts} />
 
