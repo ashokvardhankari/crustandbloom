@@ -28,7 +28,7 @@ import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, beanReviewJsonLd } from "@/lib/seo";
-import { formatDate, roastLabel, beanCover } from "@/lib/utils";
+import { formatDate, roastLabel, beanCover, readingTime } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -189,9 +189,14 @@ export default async function BeanReviewPage({ params }: PageProps) {
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
               <span className="category-pill-bean">{roastLabel(f.roastLevel)} roast</span>
               <Rating value={f.rating} />
-              <time dateTime={f.date} className="text-sm text-espresso-muted ml-auto">
-                {formatDate(f.date)}
-              </time>
+              {/* Date + reading time — a bean review is editorial prose (like a
+                  newsletter letter, which shows the same signal), so the length
+                  estimate helps a reader decide whether to dive in now. */}
+              <div className="ml-auto flex items-center gap-2 text-sm text-espresso-muted">
+                <time dateTime={f.date}>{formatDate(f.date)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{readingTime(raw)} min read</span>
+              </div>
             </div>
 
             {/* Notes comparison */}
