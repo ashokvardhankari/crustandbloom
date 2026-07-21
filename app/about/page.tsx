@@ -97,8 +97,14 @@ export default async function AboutPage() {
 
           <div className="pt-4 border-t border-blush/40">
             <p className="text-base text-espresso-muted">
-              Want to follow along? Subscribe to the newsletter. I only send something when
-              there&apos;s a new post worth reading.
+              Want to follow along?{" "}
+              <Link
+                href="/newsletter"
+                className="font-semibold text-terracotta underline decoration-terracotta/40 underline-offset-2 hover:text-terracotta-dark hover:decoration-terracotta transition-colors"
+              >
+                Subscribe to the newsletter
+              </Link>
+              . I only send something when there&apos;s a new post worth reading.
             </p>
 
             <div className="flex flex-wrap gap-4 mt-6">
