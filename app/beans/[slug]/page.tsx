@@ -7,6 +7,7 @@ import {
   getAllBeanPostsMeta,
   getAllCoffeePostsMeta,
   getBeanPost,
+  getNewslettersFeaturing,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -15,6 +16,7 @@ import {
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BrewedInLinks from "@/components/ui/BrewedInLinks";
 import CostPerCup from "@/components/ui/CostPerCup";
+import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
 import MoreFromOrigin from "@/components/ui/MoreFromOrigin";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
@@ -83,6 +85,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
   const brewedIn = (await getAllCoffeePostsMeta()).filter(
     (c) => c.frontmatter.beans === params.slug
   );
+  // Newsletter issues that link to this bag's review, for a reverse cross-link
+  // matching the "Featured in the newsletter" block coffee/bread pages carry.
+  const featuredIn = await getNewslettersFeaturing(`/beans/${params.slug}`);
   // Other bags reviewed from the same roaster, newest-first (allBeans arrives
   // in that order), excluding the one being viewed.
   const moreFromRoaster = allBeans.filter(
@@ -303,6 +308,9 @@ export default async function BeanReviewPage({ params }: PageProps) {
               )}
 
               <BrewedInLinks recipes={brewedIn} />
+
+              {/* Newsletter issues that featured this bag */}
+              <FeaturedInNewsletter issues={featuredIn} />
 
               <MoreFromRoaster roaster={f.roaster} beans={moreFromRoaster} />
 
