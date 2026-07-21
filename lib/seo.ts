@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { slugify } from "./utils";
+import { slugify, wordCount } from "./utils";
 import type {
   BeanFrontmatter,
   BreadFrontmatter,
@@ -382,10 +382,20 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
   };
 }
 
+/**
+ * Article schema for a published newsletter issue. When the letter's `raw` body
+ * is passed, it also emits `wordCount` and a `timeRequired` ISO-8601 duration
+ * (the same word tally / ~200-wpm pace that drives the visible "N min read"
+ * indicator), plus `dateModified` — Google-recommended Article fields. Archived
+ * issues are copies of the letter as sent, so `dateModified` equals
+ * `datePublished` (never edited after publishing) rather than a build-clock value.
+ */
 export function newsletterArticleJsonLd(
   slug: string,
-  fm: NewsletterFrontmatter
+  fm: NewsletterFrontmatter,
+  raw?: string
 ) {
+  const words = raw ? wordCount(raw) : 0;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -396,6 +406,11 @@ export function newsletterArticleJsonLd(
     author: AUTHOR,
     publisher: PUBLISHER,
     datePublished: fm.date,
+    dateModified: fm.date,
+    ...(words > 0 && {
+      wordCount: words,
+      timeRequired: `PT${Math.max(1, Math.ceil(words / 200))}M`,
+    }),
   };
 }
 

@@ -59,7 +59,7 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
 
   return (
     <>
-      <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
+      <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter, raw)} />
 
       <Breadcrumbs
         maxWidth="max-w-3xl"

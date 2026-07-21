@@ -76,18 +76,25 @@ export function formatDuration(iso?: string): string | null {
 }
 
 /**
- * Estimated reading time in whole minutes for a body of MDX/markdown prose, at
- * an average adult pace (~200 words/min). Strips a leading YAML frontmatter
- * block plus code spans and the noisiest markdown punctuation so the count
- * reflects words a reader actually reads, not syntax. Always at least 1 min.
+ * Count the words a reader actually reads in a body of MDX/markdown prose.
+ * Strips a leading YAML frontmatter block plus code spans and the noisiest
+ * markdown punctuation so the tally reflects prose, not syntax.
  */
-export function readingTime(raw: string): number {
+export function wordCount(raw: string): number {
   const body = raw
     .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "") // drop frontmatter
     .replace(/`{1,3}[^`]*`{1,3}/g, " ") // code spans / fenced blocks
     .replace(/[#>*_~|=[\]()]/g, " "); // markdown punctuation
-  const words = body.split(/\s+/).filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 200));
+  return body.split(/\s+/).filter(Boolean).length;
+}
+
+/**
+ * Estimated reading time in whole minutes for a body of MDX/markdown prose, at
+ * an average adult pace (~200 words/min). Uses {@link wordCount} so the visible
+ * "N min read" indicator and any derived schema stay in sync. Always ≥ 1 min.
+ */
+export function readingTime(raw: string): number {
+  return Math.max(1, Math.ceil(wordCount(raw) / 200));
 }
 
 /**
