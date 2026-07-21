@@ -74,6 +74,37 @@ export function formatDuration(iso?: string): string | null {
   return parts.length > 0 ? parts.join(" ") : null;
 }
 
+/**
+ * Estimate value from a bean's price string like "$18 / 12oz" or "~$7 / 13oz".
+ * Assumes an 18 g dose per cup — a fair middle for a double espresso or a mug
+ * of pour-over. Returns null when a dollar amount and an ounce weight can't
+ * both be confidently parsed, so callers just skip rendering.
+ */
+const GRAMS_PER_OZ = 28.35;
+const DOSE_GRAMS = 18;
+
+export function beanValue(price?: string): {
+  perCup: string; // e.g. "$0.95"
+  cups: number; // whole cups per bag, e.g. 19
+  approximate: boolean; // price carried a "~"
+} | null {
+  if (!price) return null;
+  const dollars = /\$\s*(\d+(?:\.\d+)?)/.exec(price);
+  const weight = /(\d+(?:\.\d+)?)\s*oz\b/i.exec(price);
+  if (!dollars || !weight) return null;
+  const cost = Number(dollars[1]);
+  const grams = Number(weight[1]) * GRAMS_PER_OZ;
+  if (!(cost > 0) || !(grams > 0)) return null;
+  const exactCups = grams / DOSE_GRAMS;
+  const cups = Math.round(exactCups);
+  if (cups < 1) return null;
+  return {
+    perCup: `$${(cost / exactCups).toFixed(2)}`,
+    cups,
+    approximate: price.includes("~"),
+  };
+}
+
 export function getCategoryLabel(
   type: "coffee" | "bread",
   category: string

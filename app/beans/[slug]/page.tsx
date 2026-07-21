@@ -12,6 +12,7 @@ import {
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import BrewedInLinks from "@/components/ui/BrewedInLinks";
+import CostPerCup from "@/components/ui/CostPerCup";
 import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
@@ -204,6 +205,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
                   <span className="stat-value text-base">{s.value}</span>
                 </div>
               ))}
+
+              <CostPerCup price={f.price} />
 
               {f.wouldRebuy !== undefined && (
                 <div className="stat-card">
