@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { slugify } from "./utils";
 import type {
   BeanFrontmatter,
   BreadFrontmatter,
@@ -161,8 +162,13 @@ const DISCUSSION_HEADING =
 const METHOD_HEADING =
   /\b(mix|knead|ferment|prove?|proof|laminat|shap|bak|steam|pull|pour|assembl|feed|cook|rest|bloom|cool|coat)/i;
 
-/** Turn the post's H2 sections into HowToStep entries, skipping non-method ones. */
-function instructionSteps(raw: string) {
+/**
+ * Turn the post's H2 sections into HowToStep entries, skipping non-method ones.
+ * `pageUrl` is the recipe's absolute URL; each step gets a `url` that deep-links
+ * to its on-page anchor (`#<slugified-heading>`, the same id the MDX renderer
+ * emits), a Google-recommended HowToStep field for richer step navigation.
+ */
+function instructionSteps(raw: string, pageUrl: string) {
   const secs = sections(raw);
 
   // Bread recipes open with a Formula table, then often an ingredient spotlight
@@ -187,6 +193,7 @@ function instructionSteps(raw: string) {
       "@type": "HowToStep",
       name: s.heading,
       text: plainText(s.body),
+      url: `${pageUrl}#${slugify(s.heading)}`,
     }))
     .filter((s) => s.text.length > 0);
 }
@@ -199,7 +206,7 @@ export function breadRecipeJsonLd(
   raw: string
 ) {
   const ingredients = formulaIngredients(raw);
-  const steps = instructionSteps(raw);
+  const steps = instructionSteps(raw, `${SITE_URL}/bread/${slug}`);
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
@@ -227,7 +234,7 @@ export function coffeeRecipeJsonLd(
   fm: CoffeeFrontmatter,
   raw: string
 ) {
-  const steps = instructionSteps(raw);
+  const steps = instructionSteps(raw, `${SITE_URL}/coffee/${slug}`);
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
