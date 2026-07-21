@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  getAllCoffeePostsMeta,
+  getAllBreadPostsMeta,
+  getAllBeanPostsMeta,
+  getAllGalleryImages,
+} from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,7 +15,22 @@ export const metadata: Metadata = {
     "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  // "By the numbers" strip — every figure is derived from the content on disk so
+  // the archive tally can never drift out of sync with what's actually published.
+  const [coffee, bread, beans, photos] = await Promise.all([
+    getAllCoffeePostsMeta(),
+    getAllBreadPostsMeta(),
+    getAllBeanPostsMeta(),
+    getAllGalleryImages(),
+  ]);
+  const archiveStats: { value: number; label: string }[] = [
+    { value: coffee.length, label: coffee.length === 1 ? "Coffee recipe" : "Coffee recipes" },
+    { value: bread.length, label: bread.length === 1 ? "Sourdough loaf" : "Sourdough loaves" },
+    { value: beans.length, label: beans.length === 1 ? "Bean review" : "Bean reviews" },
+    { value: photos.length, label: photos.length === 1 ? "Photo" : "Photos" },
+  ].filter((s) => s.value > 0);
+
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
       {/* Header */}
@@ -86,6 +107,25 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* By the numbers — the living archive, counted from real content */}
+      {archiveStats.length > 0 && (
+        <div className="mt-24 border-y border-blush/40 py-12">
+          <p className="eyebrow mb-8 text-center">The archive so far</p>
+          <dl className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {archiveStats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <dd className="font-display text-4xl lg:text-5xl font-semibold text-espresso tabular-nums">
+                  {stat.value}
+                </dd>
+                <dt className="text-xs text-espresso-muted uppercase tracking-widest mt-2">
+                  {stat.label}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
 
       {/* Values section */}
       <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
