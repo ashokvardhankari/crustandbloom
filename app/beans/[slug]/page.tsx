@@ -20,6 +20,7 @@ import MoreFromOrigin from "@/components/ui/MoreFromOrigin";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
 import PostNav from "@/components/ui/PostNav";
+import PrintButton from "@/components/ui/PrintButton";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import Rating from "@/components/ui/Rating";
 import RoastMeter from "@/components/ui/RoastMeter";
@@ -181,6 +182,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
             <div className="flex justify-end items-center gap-3 mb-6 print:hidden">
               <ShareButton title={f.title} tooltip="Share this review" />
+              <PrintButton label="review" />
             </div>
 
             {/* Meta */}
