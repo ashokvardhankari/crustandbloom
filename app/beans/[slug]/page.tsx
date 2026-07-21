@@ -95,6 +95,17 @@ export default async function BeanReviewPage({ params }: PageProps) {
       !roasterSlugs.has(b.slug)
   );
 
+  // At-a-glance shopping specs shown in a stats bar under the hero, mirroring the
+  // coffee/bread pages' glance bars so a bag's key buying signals (who roasted it,
+  // where it's from, how dark, what it costs) are visible without scrolling to the
+  // sidebar. Price only appears when the bean carries one.
+  const glanceStats: { label: string; value: string; wide?: boolean }[] = [
+    { label: "Roaster", value: f.roaster, wide: true },
+    { label: "Origin", value: f.origin, wide: true },
+    { label: "Roast", value: roastLabel(f.roastLevel) },
+    ...(f.price ? [{ label: "Price", value: f.price }] : []),
+  ];
+
   return (
     <>
       <JsonLd data={beanReviewJsonLd(params.slug, f)} />
@@ -106,6 +117,25 @@ export default async function BeanReviewPage({ params }: PageProps) {
         size="medium"
         overlay="dark"
       />
+
+      {/* Bean stats bar */}
+      <div className="bg-cream-dark border-b border-blush/30">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap gap-4 lg:gap-0 lg:divide-x lg:divide-blush/30">
+            {glanceStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8"
+              >
+                <span className="stat-label">{stat.label}</span>
+                <span className={`stat-value${stat.wide ? " text-base" : ""}`}>
+                  {stat.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <Breadcrumbs
         items={[
