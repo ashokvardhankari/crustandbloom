@@ -85,3 +85,15 @@ export interface PostMeta<T = PostFrontmatter> {
 
 export type FlavorFilter = "all" | "savory" | "sweet" | "spicy";
 export type RoastFilter = "all" | "light" | "medium" | "dark";
+
+/** Which content area a gallery photo comes from, used for the gallery filter. */
+export type GalleryCategory = "coffee" | "bread" | "beans";
+export type GalleryFilter = "all" | GalleryCategory;
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  /** Link back to the post the photo belongs to. */
+  postUrl: string;
+  category: GalleryCategory;
+}

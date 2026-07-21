@@ -10,6 +10,7 @@ import type {
   BeanFrontmatter,
   NewsletterFrontmatter,
   PostMeta,
+  GalleryImage,
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
 import { slugify } from "@/lib/utils";
@@ -534,24 +535,22 @@ export async function getRelatedPosts(
 
 // ─── Gallery: collect all images from all posts ───────────────────────────────
 
-export async function getAllGalleryImages(): Promise<
-  { src: string; alt: string; postUrl: string }[]
-> {
+export async function getAllGalleryImages(): Promise<GalleryImage[]> {
   const [all, beans] = await Promise.all([getAllPostsMeta(), getAllBeanPostsMeta()]);
-  const images: { src: string; alt: string; postUrl: string }[] = [];
+  const images: GalleryImage[] = [];
 
   for (const post of all) {
-    const type = post.frontmatter.type;
+    const type = post.frontmatter.type; // "coffee" | "bread"
     const url = `/${type}/${post.slug}`;
     for (const src of post.frontmatter.images) {
-      images.push({ src, alt: post.frontmatter.title, postUrl: url });
+      images.push({ src, alt: post.frontmatter.title, postUrl: url, category: type });
     }
   }
 
   for (const bean of beans) {
     const url = `/beans/${bean.slug}`;
     for (const src of bean.frontmatter.images ?? []) {
-      images.push({ src, alt: bean.frontmatter.title, postUrl: url });
+      images.push({ src, alt: bean.frontmatter.title, postUrl: url, category: "beans" });
     }
   }
 

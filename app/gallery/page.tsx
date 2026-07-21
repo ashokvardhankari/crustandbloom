@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { getAllGalleryImages } from "@/lib/content";
+import GalleryGrid from "@/components/ui/GalleryGrid";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -35,33 +34,7 @@ export default async function GalleryPage() {
           <p className="text-lg">No photos yet. Check back soon.</p>
         </div>
       ) : (
-        /* Masonry-style column layout */
-        <div className="columns-2 md:columns-3 lg:columns-4 gap-3 space-y-3">
-          {images.map((image, i) => (
-            <Link
-              key={`${image.src}-${i}`}
-              href={image.postUrl}
-              className="group block break-inside-avoid mb-3"
-            >
-              <div className="relative overflow-hidden rounded-xl bg-blush/20">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  width={0}
-                  height={0}
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="w-full h-auto group-hover:scale-105 transition-transform duration-500 ease-out"
-                />
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/20 transition-colors duration-300 flex items-center justify-center">
-                  <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-cream text-xs font-semibold uppercase tracking-widest bg-espresso/60 px-3 py-1.5 rounded-full">
-                    View post
-                  </span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <GalleryGrid images={images} />
       )}
     </div>
   );
