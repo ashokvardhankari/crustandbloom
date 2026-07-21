@@ -151,6 +151,20 @@ export default function BakingCalculator() {
     setDateTime(roundUpToNextHour());
   }, []);
 
+  // A recipe page can deep-link here with `?schedule=<slug>` (e.g. Overnight,
+  // Same-Day) to preselect the schedule that matches that loaf's bake style, so
+  // a baker who taps "Plan this bake" lands on the right timeline. Read from
+  // window.location rather than useSearchParams so the tool page stays statically
+  // rendered (mirrors how the search page seeds its query from ?q=).
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search)
+      .get("schedule")
+      ?.toLowerCase();
+    if (!wanted) return;
+    const i = BAKING_PRESETS.findIndex((p) => p.slug.toLowerCase() === wanted);
+    if (i !== -1) setPresetIndex(i);
+  }, []);
+
   const preset = BAKING_PRESETS[presetIndex];
   const anchor = dateTime ? new Date(dateTime) : null;
   const schedule = anchor ? computeSchedule(preset, anchor, direction) : null;

@@ -76,6 +76,22 @@ export function formatDuration(iso?: string): string | null {
 }
 
 /**
+ * Total minutes in an ISO 8601 duration ("PT20H", "PT1H30M", "P1DT2H"), or null
+ * when the string is absent/unparseable. Shares {@link formatDuration}'s grammar
+ * so the same frontmatter durations are read consistently — used to classify a
+ * loaf's bake as overnight vs same-day when deep-linking to the baking planner.
+ */
+export function durationToMinutes(iso?: string): number | null {
+  if (!iso) return null;
+  const match = /^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?)?$/.exec(iso.trim());
+  if (!match) return null;
+  const days = Number(match[1] ?? 0);
+  const hours = Number(match[2] ?? 0);
+  const minutes = Number(match[3] ?? 0);
+  return days * 1440 + hours * 60 + minutes;
+}
+
+/**
  * Count the words a reader actually reads in a body of MDX/markdown prose.
  * Strips a leading YAML frontmatter block plus code spans and the noisiest
  * markdown punctuation so the tally reflects prose, not syntax.

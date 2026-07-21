@@ -30,6 +30,7 @@ import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
 import {
+  durationToMinutes,
   formatDate,
   formatDuration,
   getCategoryLabel,
@@ -84,6 +85,15 @@ export default async function BreadPostPage({ params }: PageProps) {
   const prepTime = formatDuration(frontmatter.prepTime);
   const cookTime = formatDuration(frontmatter.cookTime);
   const totalTime = formatDuration(frontmatter.totalTime);
+
+  // Deep-link to the baking-timeline planner with the schedule that matches this
+  // loaf's bake style preselected. The loaves split cleanly by total time: the
+  // long bakes (~19–21h) use an overnight cold retard, the short ones (~6–8h) a
+  // same-day proof — so a 12h threshold routes each to the right preset. Only
+  // shown when totalTime is recorded.
+  const totalMinutes = durationToMinutes(frontmatter.totalTime);
+  const bakeSchedule =
+    totalMinutes === null ? null : totalMinutes >= 12 * 60 ? "Overnight" : "Same-Day";
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
   const related = await getRelatedPosts(`/bread/${params.slug}`, frontmatter.tags);
 
@@ -353,6 +363,48 @@ export default async function BreadPostPage({ params }: PageProps) {
                   <span className="stat-label">Total Time</span>
                   <span className="stat-value">{totalTime}</span>
                 </div>
+              )}
+
+              {/* Deep-link to the interactive timeline planner, preset to this
+                  loaf's overnight/same-day schedule so a baker can lay out the
+                  full bake against their own clock. */}
+              {bakeSchedule && (
+                <Link
+                  href={`/tools/baking-calculator?schedule=${bakeSchedule}`}
+                  className="group flex items-center gap-3 rounded-xl border border-blush/50 bg-cream-dark/60 px-4 py-3 transition-colors hover:border-terracotta/60 hover:bg-cream-dark print:hidden"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 shrink-0 text-terracotta"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-espresso">
+                      Plan this bake
+                    </span>
+                    <span className="block text-xs text-espresso-muted">
+                      Map the {bakeSchedule === "Overnight" ? "overnight" : "same-day"}{" "}
+                      timeline to your clock
+                    </span>
+                  </span>
+                  <span
+                    className="ml-auto text-terracotta transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
               )}
 
               {frontmatter.flavorProfile && (
