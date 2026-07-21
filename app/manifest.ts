@@ -10,7 +10,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Crust & Bloom",
     short_name: "Crust & Bloom",
     description:
-      "Specialty coffee and artisan sourdough — recipes, brews, and bean reviews.",
+      "Specialty coffee and artisan sourdough: recipes, brews, and bean reviews.",
     start_url: "/",
     display: "standalone",
     background_color: "#F7F4EC",

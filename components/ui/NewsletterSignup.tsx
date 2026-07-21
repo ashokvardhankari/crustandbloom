@@ -40,7 +40,7 @@ export default function NewsletterSignup() {
             New posts, straight to <span className="italic text-terracotta">your inbox</span>.
           </h2>
           <p className="mt-4 text-espresso/55 text-base leading-relaxed">
-            No noise, just a note when a new loaf comes out of the oven
+            You&apos;ll get a short note when a new loaf comes out of the oven
             or a drink is worth writing about.
           </p>
 

@@ -43,7 +43,7 @@ export default function Error({
           style={{ animationDelay: "240ms" }}
         >
           A hiccup on our end kept this page from finishing. Give it another
-          go — if it keeps happening, head back home and try a fresh path.
+          go. If it keeps happening, head back home and try a fresh path.
         </p>
         <div
           className="mt-10 flex flex-wrap justify-center gap-4 animate-fade-in-up"
