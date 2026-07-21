@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import {
   getAllBreadSlugs,
   getAllBreadPostsMeta,
+  getAllCoffeePostsMeta,
   getBreadPost,
   getNewslettersFeaturing,
   adjacentPosts,
@@ -24,6 +25,7 @@ import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMeter";
 import DoughYield from "@/components/ui/DoughYield";
+import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
@@ -85,6 +87,25 @@ export default async function BreadPostPage({ params }: PageProps) {
 
   // Newsletter issues that link to this recipe, for a reverse cross-link.
   const featuredIn = await getNewslettersFeaturing(`/bread/${params.slug}`);
+
+  // Coffee drink this loaf is meant to be eaten alongside, if one is named in
+  // frontmatter and the recipe actually exists on disk. The coffee page derives
+  // the reverse edge, so the pairing shows on both sides from this one pointer.
+  const pairedCoffee = frontmatter.pairsWith
+    ? (await getAllCoffeePostsMeta()).find((c) => c.slug === frontmatter.pairsWith) ??
+      null
+    : null;
+  const pairings = pairedCoffee
+    ? [
+        {
+          href: `/coffee/${pairedCoffee.slug}`,
+          coverImage: pairedCoffee.frontmatter.coverImage,
+          title: pairedCoffee.frontmatter.title,
+          kindLabel: pairedCoffee.frontmatter.category,
+          meta: `${pairedCoffee.frontmatter.brewRatio} ratio`,
+        },
+      ]
+    : [];
 
   // Every loaf's body leads with a narrative intro before its "Formula" table.
   // Link straight to that heading (matching the anchor id the MDX renderer emits)
@@ -337,6 +358,9 @@ export default async function BreadPostPage({ params }: PageProps) {
                   <span className="stat-value capitalize">{frontmatter.flavorProfile}</span>
                 </div>
               )}
+
+              {/* Coffee drink this loaf pairs with */}
+              <PairsWith pairings={pairings} />
 
               {/* Newsletter issues that featured this loaf */}
               <FeaturedInNewsletter issues={featuredIn} />

@@ -36,6 +36,8 @@ export interface BreadFrontmatter {
   prepTime?: string;
   cookTime?: string;
   totalTime?: string;
+  /** Slug of a coffee recipe (content/coffee/<slug>.mdx) this loaf pairs with — renders a two-way "Pairs well with" cross-link. */
+  pairsWith?: string;
 }
 
 export type RoastLevel =

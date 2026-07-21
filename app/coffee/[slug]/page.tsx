@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   getAllCoffeeSlugs,
   getAllCoffeePostsMeta,
+  getAllBreadPostsMeta,
   getCoffeePost,
   getAllBeanPostsMeta,
   getNewslettersFeaturing,
@@ -24,11 +25,12 @@ import BrewCalculator from "@/components/ui/BrewCalculator";
 import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
 import ShotYield from "@/components/ui/ShotYield";
 import BeanLink from "@/components/ui/BeanLink";
+import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
-import { formatDate, withTempConversion } from "@/lib/utils";
+import { formatDate, getCategoryLabel, withTempConversion } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -77,6 +79,20 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
   // Newsletter issues that link to this recipe, for a reverse cross-link.
   const featuredIn = await getNewslettersFeaturing(`/coffee/${params.slug}`);
+
+  // Reverse of the loaf's `pairsWith`: bread loaves meant to be eaten alongside
+  // this drink. The pointer lives on the bread post, so this drives the pairing
+  // from the coffee side without a second frontmatter field.
+  const pairedBreads = (await getAllBreadPostsMeta()).filter(
+    (b) => b.frontmatter.pairsWith === params.slug
+  );
+  const pairings = pairedBreads.map((b) => ({
+    href: `/bread/${b.slug}`,
+    coverImage: b.frontmatter.coverImage,
+    title: b.frontmatter.title,
+    kindLabel: getCategoryLabel("bread", b.frontmatter.category),
+    meta: `${b.frontmatter.hydration}% hydration`,
+  }));
 
   return (
     <>
@@ -212,6 +228,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
                   <BeanLink bean={bean} />
                 </div>
               )}
+
+              {/* Bread loaves this drink pairs with */}
+              <PairsWith pairings={pairings} />
 
               {/* Newsletter issues that featured this drink */}
               <FeaturedInNewsletter issues={featuredIn} />
