@@ -32,6 +32,7 @@ import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
 import { formatDate, getCategoryLabel, slugify, withTempConversion } from "@/lib/utils";
+import { DRINK_PRESETS } from "@/lib/coffee-presets";
 
 interface PageProps {
   params: { slug: string };
@@ -87,6 +88,12 @@ export default async function CoffeePostPage({ params }: PageProps) {
     /^#{2,3}\s+(.*\b(?:shot|espresso|syrup|steam(?:ing)?|pull(?:ing)?|brew(?:ing)?|pour|assembly|method)\b.*)$/im
   );
   const recipeAnchor = recipeHeading ? slugify(recipeHeading[1].trim()) : null;
+
+  // The Coffee Calculator's Drink Builder carries a custom "My …" preset that
+  // reproduces this exact recipe (dose/ratio/milk copied from its frontmatter).
+  // Deep-link to it so a reader can tweak the drink's proportions interactively,
+  // matching the bread page's "Plan this bake" link to the timeline planner.
+  const drinkPreset = DRINK_PRESETS.find((d) => d.recipeSlug === params.slug) ?? null;
 
   // Cross-link to the bean review this drink is brewed with, if one is named
   // in frontmatter and the review actually exists on disk.
@@ -309,6 +316,48 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <span className="stat-label">Category</span>
                 <span className="stat-value">{categoryLabel}</span>
               </div>
+
+              {/* Deep-link to the interactive Drink Builder, preset to this
+                  drink so a reader can dial the dose/ratio/milk to their own
+                  cup — the coffee counterpart to the loaf's "Plan this bake". */}
+              {drinkPreset && (
+                <Link
+                  href={`/tools/coffee-calculator?drink=${drinkPreset.slug}`}
+                  className="group flex items-center gap-3 rounded-xl border border-blush/50 bg-cream-dark/60 px-4 py-3 transition-colors hover:border-terracotta/60 hover:bg-cream-dark print:hidden"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 shrink-0 text-terracotta"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                    <line x1="6" y1="1" x2="6" y2="4" />
+                    <line x1="10" y1="1" x2="10" y2="4" />
+                    <line x1="14" y1="1" x2="14" y2="4" />
+                  </svg>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-espresso">
+                      Build this drink
+                    </span>
+                    <span className="block text-xs text-espresso-muted">
+                      Dial the dose &amp; ratio in the drink builder
+                    </span>
+                  </span>
+                  <span
+                    className="ml-auto text-terracotta transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              )}
 
               {/* Beans used — cross-link to the bag's review */}
               {bean && (
