@@ -229,7 +229,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
 
             {/* Photo gallery */}
             {f.images && f.images.length > 1 && (
-              <div className="mt-14">
+              <div className="mt-14 print:hidden">
                 <h2 className="text-xl font-semibold text-espresso mb-6">Photos</h2>
                 <FullWidthGallery images={f.images} alt={f.title} />
               </div>
