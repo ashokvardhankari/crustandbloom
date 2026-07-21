@@ -38,6 +38,8 @@ export interface BreadFrontmatter {
   totalTime?: string;
   /** Slug of a coffee recipe (content/coffee/<slug>.mdx) this loaf pairs with — renders a two-way "Pairs well with" cross-link. */
   pairsWith?: string;
+  /** Singular name of the baked good this formula yields, for recipes that aren't loaves (e.g. "calzone"). Defaults to "loaf" — feeds the derived Yield stat and the Recipe JSON-LD recipeYield. */
+  yieldUnit?: string;
 }
 
 export type RoastLevel =

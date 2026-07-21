@@ -300,7 +300,7 @@ export function breadRecipeJsonLd(
     publisher: PUBLISHER,
     datePublished: fm.date,
     recipeCategory: "Bread",
-    recipeYield: "1 loaf",
+    recipeYield: `1 ${fm.yieldUnit ?? "loaf"}`,
     keywords: ["sourdough", fm.category, fm.flavorProfile]
       .filter(Boolean)
       .join(", "),

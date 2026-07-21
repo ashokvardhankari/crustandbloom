@@ -329,7 +329,7 @@ export default async function BreadPostPage({ params }: PageProps) {
               </div>
 
               {/* Total dough weight + loaf estimate, derived from the formula */}
-              <DoughYield rows={formula} />
+              <DoughYield rows={formula} unit={frontmatter.yieldUnit} />
 
               {prepTime && (
                 <div className="stat-card">
