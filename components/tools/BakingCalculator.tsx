@@ -41,6 +41,72 @@ interface ScheduledStep {
   endTime: Date;
 }
 
+function pad(n: number): string {
+  return String(n).padStart(2, "0");
+}
+
+// iCalendar UTC timestamp: YYYYMMDDTHHMMSSZ
+function toICSDate(date: Date): string {
+  return (
+    date.getUTCFullYear().toString() +
+    pad(date.getUTCMonth() + 1) +
+    pad(date.getUTCDate()) +
+    "T" +
+    pad(date.getUTCHours()) +
+    pad(date.getUTCMinutes()) +
+    pad(date.getUTCSeconds()) +
+    "Z"
+  );
+}
+
+function escapeICS(text: string): string {
+  return text
+    .replace(/\\/g, "\\\\")
+    .replace(/;/g, "\\;")
+    .replace(/,/g, "\\,")
+    .replace(/\r?\n/g, "\\n");
+}
+
+// Fold long lines to 75 octets per RFC 5545, continuation lines start with a space.
+function foldICSLine(line: string): string {
+  if (line.length <= 75) return line;
+  const parts: string[] = [];
+  let rest = line;
+  parts.push(rest.slice(0, 75));
+  rest = rest.slice(75);
+  while (rest.length > 74) {
+    parts.push(" " + rest.slice(0, 74));
+    rest = rest.slice(74);
+  }
+  if (rest.length > 0) parts.push(" " + rest);
+  return parts.join("\r\n");
+}
+
+function buildICS(preset: BakingPreset, schedule: ScheduledStep[], stamp: string): string {
+  const lines: string[] = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//Crust & Bloom//Baking Calculator//EN",
+    "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH",
+    `X-WR-CALNAME:${escapeICS(`${preset.name} bake`)}`,
+  ];
+  schedule.forEach((step, i) => {
+    lines.push(
+      "BEGIN:VEVENT",
+      `UID:crustandbloom-${stamp}-${preset.slug.toLowerCase()}-${i}`,
+      `DTSTAMP:${stamp}`,
+      `DTSTART:${toICSDate(step.startTime)}`,
+      `DTEND:${toICSDate(step.endTime)}`,
+      `SUMMARY:${escapeICS(`🍞 ${preset.slug}: ${step.name}`)}`,
+      `DESCRIPTION:${escapeICS(step.tip)}`,
+      "END:VEVENT"
+    );
+  });
+  lines.push("END:VCALENDAR");
+  return lines.map(foldICSLine).join("\r\n");
+}
+
 function computeSchedule(
   preset: BakingPreset,
   anchor: Date,
@@ -88,6 +154,20 @@ export default function BakingCalculator() {
   const preset = BAKING_PRESETS[presetIndex];
   const anchor = dateTime ? new Date(dateTime) : null;
   const schedule = anchor ? computeSchedule(preset, anchor, direction) : null;
+
+  function downloadICS() {
+    if (!schedule || schedule.length === 0) return;
+    const ics = buildICS(preset, schedule, toICSDate(new Date()));
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${preset.slug.toLowerCase()}-bake-schedule.ics`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <div className="space-y-10">
@@ -158,11 +238,35 @@ export default function BakingCalculator() {
         </div>
       </div>
 
-      {/* Preset description */}
-      <p className="text-sm text-espresso/50">
-        {preset.name} · total time:{" "}
-        {formatDuration(preset.steps.reduce((sum, s) => sum + s.durationMinutes, 0))}
-      </p>
+      {/* Preset description + calendar export */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <p className="text-sm text-espresso/50">
+          {preset.name} · total time:{" "}
+          {formatDuration(preset.steps.reduce((sum, s) => sum + s.durationMinutes, 0))}
+        </p>
+        {schedule && (
+          <button
+            onClick={downloadICS}
+            className="inline-flex items-center gap-2 self-start sm:self-auto text-xs font-semibold uppercase tracking-widest px-4 py-2 rounded-full bg-blush/40 text-espresso hover:bg-blush/60 transition-colors duration-200"
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
+            Add to calendar
+          </button>
+        )}
+      </div>
 
       {/* Timeline — rendered client-side only, once the current time is known */}
       <div className="relative pl-8 min-h-[8rem]">
