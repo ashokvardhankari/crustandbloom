@@ -104,6 +104,29 @@ export default async function CoffeePostPage({ params }: PageProps) {
     meta: `${b.frontmatter.hydration}% hydration`,
   }));
 
+  // At-a-glance brew specs shown in a stats bar under the hero, mirroring the
+  // bread page's bake-stats bar so a drink's key numbers are visible without
+  // scrolling to the sidebar. Milk temp only applies to milk drinks, so it's
+  // included only when present (an espresso/filter recipe omits the cell).
+  const glanceStats: { label: string; value: string; wide?: boolean }[] = [
+    { label: "Brew Ratio", value: frontmatter.brewRatio },
+    { label: "Extraction Time", value: frontmatter.extractionTime },
+    ...(frontmatter.milkTemp
+      ? [
+          {
+            label: "Milk Temp",
+            value: withTempConversion(frontmatter.milkTemp) ?? frontmatter.milkTemp,
+            wide: true,
+          },
+        ]
+      : []),
+    {
+      label: "Category",
+      value: getCategoryLabel("coffee", frontmatter.category),
+      wide: true,
+    },
+  ];
+
   return (
     <>
       <JsonLd data={coffeeRecipeJsonLd(params.slug, frontmatter, raw)} />
@@ -117,6 +140,25 @@ export default async function CoffeePostPage({ params }: PageProps) {
           size="medium"
           overlay="dark"
         />
+      </div>
+
+      {/* Brew stats bar */}
+      <div className="bg-cream-dark border-b border-blush/30 print:hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap gap-4 lg:gap-0 lg:divide-x lg:divide-blush/30">
+            {glanceStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8"
+              >
+                <span className="stat-label">{stat.label}</span>
+                <span className={`stat-value${stat.wide ? " text-base" : ""}`}>
+                  {stat.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Breadcrumbs
