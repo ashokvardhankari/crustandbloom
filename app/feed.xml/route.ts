@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import {
   getAllPostsMeta,
   getAllBeanPostsMeta,
@@ -16,6 +18,46 @@ function escapeXml(text: string): string {
     .replace(/'/g, "&apos;");
 }
 
+/** MIME type for an image path by extension; null for anything unrecognised. */
+function imageMimeType(imagePath: string): string | null {
+  const ext = path.extname(imagePath).toLowerCase();
+  switch (ext) {
+    case ".jpg":
+    case ".jpeg":
+      return "image/jpeg";
+    case ".png":
+      return "image/png";
+    case ".webp":
+      return "image/webp";
+    case ".gif":
+      return "image/gif";
+    default:
+      return null;
+  }
+}
+
+/**
+ * Build an RSS `<enclosure>` for a post's cover image, giving feed readers a
+ * thumbnail for each hand-shot photo. The enclosure's `length` (byte size) is a
+ * required RSS 2.0 attribute, so the image file is stat'd on disk at build time;
+ * a missing file or unknown extension yields null and the item ships without an
+ * enclosure rather than an invalid one.
+ */
+function coverEnclosure(coverImage?: string): string | null {
+  if (!coverImage || !coverImage.startsWith("/")) return null;
+  const type = imageMimeType(coverImage);
+  if (!type) return null;
+  const filePath = path.join(process.cwd(), "public", coverImage);
+  let length: number;
+  try {
+    length = fs.statSync(filePath).size;
+  } catch {
+    return null;
+  }
+  if (!(length > 0)) return null;
+  return `      <enclosure url="${SITE_URL}${coverImage}" length="${length}" type="${type}"/>`;
+}
+
 interface FeedItem {
   title: string;
   url: string;
@@ -23,6 +65,8 @@ interface FeedItem {
   excerpt: string;
   /** Content-type label first, then the post's own tags — emitted as <category>. */
   categories: string[];
+  /** Cover photo, emitted as an <enclosure> thumbnail; omitted when absent. */
+  coverImage?: string;
 }
 
 /** Human-readable section label for a content `type` (e.g. "coffee" → "Coffee"). */
@@ -47,6 +91,7 @@ export async function GET() {
       date: p.frontmatter.date,
       excerpt: p.frontmatter.excerpt,
       categories: [TYPE_LABEL[p.frontmatter.type], ...p.frontmatter.tags],
+      coverImage: p.frontmatter.coverImage,
     })),
     ...beans.map((b) => ({
       title: `${b.frontmatter.title} from ${b.frontmatter.roaster}`,
@@ -54,6 +99,7 @@ export async function GET() {
       date: b.frontmatter.date,
       excerpt: b.frontmatter.excerpt,
       categories: [TYPE_LABEL.bean, ...b.frontmatter.tags],
+      coverImage: b.frontmatter.coverImage,
     })),
     ...newsletters.map((n) => ({
       title: n.frontmatter.title,
@@ -61,6 +107,7 @@ export async function GET() {
       date: n.frontmatter.date,
       excerpt: n.frontmatter.excerpt,
       categories: [TYPE_LABEL.newsletter],
+      coverImage: n.frontmatter.coverImage,
     })),
   ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
@@ -70,13 +117,14 @@ export async function GET() {
         .filter(Boolean)
         .map((c) => `      <category>${escapeXml(c)}</category>`)
         .join("\n");
+      const enclosure = coverEnclosure(item.coverImage);
       return `    <item>
       <title>${escapeXml(item.title)}</title>
       <link>${item.url}</link>
       <guid isPermaLink="true">${item.url}</guid>
       <pubDate>${new Date(item.date).toUTCString()}</pubDate>
       <description>${escapeXml(item.excerpt)}</description>
-${categories}
+${categories}${enclosure ? `\n${enclosure}` : ""}
     </item>`;
     })
     .join("\n");
