@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
-type FlavorProfile = "savory" | "sweet" | "spicy";
+import Image from "next/image";
+import {
+  InclusionArt,
+  FlavorIcon,
+  parseIngredient,
+  type FlavorProfile,
+} from "@/components/InclusionArt";
 
 type InclusionIdea = {
   name: string;
@@ -11,6 +16,7 @@ type InclusionIdea = {
   inclusions: string[];
   foldInTip: string;
   tastingNote: string;
+  image?: string;
 };
 
 type BeanIdea = {
@@ -38,14 +44,31 @@ type Ideas = {
   drinks: DrinkIdea[];
 };
 
-const FLAVORS: { value: FlavorProfile; label: string; emoji: string }[] = [
-  { value: "savory", label: "Savory", emoji: "🧀" },
-  { value: "sweet", label: "Sweet", emoji: "🍫" },
-  { value: "spicy", label: "Spicy", emoji: "🌶" },
+const FLAVORS: { value: FlavorProfile; label: string }[] = [
+  { value: "savory", label: "Savory" },
+  { value: "sweet", label: "Sweet" },
+  { value: "spicy", label: "Spicy" },
 ];
 
-const flavorEmoji = (f: FlavorProfile) =>
-  FLAVORS.find((x) => x.value === f)?.emoji ?? "";
+function ShoppingIcon() {
+  return (
+    <svg
+      className="h-3.5 w-3.5 text-terracotta"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M6 6h15l-1.5 9h-12z" />
+      <path d="M6 6 5 3H3" />
+      <circle cx="9" cy="20" r="1" />
+      <circle cx="18" cy="20" r="1" />
+    </svg>
+  );
+}
 
 export default function InclusionsIdeaBoard() {
   const [secret, setSecret] = useState("");
@@ -89,7 +112,7 @@ export default function InclusionsIdeaBoard() {
           Inclusions to try
         </h1>
         <p className="mt-2 mb-8 text-sm text-espresso/60">
-          A private idea board — trending sourdough mix-ins and coffees I
+          A private idea board of trending sourdough mix-ins and coffees I
           haven&apos;t made yet. Enter your passphrase to open it.
         </p>
         <form onSubmit={unlock} className="flex flex-col gap-3">
@@ -129,8 +152,8 @@ export default function InclusionsIdeaBoard() {
           Sourdough inclusions to try next
         </h1>
         <p className="mt-2 text-sm text-espresso/60 max-w-2xl">
-          You make the starter and dough at home — these are just the mix-ins to
-          buy. Trending combos from 2025–2026 you haven&apos;t baked yet, laid
+          You make the starter and dough at home. These are just the mix-ins to
+          buy. Trending combos from 2025 and 2026 you haven&apos;t baked yet, laid
           out per recipe with when to fold each in.
         </p>
       </div>
@@ -141,7 +164,7 @@ export default function InclusionsIdeaBoard() {
           type="button"
           onClick={() => setFilter("all")}
           className={
-            "px-4 py-1.5 rounded-full text-sm font-semibold transition-colors " +
+            "px-4 py-1.5 rounded-full text-sm font-semibold transition-colors cursor-pointer " +
             (filter === "all"
               ? "bg-terracotta text-cream"
               : "border border-espresso/20 text-espresso hover:bg-blush/30")
@@ -159,13 +182,14 @@ export default function InclusionsIdeaBoard() {
               type="button"
               onClick={() => setFilter(f.value)}
               className={
-                "px-4 py-1.5 rounded-full text-sm font-semibold transition-colors " +
+                "inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm font-semibold transition-colors cursor-pointer " +
                 (filter === f.value
                   ? "bg-terracotta text-cream"
                   : "border border-espresso/20 text-espresso hover:bg-blush/30")
               }
             >
-              {f.emoji} {f.label} ({count})
+              <FlavorIcon flavor={f.value} />
+              {f.label} ({count})
             </button>
           );
         })}
@@ -176,44 +200,90 @@ export default function InclusionsIdeaBoard() {
         {visible.map((idea) => (
           <article
             key={idea.name}
-            className="bg-white border border-blush rounded-2xl p-6 flex flex-col gap-4"
+            className="group bg-white border border-blush rounded-2xl overflow-hidden shadow-soft flex flex-col transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lift motion-reduce:hover:translate-y-0"
           >
-            <div>
-              <div className="flex items-start justify-between gap-3">
-                <h2 className="font-display font-semibold text-xl text-espresso leading-snug">
-                  {idea.name}
-                </h2>
-                <span className="shrink-0 text-xs font-semibold uppercase tracking-wide text-espresso/50 whitespace-nowrap">
-                  {flavorEmoji(idea.flavorProfile)} {idea.flavorProfile}
-                </span>
-              </div>
-              <p className="mt-1.5 text-xs text-espresso/55 italic">
+            {/* Cover: real photo when available, generated artwork otherwise */}
+            <div className="relative h-44 w-full overflow-hidden">
+              {idea.image ? (
+                <Image
+                  src={idea.image}
+                  alt={idea.name}
+                  fill
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              ) : (
+                <InclusionArt
+                  name={idea.name}
+                  flavorProfile={idea.flavorProfile}
+                />
+              )}
+
+              {/* contrast scrim for the overlaid text */}
+              <div className="absolute inset-0 gradient-overlay" />
+
+              {/* flavor badge */}
+              <span className="absolute top-3 left-3 inline-flex items-center gap-1.5 rounded-full bg-white/85 backdrop-blur-sm px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-espresso capitalize">
+                <FlavorIcon flavor={idea.flavorProfile} />
+                {idea.flavorProfile}
+              </span>
+
+              {/* loaf name */}
+              <h2 className="absolute bottom-3 left-4 right-4 font-display font-semibold text-xl text-cream leading-tight drop-shadow-sm">
+                {idea.name}
+              </h2>
+            </div>
+
+            <div className="flex flex-1 flex-col gap-4 p-5">
+              <p className="text-xs text-espresso/60 italic leading-relaxed">
                 {idea.whyTrending}
               </p>
-            </div>
 
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-2">
-                Shopping list
-              </p>
-              <ul className="flex flex-col gap-1.5">
-                {idea.inclusions.map((ing) => (
-                  <li
-                    key={ing}
-                    className="text-sm text-espresso/85 flex gap-2 leading-snug"
-                  >
-                    <span className="text-terracotta">▪</span>
-                    <span>{ing}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Ingredient callouts */}
+              <div>
+                <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-espresso-muted mb-2.5">
+                  <ShoppingIcon />
+                  Shopping list
+                </p>
+                <ul className="flex flex-col gap-1.5">
+                  {idea.inclusions.map((ing) => {
+                    const { name, prep, weight } = parseIngredient(ing);
+                    return (
+                      <li
+                        key={ing}
+                        className="flex items-baseline gap-2.5 rounded-lg bg-cream/70 px-3 py-2"
+                      >
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-terracotta" />
+                        <span className="min-w-0 flex-1 leading-snug">
+                          <span className="text-sm font-semibold text-espresso">
+                            {name}
+                          </span>
+                          {prep && (
+                            <span className="text-sm text-espresso/60">
+                              {" "}
+                              — {prep}
+                            </span>
+                          )}
+                        </span>
+                        {weight && (
+                          <span className="shrink-0 rounded-full bg-blush/50 px-2 py-0.5 text-xs font-semibold text-terracotta-dark tabular-nums">
+                            {weight}
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
 
-            <div className="text-sm text-espresso/70 border-t border-blush/70 pt-3">
-              <span className="font-semibold text-espresso">Fold-in:</span>{" "}
-              {idea.foldInTip}
+              <div className="mt-auto flex flex-col gap-2 border-t border-blush/60 pt-3 text-sm leading-relaxed">
+                <p className="text-espresso/75">
+                  <span className="font-semibold text-espresso">Fold-in:</span>{" "}
+                  {idea.foldInTip}
+                </p>
+                <p className="text-espresso/65 italic">{idea.tastingNote}</p>
+              </div>
             </div>
-            <p className="text-sm text-espresso/70 italic">{idea.tastingNote}</p>
           </article>
         ))}
       </div>
