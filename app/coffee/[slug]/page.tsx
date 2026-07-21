@@ -20,6 +20,7 @@ import CookModeButton from "@/components/ui/CookModeButton";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
+import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
 import BeanLink from "@/components/ui/BeanLink";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
@@ -163,9 +164,17 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 Brew Details
               </h2>
 
-              <div className="stat-card">
-                <span className="stat-label">Brew Ratio</span>
-                <span className="stat-value">{frontmatter.brewRatio}</span>
+              <div className="stat-card flex-col items-stretch gap-2">
+                <div className="flex items-baseline justify-between">
+                  <span className="stat-label">Brew Ratio</span>
+                  <span className="stat-value">{frontmatter.brewRatio}</span>
+                </div>
+                <BrewRatioMeter ratio={frontmatter.brewRatio} />
+                {brewRatioDescriptor(frontmatter.brewRatio) && (
+                  <span className="text-xs text-espresso-muted leading-snug">
+                    {brewRatioDescriptor(frontmatter.brewRatio)}
+                  </span>
+                )}
               </div>
 
               <div className="stat-card">
