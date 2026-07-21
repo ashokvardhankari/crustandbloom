@@ -22,6 +22,7 @@ import CookModeButton from "@/components/ui/CookModeButton";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
+import IngredientList from "@/components/ui/IngredientList";
 import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
 import ShotYield from "@/components/ui/ShotYield";
 import BeanLink from "@/components/ui/BeanLink";
@@ -196,6 +197,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* On-page contents */}
             <TableOfContents headings={headings} />
+
+            {/* Scannable ingredient list — coffee recipes have no formula table */}
+            <IngredientList items={frontmatter.ingredients} />
 
             {/* Interactive brew calculator */}
             {frontmatter.dose && (

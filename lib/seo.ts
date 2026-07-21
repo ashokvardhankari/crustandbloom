@@ -331,6 +331,8 @@ export function coffeeRecipeJsonLd(
     recipeCategory: "Drink",
     recipeYield: "1 cup",
     keywords: fm.tags.join(", "),
+    ...(fm.ingredients &&
+      fm.ingredients.length > 0 && { recipeIngredient: fm.ingredients }),
     ...(steps.length > 0 && { recipeInstructions: steps }),
   };
 }
