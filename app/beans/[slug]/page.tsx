@@ -114,6 +114,7 @@ export default async function BeanReviewPage({ params }: PageProps) {
         image={beanCover(f.coverImage)}
         imageAlt={f.title}
         title={f.title}
+        subtitle={f.excerpt}
         size="medium"
         overlay="dark"
       />

@@ -125,6 +125,7 @@ export default async function BreadPostPage({ params }: PageProps) {
           image={frontmatter.coverImage}
           imageAlt={frontmatter.title}
           title={frontmatter.title}
+          subtitle={frontmatter.excerpt}
           size="medium"
           overlay="dark"
         />
