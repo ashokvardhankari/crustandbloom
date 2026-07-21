@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { slugify, wordCount } from "./utils";
+import { roastLabel, slugify, wordCount } from "./utils";
 import type {
   BeanFrontmatter,
   BreadFrontmatter,
@@ -395,8 +395,32 @@ function beanOffer(price?: string, buyUrl?: string) {
   };
 }
 
+/**
+ * Structured `additionalProperty` PropertyValues describing a coffee bean's
+ * defining, honest attributes (origin, region, process, varietal, roast,
+ * altitude) — the specs that drive the visible sidebar but otherwise never
+ * reach the reviewed Product in structured data. Origin and roast are always
+ * present; the rest are included only when the bean carries them. Returns an
+ * empty array only if a bean somehow has neither, so the Product simply omits
+ * `additionalProperty`.
+ */
+function beanProductProperties(fm: BeanFrontmatter) {
+  const specs: [string, string | undefined][] = [
+    ["Origin", fm.origin],
+    ["Region", fm.region],
+    ["Process", fm.process],
+    ["Varietal", fm.varietal],
+    ["Roast", roastLabel(fm.roastLevel)],
+    ["Altitude", fm.altitude],
+  ];
+  return specs
+    .filter((s): s is [string, string] => Boolean(s[1]))
+    .map(([name, value]) => ({ "@type": "PropertyValue", name, value }));
+}
+
 export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
   const offers = beanOffer(fm.price, fm.buyUrl);
+  const properties = beanProductProperties(fm);
   return {
     "@context": "https://schema.org",
     "@type": "Review",
@@ -405,7 +429,9 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
       "@type": "Product",
       name: `${fm.roaster} ${fm.title}`,
       brand: { "@type": "Brand", name: fm.roaster },
+      category: "Coffee",
       ...(fm.coverImage && { image: absoluteUrl(fm.coverImage) }),
+      ...(properties.length > 0 && { additionalProperty: properties }),
       ...(offers && { offers }),
     },
     reviewRating: {
