@@ -10,11 +10,37 @@ export const metadata: Metadata = {
     "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.",
 };
 
+const flavorLabels: { key: "savory" | "sweet" | "spicy"; label: string }[] = [
+  { key: "savory", label: "savory" },
+  { key: "sweet", label: "sweet" },
+  { key: "spicy", label: "spicy" },
+];
+
 export default async function BreadPage() {
   const [classicPosts, inclusionPosts] = await Promise.all([
     getAllClassicBreadMeta(),
     getInclusionLoaves(),
   ]);
+
+  // Bake summary: how many loaves, the typical hydration across the whole
+  // archive, and how the inclusion loaves split by flavor profile. Only loaves
+  // carrying a hydration value feed the average, so the strip scales safely.
+  const allLoaves = [...classicPosts, ...inclusionPosts];
+  const hydrated = allLoaves.filter((p) => (p.frontmatter.hydration ?? 0) > 0);
+  const avgHydration =
+    hydrated.length > 0
+      ? Math.round(
+          hydrated.reduce((sum, p) => sum + p.frontmatter.hydration, 0) /
+            hydrated.length
+        )
+      : 0;
+  const flavorCounts = flavorLabels
+    .map(({ key, label }) => ({
+      label,
+      count: inclusionPosts.filter((p) => p.frontmatter.flavorProfile === key)
+        .length,
+    }))
+    .filter((f) => f.count > 0);
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -33,6 +59,54 @@ export default async function BreadPage() {
         </p>
         <div className="mt-6 h-px w-24 bg-amber" />
       </div>
+
+      {/* Bake summary — a quick read on the archive before the grids */}
+      {allLoaves.length > 0 && (
+        <div className="mb-16 flex flex-wrap items-center gap-x-10 gap-y-6 border-y border-blush/40 py-6">
+          <div>
+            <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+              {allLoaves.length}
+            </p>
+            <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+              {allLoaves.length === 1 ? "Loaf baked" : "Loaves baked"}
+            </p>
+          </div>
+
+          {avgHydration > 0 && (
+            <div>
+              <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                {avgHydration}
+                <span className="text-espresso-muted">%</span>
+              </p>
+              <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                Average hydration
+              </p>
+            </div>
+          )}
+
+          {flavorCounts.length > 0 && (
+            <div>
+              <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                {flavorCounts.map((f, i) => (
+                  <span key={f.label}>
+                    {f.count}
+                    <span className="text-base font-medium text-espresso-muted capitalize">
+                      {" "}
+                      {f.label}
+                    </span>
+                    {i < flavorCounts.length - 1 && (
+                      <span className="text-espresso-muted"> · </span>
+                    )}
+                  </span>
+                ))}
+              </p>
+              <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                Inclusion flavors
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Classic Sourdough */}
       <section className="mb-20">
