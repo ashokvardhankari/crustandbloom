@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import { getAllBeanPostsMeta } from "@/lib/content";
 import BeanFilterBar from "@/components/ui/BeanFilterBar";
 import Rating from "@/components/ui/Rating";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd } from "@/lib/seo";
+
+const PAGE_DESCRIPTION =
+  "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.";
 
 export const metadata: Metadata = {
   title: "Beans",
   alternates: { canonical: "/beans" },
-  description:
-    "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.",
+  description: PAGE_DESCRIPTION,
 };
 
 export default async function BeansPage() {
@@ -27,6 +31,18 @@ export default async function BeansPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Beans",
+          description: PAGE_DESCRIPTION,
+          path: "/beans",
+          items: beans.map((b) => ({
+            title: `${b.frontmatter.title} from ${b.frontmatter.roaster}`,
+            path: `/beans/${b.slug}`,
+          })),
+        })}
+      />
+
       <div className="mb-14 max-w-xl animate-fade-in-up">
         <p className="eyebrow mb-3">The shelf</p>
         <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">

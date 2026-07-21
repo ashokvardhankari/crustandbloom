@@ -236,6 +236,40 @@ export function newsletterArticleJsonLd(
 }
 
 /**
+ * CollectionPage schema wrapping an ordered ItemList for an archive/listing
+ * page (e.g. /coffee, /bread, /beans, /newsletter). Each entry is a ListItem
+ * whose `url` points at the detail page, kept in the page's on-screen order, so
+ * search engines can read the page as a curated collection rather than a flat
+ * document. Renders `numberOfItems: 0` gracefully for an empty archive.
+ */
+export function collectionPageJsonLd(opts: {
+  name: string;
+  description: string;
+  /** Relative path of the listing page itself, e.g. "/coffee". */
+  path: string;
+  /** Items in display order; each `path` is the detail page's relative URL. */
+  items: { title: string; path: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: opts.name,
+    description: opts.description,
+    url: absoluteUrl(opts.path),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: opts.items.length,
+      itemListElement: opts.items.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.title,
+        url: absoluteUrl(item.path),
+      })),
+    },
+  };
+}
+
+/**
  * BreadcrumbList schema for a detail page's trail. Each crumb needs an
  * absolute `item` URL; the final (current) crumb may omit its href.
  */

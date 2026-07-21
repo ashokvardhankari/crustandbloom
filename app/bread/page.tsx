@@ -2,12 +2,16 @@ import type { Metadata } from "next";
 import { getAllClassicBreadMeta, getInclusionLoaves } from "@/lib/content";
 import PostCard from "@/components/ui/PostCard";
 import FilterBar from "@/components/ui/FilterBar";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd } from "@/lib/seo";
+
+const PAGE_DESCRIPTION =
+  "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.";
 
 export const metadata: Metadata = {
   title: "Bread",
   alternates: { canonical: "/bread" },
-  description:
-    "Classic sourdough and inclusion loaves, with full bake notes, hydration percentages, and photo galleries.",
+  description: PAGE_DESCRIPTION,
 };
 
 const flavorLabels: { key: "savory" | "sweet" | "spicy"; label: string }[] = [
@@ -44,6 +48,19 @@ export default async function BreadPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      {/* Loaves listed classic-first, then inclusions — mirrors the on-page order */}
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Bread",
+          description: PAGE_DESCRIPTION,
+          path: "/bread",
+          items: allLoaves.map((p) => ({
+            title: p.frontmatter.title,
+            path: `/bread/${p.slug}`,
+          })),
+        })}
+      />
+
       {/* Header */}
       <div className="mb-14 max-w-xl animate-fade-in-up">
         <p className="eyebrow mb-3">

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { getAllCoffeePostsMeta } from "@/lib/content";
 import CoffeeFilterBar from "@/components/ui/CoffeeFilterBar";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd } from "@/lib/seo";
+
+const PAGE_DESCRIPTION =
+  "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.";
 
 export const metadata: Metadata = {
   title: "Coffee",
   alternates: { canonical: "/coffee" },
-  description:
-    "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.",
+  description: PAGE_DESCRIPTION,
 };
 
 const categoryLabels: {
@@ -44,6 +48,18 @@ export default async function CoffeePage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Coffee",
+          description: PAGE_DESCRIPTION,
+          path: "/coffee",
+          items: posts.map((p) => ({
+            title: p.frontmatter.title,
+            path: `/coffee/${p.slug}`,
+          })),
+        })}
+      />
+
       {/* Header */}
       <div className="mb-14 max-w-xl animate-fade-in-up">
         <p className="eyebrow mb-3">

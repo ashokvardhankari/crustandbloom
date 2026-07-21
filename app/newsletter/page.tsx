@@ -3,13 +3,17 @@ import Link from "next/link";
 import { getAllNewslettersMeta } from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
+
+const PAGE_DESCRIPTION =
+  "The Crust & Bloom newsletter archive. Every letter from the kitchen: new bakes, coffee pairings, and what's working on the counter.";
 
 export const metadata: Metadata = {
   title: "Newsletter",
   alternates: { canonical: "/newsletter" },
-  description:
-    "The Crust & Bloom newsletter archive. Every letter from the kitchen: new bakes, coffee pairings, and what's working on the counter.",
+  description: PAGE_DESCRIPTION,
 };
 
 export default async function NewsletterArchivePage() {
@@ -17,6 +21,18 @@ export default async function NewsletterArchivePage() {
 
   return (
     <>
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Newsletter",
+          description: PAGE_DESCRIPTION,
+          path: "/newsletter",
+          items: issues.map((issue) => ({
+            title: issue.frontmatter.title,
+            path: `/newsletter/${issue.slug}`,
+          })),
+        })}
+      />
+
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
         <div className="mb-14 animate-fade-in-up">
           <p className="eyebrow mb-3">From the kitchen</p>
