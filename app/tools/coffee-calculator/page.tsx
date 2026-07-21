@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import CoffeeCalculator from "@/components/tools/CoffeeCalculator";
-import { listingMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { listingMetadata, toolApplicationJsonLd } from "@/lib/seo";
+
+const COFFEE_CALCULATOR_DESCRIPTION =
+  "Brew ratio calculator, drink builder, and extraction yield calculator for espresso and coffee.";
 
 export const metadata: Metadata = listingMetadata({
   title: "Coffee Calculator",
-  description:
-    "Brew ratio calculator, drink builder, and extraction yield calculator for espresso and coffee.",
+  description: COFFEE_CALCULATOR_DESCRIPTION,
   canonical: "/tools/coffee-calculator",
 });
 
 export default function CoffeeCalculatorPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={toolApplicationJsonLd({
+          name: "Coffee & Espresso Calculator",
+          description: COFFEE_CALCULATOR_DESCRIPTION,
+          path: "/tools/coffee-calculator",
+        })}
+      />
       <div className="mb-14">
         <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
           Tools

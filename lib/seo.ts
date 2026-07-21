@@ -487,6 +487,42 @@ export function imageGalleryJsonLd(opts: {
 }
 
 /**
+ * WebApplication schema for an interactive tool page (the baking / coffee
+ * calculators). The tool pages are the last primary pages emitting no
+ * structured data; a CollectionPage or Article would misdescribe them, but
+ * each is genuinely a free, browser-based utility — the schema.org
+ * `WebApplication` type (a `SoftwareApplication` that runs in the browser)
+ * is the accurate fit. Marks the tool as a free `UtilitiesApplication`,
+ * ties it to the site-wide Organization as publisher, and states its
+ * browser-based, no-download nature so search engines can present it as an
+ * app rather than a flat document.
+ */
+export function toolApplicationJsonLd(opts: {
+  name: string;
+  description: string;
+  /** Relative path of the tool page itself, e.g. "/tools/baking-calculator". */
+  path: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: opts.name,
+    description: opts.description,
+    url: absoluteUrl(opts.path),
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript.",
+    isAccessibleForFree: true,
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    publisher: PUBLISHER,
+  };
+}
+
+/**
  * BreadcrumbList schema for a detail page's trail. Each crumb needs an
  * absolute `item` URL; the final (current) crumb may omit its href.
  */

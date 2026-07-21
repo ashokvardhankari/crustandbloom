@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import BakingCalculator from "@/components/tools/BakingCalculator";
-import { listingMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { listingMetadata, toolApplicationJsonLd } from "@/lib/seo";
+
+const BAKING_CALCULATOR_DESCRIPTION =
+  "Plan your sourdough bake day. Pick a schedule, set your start time or deadline, and get a complete step-by-step timeline.";
 
 export const metadata: Metadata = listingMetadata({
   title: "Baking Calculator",
-  description:
-    "Plan your sourdough bake day. Pick a schedule, set your start time or deadline, and get a complete step-by-step timeline.",
+  description: BAKING_CALCULATOR_DESCRIPTION,
   canonical: "/tools/baking-calculator",
 });
 
 export default function BakingCalculatorPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={toolApplicationJsonLd({
+          name: "Sourdough Baking Calculator",
+          description: BAKING_CALCULATOR_DESCRIPTION,
+          path: "/tools/baking-calculator",
+        })}
+      />
       {/* Header */}
       <div className="mb-14">
         <p className="text-xs font-semibold uppercase tracking-widest text-terracotta mb-3">
