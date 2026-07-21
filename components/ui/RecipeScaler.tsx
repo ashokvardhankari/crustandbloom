@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import type { FormulaRow } from "@/lib/content";
+import { doughYield } from "@/lib/utils";
 
 interface RecipeScalerProps {
   rows: FormulaRow[];
+  /** Singular baked-good noun this formula yields; defaults to "loaf". */
+  unit?: string;
 }
 
 const PRESETS = [
@@ -46,11 +49,22 @@ function scaleWeight(weight: string, factor: number): string {
  * your place mid-formula. The MDX body still renders the static 1× table below
  * for printing, no-JS, and SEO; this is a client-side convenience on top.
  */
-export default function RecipeScaler({ rows }: RecipeScalerProps) {
+export default function RecipeScaler({ rows, unit = "loaf" }: RecipeScalerProps) {
   const [factor, setFactor] = useState(1);
   const [weighed, setWeighed] = useState<boolean[]>(() => rows.map(() => false));
   const hasPct = rows.some((r) => r.bakersPct);
   const doneCount = weighed.filter(Boolean).length;
+
+  // Total dough weight for the currently selected scale. The sidebar's derived
+  // Yield stat only reflects the 1× batch, so once a baker scales up or down the
+  // batch they're actually weighing has no live total — this footer supplies it,
+  // reusing the same gram-summing rules (coatings/aromatics excluded). Grams
+  // scale linearly, so the 1× total times the factor is exact.
+  const baseYield = doughYield(rows);
+  const scaledGrams = baseYield ? Math.round(baseYield.grams * factor) : 0;
+  const scaledLoaves = baseYield ? Math.max(1, Math.round(scaledGrams / 1100)) : 0;
+  const plural = unit === "loaf" ? "loaves" : `${unit}s`;
+  const single = unit === "loaf" ? "one large loaf" : `one ${unit}`;
 
   function toggle(index: number) {
     setWeighed((prev) => prev.map((v, i) => (i === index ? !v : v)));
@@ -154,6 +168,25 @@ export default function RecipeScaler({ rows }: RecipeScalerProps) {
             );
           })}
         </tbody>
+        {baseYield && (
+          <tfoot>
+            <tr className="border-t-2 border-blush/40 text-espresso">
+              <td />
+              <td className="py-2 pr-4 align-top">
+                <span className="font-semibold">Total dough</span>
+                <span className="block text-xs font-normal text-espresso-muted">
+                  {scaledLoaves === 1
+                    ? `About ${single}`
+                    : `About ${scaledLoaves} ${plural}`}
+                </span>
+              </td>
+              <td className="py-2 pr-4 text-right font-semibold tabular-nums align-top">
+                &asymp; {scaledGrams.toLocaleString("en-US")} g
+              </td>
+              {hasPct && <td />}
+            </tr>
+          </tfoot>
+        )}
       </table>
 
       <div className="mt-4 flex items-center justify-between gap-3 text-xs text-espresso-muted">

@@ -268,7 +268,7 @@ export default async function BreadPostPage({ params }: PageProps) {
             <TableOfContents headings={headings} />
 
             {/* Interactive batch scaler (static table still renders in the body below) */}
-            {formula && <RecipeScaler rows={formula} />}
+            {formula && <RecipeScaler rows={formula} unit={frontmatter.yieldUnit} />}
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>
