@@ -10,6 +10,8 @@ export interface CoffeeFrontmatter {
   milkTemp?: string;
   /** Espresso dose in grams for this drink, powering the inline brew calculator (e.g. 18, 21) */
   dose?: number;
+  /** Slug of a bean review (content/beans/<slug>.mdx) this drink is brewed with — renders a cross-link card. */
+  beans?: string;
   tags: string[];
   excerpt: string;
 }

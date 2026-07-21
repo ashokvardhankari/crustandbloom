@@ -5,6 +5,7 @@ import {
   getAllCoffeeSlugs,
   getAllCoffeePostsMeta,
   getCoffeePost,
+  getAllBeanPostsMeta,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -19,6 +20,7 @@ import CookModeButton from "@/components/ui/CookModeButton";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
+import BeanLink from "@/components/ui/BeanLink";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
@@ -62,6 +64,12 @@ export default async function CoffeePostPage({ params }: PageProps) {
     frontmatter.tags
   );
   const headings = extractHeadings(raw);
+
+  // Cross-link to the bean review this drink is brewed with, if one is named
+  // in frontmatter and the review actually exists on disk.
+  const bean = frontmatter.beans
+    ? (await getAllBeanPostsMeta()).find((b) => b.slug === frontmatter.beans) ?? null
+    : null;
 
   return (
     <>
@@ -176,6 +184,14 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <span className="stat-label">Category</span>
                 <span className="stat-value capitalize">{frontmatter.category}</span>
               </div>
+
+              {/* Beans used — cross-link to the bag's review */}
+              {bean && (
+                <div className="pt-2">
+                  <span className="stat-label mb-2 block">Brewed with</span>
+                  <BeanLink bean={bean} />
+                </div>
+              )}
 
               {/* Divider */}
               <div className="pt-4 border-t border-blush/30">
