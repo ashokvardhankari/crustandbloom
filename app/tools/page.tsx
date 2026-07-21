@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
-import { listingMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
+
+const TOOLS_DESCRIPTION =
+  "Calculators and tools for baking and coffee. Plan your sourdough schedule or dial in your espresso.";
 
 export const metadata: Metadata = listingMetadata({
   title: "Tools",
-  description:
-    "Calculators and tools for baking and coffee. Plan your sourdough schedule or dial in your espresso.",
+  description: TOOLS_DESCRIPTION,
   canonical: "/tools",
 });
 
@@ -30,6 +33,17 @@ const tools = [
 export default function ToolsPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Tools",
+          description: TOOLS_DESCRIPTION,
+          path: "/tools",
+          items: tools.map((tool) => ({
+            title: tool.title,
+            path: tool.href,
+          })),
+        })}
+      />
       <div className="mb-14 animate-fade-in-up">
         <p className="eyebrow mb-3">
           Resources
