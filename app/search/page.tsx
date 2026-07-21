@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import SearchClient from "@/components/search/SearchClient";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Search",
-  alternates: { canonical: "/search" },
+  alternates: pageAlternates("/search"),
   description:
     "Search every Crust & Bloom recipe, bean review, and newsletter issue.",
 };

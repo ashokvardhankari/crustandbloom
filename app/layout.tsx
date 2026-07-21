@@ -5,7 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 import JsonLd from "@/components/seo/JsonLd";
-import { websiteJsonLd, organizationJsonLd } from "@/lib/seo";
+import { websiteJsonLd, organizationJsonLd, FEED_ALTERNATE_TYPES } from "@/lib/seo";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -33,9 +33,7 @@ export const metadata: Metadata = {
   keywords: ["sourdough", "specialty coffee", "bread baking", "espresso", "cappuccino", "latte", "artisan bread"],
   authors: [{ name: "Crust & Bloom" }],
   alternates: {
-    types: {
-      "application/rss+xml": "/feed.xml",
-    },
+    types: FEED_ALTERNATE_TYPES,
   },
   openGraph: {
     type: "website",

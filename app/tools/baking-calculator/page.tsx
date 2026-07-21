@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import BakingCalculator from "@/components/tools/BakingCalculator";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Baking Calculator",
-  alternates: { canonical: "/tools/baking-calculator" },
+  alternates: pageAlternates("/tools/baking-calculator"),
   description:
     "Plan your sourdough bake day. Pick a schedule, set your start time or deadline, and get a complete step-by-step timeline.",
 };

@@ -8,12 +8,12 @@ import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { faqPageJsonLd } from "@/lib/seo";
+import { faqPageJsonLd, pageAlternates } from "@/lib/seo";
 import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
   title: "Crust & Bloom: Coffee and Sourdough",
-  alternates: { canonical: "/" },
+  alternates: pageAlternates("/"),
   description:
     "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
 };

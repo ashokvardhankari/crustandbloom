@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Tools",
-  alternates: { canonical: "/tools" },
+  alternates: pageAlternates("/tools"),
   description:
     "Calculators and tools for baking and coffee. Plan your sourdough schedule or dial in your espresso.",
 };

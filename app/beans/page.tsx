@@ -3,14 +3,14 @@ import { getAllBeanPostsMeta } from "@/lib/content";
 import BeanFilterBar from "@/components/ui/BeanFilterBar";
 import Rating from "@/components/ui/Rating";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd } from "@/lib/seo";
+import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
 
 const PAGE_DESCRIPTION =
   "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.";
 
 export const metadata: Metadata = {
   title: "Beans",
-  alternates: { canonical: "/beans" },
+  alternates: pageAlternates("/beans"),
   description: PAGE_DESCRIPTION,
 };
 

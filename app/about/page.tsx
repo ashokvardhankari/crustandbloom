@@ -7,10 +7,11 @@ import {
   getAllBeanPostsMeta,
   getAllGalleryImages,
 } from "@/lib/content";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About",
-  alternates: { canonical: "/about" },
+  alternates: pageAlternates("/about"),
   description:
     "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.",
 };

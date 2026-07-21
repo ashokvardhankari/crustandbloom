@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { getAllCoffeePostsMeta } from "@/lib/content";
 import CoffeeFilterBar from "@/components/ui/CoffeeFilterBar";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd } from "@/lib/seo";
+import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
 
 const PAGE_DESCRIPTION =
   "Espresso-based drinks: cappuccinos, lattes, and more. Each entry includes brew notes, ratios, and technique.";
 
 export const metadata: Metadata = {
   title: "Coffee",
-  alternates: { canonical: "/coffee" },
+  alternates: pageAlternates("/coffee"),
   description: PAGE_DESCRIPTION,
 };
 

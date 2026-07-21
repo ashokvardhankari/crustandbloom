@@ -26,6 +26,22 @@ export function absoluteUrl(path: string): string {
   return path.startsWith("http") ? path : `${SITE_URL}${path}`;
 }
 
+/**
+ * RSS autodiscovery alternate, emitted as `<link rel="alternate"
+ * type="application/rss+xml">`. Must be repeated on every page's `alternates`:
+ * Next shallow-merges nested metadata, so a page declaring `alternates.canonical`
+ * overwrites the layout's `alternates.types` wholesale — which silently dropped
+ * the feed link from every canonical-bearing page (i.e. all of them).
+ */
+export const FEED_ALTERNATE_TYPES = {
+  "application/rss+xml": "/feed.xml",
+} as const;
+
+/** Canonical URL plus feed autodiscovery for a page's `alternates` block. */
+export function pageAlternates(canonical: string): Metadata["alternates"] {
+  return { canonical, types: FEED_ALTERNATE_TYPES };
+}
+
 // ─── Page metadata helpers ───────────────────────────────────────────────────
 
 /**
@@ -48,7 +64,10 @@ export function articleMetadata(opts: {
   return {
     title: opts.title,
     description: opts.description,
-    ...(opts.canonical && { alternates: { canonical: opts.canonical } }),
+    alternates: {
+      ...(opts.canonical && { canonical: opts.canonical }),
+      types: FEED_ALTERNATE_TYPES,
+    },
     openGraph: {
       type: "article",
       title: opts.title,

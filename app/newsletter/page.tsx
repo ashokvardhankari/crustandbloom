@@ -4,7 +4,7 @@ import { getAllNewslettersMeta } from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { collectionPageJsonLd } from "@/lib/seo";
+import { collectionPageJsonLd, pageAlternates } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
 
 const PAGE_DESCRIPTION =
@@ -12,7 +12,7 @@ const PAGE_DESCRIPTION =
 
 export const metadata: Metadata = {
   title: "Newsletter",
-  alternates: { canonical: "/newsletter" },
+  alternates: pageAlternates("/newsletter"),
   description: PAGE_DESCRIPTION,
 };
 

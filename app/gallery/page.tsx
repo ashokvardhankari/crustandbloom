@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { getAllGalleryImages } from "@/lib/content";
 import GalleryGrid from "@/components/ui/GalleryGrid";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Gallery",
-  alternates: { canonical: "/gallery" },
+  alternates: pageAlternates("/gallery"),
   description:
     "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.",
 };

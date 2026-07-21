@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import CoffeeCalculator from "@/components/tools/CoffeeCalculator";
+import { pageAlternates } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Coffee Calculator",
-  alternates: { canonical: "/tools/coffee-calculator" },
+  alternates: pageAlternates("/tools/coffee-calculator"),
   description:
     "Brew ratio calculator, drink builder, and extraction yield calculator for espresso and coffee.",
 };
