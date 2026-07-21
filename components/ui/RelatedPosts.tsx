@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { TaggedEntry } from "@/lib/content";
 import { cn, formatDate } from "@/lib/utils";
@@ -37,27 +38,38 @@ export default function RelatedPosts({
               key={entry.url}
               href={entry.url}
               role="listitem"
-              className="card-galatea group flex flex-col p-6"
+              className="card-galatea group flex flex-col overflow-hidden"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <span
-                  className={cn(
-                    "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
-                    kindStyles[entry.kind]
-                  )}
-                >
-                  {entry.kind}
-                </span>
-                <time dateTime={entry.date} className="text-xs text-espresso-muted">
-                  {formatDate(entry.date)}
-                </time>
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={entry.image}
+                  alt={entry.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
               </div>
-              <h3 className="font-display text-lg font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200 text-balance">
-                {entry.title}
-              </h3>
-              <p className="text-sm text-espresso/60 leading-relaxed line-clamp-2">
-                {entry.excerpt}
-              </p>
+              <div className="flex flex-col p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <span
+                    className={cn(
+                      "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
+                      kindStyles[entry.kind]
+                    )}
+                  >
+                    {entry.kind}
+                  </span>
+                  <time dateTime={entry.date} className="text-xs text-espresso-muted">
+                    {formatDate(entry.date)}
+                  </time>
+                </div>
+                <h3 className="font-display text-lg font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200 text-balance">
+                  {entry.title}
+                </h3>
+                <p className="text-sm text-espresso/60 leading-relaxed line-clamp-2">
+                  {entry.excerpt}
+                </p>
+              </div>
             </Link>
           ))}
         </div>

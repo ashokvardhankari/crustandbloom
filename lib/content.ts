@@ -517,6 +517,8 @@ export interface TaggedEntry {
   excerpt: string;
   date: string;
   tags: string[];
+  /** Cover photo (beans fall back to the branded placeholder). */
+  image: string;
 }
 
 /**
@@ -549,6 +551,7 @@ async function getTaggableEntries(): Promise<TaggedEntry[]> {
       "tags" in p.frontmatter && Array.isArray(p.frontmatter.tags)
         ? p.frontmatter.tags
         : [],
+    image: p.frontmatter.coverImage,
   }));
 
   const fromBeans: TaggedEntry[] = beans.map((b) => ({
@@ -558,6 +561,7 @@ async function getTaggableEntries(): Promise<TaggedEntry[]> {
     excerpt: b.frontmatter.excerpt,
     date: b.frontmatter.date,
     tags: Array.isArray(b.frontmatter.tags) ? b.frontmatter.tags : [],
+    image: beanCover(b.frontmatter.coverImage),
   }));
 
   return [...fromPosts, ...fromBeans];
