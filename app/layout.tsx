@@ -66,6 +66,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${jakarta.variable} ${fraunces.variable}`}>
+      <head>
+        {/* OpenSearch autodiscovery — lets browsers add the site's own search
+            box (the browser-facing counterpart to the WebSite SearchAction
+            JSON-LD). rel="search" isn't covered by Next's Metadata API, so it's
+            declared as a raw <link> here. */}
+        <link
+          rel="search"
+          type="application/opensearchdescription+xml"
+          title="Crust & Bloom"
+          href="/opensearch.xml"
+        />
+      </head>
       <body className="bg-cream text-espresso font-jakarta antialiased">
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
