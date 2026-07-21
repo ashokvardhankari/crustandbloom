@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import type { FormulaRow } from "@/lib/content";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -103,6 +104,32 @@ export function beanValue(price?: string): {
     cups,
     approximate: price.includes("~"),
   };
+}
+
+/**
+ * Sum the gram weights in a bread formula into a total dough weight, and
+ * estimate how many loaves it makes. Only rows carrying an explicit gram value
+ * count: small-volume aromatics measured in tsp/tbsp (rosemary, zest) add
+ * negligible weight, and anything applied as a surface "coating" sits on the
+ * crust rather than in the dough — both are excluded so the figure reflects
+ * what actually goes on the bench. The gram value is read even from mixed
+ * strings like "2 tbsp (~30g)". Returns null when no weighable row is found,
+ * so callers just skip rendering.
+ */
+export function doughYield(rows: FormulaRow[]): {
+  grams: number; // total dough weight, rounded
+  loaves: number; // estimated loaf count (≥ 1)
+} | null {
+  let grams = 0;
+  for (const row of rows) {
+    if (/coating/i.test(row.ingredient)) continue;
+    const g = /(\d+(?:\.\d+)?)\s*g\b/i.exec(row.weight);
+    if (g) grams += Number(g[1]);
+  }
+  if (!(grams > 0)) return null;
+  // Home sourdough boules run ~750–1300 g of dough; split above that.
+  const loaves = Math.max(1, Math.round(grams / 1100));
+  return { grams: Math.round(grams), loaves };
 }
 
 export function getCategoryLabel(

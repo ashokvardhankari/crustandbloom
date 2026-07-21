@@ -23,6 +23,7 @@ import TableOfContents from "@/components/ui/TableOfContents";
 import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMeter";
+import DoughYield from "@/components/ui/DoughYield";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
@@ -296,6 +297,9 @@ export default async function BreadPostPage({ params }: PageProps) {
                 <span className="stat-label">Bake Temperature</span>
                 <span className="stat-value">{frontmatter.bakeTemp}</span>
               </div>
+
+              {/* Total dough weight + loaf estimate, derived from the formula */}
+              <DoughYield rows={formula} />
 
               {prepTime && (
                 <div className="stat-card">
