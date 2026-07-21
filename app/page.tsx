@@ -290,7 +290,7 @@ export default async function HomePage() {
                 {
                   number: "02",
                   title: "Ferment & brew slowly",
-                  body: "48-hour cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings.",
+                  body: "Overnight cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings.",
                   icon: (
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
                       <circle cx="24" cy="28" r="14" />
