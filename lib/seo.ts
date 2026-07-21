@@ -325,6 +325,10 @@ export function breadRecipeJsonLd(
     author: AUTHOR,
     publisher: PUBLISHER,
     datePublished: fm.date,
+    // Recipes are static, frontmatter-driven copies with no edit tracking, so
+    // dateModified equals datePublished (the same honest "as published" signal
+    // newsletterArticleJsonLd emits) rather than a build-clock value.
+    dateModified: fm.date,
     recipeCategory: "Bread",
     recipeYield: `1 ${fm.yieldUnit ?? "loaf"}`,
     keywords: keywordList([
@@ -357,6 +361,8 @@ export function coffeeRecipeJsonLd(
     author: AUTHOR,
     publisher: PUBLISHER,
     datePublished: fm.date,
+    // See breadRecipeJsonLd: dateModified mirrors datePublished (no edit tracking).
+    dateModified: fm.date,
     recipeCategory: "Drink",
     recipeYield: "1 cup",
     keywords: fm.tags.join(", "),
@@ -407,6 +413,9 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
     author: AUTHOR,
     publisher: PUBLISHER,
     datePublished: fm.date,
+    // Reviews are static frontmatter copies with no edit tracking, so
+    // dateModified equals datePublished — same rationale as the Recipe schemas.
+    dateModified: fm.date,
     reviewBody: fm.tastingNotes,
   };
 }
