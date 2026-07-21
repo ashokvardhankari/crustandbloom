@@ -13,6 +13,19 @@ export const SITE_DESCRIPTION =
   "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.";
 
 /**
+ * BCP-47 language tag for the site's content, emitted as `inLanguage` on every
+ * CreativeWork-subtype JSON-LD entity (Recipe, Review, Article, CollectionPage,
+ * AboutPage, ImageGallery, WebApplication, FAQPage, WebSite). The site is written
+ * entirely in US English — the same signal already carried by `<html lang="en">`,
+ * the manifest `lang: "en-US"`, and the `og:locale` `en_US` — so declaring it in
+ * structured data gives search engines an explicit content-language signal for
+ * regional targeting that the JSON-LD previously omitted. Matches the manifest's
+ * hyphenated BCP-47 form (schema.org `inLanguage` expects BCP-47, not the
+ * underscore `og:locale` form).
+ */
+export const SITE_LANGUAGE = "en-US";
+
+/**
  * Social profiles for the brand. Single source of truth for both the footer
  * links and the Organization JSON-LD `sameAs`, so a handle change updates both.
  */
@@ -322,6 +335,7 @@ export function breadRecipeJsonLd(
     name: fm.title,
     url: `${SITE_URL}/bread/${slug}`,
     description: fm.excerpt,
+    inLanguage: SITE_LANGUAGE,
     image: fm.images.map(absoluteUrl),
     author: AUTHOR,
     publisher: PUBLISHER,
@@ -376,6 +390,7 @@ export function coffeeRecipeJsonLd(
     name: fm.title,
     url: `${SITE_URL}/coffee/${slug}`,
     description: fm.excerpt,
+    inLanguage: SITE_LANGUAGE,
     image: fm.images.map(absoluteUrl),
     author: AUTHOR,
     publisher: PUBLISHER,
@@ -448,6 +463,7 @@ export function beanReviewJsonLd(slug: string, fm: BeanFrontmatter) {
     "@context": "https://schema.org",
     "@type": "Review",
     url: `${SITE_URL}/beans/${slug}`,
+    inLanguage: SITE_LANGUAGE,
     itemReviewed: {
       "@type": "Product",
       name: `${fm.roaster} ${fm.title}`,
@@ -493,6 +509,7 @@ export function newsletterArticleJsonLd(
     headline: fm.title,
     url: `${SITE_URL}/newsletter/${slug}`,
     description: fm.excerpt,
+    inLanguage: SITE_LANGUAGE,
     ...(fm.coverImage && { image: absoluteUrl(fm.coverImage) }),
     author: AUTHOR,
     publisher: PUBLISHER,
@@ -526,6 +543,7 @@ export function collectionPageJsonLd(opts: {
     name: opts.name,
     description: opts.description,
     url: absoluteUrl(opts.path),
+    inLanguage: SITE_LANGUAGE,
     mainEntity: {
       "@type": "ItemList",
       numberOfItems: opts.items.length,
@@ -554,6 +572,7 @@ export function aboutPageJsonLd(opts: { name: string; description: string }) {
     name: opts.name,
     description: opts.description,
     url: absoluteUrl("/about"),
+    inLanguage: SITE_LANGUAGE,
     mainEntity: { "@id": `${SITE_URL}/#organization` },
     publisher: PUBLISHER,
   };
@@ -584,6 +603,7 @@ export function imageGalleryJsonLd(opts: {
     name: opts.name,
     description: opts.description,
     url: absoluteUrl(opts.path),
+    inLanguage: SITE_LANGUAGE,
     numberOfItems: opts.images.length,
     associatedMedia: opts.images.map((image) => ({
       "@type": "ImageObject",
@@ -617,6 +637,7 @@ export function toolApplicationJsonLd(opts: {
     name: opts.name,
     description: opts.description,
     url: absoluteUrl(opts.path),
+    inLanguage: SITE_LANGUAGE,
     applicationCategory: "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript.",
@@ -655,6 +676,7 @@ export function faqPageJsonLd(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    inLanguage: SITE_LANGUAGE,
     mainEntity: items.map((item) => ({
       "@type": "Question",
       name: item.question,
@@ -686,6 +708,7 @@ export function websiteJsonLd() {
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
+    inLanguage: SITE_LANGUAGE,
     publisher: { "@id": `${SITE_URL}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
