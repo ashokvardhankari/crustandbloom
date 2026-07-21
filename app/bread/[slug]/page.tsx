@@ -21,6 +21,7 @@ import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
+import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMeter";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
 import { formatDate, formatDuration, getCategoryLabel, slugify } from "@/lib/utils";
@@ -265,9 +266,15 @@ export default async function BreadPostPage({ params }: PageProps) {
                 Bake Details
               </h2>
 
-              <div className="stat-card">
-                <span className="stat-label">Hydration</span>
-                <span className="stat-value">{frontmatter.hydration}%</span>
+              <div className="stat-card flex-col items-stretch gap-2">
+                <div className="flex items-baseline justify-between">
+                  <span className="stat-label">Hydration</span>
+                  <span className="stat-value">{frontmatter.hydration}%</span>
+                </div>
+                <HydrationMeter hydration={frontmatter.hydration} />
+                <span className="text-xs text-espresso-muted leading-snug">
+                  {hydrationDescriptor(frontmatter.hydration)}
+                </span>
               </div>
 
               <div className="stat-card">
