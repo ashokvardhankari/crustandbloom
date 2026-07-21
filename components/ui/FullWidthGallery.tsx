@@ -52,6 +52,11 @@ export default function FullWidthGallery({
   const overlayRef = useRef<HTMLDivElement>(null);
   // Element that had focus before the lightbox opened, restored on close.
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  // Where a touch began, so touchend can tell a horizontal swipe (navigate)
+  // from a vertical drag or a tap (close). `swiped` suppresses the tap-to-close
+  // click that fires after a swipe gesture completes.
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const swipedRef = useRef(false);
 
   const close = useCallback(() => setOpenIndex(null), []);
   const step = useCallback(
@@ -63,6 +68,41 @@ export default function FullWidthGallery({
   );
 
   const isOpen = openIndex !== null;
+
+  // Touch-swipe navigation for mobile: swipe left → next photo, right → previous.
+  // A gesture only counts if it's clearly horizontal (beats a 50px threshold and
+  // out-travels the vertical drift), so a tap still closes and a vertical drag is
+  // ignored.
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+    swipedRef.current = false;
+  }, []);
+
+  const onTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      const start = touchStartRef.current;
+      touchStartRef.current = null;
+      if (!start || items.length < 2) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - start.x;
+      const dy = t.clientY - start.y;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        swipedRef.current = true;
+        step(dx < 0 ? 1 : -1);
+      }
+    },
+    [items.length, step]
+  );
+
+  // Tap the backdrop to close — but not when the tap is the tail of a swipe.
+  const onOverlayClick = useCallback(() => {
+    if (swipedRef.current) {
+      swipedRef.current = false;
+      return;
+    }
+    close();
+  }, [close]);
 
   // While the lightbox is open: lock body scroll, wire global keys, and move
   // focus into the dialog — restoring the trigger's focus when it closes.
@@ -165,8 +205,10 @@ export default function FullWidthGallery({
           role="dialog"
           aria-modal="true"
           aria-label={`Photo viewer, ${openIndex! + 1} of ${items.length}`}
-          onClick={close}
-          className="fixed inset-0 z-[100] flex flex-col bg-espresso/95 backdrop-blur-sm"
+          onClick={onOverlayClick}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          className="fixed inset-0 z-[100] flex flex-col bg-espresso/95 backdrop-blur-sm touch-pan-y select-none"
         >
           {/* Top bar: position counter + close */}
           <div className="flex flex-shrink-0 items-center justify-between px-4 py-3 text-cream">
