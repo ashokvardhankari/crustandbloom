@@ -3,6 +3,7 @@ import {
   getAllBeanPostsMeta,
   getAllNewslettersMeta,
 } from "@/lib/content";
+import { beanCover } from "@/lib/utils";
 
 export const dynamic = "force-static";
 
@@ -10,6 +11,8 @@ export interface SearchEntry {
   title: string;
   url: string;
   kind: "Coffee" | "Bread" | "Beans" | "Newsletter";
+  /** Cover thumbnail shown beside the result; omitted when a post has none. */
+  image?: string;
   tags: string[];
   /**
    * Extra searchable text that isn't shown on the card: a coffee drink's
@@ -42,6 +45,7 @@ export async function GET() {
         title: f.title,
         url: `/${f.type}/${p.slug}`,
         kind: (f.type === "coffee" ? "Coffee" : "Bread") as "Coffee" | "Bread",
+        ...(f.coverImage && { image: f.coverImage }),
         tags: Array.isArray(f.tags) ? f.tags : [],
         keywords:
           f.type === "coffee"
@@ -57,6 +61,7 @@ export async function GET() {
         title: `${f.title} (${f.roaster})`,
         url: `/beans/${b.slug}`,
         kind: "Beans" as const,
+        image: beanCover(f.coverImage),
         tags: [...f.tags, f.origin, f.roastLevel],
         keywords: keywords(
           f.process,
@@ -74,6 +79,7 @@ export async function GET() {
       title: n.frontmatter.title,
       url: `/newsletter/${n.slug}`,
       kind: "Newsletter" as const,
+      ...(n.frontmatter.coverImage && { image: n.frontmatter.coverImage }),
       tags: [],
       keywords: [],
       excerpt: n.frontmatter.excerpt,

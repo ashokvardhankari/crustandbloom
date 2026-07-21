@@ -2,12 +2,15 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface SearchEntry {
   title: string;
   url: string;
   kind: "Coffee" | "Bread" | "Beans" | "Newsletter";
+  /** Cover thumbnail; absent for posts without a cover photo. */
+  image?: string;
   tags: string[];
   /** Hidden searchable text (categories, inclusion ingredients, tasting notes). */
   keywords: string[];
@@ -250,24 +253,37 @@ export default function SearchClient() {
             key={r.url}
             href={r.url}
             role="listitem"
-            className="card-galatea block p-6 group"
+            className="card-galatea flex items-center gap-4 p-4 sm:p-5 group"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <span
-                className={cn(
-                  "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
-                  kindStyles[r.kind]
-                )}
-              >
-                {r.kind}
-              </span>
+            {r.image && (
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-cream-dark">
+                <Image
+                  src={r.image}
+                  alt=""
+                  fill
+                  sizes="80px"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            )}
+            <div className="min-w-0">
+              <div className="flex items-center gap-3 mb-1.5">
+                <span
+                  className={cn(
+                    "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
+                    kindStyles[r.kind]
+                  )}
+                >
+                  {r.kind}
+                </span>
+              </div>
+              <h2 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200">
+                {r.title}
+              </h2>
+              <p className="text-sm text-espresso/60 leading-relaxed line-clamp-2">
+                {r.excerpt}
+              </p>
             </div>
-            <h2 className="font-display text-xl font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200">
-              {r.title}
-            </h2>
-            <p className="text-sm text-espresso/60 leading-relaxed">
-              {r.excerpt}
-            </p>
           </Link>
         ))}
       </div>
