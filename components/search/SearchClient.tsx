@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 
 interface SearchEntry {
   title: string;
@@ -276,6 +276,14 @@ export default function SearchClient() {
                 >
                   {r.kind}
                 </span>
+                {r.date && (
+                  <time
+                    dateTime={r.date}
+                    className="text-xs text-espresso-muted"
+                  >
+                    {formatDate(r.date)}
+                  </time>
+                )}
               </div>
               <h2 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200">
                 {r.title}
