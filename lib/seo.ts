@@ -452,6 +452,41 @@ export function aboutPageJsonLd(opts: { name: string; description: string }) {
 }
 
 /**
+ * ImageGallery schema for the /gallery page. The site's photography ("brewed,
+ * baked, and photographed by hand") is core to the brand, and while the image
+ * sitemap exposes each photo grouped under its post, the gallery page itself —
+ * the one page that presents every image as a curated collection — emitted no
+ * structured data. This wraps each photo as an `ImageObject` in
+ * `associatedMedia`, carrying its caption and a `contentUrl` (absolute) plus a
+ * `url` deep-linking to the post it belongs to, so search engines can read the
+ * page as a gallery rather than a flat document. Renders `numberOfItems: 0`
+ * gracefully for an empty gallery.
+ */
+export function imageGalleryJsonLd(opts: {
+  name: string;
+  description: string;
+  /** Relative path of the gallery page itself, e.g. "/gallery". */
+  path: string;
+  /** Photos in display order; each carries the image src, a caption, and its post URL. */
+  images: { src: string; caption: string; postPath: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: opts.name,
+    description: opts.description,
+    url: absoluteUrl(opts.path),
+    numberOfItems: opts.images.length,
+    associatedMedia: opts.images.map((image) => ({
+      "@type": "ImageObject",
+      contentUrl: absoluteUrl(image.src),
+      caption: image.caption,
+      url: absoluteUrl(image.postPath),
+    })),
+  };
+}
+
+/**
  * BreadcrumbList schema for a detail page's trail. Each crumb needs an
  * absolute `item` URL; the final (current) crumb may omit its href.
  */

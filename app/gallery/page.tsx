@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { getAllGalleryImages } from "@/lib/content";
 import GalleryGrid from "@/components/ui/GalleryGrid";
-import { listingMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { imageGalleryJsonLd, listingMetadata } from "@/lib/seo";
+
+const GALLERY_DESCRIPTION =
+  "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.";
 
 export const metadata: Metadata = listingMetadata({
   title: "Gallery",
-  description:
-    "All photos from the Crust & Bloom archives: coffee, bread, process shots, and everything in between.",
+  description: GALLERY_DESCRIPTION,
   canonical: "/gallery",
 });
 
@@ -15,6 +18,18 @@ export default async function GalleryPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={imageGalleryJsonLd({
+          name: "Gallery",
+          description: GALLERY_DESCRIPTION,
+          path: "/gallery",
+          images: images.map((image) => ({
+            src: image.src,
+            caption: image.title,
+            postPath: image.postUrl,
+          })),
+        })}
+      />
       {/* Header */}
       <div className="mb-14 max-w-xl animate-fade-in-up">
         <p className="eyebrow mb-3">
