@@ -13,7 +13,7 @@ import type {
   GalleryImage,
 } from "./types";
 import { MDXComponents } from "@/components/mdx/MDXComponents";
-import { slugify, beanCover } from "@/lib/utils";
+import { slugify, beanCover, readingTime } from "@/lib/utils";
 
 // ─── Path helpers ───────────────────────────────────────────────────────────
 
@@ -202,14 +202,18 @@ export async function getAllNewsletterSlugs(): Promise<string[]> {
 }
 
 export async function getAllNewslettersMeta(): Promise<
-  PostMeta<NewsletterFrontmatter>[]
+  (PostMeta<NewsletterFrontmatter> & { readingMinutes: number })[]
 > {
   const slugs = await getAllNewsletterSlugs();
   const posts = await Promise.all(
     slugs.map(async (slug) => {
       const raw = await readMDX(contentPath("newsletters", `${slug}.mdx`));
       const { data } = matter(raw);
-      return { slug, frontmatter: data as NewsletterFrontmatter };
+      return {
+        slug,
+        frontmatter: data as NewsletterFrontmatter,
+        readingMinutes: readingTime(raw),
+      };
     })
   );
   return posts.sort(

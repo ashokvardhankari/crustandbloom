@@ -76,6 +76,21 @@ export function formatDuration(iso?: string): string | null {
 }
 
 /**
+ * Estimated reading time in whole minutes for a body of MDX/markdown prose, at
+ * an average adult pace (~200 words/min). Strips a leading YAML frontmatter
+ * block plus code spans and the noisiest markdown punctuation so the count
+ * reflects words a reader actually reads, not syntax. Always at least 1 min.
+ */
+export function readingTime(raw: string): number {
+  const body = raw
+    .replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "") // drop frontmatter
+    .replace(/`{1,3}[^`]*`{1,3}/g, " ") // code spans / fenced blocks
+    .replace(/[#>*_~|=[\]()]/g, " "); // markdown punctuation
+  const words = body.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}
+
+/**
  * Estimate value from a bean's price string like "$18 / 12oz" or "~$7 / 13oz".
  * Assumes an 18 g dose per cup — a fair middle for a double espresso or a mug
  * of pour-over. Returns null when a dollar amount and an ounce weight can't

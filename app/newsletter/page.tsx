@@ -68,6 +68,12 @@ export default async function NewsletterArchivePage() {
                     >
                       {formatDate(issue.frontmatter.date)}
                     </time>
+                    <span className="text-xs text-espresso-muted/70" aria-hidden="true">
+                      ·
+                    </span>
+                    <span className="text-xs text-espresso-muted">
+                      {issue.readingMinutes} min read
+                    </span>
                   </div>
                   <h2 className="font-display text-2xl font-semibold tracking-tight text-espresso mb-2 group-hover:text-terracotta transition-colors duration-200">
                     {issue.frontmatter.title}

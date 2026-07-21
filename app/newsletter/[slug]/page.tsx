@@ -17,7 +17,7 @@ import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, newsletterArticleJsonLd } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
+import { formatDate, readingTime } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -82,6 +82,12 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
             >
               {formatDate(frontmatter.date)}
             </time>
+            <span className="text-xs text-espresso-muted/70" aria-hidden="true">
+              ·
+            </span>
+            <span className="text-xs text-espresso-muted">
+              {readingTime(raw)} min read
+            </span>
             <div className="ml-auto">
               <ShareButton title={frontmatter.title} label="Share" tooltip="Share this issue" />
             </div>
