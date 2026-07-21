@@ -346,12 +346,30 @@ export function breadRecipeJsonLd(
   };
 }
 
+/**
+ * Convert a coffee drink's `extractionTime` (e.g. "25s", "28s") into an ISO 8601
+ * duration ("PT25S") for the Recipe `cookTime` field. The espresso extraction —
+ * the shot pull — is the drink's actual brewing step, so it is the one honest,
+ * non-fabricated time value a coffee recipe carries (grinding/steaming times
+ * aren't recorded, so prepTime/totalTime are deliberately left off). Returns
+ * undefined when the string has no whole-second value to read.
+ */
+function extractionCookTime(extractionTime?: string): string | undefined {
+  if (!extractionTime) return undefined;
+  const match = /(\d+)\s*s/i.exec(extractionTime);
+  if (!match) return undefined;
+  const seconds = parseInt(match[1], 10);
+  if (!Number.isFinite(seconds) || seconds <= 0) return undefined;
+  return `PT${seconds}S`;
+}
+
 export function coffeeRecipeJsonLd(
   slug: string,
   fm: CoffeeFrontmatter,
   raw: string
 ) {
   const steps = instructionSteps(raw, `${SITE_URL}/coffee/${slug}`);
+  const cookTime = extractionCookTime(fm.extractionTime);
   return {
     "@context": "https://schema.org",
     "@type": "Recipe",
@@ -366,6 +384,10 @@ export function coffeeRecipeJsonLd(
     dateModified: fm.date,
     recipeCategory: "Drink",
     recipeYield: "1 cup",
+    // cookTime = the espresso extraction (shot pull), the one honest brewing
+    // duration a coffee drink records; prepTime/totalTime are omitted rather
+    // than fabricated from unrecorded grinding/steaming times.
+    ...(cookTime && { cookTime }),
     // Merge the drink's category (latte/cappuccino/…) in with its authored tags,
     // deduped, matching how breadRecipeJsonLd folds its base descriptors into
     // keywords — a drink whose category isn't also a tag (e.g. the mocha, tagged
