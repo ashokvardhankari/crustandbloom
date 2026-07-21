@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { getAllNewslettersMeta } from "@/lib/content";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import ScrollReveal from "@/components/ui/ScrollReveal";
@@ -56,8 +57,20 @@ export default async function NewsletterArchivePage() {
               <ScrollReveal key={issue.slug} delay={i * 100}>
                 <Link
                   href={`/newsletter/${issue.slug}`}
-                  className="card-galatea block p-8 group"
+                  className="card-galatea group flex flex-col sm:flex-row"
                 >
+                  {issue.frontmatter.coverImage && (
+                    <div className="relative shrink-0 aspect-[16/9] sm:aspect-auto sm:w-56 bg-cream-dark overflow-hidden">
+                      <Image
+                        src={issue.frontmatter.coverImage}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) 100vw, 224px"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
+                  )}
+                  <div className="p-8 min-w-0 flex-1">
                   <div className="flex items-baseline gap-3 mb-4">
                     <span className="inline-block eyebrow bg-blush/40 px-3 py-1 rounded-full">
                       Issue #{issue.frontmatter.issue}
@@ -81,6 +94,7 @@ export default async function NewsletterArchivePage() {
                   <p className="text-sm text-espresso/60 leading-relaxed">
                     {issue.frontmatter.excerpt}
                   </p>
+                  </div>
                 </Link>
               </ScrollReveal>
             ))}
