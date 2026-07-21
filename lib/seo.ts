@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { roastLabel, slugify, wordCount } from "./utils";
+import { readImageSize } from "./image-size";
 import type {
   BeanFrontmatter,
   BreadFrontmatter,
@@ -156,8 +157,17 @@ export function listingMetadata(opts: {
  * this set them explicitly. The cover image also carries an `alt` on both the
  * Open Graph and Twitter cards so assistive tech reading a shared link preview
  * gets a described image (parity with the layout's default OG image).
+ *
+ * The cover's intrinsic `og:image:width`/`height` are read from disk at build
+ * time (via `readImageSize`, the same header parser the gallery uses) and
+ * emitted when available. Detail-page covers have varied dimensions not stored
+ * in frontmatter, so earlier iterations left these off rather than fabricate the
+ * layout's fixed 1200×630 — but the real pixel size lets Facebook/LinkedIn/Slack
+ * reserve the correct preview box before the image loads and pass minimum-size
+ * checks. Async because the read touches the filesystem; it degrades to no
+ * dimensions (the prior behaviour) if the file is missing or unparseable.
  */
-export function articleMetadata(opts: {
+export async function articleMetadata(opts: {
   title: string;
   description: string;
   image?: string;
@@ -168,9 +178,16 @@ export function articleMetadata(opts: {
   section?: string;
   /** Post tags, emitted as one `article:tag` each so platforms can categorise the share. */
   tags?: string[];
-}): Metadata {
+}): Promise<Metadata> {
+  const size = opts.image ? await readImageSize(opts.image) : null;
   const images = opts.image
-    ? [{ url: opts.image, alt: opts.title }]
+    ? [
+        {
+          url: opts.image,
+          alt: opts.title,
+          ...(size && { width: size.width, height: size.height }),
+        },
+      ]
     : undefined;
   return {
     title: opts.title,
