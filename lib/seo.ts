@@ -34,7 +34,18 @@ export const SITE_SOCIAL_LINKS = [
   { label: "Pinterest", href: "https://pinterest.com/crustandbloom" },
 ] as const;
 
-const AUTHOR = { "@type": "Person", name: SITE_NAME } as const;
+/**
+ * The byline used as `author` on every detail-page Recipe/Review/Article
+ * entity. The `url` points at the site's `/about` page — the page that
+ * describes who is behind the brand — which is Google's recommended way to
+ * disambiguate an author across Recipe, Review, and Article rich results
+ * (an E-E-A-T signal the schema previously omitted, carrying only a name).
+ */
+const AUTHOR = {
+  "@type": "Person",
+  name: SITE_NAME,
+  url: `${SITE_URL}/about`,
+} as const;
 
 /**
  * Reference to the site-wide Organization node (injected once per page by the
