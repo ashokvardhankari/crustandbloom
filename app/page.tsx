@@ -45,6 +45,7 @@ const faqs: FAQItem[] = [
     question: "Do you share your starter?",
     answer:
       "I've shared dried starter with a handful of people who've reached out. If you're interested, subscribe to the newsletter. When I have a fresh batch ready to dry and mail, subscribers hear first.",
+    link: { href: "/newsletter", label: "Subscribe to the newsletter" },
   },
 ];
 
