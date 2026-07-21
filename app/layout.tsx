@@ -4,6 +4,7 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import BackToTop from "@/components/ui/BackToTop";
 import JsonLd from "@/components/seo/JsonLd";
 import { websiteJsonLd, organizationJsonLd, FEED_ALTERNATE_TYPES, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
@@ -90,6 +91,7 @@ export default function RootLayout({
         <Navigation />
         <main id="main-content">{children}</main>
         <Footer />
+        <BackToTop />
         <Analytics />
       </body>
     </html>
