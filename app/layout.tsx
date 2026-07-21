@@ -4,8 +4,9 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
+import BackToTop from "@/components/ui/BackToTop";
 import JsonLd from "@/components/seo/JsonLd";
-import { websiteJsonLd, organizationJsonLd } from "@/lib/seo";
+import { websiteJsonLd, organizationJsonLd, FEED_ALTERNATE_TYPES, DEFAULT_OG_IMAGE } from "@/lib/seo";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -33,9 +34,7 @@ export const metadata: Metadata = {
   keywords: ["sourdough", "specialty coffee", "bread baking", "espresso", "cappuccino", "latte", "artisan bread"],
   authors: [{ name: "Crust & Bloom" }],
   alternates: {
-    types: {
-      "application/rss+xml": "/feed.xml",
-    },
+    types: FEED_ALTERNATE_TYPES,
   },
   openGraph: {
     type: "website",
@@ -45,21 +44,14 @@ export const metadata: Metadata = {
     title: "Crust & Bloom",
     description:
       "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
-    images: [
-      {
-        url: "/images/site/og-default.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Crust & Bloom",
-      },
-    ],
+    images: [DEFAULT_OG_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "Crust & Bloom",
     description:
       "A personal site about specialty coffee and artisan sourdough bread.",
-    images: ["/images/site/og-default.jpg"],
+    images: [{ url: DEFAULT_OG_IMAGE.url, alt: DEFAULT_OG_IMAGE.alt }],
   },
 };
 
@@ -75,6 +67,18 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${jakarta.variable} ${fraunces.variable}`}>
+      <head>
+        {/* OpenSearch autodiscovery — lets browsers add the site's own search
+            box (the browser-facing counterpart to the WebSite SearchAction
+            JSON-LD). rel="search" isn't covered by Next's Metadata API, so it's
+            declared as a raw <link> here. */}
+        <link
+          rel="search"
+          type="application/opensearchdescription+xml"
+          title="Crust & Bloom"
+          href="/opensearch.xml"
+        />
+      </head>
       <body className="bg-cream text-espresso font-jakarta antialiased">
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
@@ -87,6 +91,7 @@ export default function RootLayout({
         <Navigation />
         <main id="main-content">{children}</main>
         <Footer />
+        <BackToTop />
         <Analytics />
       </body>
     </html>

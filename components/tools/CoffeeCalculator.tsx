@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { RATIO_PRESETS, DRINK_PRESETS } from "@/lib/coffee-presets";
 
@@ -142,8 +143,8 @@ function ProportionBar({
   );
 }
 
-function DrinkBuilderPanel() {
-  const [drinkIdx, setDrinkIdx] = useState(0);
+function DrinkBuilderPanel({ initialIdx = 0 }: { initialIdx?: number }) {
+  const [drinkIdx, setDrinkIdx] = useState(initialIdx);
   const preset = DRINK_PRESETS[drinkIdx];
 
   const [dose, setDose] = useState(preset.dose);
@@ -305,6 +306,16 @@ function DrinkBuilderPanel() {
         {preset.note && (
           <p className="text-xs text-espresso/50 italic">{preset.note}</p>
         )}
+
+        {preset.recipeSlug && (
+          <Link
+            href={`/coffee/${preset.recipeSlug}`}
+            className="inline-flex items-center gap-1 text-sm font-semibold text-terracotta hover:underline"
+          >
+            Read the full {preset.name.replace(/^My\s+/, "")} recipe
+            <span aria-hidden="true">→</span>
+          </Link>
+        )}
       </div>
     </div>
   );
@@ -465,6 +476,20 @@ function ExtractionYieldPanel() {
 
 export default function CoffeeCalculator() {
   const [activeTab, setActiveTab] = useState<Tab>("ratio");
+  const [initialDrinkIdx, setInitialDrinkIdx] = useState(0);
+
+  // Deep-link support: a coffee recipe can link here with `?drink=<slug>` (e.g.
+  // /tools/coffee-calculator?drink=my-mocha) to open the Drink Builder with its
+  // own preset preselected. Read from window.location in an effect rather than
+  // useSearchParams so the tool page stays statically prerendered.
+  useEffect(() => {
+    const drink = new URLSearchParams(window.location.search).get("drink");
+    if (!drink) return;
+    const idx = DRINK_PRESETS.findIndex((d) => d.slug === drink);
+    if (idx === -1) return;
+    setInitialDrinkIdx(idx);
+    setActiveTab("drinks");
+  }, []);
 
   return (
     <div className="space-y-10">
@@ -484,7 +509,7 @@ export default function CoffeeCalculator() {
       </div>
 
       {activeTab === "ratio" && <BrewRatioPanel />}
-      {activeTab === "drinks" && <DrinkBuilderPanel />}
+      {activeTab === "drinks" && <DrinkBuilderPanel initialIdx={initialDrinkIdx} />}
       {activeTab === "yield" && <ExtractionYieldPanel />}
     </div>
   );

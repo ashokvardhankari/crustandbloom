@@ -44,21 +44,28 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
   return (
     <div>
       <div className="flex flex-wrap items-center gap-3 mb-10">
-        {filters.map((f) => (
-          <button
-            key={f.value}
-            onClick={() => setActive(f.value)}
-            className={cn(
-              "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200",
-              active === f.value
-                ? "bg-terracotta text-cream shadow-sm"
-                : "bg-blush/40 text-espresso hover:bg-blush/70"
-            )}
-          >
-            <span>{f.dot}</span>
-            {f.label}
-          </button>
-        ))}
+        <div
+          className="flex flex-wrap items-center gap-3"
+          role="group"
+          aria-label="Filter beans by roast"
+        >
+          {filters.map((f) => (
+            <button
+              key={f.value}
+              onClick={() => setActive(f.value)}
+              aria-pressed={active === f.value}
+              className={cn(
+                "inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                active === f.value
+                  ? "bg-terracotta text-cream shadow-sm"
+                  : "bg-blush/40 text-espresso hover:bg-blush/70"
+              )}
+            >
+              <span aria-hidden="true">{f.dot}</span>
+              {f.label}
+            </button>
+          ))}
+        </div>
 
         {/* Sort — pushed to the far end of the same control row */}
         <div
@@ -83,6 +90,12 @@ export default function BeanFilterBar({ posts }: BeanFilterBarProps) {
           ))}
         </div>
       </div>
+
+      {/* Announce the filtered count to screen readers as filters change — the
+          visible grid is the sighted counterpart to this live status message. */}
+      <p role="status" aria-live="polite" className="sr-only">
+        {filtered.length} {filtered.length === 1 ? "bean" : "beans"} shown
+      </p>
 
       {filtered.length === 0 ? (
         <div className="py-16 text-center text-espresso-muted">

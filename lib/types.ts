@@ -10,6 +10,10 @@ export interface CoffeeFrontmatter {
   milkTemp?: string;
   /** Espresso dose in grams for this drink, powering the inline brew calculator (e.g. 18, 21) */
   dose?: number;
+  /** Scannable ingredient list ("What you'll need") that also feeds recipeIngredient in the Recipe JSON-LD (e.g. "180ml whole milk"). */
+  ingredients?: string[];
+  /** Slug of a bean review (content/beans/<slug>.mdx) this drink is brewed with — renders a cross-link card. */
+  beans?: string;
   tags: string[];
   excerpt: string;
 }
@@ -34,6 +38,10 @@ export interface BreadFrontmatter {
   prepTime?: string;
   cookTime?: string;
   totalTime?: string;
+  /** Slug of a coffee recipe (content/coffee/<slug>.mdx) this loaf pairs with — renders a two-way "Pairs well with" cross-link. */
+  pairsWith?: string;
+  /** Singular name of the baked good this formula yields, for recipes that aren't loaves (e.g. "calzone"). Defaults to "loaf" — feeds the derived Yield stat and the Recipe JSON-LD recipeYield. */
+  yieldUnit?: string;
 }
 
 export type RoastLevel =
@@ -85,3 +93,21 @@ export interface PostMeta<T = PostFrontmatter> {
 
 export type FlavorFilter = "all" | "savory" | "sweet" | "spicy";
 export type RoastFilter = "all" | "light" | "medium" | "dark";
+
+/** Which content area a gallery photo comes from, used for the gallery filter. */
+export type GalleryCategory = "coffee" | "bread" | "beans";
+export type GalleryFilter = "all" | GalleryCategory;
+
+export interface GalleryImage {
+  src: string;
+  alt: string;
+  /** Title of the post the photo belongs to, shown on the gallery hover overlay. */
+  title: string;
+  /** Link back to the post the photo belongs to. */
+  postUrl: string;
+  category: GalleryCategory;
+  /** Intrinsic pixel dimensions, read from the file at build time, so the grid can
+   *  reserve each photo's aspect-ratio box and avoid layout shift while images load. */
+  width?: number;
+  height?: number;
+}

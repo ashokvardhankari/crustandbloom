@@ -8,12 +8,12 @@ import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { faqPageJsonLd } from "@/lib/seo";
+import { faqPageJsonLd, pageAlternates } from "@/lib/seo";
 import type { FAQItem } from "@/components/ui/FAQAccordion";
 
 export const metadata: Metadata = {
   title: "Crust & Bloom: Coffee and Sourdough",
-  alternates: { canonical: "/" },
+  alternates: pageAlternates("/"),
   description:
     "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
 };
@@ -23,11 +23,13 @@ const faqs: FAQItem[] = [
     question: "What coffee beans do you use?",
     answer:
       "I rotate through single-origin beans from a few trusted roasters depending on the season. Right now I'm working with a washed Ethiopian for espresso. It has that classic jasmine and stone fruit character that pulls beautifully.",
+    link: { href: "/beans/washed-ethiopia-guji", label: "Read my review of it" },
   },
   {
     question: "What hydration are your sourdoughs?",
     answer:
-      "Classic country sourdough runs at 78%. Inclusion loaves vary. Cheese loaves tend to go a bit lower (72%) since fat in the inclusions affects gluten development. Each post documents the exact percentage.",
+      "Classic country sourdough runs at 75%. Inclusion loaves range from about 70% to 78% depending on what's folded in. A filled calzone dough goes lower for easier shaping, while the everything-bagel and parmesan loaves push up toward 78%. Each post documents the exact percentage.",
+    link: { href: "/bread", label: "Browse the loaves" },
   },
   {
     question: "How do you store sourdough bread?",
@@ -43,6 +45,7 @@ const faqs: FAQItem[] = [
     question: "Do you share your starter?",
     answer:
       "I've shared dried starter with a handful of people who've reached out. If you're interested, subscribe to the newsletter. When I have a fresh batch ready to dry and mail, subscribers hear first.",
+    link: { href: "/newsletter", label: "Subscribe to the newsletter" },
   },
 ];
 
@@ -290,7 +293,7 @@ export default async function HomePage() {
                 {
                   number: "02",
                   title: "Ferment & brew slowly",
-                  body: "48-hour cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings.",
+                  body: "Overnight cold-retard sourdoughs. Dialled-in espresso with documented ratios and timings.",
                   icon: (
                     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-7 h-7">
                       <circle cx="24" cy="28" r="14" />

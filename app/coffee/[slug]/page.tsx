@@ -4,7 +4,10 @@ import Link from "next/link";
 import {
   getAllCoffeeSlugs,
   getAllCoffeePostsMeta,
+  getAllBreadPostsMeta,
   getCoffeePost,
+  getAllBeanPostsMeta,
+  getNewslettersFeaturing,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -19,10 +22,18 @@ import CookModeButton from "@/components/ui/CookModeButton";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import BrewCalculator from "@/components/ui/BrewCalculator";
+import IngredientList from "@/components/ui/IngredientList";
+import BrewRatioMeter, { brewRatioDescriptor } from "@/components/ui/BrewRatioMeter";
+import ShotYield from "@/components/ui/ShotYield";
+import BeanLink from "@/components/ui/BeanLink";
+import PairsWith from "@/components/ui/PairsWith";
+import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleMetadata, coffeeRecipeJsonLd } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
+import { articleMetadata, coffeeRecipeJsonLd, SITE_HOST } from "@/lib/seo";
+import { formatDate, getCategoryLabel, slugify, withTempConversion } from "@/lib/utils";
+import { DRINK_PRESETS } from "@/lib/coffee-presets";
 
 interface PageProps {
   params: { slug: string };
@@ -42,6 +53,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
       canonical: `/coffee/${params.slug}`,
+      section: "Coffee",
+      tags: frontmatter.tags,
     });
   } catch {
     return { title: "Post not found" };
@@ -63,6 +76,72 @@ export default async function CoffeePostPage({ params }: PageProps) {
   );
   const headings = extractHeadings(raw);
 
+  // Canonical display label for the drink's category, computed once and reused
+  // by the meta pill, glance bar, and sidebar so all three stay in sync (e.g.
+  // "filter" → "Filter Coffee" everywhere), mirroring the bread page's pattern.
+  const categoryLabel = getCategoryLabel("coffee", frontmatter.category);
+
+  // Every drink's body leads with a narrative intro (and often a bean/comparison
+  // aside) before the actual brewing steps begin. Link straight to the first
+  // instructional heading — pulling the shot, or the syrup you make first — so
+  // readers can skip to the method, matching the bread pages' "Jump to Recipe".
+  const recipeHeading = raw.match(
+    /^#{2,3}\s+(.*\b(?:shot|espresso|syrup|steam(?:ing)?|pull(?:ing)?|brew(?:ing)?|pour|assembly|method)\b.*)$/im
+  );
+  const recipeAnchor = recipeHeading ? slugify(recipeHeading[1].trim()) : null;
+
+  // The Coffee Calculator's Drink Builder carries a custom "My …" preset that
+  // reproduces this exact recipe (dose/ratio/milk copied from its frontmatter).
+  // Deep-link to it so a reader can tweak the drink's proportions interactively,
+  // matching the bread page's "Plan this bake" link to the timeline planner.
+  const drinkPreset = DRINK_PRESETS.find((d) => d.recipeSlug === params.slug) ?? null;
+
+  // Cross-link to the bean review this drink is brewed with, if one is named
+  // in frontmatter and the review actually exists on disk.
+  const bean = frontmatter.beans
+    ? (await getAllBeanPostsMeta()).find((b) => b.slug === frontmatter.beans) ?? null
+    : null;
+
+  // Newsletter issues that link to this recipe, for a reverse cross-link.
+  const featuredIn = await getNewslettersFeaturing(`/coffee/${params.slug}`);
+
+  // Reverse of the loaf's `pairsWith`: bread loaves meant to be eaten alongside
+  // this drink. The pointer lives on the bread post, so this drives the pairing
+  // from the coffee side without a second frontmatter field.
+  const pairedBreads = (await getAllBreadPostsMeta()).filter(
+    (b) => b.frontmatter.pairsWith === params.slug
+  );
+  const pairings = pairedBreads.map((b) => ({
+    href: `/bread/${b.slug}`,
+    coverImage: b.frontmatter.coverImage,
+    title: b.frontmatter.title,
+    kindLabel: getCategoryLabel("bread", b.frontmatter.category),
+    meta: `${b.frontmatter.hydration}% hydration`,
+  }));
+
+  // At-a-glance brew specs shown in a stats bar under the hero, mirroring the
+  // bread page's bake-stats bar so a drink's key numbers are visible without
+  // scrolling to the sidebar. Milk temp only applies to milk drinks, so it's
+  // included only when present (an espresso/filter recipe omits the cell).
+  const glanceStats: { label: string; value: string; wide?: boolean }[] = [
+    { label: "Brew Ratio", value: frontmatter.brewRatio },
+    { label: "Extraction Time", value: frontmatter.extractionTime },
+    ...(frontmatter.milkTemp
+      ? [
+          {
+            label: "Milk Temp",
+            value: withTempConversion(frontmatter.milkTemp) ?? frontmatter.milkTemp,
+            wide: true,
+          },
+        ]
+      : []),
+    {
+      label: "Category",
+      value: categoryLabel,
+      wide: true,
+    },
+  ];
+
   return (
     <>
       <JsonLd data={coffeeRecipeJsonLd(params.slug, frontmatter, raw)} />
@@ -73,9 +152,29 @@ export default async function CoffeePostPage({ params }: PageProps) {
           image={frontmatter.coverImage}
           imageAlt={frontmatter.title}
           title={frontmatter.title}
+          subtitle={frontmatter.excerpt}
           size="medium"
           overlay="dark"
         />
+      </div>
+
+      {/* Brew stats bar */}
+      <div className="bg-cream-dark border-b border-blush/30 print:hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap gap-4 lg:gap-0 lg:divide-x lg:divide-blush/30">
+            {glanceStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8"
+              >
+                <span className="stat-label">{stat.label}</span>
+                <span className={`stat-value${stat.wide ? " text-base" : ""}`}>
+                  {stat.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <Breadcrumbs
@@ -99,17 +198,46 @@ export default async function CoffeePostPage({ params }: PageProps) {
               <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
                 {frontmatter.title}
               </h1>
+              <p className="text-xs text-espresso-muted mt-2">
+                {SITE_HOST}/coffee/{params.slug}
+              </p>
             </div>
 
-            <div className="flex justify-end items-center gap-3 mb-6">
-              <ShareButton title={frontmatter.title} />
-              <CookModeButton label="Keep screen on" />
-              <PrintButton />
+            <div className="flex items-center justify-between gap-3 mb-6 print:hidden">
+              {recipeAnchor ? (
+                <a
+                  href={`#${recipeAnchor}`}
+                  className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-cream bg-terracotta rounded-full px-4 py-2 transition-colors hover:bg-terracotta-dark"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-4 h-4"
+                    aria-hidden="true"
+                  >
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <polyline points="19 12 12 19 5 12" />
+                  </svg>
+                  Jump to Recipe
+                </a>
+              ) : (
+                <span />
+              )}
+              <div className="flex items-center gap-3">
+                <ShareButton title={frontmatter.title} />
+                <CookModeButton label="Keep screen on" />
+                <PrintButton />
+              </div>
             </div>
 
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-3 mb-8 pb-8 border-b border-blush/40">
-              <span className="category-pill-coffee">{frontmatter.category}</span>
+              <span className="category-pill-coffee">{categoryLabel}</span>
               <time dateTime={frontmatter.date} className="text-sm text-espresso-muted">
                 {formatDate(frontmatter.date)}
               </time>
@@ -130,6 +258,9 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
             {/* On-page contents */}
             <TableOfContents headings={headings} />
+
+            {/* Scannable ingredient list — coffee recipes have no formula table */}
+            <IngredientList items={frontmatter.ingredients} />
 
             {/* Interactive brew calculator */}
             {frontmatter.dose && (
@@ -155,9 +286,17 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 Brew Details
               </h2>
 
-              <div className="stat-card">
-                <span className="stat-label">Brew Ratio</span>
-                <span className="stat-value">{frontmatter.brewRatio}</span>
+              <div className="stat-card flex-col items-stretch gap-2">
+                <div className="flex items-baseline justify-between">
+                  <span className="stat-label">Brew Ratio</span>
+                  <span className="stat-value">{frontmatter.brewRatio}</span>
+                </div>
+                <BrewRatioMeter ratio={frontmatter.brewRatio} />
+                {brewRatioDescriptor(frontmatter.brewRatio) && (
+                  <span className="text-xs text-espresso-muted leading-snug">
+                    {brewRatioDescriptor(frontmatter.brewRatio)}
+                  </span>
+                )}
               </div>
 
               <div className="stat-card">
@@ -165,17 +304,78 @@ export default async function CoffeePostPage({ params }: PageProps) {
                 <span className="stat-value">{frontmatter.extractionTime}</span>
               </div>
 
+              {/* Derived grams-in → grams-out from dose × brew ratio */}
+              <ShotYield dose={frontmatter.dose} brewRatio={frontmatter.brewRatio} />
+
               {frontmatter.milkTemp && (
                 <div className="stat-card">
                   <span className="stat-label">Milk Temperature</span>
-                  <span className="stat-value">{frontmatter.milkTemp}</span>
+                  <span className="stat-value text-base">
+                    {withTempConversion(frontmatter.milkTemp) ?? frontmatter.milkTemp}
+                  </span>
                 </div>
               )}
 
               <div className="stat-card">
                 <span className="stat-label">Category</span>
-                <span className="stat-value capitalize">{frontmatter.category}</span>
+                <span className="stat-value">{categoryLabel}</span>
               </div>
+
+              {/* Deep-link to the interactive Drink Builder, preset to this
+                  drink so a reader can dial the dose/ratio/milk to their own
+                  cup — the coffee counterpart to the loaf's "Plan this bake". */}
+              {drinkPreset && (
+                <Link
+                  href={`/tools/coffee-calculator?drink=${drinkPreset.slug}`}
+                  className="group flex items-center gap-3 rounded-xl border border-blush/50 bg-cream-dark/60 px-4 py-3 transition-colors hover:border-terracotta/60 hover:bg-cream-dark print:hidden"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 shrink-0 text-terracotta"
+                    aria-hidden="true"
+                  >
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                    <line x1="6" y1="1" x2="6" y2="4" />
+                    <line x1="10" y1="1" x2="10" y2="4" />
+                    <line x1="14" y1="1" x2="14" y2="4" />
+                  </svg>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-espresso">
+                      Build this drink
+                    </span>
+                    <span className="block text-xs text-espresso-muted">
+                      Dial the dose &amp; ratio in the drink builder
+                    </span>
+                  </span>
+                  <span
+                    className="ml-auto text-terracotta transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              )}
+
+              {/* Beans used — cross-link to the bag's review */}
+              {bean && (
+                <div className="pt-2 print:hidden">
+                  <span className="stat-label mb-2 block">Brewed with</span>
+                  <BeanLink bean={bean} />
+                </div>
+              )}
+
+              {/* Bread loaves this drink pairs with */}
+              <PairsWith pairings={pairings} />
+
+              {/* Newsletter issues that featured this drink */}
+              <FeaturedInNewsletter issues={featuredIn} />
 
               {/* Divider */}
               <div className="pt-4 border-t border-blush/30">
@@ -193,9 +393,16 @@ export default async function CoffeePostPage({ params }: PageProps) {
 
       <PostNav
         label="brew"
-        newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/coffee/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/coffee/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/coffee/${older.slug}`, title: older.title, date: older.date } : null}
       />
+
+      {/* End-of-read conversion prompt — the primary CTA (subscribers hear
+          first about dried-starter batches); print:hidden since a signup form
+          is dead weight on paper. */}
+      <div className="print:hidden">
+        <NewsletterSignup />
+      </div>
     </>
   );
 }

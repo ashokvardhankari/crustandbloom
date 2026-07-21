@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import {
   getAllBreadSlugs,
   getAllBreadPostsMeta,
+  getAllCoffeePostsMeta,
   getBreadPost,
+  getNewslettersFeaturing,
   adjacentPosts,
   getRelatedPosts,
   extractHeadings,
@@ -21,9 +23,21 @@ import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
 import RecipeScaler from "@/components/ui/RecipeScaler";
 import RelatedPosts from "@/components/ui/RelatedPosts";
+import HydrationMeter, { hydrationDescriptor } from "@/components/ui/HydrationMeter";
+import DoughYield from "@/components/ui/DoughYield";
+import PairsWith from "@/components/ui/PairsWith";
+import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
+import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import JsonLd from "@/components/seo/JsonLd";
-import { articleMetadata, breadRecipeJsonLd } from "@/lib/seo";
-import { formatDate, formatDuration, getCategoryLabel, slugify } from "@/lib/utils";
+import { articleMetadata, breadRecipeJsonLd, SITE_HOST } from "@/lib/seo";
+import {
+  durationToMinutes,
+  formatDate,
+  formatDuration,
+  getCategoryLabel,
+  slugify,
+  withTempConversion,
+} from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -43,6 +57,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
       canonical: `/bread/${params.slug}`,
+      section: "Bread",
+      tags: frontmatter.tags,
     });
   } catch {
     return { title: "Post not found" };
@@ -64,11 +80,45 @@ export default async function BreadPostPage({ params }: PageProps) {
   }
 
   const categoryLabel = getCategoryLabel("bread", frontmatter.category);
+  const bakeTemp = withTempConversion(frontmatter.bakeTemp) ?? frontmatter.bakeTemp;
+  const bulkFermentation =
+    withTempConversion(frontmatter.bulkFermentation) ?? frontmatter.bulkFermentation;
   const prepTime = formatDuration(frontmatter.prepTime);
   const cookTime = formatDuration(frontmatter.cookTime);
   const totalTime = formatDuration(frontmatter.totalTime);
+
+  // Deep-link to the baking-timeline planner with the schedule that matches this
+  // loaf's bake style preselected. The loaves split cleanly by total time: the
+  // long bakes (~19–21h) use an overnight cold retard, the short ones (~6–8h) a
+  // same-day proof — so a 12h threshold routes each to the right preset. Only
+  // shown when totalTime is recorded.
+  const totalMinutes = durationToMinutes(frontmatter.totalTime);
+  const bakeSchedule =
+    totalMinutes === null ? null : totalMinutes >= 12 * 60 ? "Overnight" : "Same-Day";
   const { newer, older } = adjacentPosts(await getAllBreadPostsMeta(), params.slug);
   const related = await getRelatedPosts(`/bread/${params.slug}`, frontmatter.tags);
+
+  // Newsletter issues that link to this recipe, for a reverse cross-link.
+  const featuredIn = await getNewslettersFeaturing(`/bread/${params.slug}`);
+
+  // Coffee drink this loaf is meant to be eaten alongside, if one is named in
+  // frontmatter and the recipe actually exists on disk. The coffee page derives
+  // the reverse edge, so the pairing shows on both sides from this one pointer.
+  const pairedCoffee = frontmatter.pairsWith
+    ? (await getAllCoffeePostsMeta()).find((c) => c.slug === frontmatter.pairsWith) ??
+      null
+    : null;
+  const pairings = pairedCoffee
+    ? [
+        {
+          href: `/coffee/${pairedCoffee.slug}`,
+          coverImage: pairedCoffee.frontmatter.coverImage,
+          title: pairedCoffee.frontmatter.title,
+          kindLabel: getCategoryLabel("coffee", pairedCoffee.frontmatter.category),
+          meta: `${pairedCoffee.frontmatter.brewRatio} ratio`,
+        },
+      ]
+    : [];
 
   // Every loaf's body leads with a narrative intro before its "Formula" table.
   // Link straight to that heading (matching the anchor id the MDX renderer emits)
@@ -88,6 +138,7 @@ export default async function BreadPostPage({ params }: PageProps) {
           image={frontmatter.coverImage}
           imageAlt={frontmatter.title}
           title={frontmatter.title}
+          subtitle={frontmatter.excerpt}
           size="medium"
           overlay="dark"
         />
@@ -107,12 +158,18 @@ export default async function BreadPostPage({ params }: PageProps) {
             </div>
             <div className="stat-card flex-1 min-w-[160px] bg-transparent px-0 lg:px-8">
               <span className="stat-label">Bulk Fermentation</span>
-              <span className="stat-value text-base">{frontmatter.bulkFermentation}</span>
+              <span className="stat-value text-base">{bulkFermentation}</span>
             </div>
             <div className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8">
               <span className="stat-label">Bake Temp</span>
-              <span className="stat-value">{frontmatter.bakeTemp}</span>
+              <span className="stat-value text-base">{bakeTemp}</span>
             </div>
+            {totalTime && (
+              <div className="stat-card flex-1 min-w-[120px] bg-transparent px-0 lg:px-8">
+                <span className="stat-label">Total Time</span>
+                <span className="stat-value">{totalTime}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -138,6 +195,9 @@ export default async function BreadPostPage({ params }: PageProps) {
               <h1 className="font-display text-3xl font-semibold text-espresso mt-1">
                 {frontmatter.title}
               </h1>
+              <p className="text-xs text-espresso-muted mt-2">
+                {SITE_HOST}/bread/{params.slug}
+              </p>
             </div>
 
             <div className="flex items-center justify-between gap-3 mb-6 print:hidden">
@@ -215,7 +275,7 @@ export default async function BreadPostPage({ params }: PageProps) {
             <TableOfContents headings={headings} />
 
             {/* Interactive batch scaler (static table still renders in the body below) */}
-            {formula && <RecipeScaler rows={formula} />}
+            {formula && <RecipeScaler rows={formula} unit={frontmatter.yieldUnit} />}
 
             {/* MDX content */}
             <div className="prose-cb">{content}</div>
@@ -265,9 +325,15 @@ export default async function BreadPostPage({ params }: PageProps) {
                 Bake Details
               </h2>
 
-              <div className="stat-card">
-                <span className="stat-label">Hydration</span>
-                <span className="stat-value">{frontmatter.hydration}%</span>
+              <div className="stat-card flex-col items-stretch gap-2">
+                <div className="flex items-baseline justify-between">
+                  <span className="stat-label">Hydration</span>
+                  <span className="stat-value">{frontmatter.hydration}%</span>
+                </div>
+                <HydrationMeter hydration={frontmatter.hydration} />
+                <span className="text-xs text-espresso-muted leading-snug">
+                  {hydrationDescriptor(frontmatter.hydration)}
+                </span>
               </div>
 
               <div className="stat-card">
@@ -277,13 +343,16 @@ export default async function BreadPostPage({ params }: PageProps) {
 
               <div className="stat-card">
                 <span className="stat-label">Bulk Fermentation</span>
-                <span className="stat-value text-base">{frontmatter.bulkFermentation}</span>
+                <span className="stat-value text-base">{bulkFermentation}</span>
               </div>
 
               <div className="stat-card">
                 <span className="stat-label">Bake Temperature</span>
-                <span className="stat-value">{frontmatter.bakeTemp}</span>
+                <span className="stat-value text-base">{bakeTemp}</span>
               </div>
+
+              {/* Total dough weight + loaf estimate, derived from the formula */}
+              <DoughYield rows={formula} unit={frontmatter.yieldUnit} />
 
               {prepTime && (
                 <div className="stat-card">
@@ -306,12 +375,60 @@ export default async function BreadPostPage({ params }: PageProps) {
                 </div>
               )}
 
+              {/* Deep-link to the interactive timeline planner, preset to this
+                  loaf's overnight/same-day schedule so a baker can lay out the
+                  full bake against their own clock. */}
+              {bakeSchedule && (
+                <Link
+                  href={`/tools/baking-calculator?schedule=${bakeSchedule}`}
+                  className="group flex items-center gap-3 rounded-xl border border-blush/50 bg-cream-dark/60 px-4 py-3 transition-colors hover:border-terracotta/60 hover:bg-cream-dark print:hidden"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-5 h-5 shrink-0 text-terracotta"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-espresso">
+                      Plan this bake
+                    </span>
+                    <span className="block text-xs text-espresso-muted">
+                      Map the {bakeSchedule === "Overnight" ? "overnight" : "same-day"}{" "}
+                      timeline to your clock
+                    </span>
+                  </span>
+                  <span
+                    className="ml-auto text-terracotta transition-transform group-hover:translate-x-0.5"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              )}
+
               {frontmatter.flavorProfile && (
                 <div className="stat-card">
                   <span className="stat-label">Flavor Profile</span>
                   <span className="stat-value capitalize">{frontmatter.flavorProfile}</span>
                 </div>
               )}
+
+              {/* Coffee drink this loaf pairs with */}
+              <PairsWith pairings={pairings} />
+
+              {/* Newsletter issues that featured this loaf */}
+              <FeaturedInNewsletter issues={featuredIn} />
 
               <div className="pt-4 border-t border-blush/30">
                 <p className="text-xs text-espresso-muted leading-relaxed">
@@ -328,9 +445,16 @@ export default async function BreadPostPage({ params }: PageProps) {
 
       <PostNav
         label="loaf"
-        newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/bread/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/bread/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/bread/${older.slug}`, title: older.title, date: older.date } : null}
       />
+
+      {/* End-of-read conversion prompt — the primary CTA (subscribers hear
+          first about dried-starter batches); print:hidden since a signup form
+          is dead weight on paper. */}
+      <div className="print:hidden">
+        <NewsletterSignup />
+      </div>
     </>
   );
 }

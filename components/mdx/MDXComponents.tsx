@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import type { ReactNode } from "react";
 import { slugify } from "@/lib/utils";
@@ -82,6 +83,23 @@ export const MDXComponents: MDXComponentMap = {
     const alt = props.alt as string | undefined;
     const columns = props.columns as 2 | 3 | undefined;
     return <FullWidthGallery images={images ?? []} alt={alt} columns={columns} />;
+  },
+
+  // Body links: internal paths get client-side navigation, external links open
+  // safely in a new tab, and in-page anchors stay plain.
+  a: ({ href, children }: { href?: string; children?: ReactNode } & Record<string, unknown>) => {
+    const url = typeof href === "string" ? href : "";
+    if (url.startsWith("/")) {
+      return <Link href={url}>{children}</Link>;
+    }
+    if (/^https?:\/\//.test(url)) {
+      return (
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
+      );
+    }
+    return <a href={url || undefined}>{children}</a>;
   },
 
   // Deep-linkable section headings (slug ids + hover permalink)

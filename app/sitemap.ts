@@ -100,13 +100,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Tag archive pages have no single content date; fall back to the site-wide latest.
-  const tagRoutes: MetadataRoute.Sitemap = tags.map(({ slug }) => ({
-    url: `${SITE_URL}/tags/${slug}`,
-    ...(siteLatest && { lastModified: siteLatest }),
-    changeFrequency: "monthly" as const,
-    priority: 0.8,
-  }));
+  // Each tag archive reflects the newest post carrying that tag, so its
+  // freshness is honest rather than all tags claiming the site-wide latest date.
+  const tagRoutes: MetadataRoute.Sitemap = tags.map(({ slug, lastModified }) => {
+    const tagDate = lastModified ? new Date(lastModified) : siteLatest;
+    return {
+      url: `${SITE_URL}/tags/${slug}`,
+      ...(tagDate && { lastModified: tagDate }),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    };
+  });
 
   return [...staticRoutes, ...postRoutes, ...tagRoutes];
 }

@@ -2,13 +2,19 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { cn, formatDate } from "@/lib/utils";
 
 interface SearchEntry {
   title: string;
   url: string;
   kind: "Coffee" | "Bread" | "Beans" | "Newsletter";
+  /** Cover thumbnail; absent for posts without a cover photo. */
+  image?: string;
   tags: string[];
+  /** Hidden searchable text (categories, inclusion ingredients, tasting notes). */
+  keywords: string[];
   excerpt: string;
   date: string;
 }
@@ -33,22 +39,31 @@ function score(entry: SearchEntry, tokens: string[]): number {
   const title = entry.title.toLowerCase();
   const tags = entry.tags.join(" ").toLowerCase();
   const excerpt = entry.excerpt.toLowerCase();
+  const keywords = (entry.keywords ?? []).join(" ").toLowerCase();
   for (const token of tokens) {
     let hit = 0;
     if (title.includes(token)) hit += 3;
     if (tags.includes(token)) hit += 2;
     if (excerpt.includes(token)) hit += 1;
+    if (keywords.includes(token)) hit += 1;
     if (hit === 0) return 0; // every token must match somewhere
     total += hit;
   }
   return total;
 }
 
+// DOM id for the keyboard-highlighted result, referenced by the input's
+// aria-activedescendant so screen readers announce the moving selection.
+const optionId = (index: number) => `search-result-${index}`;
+
 export default function SearchClient() {
+  const router = useRouter();
   const [entries, setEntries] = useState<SearchEntry[] | null>(null);
   const [query, setQuery] = useState("");
   const [failed, setFailed] = useState(false);
   const [activeKind, setActiveKind] = useState<SearchEntry["kind"] | null>(null);
+  // Keyboard-highlighted result index (into visibleResults); -1 = none.
+  const [activeIndex, setActiveIndex] = useState(-1);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -109,6 +124,40 @@ export default function SearchClient() {
     [results, effectiveKind]
   );
 
+  // Reset the keyboard highlight whenever the visible set changes (new query or
+  // type filter), so an old index never points at an unrelated result.
+  useEffect(() => {
+    setActiveIndex(-1);
+  }, [query, effectiveKind]);
+
+  // Keep the highlighted option scrolled into view as it moves past the fold.
+  useEffect(() => {
+    if (activeIndex < 0) return;
+    document
+      .getElementById(optionId(activeIndex))
+      ?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex]);
+
+  // Arrow keys move the highlight; Enter opens it; Escape clears the highlight
+  // (then the query). The list is a listbox the input owns (combobox pattern),
+  // so navigation happens without moving focus off the search field.
+  const onInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const count = visibleResults.length;
+    if (e.key === "ArrowDown" && count > 0) {
+      e.preventDefault();
+      setActiveIndex((i) => (i + 1) % count);
+    } else if (e.key === "ArrowUp" && count > 0) {
+      e.preventDefault();
+      setActiveIndex((i) => (i <= 0 ? count - 1 : i - 1));
+    } else if (e.key === "Enter" && activeIndex >= 0 && activeIndex < count) {
+      e.preventDefault();
+      router.push(visibleResults[activeIndex].url);
+    } else if (e.key === "Escape") {
+      if (activeIndex >= 0) setActiveIndex(-1);
+      else if (query) setQuery("");
+    }
+  };
+
   // The most common tags across all content, surfaced as one-tap searches so
   // the empty state is a browse hub rather than a blank prompt. Frequency-first
   // ordering naturally floats tags that match more than one post to the top.
@@ -152,8 +201,16 @@ export default function SearchClient() {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={onInputKeyDown}
           placeholder="Search recipes, beans, letters…"
           aria-label="Search the site"
+          role="combobox"
+          aria-expanded={visibleResults.length > 0}
+          aria-controls="search-results"
+          aria-autocomplete="list"
+          aria-activedescendant={
+            activeIndex >= 0 ? optionId(activeIndex) : undefined
+          }
           className="w-full pl-14 pr-5 py-4 rounded-full border border-blush bg-white text-espresso text-base focus:outline-none focus:ring-2 focus:ring-terracotta focus:border-transparent placeholder:text-espresso-muted/60"
         />
       </div>
@@ -202,6 +259,29 @@ export default function SearchClient() {
         </div>
       )}
 
+      {/* Result count — announced to screen readers as the query changes (the
+          live-filtering counterpart to the calculators' aria-live values) and
+          shown visibly, since the type-filter row only appears when more than
+          one kind matches, leaving single-kind searches with no count at all.
+          Hidden but still announced on zero results, which have their own
+          friendly message above. */}
+      {!failed && searching && entries !== null && (
+        <p
+          role="status"
+          aria-live="polite"
+          className={cn(
+            "text-sm text-espresso/50 mb-6",
+            results.length === 0 && "sr-only"
+          )}
+        >
+          {results.length === 0
+            ? `No results for “${query.trim()}”`
+            : `${results.length} result${
+                results.length === 1 ? "" : "s"
+              } for “${query.trim()}”`}
+        </p>
+      )}
+
       {!failed && searching && results.length > 0 && kindCounts.size > 1 && (
         <div
           className="flex flex-wrap gap-2 mb-6"
@@ -240,30 +320,62 @@ export default function SearchClient() {
         </div>
       )}
 
-      <div className="grid gap-4" role="list">
-        {visibleResults.map((r) => (
+      <div
+        className="grid gap-4"
+        role="listbox"
+        id="search-results"
+        aria-label="Search results"
+      >
+        {visibleResults.map((r, i) => (
           <Link
             key={r.url}
             href={r.url}
-            role="listitem"
-            className="card-galatea block p-6 group"
+            id={optionId(i)}
+            role="option"
+            aria-selected={activeIndex === i}
+            onMouseMove={() => activeIndex !== i && setActiveIndex(i)}
+            className={cn(
+              "card-galatea flex items-center gap-4 p-4 sm:p-5 group",
+              activeIndex === i && "ring-2 ring-terracotta ring-offset-2"
+            )}
           >
-            <div className="flex items-center gap-3 mb-2">
-              <span
-                className={cn(
-                  "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
-                  kindStyles[r.kind]
+            {r.image && (
+              <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl overflow-hidden bg-cream-dark">
+                <Image
+                  src={r.image}
+                  alt=""
+                  fill
+                  sizes="80px"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+            )}
+            <div className="min-w-0">
+              <div className="flex items-center gap-3 mb-1.5">
+                <span
+                  className={cn(
+                    "inline-block text-[11px] font-semibold uppercase tracking-widest px-3 py-1 rounded-full",
+                    kindStyles[r.kind]
+                  )}
+                >
+                  {r.kind}
+                </span>
+                {r.date && (
+                  <time
+                    dateTime={r.date}
+                    className="text-xs text-espresso-muted"
+                  >
+                    {formatDate(r.date)}
+                  </time>
                 )}
-              >
-                {r.kind}
-              </span>
+              </div>
+              <h2 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200">
+                {r.title}
+              </h2>
+              <p className="text-sm text-espresso/60 leading-relaxed line-clamp-2">
+                {r.excerpt}
+              </p>
             </div>
-            <h2 className="font-display text-xl font-semibold tracking-tight text-espresso mb-1 group-hover:text-terracotta transition-colors duration-200">
-              {r.title}
-            </h2>
-            <p className="text-sm text-espresso/60 leading-relaxed">
-              {r.excerpt}
-            </p>
           </Link>
         ))}
       </div>

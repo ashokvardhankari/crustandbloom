@@ -22,6 +22,13 @@ export interface DrinkPreset {
   milkTempC: number | null;
   image: string;
   note?: string;
+  /**
+   * For the three "My …" custom presets: the slug of the coffee recipe this
+   * preset reproduces (its dose/ratio/milk are copied verbatim from that
+   * recipe's frontmatter). Lets the recipe page deep-link to the Drink Builder
+   * with its own preset preselected via `?drink=<slug>`.
+   */
+  recipeSlug?: string;
 }
 
 export const DRINK_PRESETS: DrinkPreset[] = [
@@ -32,7 +39,7 @@ export const DRINK_PRESETS: DrinkPreset[] = [
   { name: "Cappuccino", slug: "cappuccino", isCustom: false, dose: 18, ratioMultiplier: 2, milkMl: 120, waterMl: null, milkTempC: 65, image: "/images/coffee/drink-cappuccino.jpg", note: "Equal thirds" },
   { name: "Latte", slug: "latte", isCustom: false, dose: 18, ratioMultiplier: 2, milkMl: 240, waterMl: null, milkTempC: 65, image: "/images/coffee/drink-latte.jpg", note: "Milk-forward" },
   { name: "Americano", slug: "americano", isCustom: false, dose: 18, ratioMultiplier: 2, milkMl: null, waterMl: 180, milkTempC: null, image: "/images/coffee/drink-americano.jpg", note: "Espresso + hot water" },
-  { name: "My Cappuccino", slug: "my-cappuccino", isCustom: true, dose: 21, ratioMultiplier: 2, milkMl: 180, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-cappuccino.jpg", note: "Counter Culture Forty-Six, wet cap style" },
-  { name: "My Honey Lavender Latte", slug: "my-honey-lavender", isCustom: true, dose: 18, ratioMultiplier: 2.5, milkMl: 240, waterMl: null, milkTempC: 62, image: "/images/coffee/drink-my-honey-lavender.jpg", note: "Oat milk, lavender syrup + honey" },
-  { name: "My Mocha", slug: "my-mocha", isCustom: true, dose: 18, ratioMultiplier: 2, milkMl: 240, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-mocha.jpg", note: "Counter Culture Forty-Six + local chocolate sauce" },
+  { name: "My Cappuccino", slug: "my-cappuccino", isCustom: true, dose: 21, ratioMultiplier: 2, milkMl: 180, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-cappuccino.jpg", note: "Counter Culture Forty-Six, wet cap style", recipeSlug: "classic-cappuccino" },
+  { name: "My Honey Lavender Latte", slug: "my-honey-lavender", isCustom: true, dose: 18, ratioMultiplier: 2.5, milkMl: 240, waterMl: null, milkTempC: 62, image: "/images/coffee/drink-my-honey-lavender.jpg", note: "Oat milk, lavender syrup + honey", recipeSlug: "honey-lavender-latte" },
+  { name: "My Mocha", slug: "my-mocha", isCustom: true, dose: 18, ratioMultiplier: 2, milkMl: 240, waterMl: null, milkTempC: 60, image: "/images/coffee/drink-my-mocha.jpg", note: "Counter Culture Forty-Six + local chocolate sauce", recipeSlug: "mocha-forty-six" },
 ];

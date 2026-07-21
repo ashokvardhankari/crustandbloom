@@ -1,19 +1,61 @@
 import type { Metadata } from "next";
 import { getAllBeanPostsMeta } from "@/lib/content";
 import BeanFilterBar from "@/components/ui/BeanFilterBar";
+import Rating from "@/components/ui/Rating";
+import JsonLd from "@/components/seo/JsonLd";
+import { collectionPageJsonLd, listingMetadata } from "@/lib/seo";
+import { roastBucket } from "@/lib/utils";
 
-export const metadata: Metadata = {
+const PAGE_DESCRIPTION =
+  "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.";
+
+export const metadata: Metadata = listingMetadata({
   title: "Beans",
-  alternates: { canonical: "/beans" },
-  description:
-    "Honest reviews of the coffee beans I actually brew: roaster, origin, what the bag claims, and what I really taste.",
-};
+  description: PAGE_DESCRIPTION,
+  canonical: "/beans",
+});
 
 export default async function BeansPage() {
   const beans = await getAllBeanPostsMeta();
 
+  // Shelf summary: how many bags, how they score on average, and how often I'd
+  // buy again. Only beans that actually carry a rating count toward the average.
+  const rated = beans.filter((b) => (b.frontmatter.rating ?? 0) > 0);
+  const avgRating =
+    rated.length > 0
+      ? rated.reduce((sum, b) => sum + b.frontmatter.rating, 0) / rated.length
+      : 0;
+  const rebuyVotes = beans.filter(
+    (b) => b.frontmatter.wouldRebuy !== undefined
+  );
+  const rebuyYes = rebuyVotes.filter((b) => b.frontmatter.wouldRebuy).length;
+
+  // How the shelf splits across the light/medium/dark roast buckets — the same
+  // three buckets the filter directly below uses (via roastBucket), so the mix
+  // reads at a glance and matches the filter's grouping. Empty buckets drop out,
+  // mirroring the bread archive's flavor-profile breakdown.
+  const roastCounts = (["light", "medium", "dark"] as const)
+    .map((bucket) => ({
+      label: bucket,
+      count: beans.filter((b) => roastBucket(b.frontmatter.roastLevel) === bucket)
+        .length,
+    }))
+    .filter((r) => r.count > 0);
+
   return (
     <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <JsonLd
+        data={collectionPageJsonLd({
+          name: "Beans",
+          description: PAGE_DESCRIPTION,
+          path: "/beans",
+          items: beans.map((b) => ({
+            title: `${b.frontmatter.title} from ${b.frontmatter.roaster}`,
+            path: `/beans/${b.slug}`,
+          })),
+        })}
+      />
+
       <div className="mb-14 max-w-xl animate-fade-in-up">
         <p className="eyebrow mb-3">The shelf</p>
         <h1 className="font-display font-semibold text-5xl lg:text-6xl tracking-tight text-espresso leading-tight">
@@ -31,7 +73,64 @@ export default async function BeansPage() {
           <p className="text-lg">No bean reviews yet. First bag is grinding.</p>
         </div>
       ) : (
-        <BeanFilterBar posts={beans} />
+        <>
+          {/* Shelf summary — a quick read on the archive before the grid */}
+          <div className="mb-12 flex flex-wrap items-center gap-x-10 gap-y-6 border-y border-blush/40 py-6">
+            <div>
+              <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                {beans.length}
+              </p>
+              <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                {beans.length === 1 ? "Bag reviewed" : "Bags reviewed"}
+              </p>
+            </div>
+
+            {rated.length > 0 && (
+              <div>
+                <Rating value={Math.round(avgRating * 10) / 10} />
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                  Average rating
+                </p>
+              </div>
+            )}
+
+            {rebuyVotes.length > 0 && (
+              <div>
+                <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                  {rebuyYes}
+                  <span className="text-espresso-muted">/{rebuyVotes.length}</span>
+                </p>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                  Would rebuy
+                </p>
+              </div>
+            )}
+
+            {roastCounts.length > 0 && (
+              <div>
+                <p className="font-display text-3xl font-semibold text-espresso tabular-nums leading-none">
+                  {roastCounts.map((r, i) => (
+                    <span key={r.label}>
+                      {r.count}
+                      <span className="text-base font-medium text-espresso-muted capitalize">
+                        {" "}
+                        {r.label}
+                      </span>
+                      {i < roastCounts.length - 1 && (
+                        <span className="text-espresso-muted"> · </span>
+                      )}
+                    </span>
+                  ))}
+                </p>
+                <p className="mt-1.5 text-xs font-semibold uppercase tracking-widest text-espresso-muted">
+                  Roast levels
+                </p>
+              </div>
+            )}
+          </div>
+
+          <BeanFilterBar posts={beans} />
+        </>
       )}
     </div>
   );

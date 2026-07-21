@@ -229,3 +229,19 @@
     color: inherit !important;
   }
 }
+
+/* ── Reduced motion: honour the OS "reduce motion" preference ──────────────── */
+/* The homepage hero floats/drifts, the bean strip marquees, and section text
+   fades in — all via CSS keyframes that (unlike ScrollReveal's JS) never checked
+   the user's preference. Collapse animations/transitions to a near-instant tick
+   so fill-mode end states (e.g. fade-in-up's final opacity) still resolve. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   getAllNewsletterSlugs,
   getAllNewslettersMeta,
   getNewsletterPost,
+  getPostsLinkedFrom,
   adjacentPosts,
+  extractHeadings,
 } from "@/lib/content";
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
+import InThisIssue from "@/components/ui/InThisIssue";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
 import PostNav from "@/components/ui/PostNav";
 import ShareButton from "@/components/ui/ShareButton";
+import TableOfContents from "@/components/ui/TableOfContents";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, newsletterArticleJsonLd } from "@/lib/seo";
-import { formatDate } from "@/lib/utils";
+import { formatDate, readingTime } from "@/lib/utils";
 
 interface PageProps {
   params: { slug: string };
@@ -33,6 +38,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       image: frontmatter.coverImage,
       publishedTime: frontmatter.date,
       canonical: `/newsletter/${params.slug}`,
+      section: "Newsletter",
     });
   } catch {
     return { title: "Issue not found" };
@@ -40,18 +46,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function NewsletterIssuePage({ params }: PageProps) {
-  let frontmatter, content;
+  let frontmatter, content, raw;
   try {
-    ({ frontmatter, content } = await getNewsletterPost(params.slug));
+    ({ frontmatter, content, raw } = await getNewsletterPost(params.slug));
   } catch {
     notFound();
   }
 
+  const headings = extractHeadings(raw);
   const { newer, older } = adjacentPosts(await getAllNewslettersMeta(), params.slug);
+
+  // Coffee/bread/bean posts this letter links to, shown as scannable cards.
+  const linkedPosts = await getPostsLinkedFrom(params.slug);
 
   return (
     <>
-      <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter)} />
+      <JsonLd data={newsletterArticleJsonLd(params.slug, frontmatter, raw)} />
 
       <Breadcrumbs
         maxWidth="max-w-3xl"
@@ -74,6 +84,12 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
             >
               {formatDate(frontmatter.date)}
             </time>
+            <span className="text-xs text-espresso-muted/70" aria-hidden="true">
+              ·
+            </span>
+            <span className="text-xs text-espresso-muted">
+              {readingTime(raw)} min read
+            </span>
             <div className="ml-auto">
               <ShareButton title={frontmatter.title} label="Share" tooltip="Share this issue" />
             </div>
@@ -83,6 +99,28 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
           </h1>
           <div className="mt-6 h-px w-24 bg-amber" />
         </div>
+
+        {/* Lead cover photo — the issue's own coverImage, until now shown only
+            on the archive card and as the og:image but never on the letter it
+            belongs to. Given as the primary lead visual within the reading
+            column (the letter has no full-bleed hero like the recipe pages). */}
+        {frontmatter.coverImage && (
+          <div className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-cream-dark mb-12">
+            <Image
+              src={frontmatter.coverImage}
+              alt={frontmatter.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+              priority
+            />
+          </div>
+        )}
+
+        <InThisIssue posts={linkedPosts} />
+
+        {/* On-page contents */}
+        <TableOfContents headings={headings} />
 
         <div className="prose-cb">{content}</div>
 
@@ -99,8 +137,8 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
       <PostNav
         label="letter"
         maxWidth="max-w-3xl"
-        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title } : null}
-        older={older ? { href: `/newsletter/${older.slug}`, title: older.title } : null}
+        newer={newer ? { href: `/newsletter/${newer.slug}`, title: newer.title, date: newer.date } : null}
+        older={older ? { href: `/newsletter/${older.slug}`, title: older.title, date: older.date } : null}
       />
 
       <NewsletterSignup />

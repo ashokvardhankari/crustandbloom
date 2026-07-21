@@ -45,7 +45,11 @@ export default function NewsletterSignup() {
           </p>
 
           {status === "success" ? (
-            <div className="mt-10 p-6 rounded-2xl bg-white text-center shadow-sm">
+            <div
+              role="status"
+              aria-live="polite"
+              className="mt-10 p-6 rounded-2xl bg-white text-center shadow-sm"
+            >
               <p className="text-terracotta text-lg font-semibold">You&apos;re in.</p>
               <p className="text-espresso/55 text-sm mt-1">
                 Thanks for subscribing. You&apos;ll hear from me when something good is ready.
@@ -74,7 +78,7 @@ export default function NewsletterSignup() {
           )}
 
           {status === "error" && (
-            <p className="mt-3 text-sm text-red-500">
+            <p role="alert" className="mt-3 text-sm text-red-500">
               Something went wrong. Please try again.
             </p>
           )}
