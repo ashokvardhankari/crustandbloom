@@ -12,12 +12,18 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
 
   return (
     <div className="divide-y divide-blush/50">
-      {items.map((item, i) => (
+      {items.map((item, i) => {
+        const open = openIndex === i;
+        const triggerId = `faq-trigger-${i}`;
+        const panelId = `faq-panel-${i}`;
+        return (
         <div key={i} className="py-5">
           <button
-            onClick={() => setOpenIndex(openIndex === i ? null : i)}
+            id={triggerId}
+            onClick={() => setOpenIndex(open ? null : i)}
             className="faq-trigger group"
-            aria-expanded={openIndex === i}
+            aria-expanded={open}
+            aria-controls={panelId}
           >
             <span className="font-display text-lg font-semibold text-espresso group-hover:text-terracotta transition-colors duration-200">
               {item.question}
@@ -44,8 +50,12 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
           </button>
 
           <div
+            id={panelId}
+            role="region"
+            aria-labelledby={triggerId}
+            aria-hidden={!open}
             className={`overflow-hidden transition-all duration-300 ease-in-out ${
-              openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+              open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
             <p className="pt-4 pb-1 text-sm text-espresso/65 leading-relaxed pr-12">
@@ -53,7 +63,8 @@ export default function FAQAccordion({ items }: { items: FAQItem[] }) {
             </p>
           </div>
         </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
