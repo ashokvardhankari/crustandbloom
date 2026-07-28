@@ -20,6 +20,7 @@ const categories = [
   { href: "/coffee", label: "Espresso Drinks" },
   { href: "/bread", label: "Classic Sourdough" },
   { href: "/bread#inclusions", label: "Inclusion Loaves" },
+  { href: "/starter", label: "Starter Guide" },
 ];
 
 const socialIcons: Record<string, React.ReactNode> = {
