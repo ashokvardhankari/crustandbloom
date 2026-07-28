@@ -430,10 +430,18 @@ export default async function BreadPostPage({ params }: PageProps) {
               {/* Newsletter issues that featured this loaf */}
               <FeaturedInNewsletter issues={featuredIn} />
 
-              <div className="pt-4 border-t border-blush/30">
+              <div className="pt-4 border-t border-blush/30 space-y-3">
                 <p className="text-xs text-espresso-muted leading-relaxed">
                   Timing and hydration are guidelines. Your environment, flour, and starter will
                   require adjustment.
+                </p>
+                <p className="text-xs leading-relaxed">
+                  <Link
+                    href="/starter"
+                    className="font-semibold text-terracotta hover:text-terracotta-dark transition-colors duration-200"
+                  >
+                    New to starter? Read the starter guide →
+                  </Link>
                 </p>
               </div>
             </div>
