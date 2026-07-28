@@ -7,6 +7,7 @@ const explore = [
   { href: "/bread", label: "Bread" },
   { href: "/gallery", label: "Gallery" },
   { href: "/tools", label: "Tools" },
+  { href: "/shelf", label: "My Shelf" },
   { href: "/newsletter", label: "Newsletter" },
   { href: "/search", label: "Search" },
   { href: "/tags", label: "Tags" },

@@ -14,6 +14,7 @@ const navLinks = [
 
 const mobileLinks = [
   ...navLinks,
+  { href: "/shelf", label: "My Shelf" },
   { href: "/newsletter", label: "Newsletter" },
   { href: "/search", label: "Search" },
 ];
