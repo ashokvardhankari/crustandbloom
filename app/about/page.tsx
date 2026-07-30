@@ -8,7 +8,7 @@ import {
   getAllGalleryImages,
 } from "@/lib/content";
 import JsonLd from "@/components/seo/JsonLd";
-import { aboutPageJsonLd, listingMetadata } from "@/lib/seo";
+import { aboutPageJsonLd, personJsonLd, listingMetadata } from "@/lib/seo";
 
 const ABOUT_DESCRIPTION =
   "About Ashok Kari and Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.";
@@ -43,6 +43,7 @@ export default async function AboutPage() {
           description: ABOUT_DESCRIPTION,
         })}
       />
+      <JsonLd data={personJsonLd()} />
 
       {/* Header */}
       <div className="mb-14 animate-fade-in-up">
