@@ -42,16 +42,30 @@ export const SITE_SOCIAL_LINKS = [
   { label: "Pinterest", href: "https://pinterest.com/crustandbloom" },
 ] as const;
 
+/** The real person behind the site — the site's author and the brand's founder. */
+export const AUTHOR_NAME = "Ashok Kari";
+
+/**
+ * Stable `@id` for the site's single Person entity. Every place that names the
+ * author — the detail-page `AUTHOR` byline, the Organization's `founder`, the
+ * About page's `about` — references this same node so search engines resolve
+ * them to one person rather than several look-alike anonymous authors. The full
+ * Person node itself is emitted once, on the About page (`personJsonLd`).
+ */
+const PERSON_ID = `${SITE_URL}/#person`;
+
 /**
  * The byline used as `author` on every detail-page Recipe/Review/Article
- * entity. The `url` points at the site's `/about` page — the page that
- * describes who is behind the brand — which is Google's recommended way to
- * disambiguate an author across Recipe, Review, and Article rich results
- * (an E-E-A-T signal the schema previously omitted, carrying only a name).
+ * entity. Carries the shared `@id` (so all authorship consolidates into the one
+ * Person node the About page declares) plus an inline `name`/`url` so each page
+ * stays self-contained. The `url` points at `/about` — the page that describes
+ * who is behind the brand — Google's recommended way to disambiguate an author
+ * across Recipe, Review, and Article rich results.
  */
 const AUTHOR = {
   "@type": "Person",
-  name: "Ashok Kari",
+  "@id": PERSON_ID,
+  name: AUTHOR_NAME,
   url: `${SITE_URL}/about`,
 } as const;
 
@@ -611,7 +625,30 @@ export function aboutPageJsonLd(opts: { name: string; description: string }) {
     url: absoluteUrl("/about"),
     inLanguage: SITE_LANGUAGE,
     mainEntity: { "@id": `${SITE_URL}/#organization` },
+    about: { "@id": PERSON_ID },
     publisher: PUBLISHER,
+  };
+}
+
+/**
+ * The site's single Person node, emitted once on the About page. This is the
+ * canonical entity every `@id: #person` reference (recipe/review/article
+ * authors, the Organization's `founder`, the AboutPage's `about`) resolves to,
+ * so search engines understand the whole site is authored by one named person
+ * — the E-E-A-T "who is behind this" signal a name-only author can't give.
+ * `worksFor` ties the person to the brand Organization; `sameAs` claims the
+ * social profiles they run; `mainEntityOfPage` names /about as their home page.
+ */
+export function personJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: AUTHOR_NAME,
+    url: `${SITE_URL}/about`,
+    mainEntityOfPage: absoluteUrl("/about"),
+    worksFor: { "@id": `${SITE_URL}/#organization` },
+    sameAs: SITE_SOCIAL_LINKS.map((s) => s.href),
   };
 }
 
@@ -734,6 +771,7 @@ export function organizationJsonLd() {
     url: SITE_URL,
     logo: absoluteUrl("/images/site/logo-email.png"),
     description: SITE_DESCRIPTION,
+    founder: { "@id": PERSON_ID },
     sameAs: SITE_SOCIAL_LINKS.map((s) => s.href),
   };
 }
