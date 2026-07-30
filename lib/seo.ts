@@ -771,7 +771,7 @@ export function organizationJsonLd() {
     url: SITE_URL,
     logo: absoluteUrl("/images/site/logo-email.png"),
     description: SITE_DESCRIPTION,
-    founder: { "@id": `${SITE_URL}/#person` },
+    founder: { "@id": PERSON_ID },
     sameAs: SITE_SOCIAL_LINKS.map((s) => s.href),
   };
 }
