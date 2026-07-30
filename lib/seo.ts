@@ -51,7 +51,7 @@ export const SITE_SOCIAL_LINKS = [
  */
 const AUTHOR = {
   "@type": "Person",
-  name: SITE_NAME,
+  name: "Ashok Kari",
   url: `${SITE_URL}/about`,
 } as const;
 
