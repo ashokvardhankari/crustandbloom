@@ -54,11 +54,13 @@ function anchoredHeading(Tag: "h2" | "h3") {
 }
 
 export const MDXComponents: MDXComponentMap = {
-  // Override default img with next/image
+  // Override default img with next/image. The wrapper must be a <span>, not a
+  // <div>: markdown wraps a standalone image in a <p>, and a <div> inside <p>
+  // is invalid HTML that breaks hydration.
   img: ({ src, alt }: ImgProps & Record<string, unknown>) => {
     if (!src || typeof src !== "string") return null;
     return (
-      <div className="relative w-full aspect-[4/3] my-8 rounded-xl overflow-hidden">
+      <span className="relative block w-full aspect-[4/3] my-8 rounded-xl overflow-hidden">
         <Image
           src={src}
           alt={typeof alt === "string" ? alt : ""}
@@ -66,7 +68,7 @@ export const MDXComponents: MDXComponentMap = {
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 80vw"
         />
-      </div>
+      </span>
     );
   },
 
