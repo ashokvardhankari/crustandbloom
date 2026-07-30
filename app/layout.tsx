@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   description:
     "A personal site about specialty coffee and artisan sourdough bread, brewed, baked, and photographed by hand.",
   keywords: ["sourdough", "specialty coffee", "bread baking", "espresso", "cappuccino", "latte", "artisan bread"],
-  authors: [{ name: "Crust & Bloom" }],
+  authors: [{ name: "Ashok Kari", url: "https://crustbloom.com/about" }],
   alternates: {
     types: FEED_ALTERNATE_TYPES,
   },

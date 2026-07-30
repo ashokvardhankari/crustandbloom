@@ -11,7 +11,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { aboutPageJsonLd, listingMetadata } from "@/lib/seo";
 
 const ABOUT_DESCRIPTION =
-  "About Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.";
+  "About Ashok Kari and Crust & Bloom, a personal site about specialty coffee and artisan sourdough bread.";
 
 export const metadata: Metadata = listingMetadata({
   title: "About",
@@ -60,7 +60,7 @@ export default async function AboutPage() {
         <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-blush/20">
           <Image
             src="/images/site/about-portrait.jpg"
-            alt="The person behind Crust & Bloom"
+            alt="Ashok Kari, the person behind Crust & Bloom"
             fill
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 50vw"
@@ -71,7 +71,7 @@ export default async function AboutPage() {
         {/* Bio */}
         <div className="space-y-6 text-espresso/80 text-lg leading-relaxed">
           <p>
-            Hi. I&apos;m the person behind Crust &amp; Bloom. This site is where I document the
+            Hi. I&apos;m Ashok Kari, the person behind Crust &amp; Bloom. This site is where I document the
             two things I make almost every day: espresso-based drinks and sourdough bread.
           </p>
 
