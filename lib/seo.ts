@@ -62,7 +62,7 @@ const PERSON_ID = `${SITE_URL}/#person`;
  * who is behind the brand — Google's recommended way to disambiguate an author
  * across Recipe, Review, and Article rich results.
  */
-const AUTHOR = {
+export const AUTHOR = {
   "@type": "Person",
   "@id": PERSON_ID,
   name: AUTHOR_NAME,

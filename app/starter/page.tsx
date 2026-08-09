@@ -3,7 +3,7 @@ import Link from "next/link";
 import FAQAccordion from "@/components/ui/FAQAccordion";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import JsonLd from "@/components/seo/JsonLd";
-import { faqJsonLd, SITE_URL } from "@/lib/seo";
+import { AUTHOR, faqJsonLd, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Sourdough Starter Guide",
@@ -51,7 +51,7 @@ export default function StarterGuidePage() {
           url: `${SITE_URL}/starter`,
           description:
             "How I feed, store, and revive my sourdough starter. The routine behind every loaf on this site.",
-          author: { "@type": "Person", name: "Crust & Bloom" },
+          author: AUTHOR,
         }}
       />
 
@@ -148,7 +148,14 @@ export default function StarterGuidePage() {
             >
               bread archive
             </Link>{" "}
-            and put it to work.
+            and put it to work. If a bake misbehaves, the{" "}
+            <Link
+              href="/troubleshooting"
+              className="font-semibold text-terracotta hover:text-terracotta-dark transition-colors duration-200"
+            >
+              troubleshooting guide
+            </Link>{" "}
+            covers the usual suspects.
           </p>
         </div>
       </div>
