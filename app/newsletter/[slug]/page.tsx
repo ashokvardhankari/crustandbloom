@@ -13,6 +13,7 @@ import {
 import Breadcrumbs from "@/components/ui/Breadcrumbs";
 import InThisIssue from "@/components/ui/InThisIssue";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import Comments from "@/components/ui/Comments";
 import PostNav from "@/components/ui/PostNav";
 import ShareButton from "@/components/ui/ShareButton";
 import TableOfContents from "@/components/ui/TableOfContents";
@@ -142,6 +143,8 @@ export default async function NewsletterIssuePage({ params }: PageProps) {
       />
 
       <NewsletterSignup />
+
+      <Comments />
     </>
   );
 }

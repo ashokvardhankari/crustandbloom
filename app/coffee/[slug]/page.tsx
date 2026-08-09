@@ -29,6 +29,7 @@ import BeanLink from "@/components/ui/BeanLink";
 import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import Comments from "@/components/ui/Comments";
 import RelatedPosts from "@/components/ui/RelatedPosts";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, coffeeRecipeJsonLd, SITE_HOST } from "@/lib/seo";
@@ -403,6 +404,8 @@ export default async function CoffeePostPage({ params }: PageProps) {
       <div className="print:hidden">
         <NewsletterSignup />
       </div>
+
+      <Comments />
     </>
   );
 }
