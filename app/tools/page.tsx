@@ -28,6 +28,13 @@ const tools = [
       "Brew ratio calculator, drink builder with espresso-to-milk ratios, and extraction yield.",
     badge: "Coffee",
   },
+  {
+    href: "/troubleshooting",
+    title: "Troubleshooting",
+    description:
+      "Flat loaf, gummy crumb, sour shots, flat milk foam — find the symptom, then the likely causes and fixes.",
+    badge: "Bread + Coffee",
+  },
 ];
 
 export default function ToolsPage() {
