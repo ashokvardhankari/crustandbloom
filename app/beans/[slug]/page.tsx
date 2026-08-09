@@ -19,6 +19,7 @@ import CostPerCup from "@/components/ui/CostPerCup";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import MoreFromRoaster from "@/components/ui/MoreFromRoaster";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import Comments from "@/components/ui/Comments";
 import MoreFromOrigin from "@/components/ui/MoreFromOrigin";
 import FullWidthGallery from "@/components/ui/FullWidthGallery";
 import Hero from "@/components/ui/Hero";
@@ -349,6 +350,8 @@ export default async function BeanReviewPage({ params }: PageProps) {
       <div className="print:hidden">
         <NewsletterSignup />
       </div>
+
+      <Comments />
     </>
   );
 }

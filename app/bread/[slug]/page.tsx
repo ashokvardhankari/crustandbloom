@@ -28,6 +28,7 @@ import DoughYield from "@/components/ui/DoughYield";
 import PairsWith from "@/components/ui/PairsWith";
 import FeaturedInNewsletter from "@/components/ui/FeaturedInNewsletter";
 import NewsletterSignup from "@/components/ui/NewsletterSignup";
+import Comments from "@/components/ui/Comments";
 import JsonLd from "@/components/seo/JsonLd";
 import { articleMetadata, breadRecipeJsonLd, SITE_HOST } from "@/lib/seo";
 import {
@@ -463,6 +464,8 @@ export default async function BreadPostPage({ params }: PageProps) {
       <div className="print:hidden">
         <NewsletterSignup />
       </div>
+
+      <Comments />
     </>
   );
 }
