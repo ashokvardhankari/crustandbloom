@@ -204,7 +204,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
               </p>
             </div>
 
-            <div className="flex items-center justify-between gap-3 mb-6 print:hidden">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-6 print:hidden">
               {recipeAnchor ? (
                 <a
                   href={`#${recipeAnchor}`}
@@ -229,7 +229,7 @@ export default async function CoffeePostPage({ params }: PageProps) {
               ) : (
                 <span />
               )}
-              <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
                 <ShareButton title={frontmatter.title} />
                 <CookModeButton label="Keep screen on" />
                 <PrintButton />
