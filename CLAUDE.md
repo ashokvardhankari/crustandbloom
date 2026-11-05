@@ -4,6 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Rules
 
+- **Use the owner's photos as shot — no colour grading.** When adding photos for a post, only resize them for the web (e.g. `convert in.jpg -auto-orient -resize '1800x1800>' -quality 85 out.jpg`). Do not adjust colour, saturation, contrast, exposure or white balance, do not straighten or crop, and keep the embedded colour profile (iPhone photos are Display P3; stripping it makes them look dull). Older posts were graded, but that is not the convention to follow. Only edit a photo if the owner explicitly asks.
 - **Before pushing to git, always verify the change works.** Run `npm run build` to confirm the production build passes, and check the affected pages in the dev server before committing.
 
 ## Commands
@@ -31,7 +32,7 @@ No test suite is configured.
 ### Key data shapes (`lib/types.ts`)
 
 - **CoffeePost**: `brewRatio`, `extractionTime`, `milkTemp`, `category` (latte/cappuccino/espresso/filter), plus optional `dose` (espresso grams, feeds the inline brew calculator) and optional `ingredients[]` (a "What you'll need" list rendered above the body that also feeds `recipeIngredient` in the Recipe JSON-LD — coffee has no formula table, so this is its ingredient source), plus optional `beans` (slug of a `content/beans/*.mdx` review this drink is brewed with — renders a cross-link card)
-- **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion), plus optional ISO 8601 durations `prepTime`/`cookTime`/`totalTime` (e.g. `"PT1H"`, `"PT45M"`, `"PT20H"`) that feed the Recipe rich-results schema, plus optional `yieldUnit` (singular baked-good noun, defaults to `"loaf"`; e.g. `"calzone"`) naming what the formula yields in the derived Yield stat and the Recipe `recipeYield`, plus optional `pairsWith` (slug of a `content/coffee/*.mdx` recipe this loaf pairs with — renders a two-way "Pairs well with" cross-link)
+- **BreadPost**: `hydration`, `starterPercentage`, `bulkFermentation`, `bakeTemp`, `inclusions[]`, `flavorProfile` (savory/sweet/spicy — inclusions only), `category` (classic | inclusion), plus optional ISO 8601 durations `prepTime`/`cookTime`/`totalTime` (e.g. `"PT1H"`, `"PT45M"`, `"PT20H"`) that feed the Recipe rich-results schema, plus optional `yieldUnit` (singular baked-good noun, defaults to `"loaf"`; e.g. `"calzone"`) naming what the formula yields in the derived Yield stat and the Recipe `recipeYield`, plus optional `pairsWith` (slug of a `content/coffee/*.mdx` recipe this loaf pairs with — renders a two-way "Pairs well with" cross-link; give every new loaf one — savory and cheesy loaves → `classic-cappuccino`, chocolate or chili-heat loaves → `mocha-forty-six`, fruity, honeyed or jammy loaves → `honey-lavender-latte`)
 - **BeanPost** (`content/beans/*.mdx`): coffee bean reviews. `roaster`, `origin`, `roastLevel` (light/medium-light/medium/medium-dark/dark), `rating` (0–5), `tastingNotes` (what I taste) vs `officialNotes[]` (what the bag claims), plus optional `region`, `process`, `varietal`, `altitude`, `price`, `buyUrl` (affiliate), `brewMethod`, `wouldRebuy`. `coverImage`/`images[]` are **optional** — omit them and a branded placeholder shows until you add the bag photo.
 - **NewsletterIssue** (`content/newsletters/*.mdx`): the published archive of sent newsletters, rendered at `/newsletter/<slug>`. `title` (the subject line), `issue` (number), `date`, `excerpt`, optional `coverImage`. Body is plain markdown (no email shortcodes — those only work in the composer). After sending a broadcast from `/admin/newsletter`, save a copy here so the archive stays complete.
 - All share: `title`, `date`, `tags[]`, `excerpt`, `type`
@@ -97,7 +98,7 @@ Server components pass serializable data as props to these client boundaries. Al
 
 ### Images
 
-Static images live in `public/images/{coffee,bread,site}/`. To replace a stock image, drop a new file with the same filename into the correct folder and delete `.next/cache/images/` to clear Next.js's image optimization cache. Use `next/image` everywhere — do not use plain `<img>` tags. `next.config.mjs` also allows remote images from `images.unsplash.com` if needed.
+Static images live in `public/images/{coffee,bread,site}/`. To replace a stock image, drop a new file with the same filename into the correct folder and delete `.next/cache/images/` to clear Next.js's image optimization cache. New post photos go in as shot, only resized — see the photo rule under **Rules**. Use `next/image` everywhere — do not use plain `<img>` tags. `next.config.mjs` also allows remote images from `images.unsplash.com` if needed.
 
 ### Font
 
